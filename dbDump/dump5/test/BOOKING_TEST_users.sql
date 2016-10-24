@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.7.9, for Win32 (AMD64)
 --
--- Host: localhost    Database: BOOKING
+-- Host: localhost    Database: BOOKING_TEST
 -- ------------------------------------------------------
 -- Server version	5.6.31-log
 
@@ -16,29 +16,33 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `LOCATIONS`
+-- Table structure for table `users`
 --
 
-DROP TABLE IF EXISTS `LOCATIONS`;
+DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `LOCATIONS` (
-  `LOCATION_ID` bigint(20) NOT NULL AUTO_INCREMENT,
-  `COUNTRY` varchar(45) NOT NULL,
-  `CITY` varchar(45) NOT NULL,
-  `LOCATION_STATUS` varchar(45) NOT NULL,
-  PRIMARY KEY (`LOCATION_ID`)
+CREATE TABLE `users` (
+  `USER_ID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `FIRST_NAME` varchar(30) NOT NULL,
+  `LAST_NAME` varchar(30) NOT NULL,
+  `EMAIL` varchar(45) NOT NULL,
+  `LOGIN` varchar(45) NOT NULL,
+  `PASSWORD` varchar(45) NOT NULL,
+  `ROLE` varchar(45) NOT NULL,
+  `USER_STATUS` varchar(45) NOT NULL,
+  PRIMARY KEY (`USER_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `LOCATIONS`
+-- Dumping data for table `users`
 --
 
-LOCK TABLES `LOCATIONS` WRITE;
-/*!40000 ALTER TABLE `LOCATIONS` DISABLE KEYS */;
-INSERT INTO `LOCATIONS` VALUES (1,'Belarus','Minsk','active'),(2,'Belarus','Brest','active'),(3,'Poland','Gopo','active');
-/*!40000 ALTER TABLE `LOCATIONS` ENABLE KEYS */;
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'testFirstName1','testLastName1','test1@gmail.com','testLogin1','testPassword1','client','active'),(2,'testFirstName2','testLastName2','test2@gmail.com','testLogin2','testPassword2','client','active'),(3,'testFirstName3','testLastName3','test3@gmail.com','testLogin3','testPassword3','client','active');
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -50,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-09-19  2:00:02
+-- Dump completed on 2016-10-25  1:58:15

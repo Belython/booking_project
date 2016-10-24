@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.7.9, for Win32 (AMD64)
 --
--- Host: localhost    Database: BOOKING
+-- Host: localhost    Database: BOOKING_TEST
 -- ------------------------------------------------------
 -- Server version	5.6.31-log
 
@@ -16,31 +16,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `HOTELS`
+-- Table structure for table `hotels`
 --
 
-DROP TABLE IF EXISTS `HOTELS`;
+DROP TABLE IF EXISTS `hotels`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `HOTELS` (
+CREATE TABLE `hotels` (
   `HOTEL_ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `LOCATION_ID` bigint(20) NOT NULL,
   `HOTEL_NAME` varchar(45) NOT NULL,
   `HOTEL_STATUS` varchar(45) NOT NULL,
   PRIMARY KEY (`HOTEL_ID`),
   KEY `CITY_ID_idx` (`LOCATION_ID`),
-  CONSTRAINT `HOTEL_CITY_KEY` FOREIGN KEY (`LOCATION_ID`) REFERENCES `LOCATIONS` (`LOCATION_ID`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `HOTEL_CITY_KEY` FOREIGN KEY (`LOCATION_ID`) REFERENCES `locations` (`LOCATION_ID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `HOTELS`
+-- Dumping data for table `hotels`
 --
 
-LOCK TABLES `HOTELS` WRITE;
-/*!40000 ALTER TABLE `HOTELS` DISABLE KEYS */;
-INSERT INTO `HOTELS` VALUES (1,1,'Belarus Hotel','active'),(2,1,'U Fontana','active'),(3,2,'Gan van chi','active'),(4,3,'Poland ball','active');
-/*!40000 ALTER TABLE `HOTELS` ENABLE KEYS */;
+LOCK TABLES `hotels` WRITE;
+/*!40000 ALTER TABLE `hotels` DISABLE KEYS */;
+INSERT INTO `hotels` VALUES (1,1,'Belarus Hotel','active'),(2,1,'U Fontana','active'),(3,2,'Gan van chi','active'),(4,3,'Poland ball','active');
+/*!40000 ALTER TABLE `hotels` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-09-19  2:00:01
+-- Dump completed on 2016-10-25  1:58:15

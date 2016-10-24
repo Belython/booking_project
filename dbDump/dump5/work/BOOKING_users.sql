@@ -16,39 +16,33 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `ORDERS`
+-- Table structure for table `users`
 --
 
-DROP TABLE IF EXISTS `ORDERS`;
+DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `ORDERS` (
-  `ORDER_ID` bigint(16) NOT NULL AUTO_INCREMENT,
-  `USER_ID` bigint(16) NOT NULL,
-  `HOTEL_ID` bigint(16) NOT NULL,
-  `ROOM_TYPE_ID` bigint(16) NOT NULL,
-  `TOTAL_PERSONS` int(3) NOT NULL,
-  `CHECK_IN_DATE` bigint(16) NOT NULL,
-  `CHECK_OUT_DATE` bigint(16) NOT NULL,
-  `ORDER_STATUS` varchar(45) NOT NULL,
-  PRIMARY KEY (`ORDER_ID`),
-  KEY `USER_ID_idx` (`USER_ID`),
-  KEY `ORDER_ROOM_TYPE_KEY_idx` (`ROOM_TYPE_ID`),
-  KEY `ORDER_HOTEL_KEY_idx` (`HOTEL_ID`),
-  CONSTRAINT `ORDER_HOTEL_KEY` FOREIGN KEY (`HOTEL_ID`) REFERENCES `HOTELS` (`HOTEL_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `ORDER_ROOM_TYPE_KEY` FOREIGN KEY (`ROOM_TYPE_ID`) REFERENCES `ROOMS_TYPES` (`ROOM_TYPE_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `ORDER_USER_KEY` FOREIGN KEY (`USER_ID`) REFERENCES `USERS` (`USER_ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+CREATE TABLE `users` (
+  `USER_ID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `FIRST_NAME` varchar(30) NOT NULL,
+  `LAST_NAME` varchar(30) NOT NULL,
+  `EMAIL` varchar(45) NOT NULL,
+  `LOGIN` varchar(45) NOT NULL,
+  `PASSWORD` varchar(45) NOT NULL,
+  `ROLE` varchar(45) NOT NULL,
+  `USER_STATUS` varchar(45) NOT NULL,
+  PRIMARY KEY (`USER_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `ORDERS`
+-- Dumping data for table `users`
 --
 
-LOCK TABLES `ORDERS` WRITE;
-/*!40000 ALTER TABLE `ORDERS` DISABLE KEYS */;
-INSERT INTO `ORDERS` VALUES (1,1,1,1,2,12345678,123456789,'11'),(2,2,1,2,1,12345678,123456789,'11'),(3,3,1,3,3,12345678,123456789,'11'),(4,4,1,4,3,12345678,123456789,'11'),(5,5,1,5,1,12345678,123456789,'11');
-/*!40000 ALTER TABLE `ORDERS` ENABLE KEYS */;
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'Петр','Босяков','bosak@gmail.com','bosak','boss12','admin','active'),(2,'Василий','Чистяков','clear@tut.by','chist','cl0212','client','active'),(3,'Валерия','Деревяго','der@mail.ru','vader','12345','client','active'),(4,'Денис','Степанчук','step@gmail.com','denst','gt4321','client','active'),(5,'Виталий','Попко','vpop@gmail.com','popko','oko2016','client','active'),(6,'Дмитрий','Канарский','belython@gmail.com','belython','1702','client','active');
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -60,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-09-19  2:00:02
+-- Dump completed on 2016-10-25  1:57:19

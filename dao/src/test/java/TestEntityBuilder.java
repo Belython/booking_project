@@ -1,4 +1,5 @@
 import by.kanarski.booking.constants.FieldValue;
+import by.kanarski.booking.entities.Hotel;
 import by.kanarski.booking.entities.Location;
 import by.kanarski.booking.entities.User;
 import by.kanarski.booking.utils.EntityBuilder;
@@ -16,66 +17,107 @@ public class TestEntityBuilder {
     }
 
     public static User getNewUser() {
-        User newUser = EntityBuilder.buildUser("testFirstNameNew", "testLastNameNew", "tesNew@test.com",
-                "testLoginNew", "testPasswordNew", FieldValue.ROLE_CLIENT, FieldValue.STATUS_ACTIVE);
+        String firstName = "testFirstNameNew";
+        String lastName = "testLastNameNew";
+        String email = "tesNew@test.com";
+        String login = "testLoginNew";
+        String password = "testPasswordNew";
+        String role = FieldValue.ROLE_CLIENT;
+        String status = FieldValue.STATUS_ACTIVE;
+        User newUser = EntityBuilder.buildUser(firstName, lastName, email, login, password, role, status);
         return newUser;
     }
 
     public static User getUpdatedUser(User expectedUser) {
-        User updatedUser = EntityBuilder.buildUser(expectedUser.getUserId(), "testFirstNameUpdated",
-                "testLastNameUpdated", "tesUpdated@test.com", "testLoginUpdated", "testPasswordUpdated",
-                FieldValue.ROLE_CLIENT, FieldValue.STATUS_ACTIVE);
+        long id = expectedUser.getUserId();
+        String firstName = "testFirstNameUpdated";
+        String lastName = "testLastNameUpdated";
+        String email = "tesUpdated@test.com";
+        String login = "testLoginUpdated";
+        String password = "testPasswordUpdated";
+        String role = FieldValue.ROLE_CLIENT;
+        String status = FieldValue.STATUS_ACTIVE;
+        User updatedUser = EntityBuilder.buildUser(id, firstName, lastName, email, login, password, role, status);
         return updatedUser;
     }
 
-    public static List<User> getExpectedUserList(List<User> expectedUserList) {
-        expectedUserList = new ArrayList<>();
+    public static List<User> getExpectedUserList() {
+        List<User> expectedUserList = new ArrayList<>();
         for (int i = 1; i < 4; i++) {
-            long testId = i;
-            String testFirstName = "testFirstName" + i;
-            String testLastName = "testLastName" + i;
-            String testEmail = "test" + i + "@gmail.com";
-            String testLogin = "testLogin" + i;
-            String testPassword = "testPassword" + i;
+            long id = i;
+            String firstName = "testFirstName" + i;
+            String lastName = "testLastName" + i;
+            String email = "test" + i + "@gmail.com";
+            String login = "testLogin" + i;
+            String password = "testPassword" + i;
             String role = FieldValue.ROLE_CLIENT;
             String status = FieldValue.STATUS_ACTIVE;
-            User user = EntityBuilder.buildUser(testId, testFirstName, testLastName, testEmail, testLogin,
-                    testPassword, role, status);
+            User user = EntityBuilder.buildUser(id, firstName, lastName, email, login,
+                    password, role, status);
             expectedUserList.add(user);
         }
         return expectedUserList;
     }
 
     public static Location getNewLocation() {
-        Location newLocation = EntityBuilder.buildLocation("testCountry", "testCity", FieldValue.STATUS_ACTIVE);
+        String country = "testCountryNew";
+        String city = "testCityNew";
+        String status = FieldValue.STATUS_ACTIVE;
+        Location newLocation = EntityBuilder.buildLocation(country, city, status);
         return newLocation;
     }
 
     public static Location getUpdatedLocation(Location expectedLocation) {
-        Location updatedLocation = EntityBuilder.buildLocation(expectedLocation.getLocationId(), "testFirstNameUpdated",
-                "testLastNameUpdated", "tesUpdated@test.com", "testLoginUpdated", "testPasswordUpdated",
-                FieldValue.ROLE_CLIENT, FieldValue.STATUS_ACTIVE);
+        long id = expectedLocation.getLocationId();
+        String country = "testCountryUpdated";
+        String city = "testCityUpdated";
+        String status = FieldValue.STATUS_ACTIVE;
+        Location updatedLocation = EntityBuilder.buildLocation(id, country, city, status);
         return updatedLocation;
     }
 
-    public static List<Location> getExpectedLocationList(List<Location> expectedLocationList) {
-        expectedLocationList = new ArrayList<>();
+    public static List<Location> getExpectedLocationList() {
+        List<Location> expectedLocationList = new ArrayList<>();
         for (int i = 1; i < 4; i++) {
-            long testId = i;
-            String testFirstName = "testFirstName" + i;
-            String testLastName = "testLastName" + i;
-            String testEmail = "test" + i + "@gmail.com";
-            String testLogin = "testLogin" + i;
-            String testPassword = "testPassword" + i;
-            String role = FieldValue.ROLE_CLIENT;
+            long id = i;
+            String country = "testCountry" + i;
+            String city = "testCity" + i;
             String status = FieldValue.STATUS_ACTIVE;
-            Location user = EntityBuilder.buildLocation(testId, testFirstName, testLastName, testEmail, testLogin,
-                    testPassword, role, status);
+            Location user = EntityBuilder.buildLocation(id, country, city, status);
             expectedLocationList.add(user);
         }
         return expectedLocationList;
     }
 
+    public static Hotel getNewHotel() {
+        Location testLocation = getExpectedLocationList().get(1);
+        String hotelName = "testHotelNameNew";
+        String status = FieldValue.STATUS_ACTIVE;
+        Hotel newHotel = EntityBuilder.buildHotel(testLocation, hotelName, status);
+        return newHotel;
+    }
+
+    public static Hotel getUpdatedHotel(Hotel expectedHotel) {
+        Location testLocation = getExpectedLocationList().get(0);
+        String hotelName = "testHotelNameNew";
+        String status = FieldValue.STATUS_ACTIVE;
+        Hotel updatedHotel = EntityBuilder.buildHotel(expectedHotel.getHotelId(), "testCountryUpdated",
+                "testCityUpdated", FieldValue.STATUS_ACTIVE);
+        return updatedHotel;
+    }
+
+    public static List<Hotel> getExpectedHotelList() {
+        List<Hotel> expectedHotelList = new ArrayList<>();
+        for (int i = 1; i < 4; i++) {
+            long testId = i;
+            String testCountry = "testCountry" + i;
+            String testCity = "testCity" + i;
+            String status = FieldValue.STATUS_ACTIVE;
+            Hotel user = EntityBuilder.buildHotel(testId, testCountry, testCity, status);
+            expectedHotelList.add(user);
+        }
+        return expectedHotelList;
+    }
 
 
 }

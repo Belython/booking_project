@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.7.9, for Win32 (AMD64)
 --
--- Host: localhost    Database: BOOKING
+-- Host: localhost    Database: BOOKING_TEST
 -- ------------------------------------------------------
 -- Server version	5.6.31-log
 
@@ -16,33 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `USERS`
+-- Table structure for table `bills`
 --
 
-DROP TABLE IF EXISTS `USERS`;
+DROP TABLE IF EXISTS `bills`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `USERS` (
-  `USER_ID` bigint(20) NOT NULL AUTO_INCREMENT,
-  `FIRST_NAME` varchar(15) NOT NULL,
-  `LAST_NAME` varchar(15) NOT NULL,
-  `EMAIL` varchar(45) NOT NULL,
-  `LOGIN` varchar(45) NOT NULL,
-  `PASSWORD` varchar(45) NOT NULL,
-  `ROLE` varchar(45) NOT NULL,
-  `USER_STATUS` varchar(45) NOT NULL,
-  PRIMARY KEY (`USER_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+CREATE TABLE `bills` (
+  `BILL_ID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `USER_ID` bigint(20) NOT NULL,
+  `TOTAL_PERSONS` int(11) NOT NULL,
+  `CHECK_IN_DATE` bigint(20) NOT NULL,
+  `CHECK_OUT_DATE` bigint(20) NOT NULL,
+  `ROOM_ID_LIST` blob NOT NULL,
+  `PAYMENT_AMOUNT` int(11) NOT NULL,
+  `BILL_STATUS` varchar(45) NOT NULL,
+  PRIMARY KEY (`BILL_ID`),
+  KEY `USER_BILL_KEY_idx` (`USER_ID`),
+  CONSTRAINT `USER_BILL_KEY` FOREIGN KEY (`USER_ID`) REFERENCES `users` (`USER_ID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `USERS`
+-- Dumping data for table `bills`
 --
 
-LOCK TABLES `USERS` WRITE;
-/*!40000 ALTER TABLE `USERS` DISABLE KEYS */;
-INSERT INTO `USERS` VALUES (1,'Петр','Босяков','bosak@gmail.com','bosak','boss12','admin','22'),(2,'Василий','Чистяков','clear@tut.by','chist','cl0212','client','22'),(3,'Валерия','Деревяго','der@mail.ru','vader','12345','client','22'),(4,'Денис','Степанчук','step@gmail.com','denst','gt4321','client','22'),(5,'Виталий','Попко','vpop@gmail.com','popko','oko2016','client','22');
-/*!40000 ALTER TABLE `USERS` ENABLE KEYS */;
+LOCK TABLES `bills` WRITE;
+/*!40000 ALTER TABLE `bills` DISABLE KEYS */;
+/*!40000 ALTER TABLE `bills` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -54,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-09-19  2:00:01
+-- Dump completed on 2016-10-25  1:58:15
