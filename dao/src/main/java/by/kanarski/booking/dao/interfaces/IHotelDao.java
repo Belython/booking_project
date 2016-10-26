@@ -23,6 +23,12 @@ public interface IHotelDao extends IDao<Hotel> {
 
     void updateList(List<Hotel> hotelList) throws DaoException;
 
+    /**
+     *
+     * @param hotelName
+     * @return
+     * @throws DaoException
+     */
     Hotel getByHotelName(String hotelName) throws DaoException;
 
     List<Hotel> getByCountry(String country) throws DaoException;

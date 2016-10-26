@@ -20,10 +20,10 @@ public class UserDaoTest extends Assert{
 
     @Before
     public void setUp() {
-//        expectedUser = TestEntityBuilder.EXPECTED_USER;
-//        expectedUserList = TestEntityBuilder.EXPECTED_USER_LIST;
-//        newUser = TestEntityBuilder.NEW_USER;
-//        updatedUser = TestEntityBuilder.UPDATED_USER;
+        expectedUser = TestEntityBuilder.EXPECTED_USER;
+        expectedUserList = TestEntityBuilder.EXPECTED_USER_LIST;
+        newUser = TestEntityBuilder.NEW_USER;
+        updatedUser = TestEntityBuilder.UPDATED_USER;
     }
 
     @After

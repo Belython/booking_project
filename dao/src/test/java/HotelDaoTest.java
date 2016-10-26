@@ -29,13 +29,13 @@ public class HotelDaoTest extends Assert {
 
     @Before
     public void setUp() {
-//        expectedHotel = TestEntityBuilder.EXPECTED_HOTEL;
-//        expectedHotelList = TestEntityBuilder.EXPECTED_HOTEL_LIST;
-//        newHotel = TestEntityBuilder.NEW_HOTEL;
-//        updatedHotelList = TestEntityBuilder.UPDATED_HOTEL_LIST;
-//        updatedHotel = TestEntityBuilder.UPDATED_HOTEL;
-//        expectedHotelListByCountry = TestEntityBuilder.EXPECTED_HOTEL_LIST_BY_COUNTRY;
-//        expectedHotelListByCity = TestEntityBuilder.EXPECTED_HOTEL_LIST_BY_CITY;
+        expectedHotel = TestEntityBuilder.EXPECTED_HOTEL;
+        expectedHotelList = TestEntityBuilder.EXPECTED_HOTEL_LIST;
+        newHotel = TestEntityBuilder.NEW_HOTEL;
+        updatedHotelList = TestEntityBuilder.UPDATED_HOTEL_LIST;
+        updatedHotel = TestEntityBuilder.UPDATED_HOTEL;
+        expectedHotelListByCountry = TestEntityBuilder.EXPECTED_HOTEL_LIST_BY_COUNTRY;
+        expectedHotelListByCity = TestEntityBuilder.EXPECTED_HOTEL_LIST_BY_CITY;
     }
 
     @After
