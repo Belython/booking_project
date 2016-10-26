@@ -25,10 +25,10 @@ public class LocationDaoTest extends Assert {
 
     @Before
     public void setUp() {
-        expectedLocation = TestEntityBuilder.EXPECTED_LOCATION;
-        expectedLocationList = TestEntityBuilder.EXPECTED_LOCATION_LIST;
-        newLocation = TestEntityBuilder.NEW_LOCATION;
-        updatedLocation = TestEntityBuilder.UPDATED_LOCATION;
+//        expectedLocation = TestEntityBuilder.EXPECTED_LOCATION;
+//        expectedLocationList = TestEntityBuilder.EXPECTED_LOCATION_LIST;
+//        newLocation = TestEntityBuilder.NEW_LOCATION;
+//        updatedLocation = TestEntityBuilder.UPDATED_LOCATION;
     }
 
     @After
