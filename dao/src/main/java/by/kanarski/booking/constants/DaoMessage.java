@@ -22,6 +22,7 @@ public class DaoMessage {
     public static final String ADD_HOTEL_EXCEPTION = "Unable to add the hotel ";
     public static final String GET_HOTEL_EXCEPTION = "Unable to get the hotel ";
     public static final String UPDATE_HOTEL_EXCEPTION = "Unable to update the hotel ";
+    public static final String DELETE_HOTEL_EXCEPTION = "Unable to delete the hotel ";
 
     public static final String WRONG_DATASOURCE_SETTINGS = "Wrong datasource settings ";
     public static final String INPUT_ERROR = "Input error ";
@@ -30,6 +31,7 @@ public class DaoMessage {
     public static final String ADD_ROOM_TYPE_EXCEPTION = "Unable to add the roomType ";
     public static final String GET_ROOM_TYPE_EXCEPTION = "Unable to get the roomType ";
     public static final String UPDATE_ROOM_TYPE_EXCEPTION = "Unable to update the roomType ";
+    public static final String DELETE_ROOM_TYPE_EXCEPTION = "Unable to delete the roomType ";
 
     public static final String ADD_LOCATION_EXCEPTION = "Unable to add the location ";
     public static final String GET_LOCATION_EXCEPTION = "Unable to get the location ";

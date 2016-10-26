@@ -76,6 +76,7 @@ public class RoomTypeServiceImpl implements IRoomTypeService {
 
     }
 
+    @Override
     public void updateList(List<RoomTypeDto> roomTypeDtoList) throws ServiceException {
         Connection connection = ConnectionUtil.getConnection();
         try {
@@ -89,6 +90,7 @@ public class RoomTypeServiceImpl implements IRoomTypeService {
         }
     }
 
+    @Override
     public void addList(List<RoomTypeDto> roomTypeDtoList) throws ServiceException {
         Connection connection = ConnectionUtil.getConnection();
         try {

@@ -34,9 +34,9 @@ public class DataSource {
             cpds.setUser(bundle.getString(DatabaseKeys.USER_NAME));
             cpds.setPassword(bundle.getString(DatabaseKeys.PASSWORD));
             cpds.setMinPoolSize(5);
-            cpds.setAcquireIncrement(5);
-            cpds.setMaxPoolSize(10);
-            cpds.setMaxStatements(180);
+            cpds.setAcquireIncrement(10);
+            cpds.setMaxPoolSize(200);
+            cpds.setMaxStatements(500);
             cpds.setInitialPoolSize(10);
         } catch (PropertyVetoException e) {
             BookingSystemLogger.getInstance().logError(getClass(), DaoMessage.WRONG_DATASOURCE_SETTINGS + e);

@@ -98,11 +98,14 @@ public class UserServiceImpl implements IUserService {
 
     }
 
-    public boolean checkAuthorization(String login, String password) throws ServiceException {
+    @Override
+    public boolean checkAuthorization(UserDto userDto) throws ServiceException {
         Connection connection = ConnectionUtil.getConnection();
         boolean isAuthorized = false;
         try {
             connection.setAutoCommit(false);
+            String login = userDto.getLogin();
+            String  password = userDto.getPassword();
             isAuthorized = userDao.isAuthorized(login, password);
             connection.commit();
             BookingSystemLogger.getInstance().logInfo(getClass(), ServiceMessage.TRANSACTION_SUCCEEDED);
@@ -112,6 +115,7 @@ public class UserServiceImpl implements IUserService {
         return isAuthorized;
     }
 
+    @Override
     public UserDto getByLogin(String login) throws ServiceException {
         Connection connection = ConnectionUtil.getConnection();
         UserDto userDto = null;
@@ -127,6 +131,7 @@ public class UserServiceImpl implements IUserService {
         return userDto;
     }
 
+    @Override
     public UserDto getByEmail(String email) throws ServiceException {
         Connection connection = ConnectionUtil.getConnection();
         UserDto userDto = null;
@@ -142,13 +147,14 @@ public class UserServiceImpl implements IUserService {
         return userDto;
     }
 
+    @Override
     public boolean checkIsNewUser(UserDto userDto) throws ServiceException {
         Connection connection = ConnectionUtil.getConnection();
         boolean isNew = false;
         try {
             connection.setAutoCommit(false);
-            User user = DtoToEntityConverter.toUser(userDto);
-            isNew = userDao.isNewUser(user);
+            String login = userDto.getLogin();
+            isNew = userDao.isNewUser(login);
             connection.commit();
             BookingSystemLogger.getInstance().logInfo(getClass(), ServiceMessage.TRANSACTION_SUCCEEDED);
         } catch (SQLException | DaoException e) {
@@ -157,6 +163,7 @@ public class UserServiceImpl implements IUserService {
         return isNew;
     }
 
+    @Override
     public void registrateUser(UserDto userDto) throws ServiceException {
         Connection connection = ConnectionUtil.getConnection();
         try {

@@ -1,6 +1,10 @@
 package by.kanarski.booking.entities;
 
-public class Location {
+import java.io.Serializable;
+
+public class Location implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private long locationId;
     private String country;

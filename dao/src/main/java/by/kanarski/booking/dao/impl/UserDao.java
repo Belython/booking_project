@@ -4,7 +4,6 @@ import by.kanarski.booking.constants.DaoMessage;
 import by.kanarski.booking.dao.interfaces.IUserDao;
 import by.kanarski.booking.entities.User;
 import by.kanarski.booking.exceptions.DaoException;
-import by.kanarski.booking.utils.BookingSystemLogger;
 import by.kanarski.booking.utils.ClosingUtil;
 import by.kanarski.booking.utils.ConnectionUtil;
 import by.kanarski.booking.utils.EntityParser;
@@ -33,7 +32,7 @@ public class UserDao implements IUserDao {
     private final String GET_BY_EMAIL_QUERY = "SELECT * FROM USERS WHERE EMAIL = ?";
     private final String GET_ALL_QUERY = "SELECT * FROM USERS WHERE USER_STATUS = 'active'";
     private final String UPDATE_QUERY = "UPDATE USERS SET FIRST_NAME = ?, LAST_NAME = ?, " +
-            "EMAIL = ?, LOGIN = ?, PASSWORD = ?, USER_STATUS = ? WHERE USER_ID = ?";
+            "EMAIL = ?, LOGIN = ?, PASSWORD = ?, ROLE = ?, USER_STATUS = ? WHERE USER_ID = ?";
     private final String DELETE_QUERY = "DELETE FROM USERS WHERE USER_ID = ?";
     private final String CHECK_AUTHORIZATION_QUERY = "SELECT LOGIN, PASSWORD FROM USERS WHERE LOGIN = ? AND PASSWORD = ?";
     private final String CHECK_LOGIN_QUERY = "SELECT LOGIN FROM USERS WHERE LOGIN = ?";
@@ -66,7 +65,6 @@ public class UserDao implements IUserDao {
             resultSet.next();
             user.setUserId(resultSet.getLong(1));
         } catch (SQLException e) {
-            BookingSystemLogger.getInstance().logError(getClass(), DaoMessage.ADD_USER_EXCEPTION);
             throw new DaoException(DaoMessage.ADD_USER_EXCEPTION, e);
         } finally {
             ClosingUtil.close(resultSet);
@@ -85,7 +83,6 @@ public class UserDao implements IUserDao {
             resultSet.next();
             user = EntityParser.parseUser(resultSet);
         } catch (SQLException e) {
-            BookingSystemLogger.getInstance().logError(getClass(), DaoMessage.GET_USER_EXCEPTION);
             throw new DaoException(DaoMessage.GET_USER_EXCEPTION, e);
         } finally {
             ClosingUtil.close(resultSet);
@@ -105,7 +102,6 @@ public class UserDao implements IUserDao {
                 list.add(user);
             }
         } catch (SQLException e) {
-            BookingSystemLogger.getInstance().logError(getClass(), DaoMessage.GET_USERS_EXCEPTION);
             throw new DaoException(DaoMessage.GET_USERS_EXCEPTION, e);
         } finally {
             ClosingUtil.close(resultSet);
@@ -122,11 +118,11 @@ public class UserDao implements IUserDao {
             stm.setString(3, user.getEmail());
             stm.setString(4, user.getLogin());
             stm.setString(5, user.getPassword());
-            stm.setString(6, user.getUserStatus());
-            stm.setLong(7, user.getUserId());
+            stm.setString(6, user.getRole());
+            stm.setString(7, user.getUserStatus());
+            stm.setLong(8, user.getUserId());
             stm.executeUpdate();
         } catch (SQLException e) {
-            BookingSystemLogger.getInstance().logError(getClass(), DaoMessage.UPDATE_USER_EXCEPTION);
             throw new DaoException(DaoMessage.UPDATE_USER_EXCEPTION, e);
         }
     }
@@ -138,18 +134,31 @@ public class UserDao implements IUserDao {
             stm.setLong(1, user.getUserId());
             stm.executeUpdate();
         } catch (SQLException e) {
-            BookingSystemLogger.getInstance().logError(getClass(), DaoMessage.DELETE_USER_EXCEPTION);
             throw new DaoException(DaoMessage.DELETE_USER_EXCEPTION, e);
         }
     }
 
-    /**
-     * Recives <b>{@link User}</b> from databse by login
-     * @param login the user login
-     * @return an entity with the corresponding id
-     * @throws DaoException
-     */
+    @Override
+    public void addList(List<User> userList) throws DaoException {
+        Connection connection = ConnectionUtil.getConnection();
+        try (PreparedStatement stm = connection.prepareStatement(ADD_QUERY)) {
+            for (User user : userList) {
+                stm.setString(1, user.getFirstName());
+                stm.setString(2, user.getLastName());
+                stm.setString(3, user.getEmail());
+                stm.setString(4, user.getLogin());
+                stm.setString(5, user.getPassword());
+                stm.setString(6, user.getRole());
+                stm.setString(7, user.getUserStatus());
+                stm.addBatch();
+            }
+            stm.executeBatch();
+        } catch (SQLException e) {
+            throw new DaoException(DaoMessage.ADD_USER_EXCEPTION, e);
+        }
+    }
 
+    @Override
     public User getByLogin(String login) throws DaoException {
         User user = null;
         Connection connection = ConnectionUtil.getConnection();
@@ -160,7 +169,6 @@ public class UserDao implements IUserDao {
             resultSet.next();
             user = EntityParser.parseUser(resultSet);
         } catch (SQLException e) {
-            BookingSystemLogger.getInstance().logError(getClass(), DaoMessage.GET_USER_EXCEPTION);
             throw new DaoException(DaoMessage.GET_USER_EXCEPTION, e);
         } finally {
             ClosingUtil.close(resultSet);
@@ -168,6 +176,7 @@ public class UserDao implements IUserDao {
         return user;
     }
 
+    @Override
     public User getByEmail(String email) throws DaoException {
         User user = null;
         Connection connection = ConnectionUtil.getConnection();
@@ -178,7 +187,6 @@ public class UserDao implements IUserDao {
             resultSet.next();
             user = EntityParser.parseUser(resultSet);
         } catch (SQLException e) {
-            BookingSystemLogger.getInstance().logError(getClass(), DaoMessage.GET_USER_EXCEPTION);
             throw new DaoException(DaoMessage.GET_USER_EXCEPTION, e);
         } finally {
             ClosingUtil.close(resultSet);
@@ -186,6 +194,7 @@ public class UserDao implements IUserDao {
         return user;
     }
 
+    @Override
     public boolean isAuthorized(String login, String password) throws DaoException {
         Connection connection = ConnectionUtil.getConnection();
         ResultSet resultSet = null;
@@ -194,11 +203,8 @@ public class UserDao implements IUserDao {
             stm.setString(1, login);
             stm.setString(2, password);
             resultSet = stm.executeQuery();
-            if (resultSet.next()) {
-                isLogIn = true;
-            }
+            isLogIn = resultSet.next();
         } catch (SQLException e) {
-            BookingSystemLogger.getInstance().logError(getClass(), DaoMessage.CHECK_USER_AUTHORIZATION_EXCEPTION);
             throw new DaoException(DaoMessage.CHECK_USER_AUTHORIZATION_EXCEPTION, e);
         } finally {
             ClosingUtil.close(resultSet);
@@ -206,19 +212,16 @@ public class UserDao implements IUserDao {
         return isLogIn;
     }
 
-    public boolean isNewUser(User user) throws DaoException {
+    @Override
+    public boolean isNewUser(String login) throws DaoException {
         Connection connection = ConnectionUtil.getConnection();
         ResultSet resultSet = null;
         boolean isNew = true;
         try (PreparedStatement stm = connection.prepareStatement(CHECK_LOGIN_QUERY)) {
-            String login = user.getLogin();
             stm.setString(1, login);
             resultSet = stm.executeQuery();
-            if (resultSet.next()) {
-                isNew = false;
-            }
+            isNew = !resultSet.next();
         } catch (SQLException e) {
-            BookingSystemLogger.getInstance().logError(getClass(), DaoMessage.CHECK_IS_NEW_USER_EXCEPTION);
             throw new DaoException(DaoMessage.CHECK_IS_NEW_USER_EXCEPTION, e);
         } finally {
             ClosingUtil.close(resultSet);

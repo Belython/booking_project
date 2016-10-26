@@ -92,22 +92,6 @@ public class BillDao implements IBillDao {
         return new ArrayList<>();
     }
 
-    public List<Bill> getByUserId(long userId) throws DaoException {
-        List<Bill> bills = new ArrayList<>();
-        Connection connection = ConnectionUtil.getConnection();
-        try (PreparedStatement stm = connection.prepareStatement(GET_BY_USER_ID_QUERY)) {
-            stm.setLong(1, userId);
-            ResultSet resultSet = stm.executeQuery();
-            while (resultSet.next()) {
-                bills.add(EntityParser.parseBill(resultSet));
-            }
-        } catch (SQLException e) {
-            BookingSystemLogger.getInstance().logError(getClass(), DaoMessage.GET_BILL_EXCEPTION);
-            throw new DaoException(DaoMessage.GET_BILL_EXCEPTION, e);
-        }
-        return bills;
-    }
-
     @Override
     public void update(Bill bill) throws DaoException {
         Connection connection = ConnectionUtil.getConnection();
@@ -130,5 +114,22 @@ public class BillDao implements IBillDao {
     @Override
     public void delete(Bill bill) throws DaoException {
 
+    }
+
+    @Override
+    public List<Bill> getByUserId(long userId) throws DaoException {
+        List<Bill> bills = new ArrayList<>();
+        Connection connection = ConnectionUtil.getConnection();
+        try (PreparedStatement stm = connection.prepareStatement(GET_BY_USER_ID_QUERY)) {
+            stm.setLong(1, userId);
+            ResultSet resultSet = stm.executeQuery();
+            while (resultSet.next()) {
+                bills.add(EntityParser.parseBill(resultSet));
+            }
+        } catch (SQLException e) {
+            BookingSystemLogger.getInstance().logError(getClass(), DaoMessage.GET_BILL_EXCEPTION);
+            throw new DaoException(DaoMessage.GET_BILL_EXCEPTION, e);
+        }
+        return bills;
     }
 }

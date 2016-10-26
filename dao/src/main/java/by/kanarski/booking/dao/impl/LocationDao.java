@@ -16,14 +16,14 @@ public class LocationDao implements ILocationDao {
     private static LocationDao instance = null;
 
     private final String ADD_QUERY = "INSERT INTO LOCATIONS (" +
-            "COUNTY, CITY, LOCATION_STATUS)" +
+            "COUNTRY, CITY, LOCATION_STATUS)" +
             "VALUES(?, ?, ?);";
     private final String GET_BY_ID_QUERY = "SELECT * FROM LOCATIONS WHERE LOCATION_ID = ?;";
     private final String GET_ALL_QUERY = "SELECT * FROM LOCATIONS;";
     private final String UPDATE_QUERY = "UPDATE LOCATIONS " +
             "SET COUNTRY = ?, CITY = ?, LOCATION_STATUS = ? " +
             "WHERE LOCATION_ID = ?;";
-    private final String DELETE_QUERY = "UPDATE ORDERS SET LOCATION_STATUS = 'deleted' WHERE ID = ?;";
+    private final String DELETE_QUERY = "DELETE FROM LOCATIONS WHERE LOCATION_ID = ?;";
 
     private LocationDao() {
     }
@@ -106,9 +106,16 @@ public class LocationDao implements ILocationDao {
 
     @Override
     public void delete(Location location) throws DaoException {
-
+        Connection connection = ConnectionUtil.getConnection();
+        try (PreparedStatement stm = connection.prepareStatement(DELETE_QUERY)) {
+            stm.setLong(1, location.getLocationId());
+            stm.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException(DaoMessage.DELETE_USER_EXCEPTION, e);
+        }
     }
 
+    @Override
     public void updateList(List<Location> locationList) throws DaoException {
         Connection connection = ConnectionUtil.getConnection();
         try (PreparedStatement stm = connection.prepareStatement(UPDATE_QUERY)) {
@@ -126,6 +133,7 @@ public class LocationDao implements ILocationDao {
         }
     }
 
+    @Override
     public void addList(List<Location> locationList) throws DaoException {
         Connection connection = ConnectionUtil.getConnection();
         try (PreparedStatement stm = connection.prepareStatement(ADD_QUERY,

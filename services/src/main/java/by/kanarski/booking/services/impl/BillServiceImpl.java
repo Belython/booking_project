@@ -61,7 +61,6 @@ public class BillServiceImpl implements IBillService {
             connection.setAutoCommit(false);
             Bill bill = billDao.getById(billId);
             List<Room> roomList = RoomDao.getInstance().getByIdList(bill.getBookedRoomIdList());
-//            bill = EntityBuilder.buildBill(bill, roomList);
             billDto = DtoToEntityConverter.toBillDto(bill, roomList);
             connection.commit();
             BookingSystemLogger.getInstance().logInfo(getClass(), ServiceMessage.TRANSACTION_SUCCEEDED);
@@ -90,6 +89,7 @@ public class BillServiceImpl implements IBillService {
 
     }
 
+    @Override
     public List<BillDto> getByUserId(long userId) throws ServiceException {
         Connection connection = ConnectionUtil.getConnection();
         List<BillDto> billDtoList = new ArrayList<>();
@@ -98,7 +98,6 @@ public class BillServiceImpl implements IBillService {
             List<Bill> billList = billDao.getByUserId(userId);
             for (Bill bill : billList) {
                 List<Room> roomList = RoomDao.getInstance().getByIdList(bill.getBookedRoomIdList());
-//                bill.setBookedRoomList(roomList);
                 BillDto billDto = DtoToEntityConverter.toBillDto(bill, roomList);
                 billDtoList.add(billDto);
             }
@@ -109,7 +108,5 @@ public class BillServiceImpl implements IBillService {
         }
         return billDtoList;
     }
-
-
 
 }

@@ -1,8 +1,11 @@
 package by.kanarski.booking.entities;
 
+import java.io.Serializable;
 import java.util.TreeMap;
 
-public class Room {
+public class Room implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private long roomId;
     private Hotel hotel;

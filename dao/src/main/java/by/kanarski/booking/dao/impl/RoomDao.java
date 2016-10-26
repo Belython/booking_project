@@ -11,6 +11,7 @@ import by.kanarski.booking.utils.ConnectionUtil;
 
 import java.sql.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class RoomDao implements IRoomDao {
 
@@ -152,6 +153,7 @@ public class RoomDao implements IRoomDao {
 
     }
 
+    @Override
     public List<Room> getAvailableRooms(OrderDto orderDto) throws DaoException {
         List<Room> rooms = new ArrayList<>();
         Connection connection = ConnectionUtil.getConnection();
@@ -172,6 +174,7 @@ public class RoomDao implements IRoomDao {
         return rooms;
     }
 
+    @Override
     public List<Room> getByHotelId(long hotelId) throws DaoException {
         List<Room> rooms = new ArrayList<>();
         Connection connection = ConnectionUtil.getConnection();
@@ -188,6 +191,7 @@ public class RoomDao implements IRoomDao {
         return rooms;
     }
 
+    @Override
     public List<Room> getByIdList(List<Long> idList) throws DaoException {
         List<Room> roomList = new ArrayList<>();
         Connection connection = ConnectionUtil.getConnection();
@@ -205,6 +209,7 @@ public class RoomDao implements IRoomDao {
         return roomList;
     }
 
+    @Override
     public void updateList(List<Room> roomList) throws DaoException {
         Connection connection = ConnectionUtil.getConnection();
         try (PreparedStatement stm = connection.prepareStatement(UPDATE_QUERY)) {
@@ -225,6 +230,7 @@ public class RoomDao implements IRoomDao {
         }
     }
 
+    @Override
     public void addList(List<Room> roomList) throws DaoException {
         Connection connection = ConnectionUtil.getConnection();
         try (PreparedStatement stm = connection.prepareStatement(ADD_QUERY,
@@ -245,18 +251,7 @@ public class RoomDao implements IRoomDao {
         }
     }
 
-    private String getFinishedQuery(String initialQuery, List<Long> parametersList) {
-        StringBuilder buffer = new StringBuilder();
-        String regex = "parameters";
-        Iterator<Long> iterator = parametersList.listIterator();
-        buffer.append(iterator.next());
-        while (iterator.hasNext()) {
-            buffer.append("," + iterator.next());
-        }
-        String finishedQuery = initialQuery.replace(regex, buffer.toString());
-        return finishedQuery;
-    }
-
+    @Override
     public void reserveRoomList(List<Room> roomList) throws DaoException {
         Connection connection = ConnectionUtil.getConnection();
         try (PreparedStatement stm = connection.prepareStatement(RESERVE_ROOM_QUERY)) {
@@ -271,6 +266,13 @@ public class RoomDao implements IRoomDao {
             BookingSystemLogger.getInstance().logError(getClass(), DaoMessage.UPDATE_ROOM_EXCEPTION);
             throw new DaoException(DaoMessage.UPDATE_ROOM_EXCEPTION, e);
         }
+    }
+
+    private String getFinishedQuery(String initialQuery, List<Long> parametersList) {
+        String parameters = parametersList.stream().map(Object::toString).collect(Collectors.joining(", "));
+        String regex = "parameters";
+        String finishedQuery = initialQuery.replace(regex, parameters);
+        return finishedQuery;
     }
 
     public static void main(String[] args) throws DaoException {
