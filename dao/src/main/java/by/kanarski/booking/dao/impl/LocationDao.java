@@ -115,6 +115,7 @@ public class LocationDao implements ILocationDao {
         }
     }
 
+    @Override
     public void updateList(List<Location> locationList) throws DaoException {
         Connection connection = ConnectionUtil.getConnection();
         try (PreparedStatement stm = connection.prepareStatement(UPDATE_QUERY)) {
@@ -132,6 +133,7 @@ public class LocationDao implements ILocationDao {
         }
     }
 
+    @Override
     public void addList(List<Location> locationList) throws DaoException {
         Connection connection = ConnectionUtil.getConnection();
         try (PreparedStatement stm = connection.prepareStatement(ADD_QUERY,

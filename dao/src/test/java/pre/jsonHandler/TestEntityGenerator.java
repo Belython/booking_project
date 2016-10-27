@@ -3,13 +3,12 @@ package pre.jsonHandler;
 import by.kanarski.booking.dao.impl.*;
 import by.kanarski.booking.entities.Hotel;
 import by.kanarski.booking.entities.Location;
+import by.kanarski.booking.entities.RoomType;
 import by.kanarski.booking.entities.User;
 import by.kanarski.booking.exceptions.DaoException;
 import by.kanarski.booking.utils.EntityBuilder;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import static by.kanarski.booking.constants.FieldValue.ROLE_CLIENT;
 
@@ -86,12 +85,25 @@ public class TestEntityGenerator {
         return hotelList;
     }
 
-    public static void main(String[] args) throws DaoException{
-        List<Location> generatedLocations = TestEntityGenerator.getInstance().generateLocations();
-        List<Hotel> generatedHotels = TestEntityGenerator.getInstance().generateHotels(generatedLocations);
-        HotelDao.getInstance().addList(generatedHotels);
+    public List<RoomType> generateRoomTypes() throws DaoException {
+        Random random = getRandom();
+        List<RoomType> roomTypeList = new ArrayList<>();
+        for (int i = 1; i <= ENTITIES_AMOUNT; i++) {
+            long roomTypeId = i;
+            String roomTypeName = "testRoomTypeExpected" + random.nextInt(UNIQUE_VALUES);
+            int maxPersons = 1 + random.nextInt(UNIQUE_VALUES);
+            double pricePerNight = 1 + random.nextInt(UNIQUE_VALUES) * 100;
+            int facilitiesAmount = random.nextInt(UNIQUE_VALUES);
+            Set<String> facilities = new HashSet<>();
+            for (int j = 1; j <= facilitiesAmount; j++) {
+                String facility = "testFacilityExpected" + i;
+                facilities.add(facility);
+            }
+            RoomType roomType = EntityBuilder.buildRoomType(roomTypeId, roomTypeName, maxPersons, pricePerNight, facilities);
+            roomTypeList.add(roomType);
+        }
+        return roomTypeList;
     }
-    
     private Random getRandom() {
         long seed = new Random().nextLong();
         Random random = new Random(seed);

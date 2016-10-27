@@ -40,7 +40,7 @@ public class UserDao implements IUserDao {
     private UserDao() {
     }
 
-    public static synchronized UserDao getInstance() {
+    public static UserDao getInstance() {
         if (instance == null) {
             instance = new UserDao();
         }
@@ -138,6 +138,7 @@ public class UserDao implements IUserDao {
         }
     }
 
+    @Override
     public void addList(List<User> userList) throws DaoException {
         Connection connection = ConnectionUtil.getConnection();
         try (PreparedStatement stm = connection.prepareStatement(ADD_QUERY)) {
@@ -157,13 +158,7 @@ public class UserDao implements IUserDao {
         }
     }
 
-    /**
-     * Recives <b>{@link User}</b> from databse by login
-     * @param login the user login
-     * @return an entity with the corresponding id
-     * @throws DaoException
-     */
-
+    @Override
     public User getByLogin(String login) throws DaoException {
         User user = null;
         Connection connection = ConnectionUtil.getConnection();
@@ -181,6 +176,7 @@ public class UserDao implements IUserDao {
         return user;
     }
 
+    @Override
     public User getByEmail(String email) throws DaoException {
         User user = null;
         Connection connection = ConnectionUtil.getConnection();
@@ -198,6 +194,7 @@ public class UserDao implements IUserDao {
         return user;
     }
 
+    @Override
     public boolean isAuthorized(String login, String password) throws DaoException {
         Connection connection = ConnectionUtil.getConnection();
         ResultSet resultSet = null;
@@ -206,9 +203,7 @@ public class UserDao implements IUserDao {
             stm.setString(1, login);
             stm.setString(2, password);
             resultSet = stm.executeQuery();
-            if (resultSet.next()) {
-                isLogIn = true;
-            }
+            isLogIn = resultSet.next();
         } catch (SQLException e) {
             throw new DaoException(DaoMessage.CHECK_USER_AUTHORIZATION_EXCEPTION, e);
         } finally {
@@ -217,17 +212,15 @@ public class UserDao implements IUserDao {
         return isLogIn;
     }
 
-    public boolean isNewUser(User user) throws DaoException {
+    @Override
+    public boolean isNewUser(String login) throws DaoException {
         Connection connection = ConnectionUtil.getConnection();
         ResultSet resultSet = null;
         boolean isNew = true;
         try (PreparedStatement stm = connection.prepareStatement(CHECK_LOGIN_QUERY)) {
-            String login = user.getLogin();
             stm.setString(1, login);
             resultSet = stm.executeQuery();
-            if (resultSet.next()) {
-                isNew = false;
-            }
+            isNew = !resultSet.next();
         } catch (SQLException e) {
             throw new DaoException(DaoMessage.CHECK_IS_NEW_USER_EXCEPTION, e);
         } finally {

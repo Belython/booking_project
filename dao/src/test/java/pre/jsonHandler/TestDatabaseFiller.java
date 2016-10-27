@@ -83,6 +83,7 @@ public class TestDatabaseFiller {
         generateUsersJson();
         generateLocationsJson();
         generateHotelsJson();
+        generateRoomTypesJson();
     }
 
     private void generateUsersJson() throws IOException {
@@ -119,6 +120,19 @@ public class TestDatabaseFiller {
         JsonWriter jsonWriter = gson.newJsonWriter(fileWriter);
         Type type = ListType.HOTEL;
         gson.toJson(generatedHotelList, type, jsonWriter);
+        jsonWriter.flush();
+        jsonWriter.close();
+        fileWriter.close();
+    }
+
+    private void generateRoomTypesJson() throws IOException {
+        Gson gson = gsonBuilder.create();
+        File jsonFile = new File(JsonPath.ROOM_TYPES);
+        jsonFile.createNewFile();
+        FileWriter fileWriter = new FileWriter(jsonFile);
+        JsonWriter jsonWriter = gson.newJsonWriter(fileWriter);
+        Type type = ListType.HOTEL;
+        gson.toJson(generatedRoomTypeList, type, jsonWriter);
         jsonWriter.flush();
         jsonWriter.close();
         fileWriter.close();

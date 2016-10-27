@@ -28,7 +28,7 @@ public class LoginUserCommand extends AbstractCommand {
 //        Locale locale = UserPreferences.getLocale();
         try {
             UserDto user = RequestParser.parseUserDto(request);
-            boolean isAuthorised = UserServiceImpl.getInstance().checkAuthorization(user.getLogin(), user.getPassword());
+            boolean isAuthorised = UserServiceImpl.getInstance().checkAuthorization(user);
             if (isAuthorised) {
                 user = UserServiceImpl.getInstance().getByLogin(user.getLogin());
                 session.setAttribute(Parameter.USER, user);

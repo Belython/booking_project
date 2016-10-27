@@ -79,6 +79,7 @@ public class HotelServiceImpl implements IHotelService {
 
     }
 
+    @Override
     public HotelDto getByHotelName(String hotelName) throws ServiceException {
         Connection connection = ConnectionUtil.getConnection();
         HotelDto hotelDto = null;
@@ -94,6 +95,7 @@ public class HotelServiceImpl implements IHotelService {
         return hotelDto;
     }
 
+    @Override
     public void updateList(List<HotelDto> hotelDtoList) throws ServiceException {
         Connection connection = ConnectionUtil.getConnection();
         try {
@@ -107,6 +109,7 @@ public class HotelServiceImpl implements IHotelService {
         }
     }
 
+    @Override
     public void addList(List<HotelDto> hotelDtoList) throws ServiceException {
         Connection connection = ConnectionUtil.getConnection();
         try {
@@ -120,6 +123,7 @@ public class HotelServiceImpl implements IHotelService {
         }
     }
 
+    @Override
     public List<HotelDto> getByCountry(String country) throws ServiceException {
         Connection connection = ConnectionUtil.getConnection();
         List<HotelDto> hotelDtoList = null;
@@ -135,6 +139,7 @@ public class HotelServiceImpl implements IHotelService {
         return hotelDtoList;
     }
 
+    @Override
     public List<HotelDto> getByCity(String city) throws ServiceException {
         Connection connection = ConnectionUtil.getConnection();
         List<HotelDto> hotelDtoList = null;
@@ -150,17 +155,4 @@ public class HotelServiceImpl implements IHotelService {
         return hotelDtoList;
     }
 
-//    public HashMap<String, Set<String>> getFieldValues() throws ServiceException {
-//        Connection connection = ConnectionUtil.getConnection();
-//        HashMap<String, Set<String>> fieldsValuesMap = null;
-//        try {
-//            connection.setAutoCommit(false);
-//            fieldsValuesMap = hotelDao.getFieldsValues();
-//            connection.commit();
-//            BookingSystemLogger.getInstance().logInfo(getClass(), ServiceMessage.TRANSACTION_SUCCEEDED);
-//        } catch (SQLException | DaoException e) {
-//            ExceptionHandler.handleSQLOrDaoException(connection, e, getClass());
-//        }
-//        return fieldsValuesMap;
-//    }
 }

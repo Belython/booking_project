@@ -86,6 +86,7 @@ public class GlobalHotelServiceImpl implements IGlobalHotelService {
 
     }
 
+    @Override
     public GlobalHotelDto getByHotelName(String hotelName) throws ServiceException {
         Connection connection = ConnectionUtil.getConnection();
         GlobalHotelDto globalHotelDto = null;
@@ -101,6 +102,7 @@ public class GlobalHotelServiceImpl implements IGlobalHotelService {
         return globalHotelDto;
     }
 
+    @Override
     public void updateList(List<GlobalHotelDto> globalHotelDtoList) throws ServiceException {
         Connection connection = ConnectionUtil.getConnection();
         try {
@@ -114,6 +116,7 @@ public class GlobalHotelServiceImpl implements IGlobalHotelService {
         }
     }
 
+    @Override
     public void addList(List<GlobalHotelDto> globalHotelDtoList) throws ServiceException {
         Connection connection = ConnectionUtil.getConnection();
         try {
@@ -127,6 +130,7 @@ public class GlobalHotelServiceImpl implements IGlobalHotelService {
         }
     }
 
+    @Override
     public List<GlobalHotelDto> getByCountry(String country) throws ServiceException {
         Connection connection = ConnectionUtil.getConnection();
         List<GlobalHotelDto> globalHotelDtoList = null;
@@ -142,6 +146,7 @@ public class GlobalHotelServiceImpl implements IGlobalHotelService {
         return globalHotelDtoList;
     }
 
+    @Override
     public List<GlobalHotelDto> getByCity(String city) throws ServiceException {
         Connection connection = ConnectionUtil.getConnection();
         List<GlobalHotelDto> globalHotelDtoList = null;
@@ -157,6 +162,7 @@ public class GlobalHotelServiceImpl implements IGlobalHotelService {
         return globalHotelDtoList;
     }
 
+    @Override
     public List<GlobalHotelDto> getByOrder(OrderDto orderDto) throws ServiceException {
         Connection connection = ConnectionUtil.getConnection();
         List<GlobalHotelDto> globalHotelDtoList =  new ArrayList<>();
@@ -191,6 +197,7 @@ public class GlobalHotelServiceImpl implements IGlobalHotelService {
         return globalHotelDtoList;
     }
 
+    @Override
     public GlobalHotelDto getByOrder1(OrderDto orderDto) throws ServiceException {
         Connection connection = ConnectionUtil.getConnection();
         GlobalHotelDto globalHotelDto = null;
@@ -206,7 +213,7 @@ public class GlobalHotelServiceImpl implements IGlobalHotelService {
         }
         return globalHotelDto;
     }
-
+    
     private GlobalHotelDto toGlobalHotelDto(Hotel hotel)
             throws LocalisationException, DaoException {
         List<Room> roomList = roomDao.getByHotelId(hotel.getHotelId());

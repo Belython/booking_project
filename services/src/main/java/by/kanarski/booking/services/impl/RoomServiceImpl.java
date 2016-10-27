@@ -93,6 +93,7 @@ public class RoomServiceImpl implements IRoomService {
 
     }
 
+    @Override
     public List<RoomDto> getAvailableRooms(OrderDto orderDto) throws ServiceException {
         Connection connection = ConnectionUtil.getConnection();
         Locale locale = UserPreferences.getLocale();
@@ -137,6 +138,7 @@ public class RoomServiceImpl implements IRoomService {
         return roomDtoList;
     }
 
+    @Override
     public List<RoomDto> getByHotelId(long hotelId) throws ServiceException {
         Connection connection = ConnectionUtil.getConnection();
         List<RoomDto> roomDtoList = null;
@@ -152,6 +154,7 @@ public class RoomServiceImpl implements IRoomService {
         return roomDtoList;
     }
 
+    @Override
     public List<RoomDto> getByBill(BillDto billDto) throws ServiceException {
         Connection connection = ConnectionUtil.getConnection();
         List<RoomDto> roomDtoList = null;
@@ -168,6 +171,7 @@ public class RoomServiceImpl implements IRoomService {
         return roomDtoList;
     }
 
+    @Override
     public void updateList(List<RoomDto> roomDtoList) throws ServiceException {
         Connection connection = ConnectionUtil.getConnection();
         try {
@@ -181,6 +185,7 @@ public class RoomServiceImpl implements IRoomService {
         }
     }
 
+    @Override
     public void addList(List<RoomDto> roomDtoList) throws ServiceException {
         Connection connection = ConnectionUtil.getConnection();
         try {
@@ -194,6 +199,7 @@ public class RoomServiceImpl implements IRoomService {
         }
     }
 
+    @Override
     public void reserveRoomList(List<RoomDto> roomDtoList) throws ServiceException {
         Connection connection = ConnectionUtil.getConnection();
         try {
@@ -207,6 +213,7 @@ public class RoomServiceImpl implements IRoomService {
         }
     }
 
+    @Override
     public List<RoomDto> getByIdList(List<Long> roomIdList) throws ServiceException {
         Connection connection = ConnectionUtil.getConnection();
         List<RoomDto> roomDtoList = null;

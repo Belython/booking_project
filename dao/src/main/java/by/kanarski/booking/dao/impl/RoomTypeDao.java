@@ -119,6 +119,7 @@ public class RoomTypeDao implements IRoomTypeDao {
         }
     }
 
+    @Override
     public void updateList(List<RoomType> roomTypeList) throws DaoException {
         Connection connection = ConnectionUtil.getConnection();
         try (PreparedStatement stm = connection.prepareStatement(UPDATE_QUERY)) {
@@ -138,6 +139,7 @@ public class RoomTypeDao implements IRoomTypeDao {
         }
     }
 
+    @Override
     public void addList(List<RoomType> roomTypeList) throws DaoException {
         Connection connection = ConnectionUtil.getConnection();
         try (PreparedStatement stm = connection.prepareStatement(ADD_QUERY,
