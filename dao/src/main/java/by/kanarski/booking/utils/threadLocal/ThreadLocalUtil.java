@@ -1,7 +1,9 @@
 package by.kanarski.booking.utils.threadLocal;
 
 
-public enum  ThreadLocalUtil {
+import by.kanarski.booking.utils.ConnectionUtil;
+
+public enum ThreadLocalUtil {
     CONNECTION, LOCALE, CURRENCY;
 
     private final static ThreadLocal<ThreadVariables> THREAD_VARIABLES = new ThreadLocal<ThreadVariables>() {
@@ -35,8 +37,11 @@ public enum  ThreadLocalUtil {
     }
 
     public static void destroy() {
+        ConnectionUtil.closeConnection();
         THREAD_VARIABLES.remove();
     }
+
+
 }
 
 

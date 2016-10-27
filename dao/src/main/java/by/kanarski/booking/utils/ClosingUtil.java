@@ -1,5 +1,8 @@
 package by.kanarski.booking.utils;
 
+import by.kanarski.booking.constants.DaoMessage;
+
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,7 +29,7 @@ public class ClosingUtil {
             try {
                 statement.close();
             } catch (SQLException e) {
-                BookingSystemLogger.getInstance().logError(ClosingUtil.class, e.getMessage());
+                BookingSystemLogger.getInstance().logError(ClosingUtil.class, e.getMessage(), e);
             }
         }
     }
@@ -41,7 +44,17 @@ public class ClosingUtil {
             try {
                 resultSet.close();
             } catch (SQLException e) {
-                BookingSystemLogger.getInstance().logError(ClosingUtil.class, e.getMessage());
+                BookingSystemLogger.getInstance().logError(ClosingUtil.class, e.getMessage(), e);
+            }
+        }
+    }
+
+    public static void close(Connection connection) {
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                BookingSystemLogger.getInstance().logError(ConnectionUtil.class, DaoMessage.DATABASE_CONNECTION_ERROR, e);
             }
         }
     }

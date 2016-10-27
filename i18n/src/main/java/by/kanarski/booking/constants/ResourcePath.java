@@ -13,6 +13,7 @@ public class ResourcePath {
     public static final String AUTHENTIFICATION_SOURCE = "bookingMail";
     public static final String MAIL_MESSAGES_SOURCE = "mailMessages";
 
+
     private ResourcePath() {
     }
 

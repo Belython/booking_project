@@ -1,8 +1,11 @@
 package by.kanarski.booking.entities;
 
+import java.io.Serializable;
 import java.util.Set;
 
-public class RoomType {
+public class RoomType implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private long roomTypeId;
     private String roomTypeName;

@@ -1,6 +1,10 @@
 package by.kanarski.booking.entities;
 
-public class Hotel {
+import java.io.Serializable;
+
+public class Hotel implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private long hotelId;
     private Location location;
@@ -43,7 +47,9 @@ public class Hotel {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         Hotel hotel = (Hotel) o;
+
         if (hotelId != hotel.hotelId) return false;
         if (!location.equals(hotel.location)) return false;
         if (!hotelName.equals(hotel.hotelName)) return false;

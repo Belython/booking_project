@@ -11,6 +11,7 @@ import by.kanarski.booking.utils.ConnectionUtil;
 
 import java.sql.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class RoomDao implements IRoomDao {
 
@@ -65,7 +66,7 @@ public class RoomDao implements IRoomDao {
     private RoomDao() {
     }
 
-    public static RoomDao getInstance() {
+    public static synchronized RoomDao getInstance() {
         if (instance == null) {
             instance = new RoomDao();
         }
@@ -246,14 +247,9 @@ public class RoomDao implements IRoomDao {
     }
 
     private String getFinishedQuery(String initialQuery, List<Long> parametersList) {
-        StringBuilder buffer = new StringBuilder();
+        String parameters = parametersList.stream().map(Object::toString).collect(Collectors.joining(", "));
         String regex = "parameters";
-        Iterator<Long> iterator = parametersList.listIterator();
-        buffer.append(iterator.next());
-        while (iterator.hasNext()) {
-            buffer.append("," + iterator.next());
-        }
-        String finishedQuery = initialQuery.replace(regex, buffer.toString());
+        String finishedQuery = initialQuery.replace(regex, parameters);
         return finishedQuery;
     }
 

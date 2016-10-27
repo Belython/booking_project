@@ -1,8 +1,7 @@
-package by.kanarski.booking.utils;
+package by.kanarski.booking.utils.threadLocal;
 
 import by.kanarski.booking.constants.BookingSystemCurrency;
 import by.kanarski.booking.constants.BookingSystemLocale;
-import by.kanarski.booking.utils.threadLocal.ThreadLocalUtil;
 
 import java.util.Currency;
 import java.util.Locale;

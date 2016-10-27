@@ -16,7 +16,7 @@ import by.kanarski.booking.utils.DateUtil;
 import by.kanarski.booking.utils.ConnectionUtil;
 import by.kanarski.booking.utils.DtoToEntityConverter;
 import by.kanarski.booking.utils.ExceptionHandler;
-import by.kanarski.booking.utils.UserPreferences;
+import by.kanarski.booking.utils.threadLocal.UserPreferences;
 
 import java.sql.Connection;
 import java.sql.SQLException;

@@ -20,8 +20,8 @@
         <thead>
         <tr>
             <th>${selectRoom_roomTypeName}</th>
-            <th>Макс. человек</th>
-            <th>Цена</th>
+            <th>${selectRoom_maxPersons}</th>
+            <th>${selectRoom_pricePerNight}</th>
             <th>${selectRoom_available}</th>
             <th>${selectRoom_quantity}</th>
         </tr>

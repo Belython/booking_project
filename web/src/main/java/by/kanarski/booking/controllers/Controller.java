@@ -3,12 +3,9 @@
  */
 package by.kanarski.booking.controllers;
 
-import by.kanarski.booking.constants.Value;
-import by.kanarski.booking.constants.Parameter;
 import by.kanarski.booking.requestHandler.RequestHandler;
+import by.kanarski.booking.utils.DataSource;
 
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -31,4 +28,8 @@ public class Controller extends HttpServlet {
         RequestHandler.processRequest(request, response);
     }
 
+    @Override
+    public void destroy() {
+        DataSource.getInstance().destroy();
+    }
 }

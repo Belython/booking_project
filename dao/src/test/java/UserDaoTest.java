@@ -1,19 +1,17 @@
-import by.kanarski.booking.constants.FieldValue;
 import by.kanarski.booking.dao.impl.UserDao;
 import by.kanarski.booking.entities.User;
 import by.kanarski.booking.exceptions.DaoException;
-import by.kanarski.booking.utils.EntityBuilder;
+import pre.util.TestEntityBuilder;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoTest extends Assert{
 
-    UserDao userDao = UserDao.getInstance();
+    private UserDao userDao = UserDao.getInstance();
 
     private User expectedUser;
     private List<User> expectedUserList;
@@ -22,10 +20,10 @@ public class UserDaoTest extends Assert{
 
     @Before
     public void setUp() {
-        expectedUserList = getExpectedUserList();
-        expectedUser = expectedUserList.get(0);
-        newUser = getNewUser();
-        updatedUser = getUpdatedUser();
+        expectedUser = TestEntityBuilder.EXPECTED_USER;
+        expectedUserList = TestEntityBuilder.EXPECTED_USER_LIST;
+        newUser = TestEntityBuilder.NEW_USER;
+        updatedUser = TestEntityBuilder.UPDATED_USER;
     }
 
     @After
@@ -45,7 +43,6 @@ public class UserDaoTest extends Assert{
 
     @Test
     public void testAdd() throws Exception {
-        User newUser = getNewUser();
         User expected = userDao.add(newUser);
         User actual = userDao.getById(expected.getUserId());
         userDao.delete(expected);
@@ -98,42 +95,10 @@ public class UserDaoTest extends Assert{
 
     @Test(expected = DaoException.class)
     public void testDelete() throws Exception {
-        User newUser = userDao.add(getNewUser());
+        newUser = userDao.add(newUser);
         userDao.delete(newUser);
         User deletedUser = userDao.getById(newUser.getUserId());
         assertNull(deletedUser);
     }
-
-    private User getNewUser() {
-        User newUser = EntityBuilder.buildUser("testFirstNameNew", "testLastNameNew", "tesNew@test.com",
-                "testLoginNew", "testPasswordNew", FieldValue.ROLE_CLIENT, FieldValue.STATUS_ACTIVE);
-        return newUser;
-    }
-    
-    private User getUpdatedUser() {
-        User updatedUser = EntityBuilder.buildUser(expectedUser.getUserId(), "testFirstNameUpdated",
-                "testLastNameUpdated", "tesUpdated@test.com", "testLoginUpdated", "testPasswordUpdated",
-                FieldValue.ROLE_CLIENT, FieldValue.STATUS_ACTIVE);
-        return updatedUser;
-    }
-
-    private List<User> getExpectedUserList() {
-        expectedUserList = new ArrayList<>();
-        for (int i = 1; i < 4; i++) {
-            long testId = i;
-            String testFirstName = "testFirstName" + i;
-            String testLastName = "testLastName" + i;
-            String testEmail = "test" + i + "@gmail.com";
-            String testLogin = "testLogin" + i;
-            String testPassword = "testPassword" + i;
-            String role = FieldValue.ROLE_CLIENT;
-            String status = FieldValue.STATUS_ACTIVE;
-            User user = EntityBuilder.buildUser(testId, testFirstName, testLastName, testEmail, testLogin,
-                    testPassword, role, status);
-            expectedUserList.add(user);
-        }
-        return expectedUserList;
-    }
-
 
 }

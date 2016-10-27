@@ -21,15 +21,20 @@ public class ConnectionUtil {
     public static Connection getConnection() {
         Connection connection = null;
         try {
-            Connection newConnection = dataSource.getConnection();
-            connection = (Connection) ThreadLocalUtil.CONNECTION.get(newConnection);
-            if (!connection.equals(newConnection)) {
-                newConnection.close();
+            connection = (Connection) ThreadLocalUtil.CONNECTION.get();
+            if (connection == null) {
+                Connection newConnection = dataSource.getConnection();
+                connection = (Connection) ThreadLocalUtil.CONNECTION.get(newConnection);
             }
         } catch (SQLException e) {
             BookingSystemLogger.getInstance().logError(ConnectionUtil.class, DaoMessage.INPUT_ERROR, e);
         }
         return connection;
+    }
+
+    public static void closeConnection() {
+        Connection connection = getConnection();
+        ClosingUtil.close(connection);
     }
 
 }

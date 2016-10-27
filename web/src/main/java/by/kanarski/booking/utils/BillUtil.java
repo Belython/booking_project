@@ -2,6 +2,7 @@ package by.kanarski.booking.utils;
 
 import by.kanarski.booking.dto.RoomDto;
 import by.kanarski.booking.exceptions.LocalisationException;
+import by.kanarski.booking.utils.threadLocal.UserPreferences;
 
 import java.util.List;
 import java.util.Locale;

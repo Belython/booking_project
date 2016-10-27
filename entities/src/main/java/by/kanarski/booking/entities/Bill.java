@@ -1,8 +1,11 @@
 package by.kanarski.booking.entities;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Bill {
+public class Bill implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private long billId;
     private long bookingDate;
@@ -10,7 +13,6 @@ public class Bill {
     private int totalPersons;
     private long checkInDate;
     private long checkOutDate;
-//    private List<Room> bookedRoomList;
     private List<Long> bookedRoomIdList;
     private double paymentAmount;
     private String billStatus;

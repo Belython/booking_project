@@ -35,9 +35,12 @@ public class DataSource {
             cpds.setPassword(bundle.getString(DatabaseKeys.PASSWORD));
             cpds.setMinPoolSize(5);
             cpds.setAcquireIncrement(5);
-            cpds.setMaxPoolSize(10);
+            cpds.setMaxPoolSize(50);
             cpds.setMaxStatements(180);
             cpds.setInitialPoolSize(10);
+            //Avoding memmory leaks on hot redeploy
+            cpds.setContextClassLoaderSource("library");
+            cpds.setPrivilegeSpawnedThreads(true);
         } catch (PropertyVetoException e) {
             BookingSystemLogger.getInstance().logError(getClass(), DaoMessage.WRONG_DATASOURCE_SETTINGS + e);
         }
@@ -56,8 +59,17 @@ public class DataSource {
      * @throws SQLException
      */
 
+    // TODO: 27.10.2016 Разобраться с пулом, не отпускает соединения вообще никогда
+
     public Connection getConnection() throws SQLException {
-        return this.cpds.getConnection();
+//        javax.sql.PooledConnection pooledConnection = cpds.getConnectionPoolDataSource().getPooledConnection();
+//        Connection connection = pooledConnection.getConnection();
+        Connection connection = cpds.getConnection();
+        return connection;
+    }
+
+    public void destroy() {
+        cpds.close();
     }
 
 }

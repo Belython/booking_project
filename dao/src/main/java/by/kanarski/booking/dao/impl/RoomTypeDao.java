@@ -23,12 +23,12 @@ public class RoomTypeDao implements IRoomTypeDao {
     private final String UPDATE_QUERY = "UPDATE ROOMS_TYPES " +
             "SET ROOM_TYPE = ?, MAX_PERSONS = ?, PRICE_PER_NIGHT = ?, FACILITIES = ?, ROOM_TYPE_STATUS = ? " +
             "WHERE ROOM_TYPE_ID = ?;";
-    private final String DELETE_QUERY = "UPDATE ORDERS SET STATUS = 'deleted' WHERE ID = ?;";
+    private final String DELETE_QUERY = "DELETE FROM ROOM_TYPE WHERE ROOM_TYPE_ID = ?;";
 
     private RoomTypeDao() {
     }
 
-    public static RoomTypeDao getInstance() {
+    public static synchronized RoomTypeDao getInstance() {
         if (instance == null) {
             instance = new RoomTypeDao();
         }
@@ -110,7 +110,13 @@ public class RoomTypeDao implements IRoomTypeDao {
 
     @Override
     public void delete(RoomType roomType) throws DaoException {
-
+        Connection connection = ConnectionUtil.getConnection();
+        try (PreparedStatement stm = connection.prepareStatement(DELETE_QUERY)) {
+            stm.setLong(1, roomType.getRoomTypeId());
+            stm.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException(DaoMessage.DELETE_USER_EXCEPTION, e);
+        }
     }
 
     public void updateList(List<RoomType> roomTypeList) throws DaoException {

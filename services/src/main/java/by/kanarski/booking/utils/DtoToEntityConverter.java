@@ -3,6 +3,7 @@ package by.kanarski.booking.utils;
 import by.kanarski.booking.dto.*;
 import by.kanarski.booking.entities.*;
 import by.kanarski.booking.exceptions.LocalisationException;
+import by.kanarski.booking.utils.threadLocal.UserPreferences;
 
 import java.util.*;
 

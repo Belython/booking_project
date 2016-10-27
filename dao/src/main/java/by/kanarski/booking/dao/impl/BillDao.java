@@ -11,9 +11,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-;
-
-
 public class BillDao implements IBillDao {
 
     private static BillDao instance = null;
@@ -38,7 +35,7 @@ public class BillDao implements IBillDao {
     private BillDao() {
     }
 
-    public static BillDao getInstance() {
+    public static synchronized BillDao getInstance() {
         if (instance == null) {
             instance = new BillDao();
         }
