@@ -2,6 +2,7 @@
 <%@ page language="java"
          contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"  %>
+<%@taglib prefix="l" uri="http://booking.by" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -52,8 +53,8 @@
                     <td>${roomTypeMap.get(roomType)}</td>
                 </c:forEach>
                 <td rowspan="${rtSize}">${bill.totalPersons}</td>
-                <td rowspan="${rtSize}">${bill.checkInDate}</td>
-                <td rowspan="${rtSize}">${bill.checkOutDate}</td>
+                <td rowspan="${rtSize}">${l:getDate(bill.checkInDate)}</td>
+                <td rowspan="${rtSize}">${l:getDate(bill.checkOutDate)}</td>
                 <td rowspan="${rtSize}">${bill.paymentAmount}</td>
                 <td rowspan="${rtSize}">${bill.billStatus}</td>
                 <c:if test="${bill.billStatus eq 'notPaid'}">

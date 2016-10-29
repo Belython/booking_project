@@ -11,12 +11,7 @@ import by.kanarski.booking.exceptions.DaoException;
 import by.kanarski.booking.exceptions.LocalisationException;
 import by.kanarski.booking.exceptions.ServiceException;
 import by.kanarski.booking.services.interfaces.IRoomService;
-import by.kanarski.booking.utils.BookingSystemLogger;
-import by.kanarski.booking.utils.DateUtil;
-import by.kanarski.booking.utils.ConnectionUtil;
-import by.kanarski.booking.utils.DtoToEntityConverter;
-import by.kanarski.booking.utils.ExceptionHandler;
-import by.kanarski.booking.utils.threadLocal.UserPreferences;
+import by.kanarski.booking.utils.*;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -96,15 +91,14 @@ public class RoomServiceImpl implements IRoomService {
     @Override
     public List<RoomDto> getAvailableRooms(OrderDto orderDto) throws ServiceException {
         Connection connection = ConnectionUtil.getConnection();
-        Locale locale = UserPreferences.getLocale();
         List<RoomDto> roomDtoList = null;
         String formattedCheckInDate = orderDto.getCheckInDate();
         String formattedCheckOutDate = orderDto.getCheckOutDate();
 
         try {
             connection.setAutoCommit(false);
-            long checkInDate = DateUtil.parseDate(formattedCheckInDate, locale);
-            long checkOutDate = DateUtil.parseDate(formattedCheckOutDate, locale);
+            long checkInDate = DateUtil.parseDate(formattedCheckInDate);
+            long checkOutDate = DateUtil.parseDate(formattedCheckOutDate);
             List<Room> roomsForAllDates = roomDao.getAvailableRooms(orderDto);
             List<Room> roomList = new ArrayList<>();
             for (Room room : roomsForAllDates) {

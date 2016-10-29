@@ -8,11 +8,11 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css"/>
 <html>
 <head>
-    <title>${error_error}Ошибка</title>
+    <title>${error_error}</title>
 </head>
 <body>
-${error_sorry}Извините, но в данный момент сервис не доступен: <br/>
+${error_sorry}<br/>
 ${errorDatabase} <br/>
-<a href="controller?command=goToMain">${error_goToMain}Перейти на главную страницу</a>
+<a href="controller?command=goToMain">${error_goToMain}</a>
 </body>
 </html>

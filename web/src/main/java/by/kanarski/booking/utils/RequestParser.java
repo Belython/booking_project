@@ -31,8 +31,7 @@ public class RequestParser {
         String password = request.getParameter(Parameter.USER_PASSWORD);
         String role = request.getParameter(Parameter.USER_ROLE);
         String userStatus = request.getParameter(Parameter.USER_STATUS);
-        UserDto userDto = new UserDto(userId, firstName, lastName, email, login, password, role, userStatus);
-        return userDto;
+        return new UserDto(userId, firstName, lastName, email, login, password, role, userStatus);
     }
 
     public static OrderDto parseOrderDto(HttpServletRequest request) {
@@ -41,9 +40,11 @@ public class RequestParser {
         int totalPersons = Integer.valueOf(request.getParameter(Parameter.ORDER_TOTAL_PERSONS));
         HotelDto hotelDto = parseHotelDto(request);
         String checkInDate = request.getParameter(Parameter.ORDER_CHECK_IN_DATE);
+        String defaultFormattedCheckInDate = DateUtil.getDefaultLocaleDate(checkInDate);
         String checkOutDate = request.getParameter(Parameter.ORDER_CHECK_OUT_DATE);
-        OrderDto orderDto = new OrderDto(userDto, hotelDto, totalPersons, checkInDate, checkOutDate);
-        return orderDto;
+        String defaultFormattedCheckOutDate = DateUtil.getDefaultLocaleDate(checkOutDate);
+        return new OrderDto(userDto, hotelDto, totalPersons,
+                defaultFormattedCheckInDate, defaultFormattedCheckOutDate);
     }
 
     public static HotelDto parseHotelDto(ServletRequest request) {
@@ -55,13 +56,11 @@ public class RequestParser {
         String city = request.getParameter(Parameter.LOCATION_CITY);
         LocationDto locationDto = new LocationDto(country, city);
         String hotelName = request.getParameter(Parameter.HOTEL_NAME);
-        HotelDto hotelDto = new HotelDto(hotelId, locationDto, hotelName);
-        return hotelDto;
+        return new HotelDto(hotelId, locationDto, hotelName);
     }
 
     public static String parsePagePath(ServletRequest request) {
-        String page = request.getParameter(Parameter.CURRENT_PAGE_PATH);
-        return page;
+        return request.getParameter(Parameter.CURRENT_PAGE_PATH);
     }
 
     public static CommandType parseCommandType(HttpServletRequest request) {
@@ -136,9 +135,8 @@ public class RequestParser {
         List<RoomDto> selectedRoomList = AdminLogic.chooseRoomList(selectedRoomTypes, selectedGlobalHotelDto.getRoomList());
         int bookedDays = BillUtil.getBookedDays(checkInDate, checkOutDate);
         double paymentAmount = BillUtil.getPaymentAmount(bookedDays, selectedRoomList);
-        BillDto billDto = new BillDto(userDto, totalPersons, checkInDate, checkOutDate, selectedHotelDto,
+        return new BillDto(userDto, totalPersons, checkInDate, checkOutDate, selectedHotelDto,
                 selectedRoomList, paymentAmount);
-        return billDto;
     }
 
 
@@ -177,7 +175,6 @@ public class RequestParser {
             }
         }
         HttpSession session = request.getSession();
-        Currency currency = (Currency) session.getAttribute(Parameter.CURRENCY);
         for (int i = 0; i < roomIdArray.length; i++) {
             List<HotelDto> hotelDtoList = (List<HotelDto>) session.getAttribute(Parameter.HOTEL_LIST);
             List<RoomTypeDto> roomTypeDtoList = (List<RoomTypeDto>) session.getAttribute(Parameter.ROOM_TYPE_LIST);
@@ -259,8 +256,7 @@ public class RequestParser {
     }
 
     public static boolean isAjaxRequest(HttpServletRequest request) {String stringValue = request.getParameter(Parameter.IS_AJAX_REQUEST);
-        boolean isAjaxRequest = Boolean.parseBoolean(stringValue);
-        return isAjaxRequest;
+        return Boolean.parseBoolean(stringValue);
     }
 
     public static RoomTypeDto parseRoomTypeDto(HttpServletRequest request) {
@@ -270,9 +266,8 @@ public class RequestParser {
         double pricePerNight = Double.valueOf(request.getParameter(Parameter.ROOM_TYPE_PRICE_PER_NIGHT));
         String facilities = request.getParameter(Parameter.ROOM_TYPE_FACILITIES);
         String roomTypeStatus = request.getParameter(Parameter.ROOM_TYPE_STATUS);
-        RoomTypeDto roomTypeDto = new RoomTypeDto(roomTypeId, roomTypeName, maxPersons, pricePerNight,
+        return new RoomTypeDto(roomTypeId, roomTypeName, maxPersons, pricePerNight,
                 facilities, roomTypeStatus);
-        return roomTypeDto;
     }
 
     public static RoomDto parseRoomDto(HttpServletRequest request) {
@@ -295,8 +290,7 @@ public class RequestParser {
     }
 
     public static String parseFormName(HttpServletRequest request) {
-        String formName = request.getParameter(Parameter.FORM_NAME);
-        return formName;
+        return request.getParameter(Parameter.FORM_NAME);
     }
 
     //В UI не работаем с bookedDates, берем из базы данных
@@ -304,7 +298,6 @@ public class RequestParser {
         HttpSession session = request.getSession();
         TreeMap<String, String> bookedDates;
         if (roomId != FieldValue.UNDEFINED_ID) {
-            Locale locale = (Locale) session.getAttribute(Parameter.LOCALE);
             RoomDto roomDto = null;
             try {
                 roomDto = RoomServiceImpl.getInstance().getById(roomId);

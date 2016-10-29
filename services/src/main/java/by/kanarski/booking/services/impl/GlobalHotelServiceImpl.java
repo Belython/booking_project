@@ -107,7 +107,7 @@ public class GlobalHotelServiceImpl implements IGlobalHotelService {
         Connection connection = ConnectionUtil.getConnection();
         try {
             connection.setAutoCommit(false);
-            List<Hotel> hotelList = DtoToEntityConverter.toHotelListG(globalHotelDtoList);
+            List<Hotel> hotelList = DtoToEntityConverter.toHotelListFromGlobal(globalHotelDtoList);
             hotelDao.updateList(hotelList);
             connection.commit();
             BookingSystemLogger.getInstance().logInfo(getClass(), ServiceMessage.TRANSACTION_SUCCEEDED);
@@ -121,7 +121,7 @@ public class GlobalHotelServiceImpl implements IGlobalHotelService {
         Connection connection = ConnectionUtil.getConnection();
         try {
             connection.setAutoCommit(false);
-            List<Hotel> hotelList = DtoToEntityConverter.toHotelListG(globalHotelDtoList);
+            List<Hotel> hotelList = DtoToEntityConverter.toHotelListFromGlobal(globalHotelDtoList);
             hotelDao.addList(hotelList);
             connection.commit();
             BookingSystemLogger.getInstance().logInfo(getClass(), ServiceMessage.TRANSACTION_SUCCEEDED);
@@ -214,15 +214,13 @@ public class GlobalHotelServiceImpl implements IGlobalHotelService {
         return globalHotelDto;
     }
     
-    private GlobalHotelDto toGlobalHotelDto(Hotel hotel)
-            throws LocalisationException, DaoException {
+    private GlobalHotelDto toGlobalHotelDto(Hotel hotel) throws DaoException, LocalisationException {
         List<Room> roomList = roomDao.getByHotelId(hotel.getHotelId());
         GlobalHotelDto globalHotelDto = DtoToEntityConverter.toGlobalHotelDto(hotel, roomList);
         return globalHotelDto;
     }
 
-    private List<GlobalHotelDto> toGlobalHotelDtoList(List<Hotel> hotelList)
-            throws LocalisationException, DaoException {
+    private List<GlobalHotelDto> toGlobalHotelDtoList(List<Hotel> hotelList) throws DaoException, LocalisationException {
         List<GlobalHotelDto> globalHotelDtoList = new ArrayList<>();
         for (Hotel hotel : hotelList) {
             GlobalHotelDto globalHotelDto = toGlobalHotelDto(hotel);

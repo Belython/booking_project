@@ -1,16 +1,14 @@
 package by.kanarski.booking.utils;
 
+import by.kanarski.booking.constants.BookingSystemCurrency;
+import by.kanarski.booking.constants.BookingSystemLocale;
 import by.kanarski.booking.dto.*;
 import by.kanarski.booking.entities.*;
 import by.kanarski.booking.exceptions.LocalisationException;
-import by.kanarski.booking.utils.threadLocal.UserPreferences;
 
 import java.util.*;
 
 public class DtoToEntityConverter {
-
-//    private static Locale locale = UserPreferences.getLocale();
-//    private static Currency currency = UserPreferences.getCurrency();
 
     public static Room toRoom(RoomDto roomDto, Locale locale, Currency currency) throws LocalisationException {
         long roomId = roomDto.getRoomId();
@@ -129,8 +127,6 @@ public class DtoToEntityConverter {
 
     public static Hotel toHotel(HotelDto hotelDto) {
         long hotelId = hotelDto.getHotelId();
-//        String hotelCountry = hotelDto.getHotelCountry();
-//        String hotelCity = hotelDto.getHotelCity();
         LocationDto locationDto = hotelDto.getLocation();
         Location location = toLocation(locationDto);
         String hotelName = hotelDto.getHotelName();
@@ -175,7 +171,6 @@ public class DtoToEntityConverter {
         long checkInDate = DateUtil.parseDate(billDto.getCheckInDate(), locale);
         long checkOutDate = DateUtil.parseDate(billDto.getCheckOutDate(), locale);
         List<RoomDto> bookedRoomDtoList = billDto.getBookedRoomList();
-//        List<Room> bookedRoomList = toRoomList(bookedRoomDtoList, locale, currency);
         List<Long> bookedRoomIdList = new ArrayList<>();
         for (RoomDto bookedRoomDto : bookedRoomDtoList) {
             bookedRoomIdList.add(bookedRoomDto.getRoomId());
@@ -215,38 +210,35 @@ public class DtoToEntityConverter {
     }
 
     public static Room toRoom(RoomDto roomDto) throws LocalisationException {
-        Locale locale = UserPreferences.getLocale();
-        Currency currency = UserPreferences.getCurrency();
+        Locale locale = BookingSystemLocale.DEFAULT;
+        Currency currency = BookingSystemCurrency.DEFAULT;
         Room room = toRoom(roomDto, locale, currency);
         return room;
     }
 
     public static List<Room> toRoomList(List<RoomDto> roomDtoList) throws LocalisationException {
-        Locale locale = UserPreferences.getLocale();
-        Currency currency = UserPreferences.getCurrency();
+        Locale locale = BookingSystemLocale.DEFAULT;
+        Currency currency = BookingSystemCurrency.DEFAULT;
         List<Room> roomList = toRoomList(roomDtoList, locale, currency);
         return roomList;
     }
 
-    public static RoomDto toRoomDto(Room room) throws LocalisationException {
-        Locale locale = UserPreferences.getLocale();
-        Currency currency = UserPreferences.getCurrency();
-        RoomDto roomDto = toRoomDto(room, locale, currency);
-        return  roomDto;
+    public static RoomDto toRoomDto(Room room) throws LocalisationException{
+        Locale locale = BookingSystemLocale.DEFAULT;
+        Currency currency = BookingSystemCurrency.DEFAULT;
+        return toRoomDto(room, locale, currency);
     }
 
-    public static List<RoomDto> toRoomDtoList(List<Room> roomList) throws LocalisationException {
-        Locale locale = UserPreferences.getLocale();
-        Currency currency = UserPreferences.getCurrency();
-        List<RoomDto> roomDtoList = toRoomDtoList(roomList, locale, currency);
-        return roomDtoList;
+    public static List<RoomDto> toRoomDtoList(List<Room> roomList) throws LocalisationException{
+        Locale locale = BookingSystemLocale.DEFAULT;
+        Currency currency = BookingSystemCurrency.DEFAULT;
+        return toRoomDtoList(roomList, locale, currency);
     }
     
     public static Bill toBill(BillDto billDto) throws LocalisationException{
-        Locale locale = UserPreferences.getLocale();
-        Currency currency = UserPreferences.getCurrency();
-        Bill bill = toBill(billDto, locale, currency);
-        return bill;
+        Locale locale = BookingSystemLocale.DEFAULT;
+        Currency currency = BookingSystemCurrency.DEFAULT;
+        return toBill(billDto, locale, currency);
     }
 
     public static List<UserDto> toUserDtoList(List<User> userList) {
@@ -259,19 +251,19 @@ public class DtoToEntityConverter {
     }
     
     public static RoomType toRoomType(RoomTypeDto roomTypeDto) {
-        Currency currency = UserPreferences.getCurrency();
+        Currency currency = BookingSystemCurrency.DEFAULT;
         RoomType roomType = toRoomType(roomTypeDto, currency);
         return roomType;
     }
     
     public static List<RoomTypeDto> toRoomTypeDtoList(List<RoomType> roomTypeList) {
-        Currency currency = UserPreferences.getCurrency();
+        Currency currency = BookingSystemCurrency.DEFAULT;
         List<RoomTypeDto> roomTypeDtoList = DtoToEntityConverter.toRoomTypeDtoList(roomTypeList, currency);
         return roomTypeDtoList;
     }
 
     public static List<RoomType> toRoomTypeList(List<RoomTypeDto> roomTypeDtoList) {
-        Currency currency = UserPreferences.getCurrency();
+        Currency currency = BookingSystemCurrency.DEFAULT;
         List<RoomType> roomTypeList = DtoToEntityConverter.toRoomTypeList(roomTypeDtoList, currency);
         return roomTypeList;
     }
@@ -286,8 +278,8 @@ public class DtoToEntityConverter {
     }
 
     public static BillDto toBillDto(Bill bill, List<Room> bookedRoomList) throws LocalisationException {
-        Locale locale = UserPreferences.getLocale();
-        Currency currency = UserPreferences.getCurrency();
+        Locale locale = BookingSystemLocale.DEFAULT;
+        Currency currency = BookingSystemCurrency.DEFAULT;
         BillDto billDto = toBillDto(bill, bookedRoomList, locale, currency);
         return billDto;
     }
@@ -309,7 +301,7 @@ public class DtoToEntityConverter {
         return hotel;
     }
 
-    public static List<Hotel> toHotelListG(List<GlobalHotelDto> globalHotelDtoList) {
+    public static List<Hotel> toHotelListFromGlobal(List<GlobalHotelDto> globalHotelDtoList) {
         List<Hotel> hotelList = new ArrayList<>();
         for (GlobalHotelDto globalHotelDto : globalHotelDtoList) {
             Hotel hotel = toHotel(globalHotelDto);

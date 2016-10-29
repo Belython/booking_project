@@ -12,9 +12,7 @@ import by.kanarski.booking.services.impl.BillServiceImpl;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.Currency;
 import java.util.List;
-import java.util.Locale;
 
 public class GoToAccountCommand extends AbstractCommand {
 
@@ -23,8 +21,6 @@ public class GoToAccountCommand extends AbstractCommand {
         ServletAction servletAction = ServletAction.FORWARD_PAGE;
         String page = null;
         HttpSession session = request.getSession();
-        Locale locale =(Locale) session.getAttribute(Parameter.LOCALE);
-        Currency currency = (Currency) session.getAttribute(Parameter.CURRENCY);
         try {
             UserDto userDto = (UserDto) session.getAttribute(Parameter.USER);
             List<BillDto> billDtoList = BillServiceImpl.getInstance().getByUserId(userDto.getUserId());

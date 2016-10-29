@@ -13,7 +13,6 @@ import java.util.ResourceBundle;
 public abstract class AbstractCommand implements ICommand {
 
     protected void handleServiceException(HttpServletRequest request, Exception exception) {
-
         HttpSession session = request.getSession();
         Locale locale = (Locale) session.getAttribute(Parameter.LOCALE);
         ResourceBundle bundle = ResourceBuilder.OPERATION_MESSAGES.setLocale(locale).create();
