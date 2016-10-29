@@ -6,7 +6,7 @@
 var A_TCALCONF = {
 	'cssprefix'  : 'tcal',
 	'months'     : ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-	'mon'        : ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nove', 'Dece'],
+	'mon'        : ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
 	'weekdays'   : ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
 	'longwdays'  : ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
 	'yearscroll' : true, // show year scroller
@@ -15,7 +15,7 @@ var A_TCALCONF = {
 	'nextyear'   : 'Next Year',
 	'prevmonth'  : 'Previous Month',
 	'nextmonth'  : 'Next Month',
-	'format'     : 'f d, Y' // 'd-m-Y', Y-m-d', 'l, F jS Y'
+	'format'     : 'f j, Y' // 'd-m-Y', Y-m-d', 'l, F jS Y'
 };
 
 var A_TCALTOKENS = [

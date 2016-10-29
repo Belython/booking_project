@@ -87,12 +87,12 @@ public class UserDaoTest extends Assert{
         assertTrue(isAuthorized);
     }
 
-//    @Test
-//    public void testIsNewUser() throws Exception {
-//        String login = expectedUser.getLogin();
-//        boolean isNewUser = userDao.isNewUser(login);
-//        assertTrue(isNewUser);
-//    }
+    @Test
+    public void testIsNewUser() throws Exception {
+        String login = expectedUser.getLogin();
+        boolean isNewUser = userDao.isNewUser(login);
+        assertFalse(isNewUser);
+    }
 
     @Test(expected = DaoException.class)
     public void testDelete() throws Exception {

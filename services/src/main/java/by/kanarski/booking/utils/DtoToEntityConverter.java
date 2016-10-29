@@ -9,8 +9,8 @@ import java.util.*;
 
 public class DtoToEntityConverter {
 
-    private static Locale defaultLocale = UserPreferences.getLocale();
-    private static Currency defaultCurrency = UserPreferences.getCurrency();
+//    private static Locale locale = UserPreferences.getLocale();
+//    private static Currency currency = UserPreferences.getCurrency();
 
     public static Room toRoom(RoomDto roomDto, Locale locale, Currency currency) throws LocalisationException {
         long roomId = roomDto.getRoomId();
@@ -215,28 +215,37 @@ public class DtoToEntityConverter {
     }
 
     public static Room toRoom(RoomDto roomDto) throws LocalisationException {
-        Room room = toRoom(roomDto, defaultLocale, defaultCurrency);
+        Locale locale = UserPreferences.getLocale();
+        Currency currency = UserPreferences.getCurrency();
+        Room room = toRoom(roomDto, locale, currency);
         return room;
     }
 
     public static List<Room> toRoomList(List<RoomDto> roomDtoList) throws LocalisationException {
-        List<Room> roomList = toRoomList(roomDtoList, defaultLocale, defaultCurrency);
+        Locale locale = UserPreferences.getLocale();
+        Currency currency = UserPreferences.getCurrency();
+        List<Room> roomList = toRoomList(roomDtoList, locale, currency);
         return roomList;
     }
 
-
     public static RoomDto toRoomDto(Room room) throws LocalisationException {
-        RoomDto roomDto = toRoomDto(room, defaultLocale, defaultCurrency);
+        Locale locale = UserPreferences.getLocale();
+        Currency currency = UserPreferences.getCurrency();
+        RoomDto roomDto = toRoomDto(room, locale, currency);
         return  roomDto;
     }
 
     public static List<RoomDto> toRoomDtoList(List<Room> roomList) throws LocalisationException {
-        List<RoomDto> roomDtoList = toRoomDtoList(roomList, defaultLocale, defaultCurrency);
+        Locale locale = UserPreferences.getLocale();
+        Currency currency = UserPreferences.getCurrency();
+        List<RoomDto> roomDtoList = toRoomDtoList(roomList, locale, currency);
         return roomDtoList;
     }
     
     public static Bill toBill(BillDto billDto) throws LocalisationException{
-        Bill bill = toBill(billDto, defaultLocale, defaultCurrency);
+        Locale locale = UserPreferences.getLocale();
+        Currency currency = UserPreferences.getCurrency();
+        Bill bill = toBill(billDto, locale, currency);
         return bill;
     }
 
@@ -250,17 +259,20 @@ public class DtoToEntityConverter {
     }
     
     public static RoomType toRoomType(RoomTypeDto roomTypeDto) {
-        RoomType roomType = toRoomType(roomTypeDto, defaultCurrency);
+        Currency currency = UserPreferences.getCurrency();
+        RoomType roomType = toRoomType(roomTypeDto, currency);
         return roomType;
     }
     
     public static List<RoomTypeDto> toRoomTypeDtoList(List<RoomType> roomTypeList) {
-        List<RoomTypeDto> roomTypeDtoList = DtoToEntityConverter.toRoomTypeDtoList(roomTypeList, defaultCurrency);
+        Currency currency = UserPreferences.getCurrency();
+        List<RoomTypeDto> roomTypeDtoList = DtoToEntityConverter.toRoomTypeDtoList(roomTypeList, currency);
         return roomTypeDtoList;
     }
 
     public static List<RoomType> toRoomTypeList(List<RoomTypeDto> roomTypeDtoList) {
-        List<RoomType> roomTypeList = DtoToEntityConverter.toRoomTypeList(roomTypeDtoList, defaultCurrency);
+        Currency currency = UserPreferences.getCurrency();
+        List<RoomType> roomTypeList = DtoToEntityConverter.toRoomTypeList(roomTypeDtoList, currency);
         return roomTypeList;
     }
 
@@ -274,7 +286,9 @@ public class DtoToEntityConverter {
     }
 
     public static BillDto toBillDto(Bill bill, List<Room> bookedRoomList) throws LocalisationException {
-        BillDto billDto = toBillDto(bill, bookedRoomList, defaultLocale, defaultCurrency);
+        Locale locale = UserPreferences.getLocale();
+        Currency currency = UserPreferences.getCurrency();
+        BillDto billDto = toBillDto(bill, bookedRoomList, locale, currency);
         return billDto;
     }
 

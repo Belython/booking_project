@@ -19,7 +19,7 @@ import java.util.List;
 public class UserServiceImpl implements IUserService {
     
     private static UserServiceImpl instance;
-    private static UserDao userDao = UserDao.getInstance();
+    private UserDao userDao = UserDao.getInstance();
 
     private UserServiceImpl() {
     }

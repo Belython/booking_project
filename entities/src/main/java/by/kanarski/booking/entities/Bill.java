@@ -8,7 +8,7 @@ public class Bill implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private long billId;
-    private long bookingDate;
+//    private long bookingDate;
     private User client;
     private int totalPersons;
     private long checkInDate;
@@ -25,13 +25,13 @@ public class Bill implements Serializable {
         this.billId = billId;
     }
 
-    public long getBookingDate() {
-        return bookingDate;
-    }
-
-    public void setBookingDate(long bookingDate) {
-        this.bookingDate = bookingDate;
-    }
+//    public long getBookingDate() {
+//        return bookingDate;
+//    }
+//
+//    public void setBookingDate(long bookingDate) {
+//        this.bookingDate = bookingDate;
+//    }
 
     public User getClient() {
         return client;

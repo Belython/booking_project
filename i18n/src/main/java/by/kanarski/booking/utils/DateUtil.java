@@ -1,5 +1,6 @@
 package by.kanarski.booking.utils;
 
+import by.kanarski.booking.constants.BookingSystemLocale;
 import by.kanarski.booking.constants.L10nMessage;
 import by.kanarski.booking.exceptions.LocalisationException;
 
@@ -19,6 +20,13 @@ public class DateUtil {
         DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, locale);
         String formattedDate = dateFormat.format(new Date(date));
         return formattedDate;
+    }
+
+    public static void main(String[] args) throws  LocalisationException{
+        long date = parseDate("10.10.2016", BookingSystemLocale.RU_BY);
+        String fm = getFormattedDate(date, BookingSystemLocale.EN_US);
+        System.out.println(fm);
+
     }
 
     public static long parseDate(String formattedDate, Locale locale) throws LocalisationException {

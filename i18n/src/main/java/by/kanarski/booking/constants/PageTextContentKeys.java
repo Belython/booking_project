@@ -67,8 +67,8 @@ public class PageTextContentKeys {
     public static final List<String> SELECT_ROOM = Arrays.asList(
             "selectRoom.selectRoom",
             "selectRoom.roomTypeName",
-            "entityField.maxPersons",
-            "entityField.pricePerNight",
+            "selectRoom.maxPersons",
+            "selectRoom.pricePerNight",
             "selectRoom.available",
             "selectRoom.quantity",
             "selectRoom.submitRooms"
