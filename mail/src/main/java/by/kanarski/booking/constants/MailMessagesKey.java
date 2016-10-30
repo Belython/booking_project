@@ -1,7 +1,7 @@
 package by.kanarski.booking.constants;
 
 
-public class MailMessagesKeys {
+public class MailMessagesKey {
 
     //Subjects
 

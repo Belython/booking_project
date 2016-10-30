@@ -1,11 +1,10 @@
 package by.kanarski.booking.i18n.l10n.filler;
 
-import by.kanarski.booking.constants.Parameter;
 import by.kanarski.booking.i18n.l10n.filler.factory.ContentType;
-import by.kanarski.booking.managers.ResourceBuilder;
+import by.kanarski.booking.managers.ResourceManager;
+import by.kanarski.booking.utils.threadLocal.UserPreferences;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -19,10 +18,10 @@ public class Filler {
     }
 
     public void fill (HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        Locale locale = (Locale) session.getAttribute(Parameter.LOCALE);
-//        Locale locale = UserPreferences.getLocale();
-        ResourceBundle bundle = ResourceBuilder.JSP_TEXT.setLocale(locale).create();
+//        HttpSession session = request.getSession();
+//        Locale locale = (Locale) session.getAttribute(Parameter.LOCALE);
+        Locale locale = UserPreferences.getLocale();
+        ResourceBundle bundle = ResourceManager.JSP_TEXT.get(locale);
         for (Map<String, List<String>> contentMap : pageDescriptor) {
             Set<String> contentNames = contentMap.keySet();
             for (String contentName : contentNames) {

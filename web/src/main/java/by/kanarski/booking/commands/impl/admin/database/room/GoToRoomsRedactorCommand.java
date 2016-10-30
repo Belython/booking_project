@@ -7,7 +7,7 @@ import by.kanarski.booking.dto.RoomDto;
 import by.kanarski.booking.dto.RoomTypeDto;
 import by.kanarski.booking.dto.UserDto;
 import by.kanarski.booking.exceptions.ServiceException;
-import by.kanarski.booking.managers.ResourceBuilder;
+import by.kanarski.booking.managers.ResourceManager;
 import by.kanarski.booking.requestHandler.ServletAction;
 import by.kanarski.booking.services.impl.HotelServiceImpl;
 import by.kanarski.booking.services.impl.RoomServiceImpl;
@@ -31,7 +31,7 @@ public class GoToRoomsRedactorCommand implements ICommand {
         HttpSession session = request.getSession();
         Locale locale = (Locale) session.getAttribute(Parameter.LOCALE);
         Currency currency = (Currency) session.getAttribute(Parameter.CURRENCY);
-        ResourceBundle bundle = ResourceBuilder.OPERATION_MESSAGES.setLocale(locale).create();
+        ResourceBundle bundle = ResourceManager.OPERATION_MESSAGES.setLocale(locale).create();
         try {
             UserDto admin = (UserDto) session.getAttribute(Parameter.USER);
             if (admin.getRole().equals(FieldValue.ROLE_ADMIN)) {

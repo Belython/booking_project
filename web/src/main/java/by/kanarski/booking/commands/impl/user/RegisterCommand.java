@@ -6,7 +6,7 @@ import by.kanarski.booking.constants.PagePath;
 import by.kanarski.booking.constants.Parameter;
 import by.kanarski.booking.dto.UserDto;
 import by.kanarski.booking.exceptions.ServiceException;
-import by.kanarski.booking.managers.ResourceBuilder;
+import by.kanarski.booking.managers.ResourceManager;
 import by.kanarski.booking.requestHandler.ServletAction;
 import by.kanarski.booking.services.impl.UserServiceImpl;
 import by.kanarski.booking.utils.RequestParser;
@@ -27,7 +27,7 @@ public class RegisterCommand extends AbstractCommand {
         HttpSession session = request.getSession();
 //        Locale locale = (Locale) session.getAttribute(Parameter.LOCALE);
         Locale locale = UserPreferences.getLocale();
-        ResourceBundle bundle = ResourceBuilder.OPERATION_MESSAGES.setLocale(locale).create();
+        ResourceBundle bundle = ResourceManager.OPERATION_MESSAGES.setLocale(locale).create();
         try {
             UserDto userDto = RequestParser.parseUserDto(request);
             if (areFieldsFullStocked(userDto)) {

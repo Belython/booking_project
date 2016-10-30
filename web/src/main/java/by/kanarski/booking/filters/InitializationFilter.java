@@ -5,7 +5,7 @@ import by.kanarski.booking.constants.PagePath;
 import by.kanarski.booking.constants.Parameter;
 import by.kanarski.booking.dto.HotelDto;
 import by.kanarski.booking.exceptions.ServiceException;
-import by.kanarski.booking.managers.ResourceBuilder;
+import by.kanarski.booking.managers.ResourceManager;
 import by.kanarski.booking.services.impl.HotelServiceImpl;
 
 import javax.servlet.*;
@@ -57,7 +57,7 @@ public class InitializationFilter implements Filter {
             }
         } catch (ServiceException e) {
             Locale locale = (Locale) session.getAttribute(Parameter.LOCALE);
-            ResourceBundle bundle = ResourceBuilder.OPERATION_MESSAGES.setLocale(locale).create();
+            ResourceBundle bundle = ResourceManager.OPERATION_MESSAGES.setLocale(locale).create();
             String errorMessage = bundle.getString(OperationMessageKeys.ERROR_DATABASE);
             request.setAttribute(Parameter.ERROR_DATABASE, errorMessage);
         }

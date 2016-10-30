@@ -8,7 +8,7 @@ import by.kanarski.booking.constants.Parameter;
 import by.kanarski.booking.dto.BillDto;
 import by.kanarski.booking.dto.UserDto;
 import by.kanarski.booking.exceptions.ServiceException;
-import by.kanarski.booking.managers.ResourceBuilder;
+import by.kanarski.booking.managers.ResourceManager;
 import by.kanarski.booking.requestHandler.ServletAction;
 import by.kanarski.booking.services.impl.BillServiceImpl;
 
@@ -37,7 +37,7 @@ public class PayBillCommand extends AbstractCommand {
             BillServiceImpl.getInstance().update(billToPay);
             List<BillDto> billDtoList = BillServiceImpl.getInstance().getByUserId(user.getUserId());
             session.setAttribute(Parameter.BILL_LIST, billDtoList);
-            ResourceBundle bundle = ResourceBuilder.OPERATION_MESSAGES.setLocale(locale).create();
+            ResourceBundle bundle = ResourceManager.OPERATION_MESSAGES.setLocale(locale).create();
             String errorMessage = bundle.getString(OperationMessageKeys.ERROR_DATABASE);
             request.setAttribute(Parameter.ERROR_DATABASE, errorMessage);
             page = PagePath.ACCOUNT_PAGE_PATH;

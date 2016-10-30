@@ -4,7 +4,7 @@ import by.kanarski.booking.commands.factory.CommandType;
 import by.kanarski.booking.constants.OperationMessageKeys;
 import by.kanarski.booking.constants.Parameter;
 import by.kanarski.booking.dto.UserDto;
-import by.kanarski.booking.managers.ResourceBuilder;
+import by.kanarski.booking.managers.ResourceManager;
 import by.kanarski.booking.utils.RequestParser;
 
 import javax.servlet.*;
@@ -32,7 +32,7 @@ public class AuthorizationFilter implements Filter {
         if (commandType.name().equals(commandType.MAKEBILL.toString())) {
             UserDto userDto = (UserDto) session.getAttribute(Parameter.USER);
             if (userDto == null) {
-                ResourceBundle bundle = ResourceBuilder.OPERATION_MESSAGES.setLocale(locale).create();
+                ResourceBundle bundle = ResourceManager.OPERATION_MESSAGES.setLocale(locale).create();
                 request.setAttribute(Parameter.OPERATION_MESSAGE, bundle.getString(OperationMessageKeys.AUTHORIZATION_ERRON));
                 request.setAttribute(Parameter.COMMAND, "cancelAction");
             }

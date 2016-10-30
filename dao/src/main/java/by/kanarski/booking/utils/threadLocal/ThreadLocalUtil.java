@@ -4,14 +4,18 @@ package by.kanarski.booking.utils.threadLocal;
 import by.kanarski.booking.utils.ConnectionUtil;
 
 public enum ThreadLocalUtil {
-    CONNECTION, LOCALE, CURRENCY;
+    CONNECTION,
+    LOCALE,
+    CURRENCY,
+    RESOURCE_CACHE;
 
-    private final static ThreadLocal<ThreadVariables> THREAD_VARIABLES = new ThreadLocal<ThreadVariables>() {
+    private static final ThreadLocal<ThreadVariables> THREAD_VARIABLES = new ThreadLocal<ThreadVariables>() {
 
         @Override
         protected ThreadVariables initialValue() {
             return new ThreadVariables();
         }
+
     };
 
     public Object get() {

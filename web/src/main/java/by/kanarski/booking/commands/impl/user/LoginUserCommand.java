@@ -6,7 +6,7 @@ import by.kanarski.booking.constants.PagePath;
 import by.kanarski.booking.constants.Parameter;
 import by.kanarski.booking.dto.UserDto;
 import by.kanarski.booking.exceptions.ServiceException;
-import by.kanarski.booking.managers.ResourceBuilder;
+import by.kanarski.booking.managers.ResourceManager;
 import by.kanarski.booking.requestHandler.ServletAction;
 import by.kanarski.booking.services.impl.UserServiceImpl;
 import by.kanarski.booking.utils.RequestParser;
@@ -38,7 +38,7 @@ public class LoginUserCommand extends AbstractCommand {
                 }
             } else {
                 page = PagePath.INDEX_PAGE_PATH;
-                ResourceBundle bundle = ResourceBuilder.OPERATION_MESSAGES.setLocale(locale).create();
+                ResourceBundle bundle = ResourceManager.OPERATION_MESSAGES.setLocale(locale).create();
                 String errorMessage = bundle.getString(OperationMessageKeys.WRONG_LOGIN_OR_PASSWORD);
                 request.setAttribute(Parameter.OPERATION_MESSAGE, errorMessage);
             }

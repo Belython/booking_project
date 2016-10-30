@@ -7,7 +7,7 @@ import by.kanarski.booking.constants.Parameter;
 import by.kanarski.booking.constants.Value;
 import by.kanarski.booking.dto.RoomTypeDto;
 import by.kanarski.booking.exceptions.ServiceException;
-import by.kanarski.booking.managers.ResourceBuilder;
+import by.kanarski.booking.managers.ResourceManager;
 import by.kanarski.booking.requestHandler.ServletAction;
 import by.kanarski.booking.services.impl.RoomTypeServiceImpl;
 import by.kanarski.booking.utils.RequestParser;
@@ -54,7 +54,7 @@ public class AlterRoomTypesCommand extends AbstractCommand {
             List<RoomTypeDto> newRoomTypeDtoList = RoomTypeServiceImpl.getInstance().getAll();
             session.setAttribute(Parameter.ROOM_TYPE_LIST, newRoomTypeDtoList);
             session.setAttribute(Parameter.ROOM_TYPE_DTO_LIST, newRoomTypeDtoList);
-            ResourceBundle bundle = ResourceBuilder.OPERATION_MESSAGES.setLocale(locale).create();
+            ResourceBundle bundle = ResourceManager.OPERATION_MESSAGES.setLocale(locale).create();
             String responseText = bundle.getString(OperationMessageKeys.DATABASE_CHANGE_SUCCES);
             if (RequestParser.isAjaxRequest(request)) {
                 servletAction = ServletAction.AJAX_REQUEST;

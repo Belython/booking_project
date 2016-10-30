@@ -2,7 +2,7 @@ package by.kanarski.booking.utils;
 
 import by.kanarski.booking.constants.DaoMessage;
 import by.kanarski.booking.constants.DatabaseKeys;
-import by.kanarski.booking.managers.ResourceBuilder;
+import by.kanarski.booking.managers.ResourceManager;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 import java.beans.PropertyVetoException;
@@ -28,7 +28,7 @@ public class DataSource {
     private DataSource() {
         cpds = new ComboPooledDataSource();
         try {
-            ResourceBundle bundle = ResourceBuilder.DATABASE.create();
+            ResourceBundle bundle = ResourceManager.DATABASE.get();
             cpds.setDriverClass(bundle.getString(DatabaseKeys.JDBC_DRIVER_PATH));
             cpds.setJdbcUrl(bundle.getString(DatabaseKeys.DATABASE_PATH));
             cpds.setUser(bundle.getString(DatabaseKeys.USER_NAME));

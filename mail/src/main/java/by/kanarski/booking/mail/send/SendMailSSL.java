@@ -1,23 +1,21 @@
 package by.kanarski.booking.mail.send;
 
-import by.kanarski.booking.constants.AuthenticationKeys;
-import by.kanarski.booking.constants.MailMessagesKeys;
 import by.kanarski.booking.mail.authenticatiors.BookingAuthenticator;
-import by.kanarski.booking.managers.ResourceBuilder;
+import by.kanarski.booking.managers.AuthenticationManager;
+import by.kanarski.booking.managers.MailMessageManager;
 import by.kanarski.booking.utils.properties.PropertiesManager;
 
-import java.util.Locale;
-import java.util.Properties;
-import java.util.ResourceBundle;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.util.Locale;
+import java.util.Properties;
 
 public class SendMailSSL {
 
     private static SendMailSSL instance;
 
-    private ResourceBundle bookingAccount = ResourceBuilder.AUTHENTIFICATION.create();
+//    private ResourceBundle bookingAccount = ResourceManager.AUTHENTIFICATION.get();
 
     private SendMailSSL() {
 
@@ -33,7 +31,7 @@ public class SendMailSSL {
     private void send(String to, String subject, String messageText) {
         Session session = defineSession();
         try {
-            String from = bookingAccount.getString(AuthenticationKeys.USER_NAME);
+            String from = AuthenticationManager.USER_NAME.get();
             InternetAddress fromAdress = new InternetAddress(from);
             InternetAddress[] toAdress = InternetAddress.parse(to);
             Message message = new MimeMessage(session);
@@ -56,10 +54,9 @@ public class SendMailSSL {
     }
 
     public void sendPassword(String to, String password, Locale locale) {
-        ResourceBundle mailMessages = ResourceBuilder.MAIL_MESSAGES.setLocale(locale).create();
-        String subject = mailMessages.getString(MailMessagesKeys.SUBJECT_RECOVERY_PASSWORD);
+        String subject = MailMessageManager.SUBJECT_RECOVERY_PASSWORD.get();
         subject = "[booking.by] " + subject;
-        String message = mailMessages.getString(MailMessagesKeys.MESSAGE_YOUR_PASSWORD);
+        String message = MailMessageManager.MESSAGE_YOUR_PASSWORD.get();
         message += " " + password;
         send(to, subject, message);
     }
