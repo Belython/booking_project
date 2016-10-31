@@ -21,6 +21,13 @@
         <c3p0.version>0.9.5.2</c3p0.version>
         <javax.mail.version>1.4</javax.mail.version>
         <junit.version>4.12</junit.version>
+        <gson.vervion>2.7</gson.vervion>
+
+        <!--Plugin versions-->
+        <cobertura.version>2.7</cobertura.version>
+        <mvn-dependency.version>2.10</mvn-dependency.version>
+        <mvn-compiler.version>3.3</mvn-compiler.version>
+        <tomcat7.version>2.2</tomcat7.version>
     </properties>
 
     <dependencyManagement>
@@ -69,6 +76,12 @@
                 <artifactId>mail</artifactId>
                 <version>${javax.mail.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>${gson.vervion}</version>
+                <scope>test</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -83,7 +96,7 @@
         <dependency>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>cobertura-maven-plugin</artifactId>
-            <version>2.7</version>
+            <version>${cobertura.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -93,7 +106,6 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
-                <version>2.7</version>
             </plugin>
         </plugins>
     </reporting>
@@ -113,17 +125,17 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
-                    <version>2.10</version>
+                    <version>${mvn-dependency.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.3</version>
+                    <version>${mvn-compiler.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.tomcat.maven</groupId>
                     <artifactId>tomcat7-maven-plugin</artifactId>
-                    <version>2.2</version>
+                    <version>${tomcat7.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>

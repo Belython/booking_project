@@ -2,13 +2,12 @@ package by.kanarski.booking.commands.impl.client;
 
 import by.kanarski.booking.commands.AbstractCommand;
 import by.kanarski.booking.constants.FieldValue;
-import by.kanarski.booking.constants.OperationMessageKeys;
 import by.kanarski.booking.constants.PagePath;
 import by.kanarski.booking.constants.Parameter;
 import by.kanarski.booking.dto.BillDto;
 import by.kanarski.booking.dto.RoomDto;
 import by.kanarski.booking.exceptions.ServiceException;
-import by.kanarski.booking.managers.ResourceManager;
+import by.kanarski.booking.managers.OperationMessageManager;
 import by.kanarski.booking.requestHandler.ServletAction;
 import by.kanarski.booking.services.impl.BillServiceImpl;
 import by.kanarski.booking.services.impl.RoomServiceImpl;
@@ -16,7 +15,10 @@ import by.kanarski.booking.services.impl.RoomServiceImpl;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.*;
+import java.util.Currency;
+import java.util.List;
+import java.util.Locale;
+import java.util.TreeMap;
 
 public class RefuseBillCommand extends AbstractCommand{
 
@@ -25,13 +27,13 @@ public class RefuseBillCommand extends AbstractCommand{
         ServletAction servletAction = ServletAction.FORWARD_PAGE;
         String page = null;
         HttpSession session = request.getSession();
-        Locale locale = (Locale) session.getAttribute(Parameter.LOCALE);
-        ResourceBundle bundle = ResourceManager.OPERATION_MESSAGES.setLocale(locale).create();
+//        Locale locale = (Locale) session.getAttribute(Parameter.LOCALE);
+//        ResourceBundle bundle = ResourceManager.OPERATION_MESSAGES.setLocale(locale).create();
         try {
             BillDto refusedBillDto = refuseBill(request);
             List<BillDto> newBillDtoList = getNewBillDtoList(session, refusedBillDto);
             session.setAttribute(Parameter.BILL_LIST, newBillDtoList);
-            request.setAttribute(Parameter.OPERATION_MESSAGE, bundle.getString(OperationMessageKeys.SUCCESS_OPERATION));
+            request.setAttribute(Parameter.OPERATION_MESSAGE, OperationMessageManager.SUCCESS_OPERATION.getLocalised());
             page = PagePath.ACCOUNT_PAGE_PATH;
         } catch (ServiceException e) {
             page = PagePath.ERROR;

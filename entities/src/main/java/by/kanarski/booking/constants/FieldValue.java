@@ -3,9 +3,6 @@ package by.kanarski.booking.constants;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Created by Дмитрий on 24.09.2016.
- */
 public class FieldValue {
 
     //Id value

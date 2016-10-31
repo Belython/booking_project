@@ -163,13 +163,13 @@ public class DtoToEntityConverter {
         return roomTypeList;
     }
 
-    public static Bill toBill(BillDto billDto, Locale locale, Currency currency) throws LocalisationException {
+    public static Bill toBill(BillDto billDto, Currency currency) throws LocalisationException {
         long billId = billDto.getBillId();
         UserDto clientDto = billDto.getUser();
         User user = toUser(clientDto);
         int totalPersons = billDto.getTotalPersons();
-        long checkInDate = DateUtil.parseDate(billDto.getCheckInDate(), locale);
-        long checkOutDate = DateUtil.parseDate(billDto.getCheckOutDate(), locale);
+        long checkInDate = DateUtil.parseDate(billDto.getCheckInDate());
+        long checkOutDate = DateUtil.parseDate(billDto.getCheckOutDate());
         List<RoomDto> bookedRoomDtoList = billDto.getBookedRoomList();
         List<Long> bookedRoomIdList = new ArrayList<>();
         for (RoomDto bookedRoomDto : bookedRoomDtoList) {
@@ -238,7 +238,7 @@ public class DtoToEntityConverter {
     public static Bill toBill(BillDto billDto) throws LocalisationException{
         Locale locale = BookingSystemLocale.DEFAULT;
         Currency currency = BookingSystemCurrency.DEFAULT;
-        return toBill(billDto, locale, currency);
+        return toBill(billDto, currency);
     }
 
     public static List<UserDto> toUserDtoList(List<User> userList) {

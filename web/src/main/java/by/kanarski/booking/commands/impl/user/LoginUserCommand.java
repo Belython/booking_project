@@ -1,12 +1,11 @@
 package by.kanarski.booking.commands.impl.user;
 
 import by.kanarski.booking.commands.AbstractCommand;
-import by.kanarski.booking.constants.OperationMessageKeys;
 import by.kanarski.booking.constants.PagePath;
 import by.kanarski.booking.constants.Parameter;
 import by.kanarski.booking.dto.UserDto;
 import by.kanarski.booking.exceptions.ServiceException;
-import by.kanarski.booking.managers.ResourceManager;
+import by.kanarski.booking.managers.OperationMessageManager;
 import by.kanarski.booking.requestHandler.ServletAction;
 import by.kanarski.booking.services.impl.UserServiceImpl;
 import by.kanarski.booking.utils.RequestParser;
@@ -15,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Locale;
-import java.util.ResourceBundle;
 
 public class LoginUserCommand extends AbstractCommand {
 
@@ -38,8 +36,8 @@ public class LoginUserCommand extends AbstractCommand {
                 }
             } else {
                 page = PagePath.INDEX_PAGE_PATH;
-                ResourceBundle bundle = ResourceManager.OPERATION_MESSAGES.setLocale(locale).create();
-                String errorMessage = bundle.getString(OperationMessageKeys.WRONG_LOGIN_OR_PASSWORD);
+//                ResourceBundle bundle = ResourceManager.OPERATION_MESSAGES.setLocale(locale).create();
+                String errorMessage = OperationMessageManager.WRONG_LOGIN_OR_PASSWORD.getLocalised();
                 request.setAttribute(Parameter.OPERATION_MESSAGE, errorMessage);
             }
         } catch (ServiceException e) {

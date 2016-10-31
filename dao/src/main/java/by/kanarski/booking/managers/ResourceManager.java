@@ -51,10 +51,10 @@ public enum ResourceManager {
     }
 
     public ResourceBundle get(Locale locale) {
-        String resourceName = this.name() + locale.getDisplayName();
+        String resourceName = this.name() + " " + locale.toLanguageTag();
         bundle = RESOURCE_CACHE.get(resourceName);
         if (bundle == null) {
-            bundle = ResourceBundle.getBundle(resoucePath);
+            bundle = ResourceBundle.getBundle(resoucePath, locale);
             RESOURCE_CACHE.put(resourceName, bundle);
         }
         return bundle;

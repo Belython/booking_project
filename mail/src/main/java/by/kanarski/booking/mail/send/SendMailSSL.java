@@ -1,7 +1,7 @@
 package by.kanarski.booking.mail.send;
 
 import by.kanarski.booking.mail.authenticatiors.BookingAuthenticator;
-import by.kanarski.booking.managers.AuthenticationManager;
+import by.kanarski.booking.managers.DatabaseManager;
 import by.kanarski.booking.managers.MailMessageManager;
 import by.kanarski.booking.utils.properties.PropertiesManager;
 
@@ -31,7 +31,7 @@ public class SendMailSSL {
     private void send(String to, String subject, String messageText) {
         Session session = defineSession();
         try {
-            String from = AuthenticationManager.USER_NAME.get();
+            String from = DatabaseManager.USER_NAME.get();
             InternetAddress fromAdress = new InternetAddress(from);
             InternetAddress[] toAdress = InternetAddress.parse(to);
             Message message = new MimeMessage(session);

@@ -51,7 +51,4 @@ public class LocalisatorImpl {
         return formattedMoney;
     }
 
-    public static String getOperationMessage() {
-
-    }
 }

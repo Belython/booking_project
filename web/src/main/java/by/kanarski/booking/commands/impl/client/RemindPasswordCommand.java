@@ -1,13 +1,12 @@
 package by.kanarski.booking.commands.impl.client;
 
 import by.kanarski.booking.commands.AbstractCommand;
-import by.kanarski.booking.constants.OperationMessageKeys;
 import by.kanarski.booking.constants.PagePath;
 import by.kanarski.booking.constants.Parameter;
 import by.kanarski.booking.dto.UserDto;
 import by.kanarski.booking.exceptions.ServiceException;
 import by.kanarski.booking.mail.send.SendMailSSL;
-import by.kanarski.booking.managers.ResourceManager;
+import by.kanarski.booking.managers.OperationMessageManager;
 import by.kanarski.booking.requestHandler.ServletAction;
 import by.kanarski.booking.services.impl.UserServiceImpl;
 
@@ -15,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Locale;
-import java.util.ResourceBundle;
 
 public class RemindPasswordCommand extends AbstractCommand {
 
@@ -30,8 +28,8 @@ public class RemindPasswordCommand extends AbstractCommand {
             UserDto userDto = UserServiceImpl.getInstance().getByEmail(email);
             String password = userDto.getPassword();
             SendMailSSL.getInstance().sendPassword(email, password, locale);
-            ResourceBundle bundle = ResourceManager.OPERATION_MESSAGES.setLocale(locale).create();
-            String operationResult = bundle.getString(OperationMessageKeys.PASSWORD_SENT);
+//            ResourceBundle bundle = ResourceManager.OPERATION_MESSAGES.setLocale(locale).create();
+            String operationResult = OperationMessageManager.PASSWORD_SENT.getLocalised();
             request.setAttribute(Parameter.OPERATION_MESSAGE, operationResult);
             page = PagePath.INDEX_PAGE_PATH;
         }  catch (ServiceException e) {

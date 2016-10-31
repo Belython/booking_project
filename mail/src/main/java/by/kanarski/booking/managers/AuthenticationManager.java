@@ -12,7 +12,8 @@ import java.util.ResourceBundle;
 
 public enum AuthenticationManager {
 
-    USER_NAME("booking.userName"), PASSWORD("booking.password");
+    USER_NAME("booking.userName"),
+    PASSWORD("booking.password");
 
     private String resourceKey;
 

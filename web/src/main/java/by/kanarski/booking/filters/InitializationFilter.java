@@ -1,18 +1,19 @@
 package by.kanarski.booking.filters;
 
-import by.kanarski.booking.constants.OperationMessageKeys;
 import by.kanarski.booking.constants.PagePath;
 import by.kanarski.booking.constants.Parameter;
 import by.kanarski.booking.dto.HotelDto;
 import by.kanarski.booking.exceptions.ServiceException;
-import by.kanarski.booking.managers.ResourceManager;
+import by.kanarski.booking.managers.OperationMessageManager;
 import by.kanarski.booking.services.impl.HotelServiceImpl;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class InitializationFilter implements Filter {
 
@@ -56,9 +57,10 @@ public class InitializationFilter implements Filter {
                 supportedCities.add(city);
             }
         } catch (ServiceException e) {
-            Locale locale = (Locale) session.getAttribute(Parameter.LOCALE);
-            ResourceBundle bundle = ResourceManager.OPERATION_MESSAGES.setLocale(locale).create();
-            String errorMessage = bundle.getString(OperationMessageKeys.ERROR_DATABASE);
+//            Locale locale = (Locale) session.getAttribute(Parameter.LOCALE);
+//            ResourceBundle bundle = ResourceManager.OPERATION_MESSAGES.setLocale(locale).create();
+
+            String errorMessage = OperationMessageManager.ERROR_DATABASE.getLocalised();
             request.setAttribute(Parameter.ERROR_DATABASE, errorMessage);
         }
         session.setAttribute(Parameter.SUPPORTED_HOTELS, supportedHotels);

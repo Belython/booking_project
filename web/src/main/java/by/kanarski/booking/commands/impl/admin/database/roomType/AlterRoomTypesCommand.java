@@ -1,13 +1,12 @@
 package by.kanarski.booking.commands.impl.admin.database.roomType;
 
 import by.kanarski.booking.commands.AbstractCommand;
-import by.kanarski.booking.constants.OperationMessageKeys;
 import by.kanarski.booking.constants.PagePath;
 import by.kanarski.booking.constants.Parameter;
 import by.kanarski.booking.constants.Value;
 import by.kanarski.booking.dto.RoomTypeDto;
 import by.kanarski.booking.exceptions.ServiceException;
-import by.kanarski.booking.managers.ResourceManager;
+import by.kanarski.booking.managers.OperationMessageManager;
 import by.kanarski.booking.requestHandler.ServletAction;
 import by.kanarski.booking.services.impl.RoomTypeServiceImpl;
 import by.kanarski.booking.utils.RequestParser;
@@ -17,10 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Currency;
 import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 public class AlterRoomTypesCommand extends AbstractCommand {
 
@@ -29,8 +25,8 @@ public class AlterRoomTypesCommand extends AbstractCommand {
         ServletAction servletAction = null;
         String page = null;
         HttpSession session = request.getSession();
-        Locale locale = (Locale) session.getAttribute(Parameter.LOCALE);
-        Currency currency = (Currency) session.getAttribute(Parameter.CURRENCY);
+//        Locale locale = (Locale) session.getAttribute(Parameter.LOCALE);
+//        Currency currency = (Currency) session.getAttribute(Parameter.CURRENCY);
         String subCommand = request.getParameter(Parameter.SUB_COMMAND);
         try {
             List<RoomTypeDto> roomTypeDtoList = RequestParser.parseRoomTypeDtoList(request);
@@ -54,8 +50,8 @@ public class AlterRoomTypesCommand extends AbstractCommand {
             List<RoomTypeDto> newRoomTypeDtoList = RoomTypeServiceImpl.getInstance().getAll();
             session.setAttribute(Parameter.ROOM_TYPE_LIST, newRoomTypeDtoList);
             session.setAttribute(Parameter.ROOM_TYPE_DTO_LIST, newRoomTypeDtoList);
-            ResourceBundle bundle = ResourceManager.OPERATION_MESSAGES.setLocale(locale).create();
-            String responseText = bundle.getString(OperationMessageKeys.DATABASE_CHANGE_SUCCES);
+//            ResourceBundle bundle = ResourceManager.OPERATION_MESSAGES.setLocale(locale).create();
+            String responseText = OperationMessageManager.DATABASE_CHANGE_SUCCES.getLocalised();
             if (RequestParser.isAjaxRequest(request)) {
                 servletAction = ServletAction.AJAX_REQUEST;
                 writeResponse(response, responseText);

@@ -1,14 +1,12 @@
 package by.kanarski.booking.utils;
 
 import by.kanarski.booking.constants.DaoMessage;
-import by.kanarski.booking.constants.DatabaseKeys;
-import by.kanarski.booking.managers.ResourceManager;
+import by.kanarski.booking.managers.DatabaseManager;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 import java.beans.PropertyVetoException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ResourceBundle;
 
 /**
  * Represents connections pool based on c3p0 library
@@ -28,11 +26,11 @@ public class DataSource {
     private DataSource() {
         cpds = new ComboPooledDataSource();
         try {
-            ResourceBundle bundle = ResourceManager.DATABASE.get();
-            cpds.setDriverClass(bundle.getString(DatabaseKeys.JDBC_DRIVER_PATH));
-            cpds.setJdbcUrl(bundle.getString(DatabaseKeys.DATABASE_PATH));
-            cpds.setUser(bundle.getString(DatabaseKeys.USER_NAME));
-            cpds.setPassword(bundle.getString(DatabaseKeys.PASSWORD));
+//            ResourceBundle bundle = ResourceManager.DATABASE.get();
+            cpds.setDriverClass(DatabaseManager.JDBC_DRIVER_PATH.get());
+            cpds.setJdbcUrl(DatabaseManager.DATABASE_PATH.get());
+            cpds.setUser(DatabaseManager.USER_NAME.get());
+            cpds.setPassword(DatabaseManager.PASSWORD.get());
             cpds.setMinPoolSize(5);
             cpds.setAcquireIncrement(5);
             cpds.setMaxPoolSize(50);

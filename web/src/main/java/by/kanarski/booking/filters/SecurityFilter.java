@@ -1,50 +1,78 @@
 package by.kanarski.booking.filters;
 
 import by.kanarski.booking.commands.factory.CommandType;
-import by.kanarski.booking.constants.PagePath;
+import by.kanarski.booking.constants.FieldValue;
+import by.kanarski.booking.constants.Parameter;
+import by.kanarski.booking.dto.UserDto;
+import by.kanarski.booking.managers.OperationMessageManager;
 import by.kanarski.booking.utils.RequestParser;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class SecurityFilter implements Filter {
-    public void init(FilterConfig fConfig) throws ServletException {
+
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+
     }
 
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        HttpServletRequest httpRequest = (HttpServletRequest) request;
-        HttpServletResponse httpResponse = (HttpServletResponse) response;
-        HttpSession session = httpRequest.getSession();
-//        UserType type = RequestParser.getUserType(httpRequest);
-        String type = null;
-        try {
-            CommandType commandType = RequestParser.parseCommandType(httpRequest);
-            if (type == null) {
-                if (commandType == CommandType.LOGIN) {
-                    chain.doFilter(request, response);
-                } else if (commandType == CommandType.GOTOREGISTRATION) {
-                    chain.doFilter(request, response);
-                } else if (commandType == CommandType.REGISTER) {
-                    chain.doFilter(request, response);
-                } else {
-                    String page = PagePath.INDEX_PAGE_PATH;
-                    RequestDispatcher dispatcher = request.getRequestDispatcher(page);
-                    dispatcher.forward(httpRequest, httpResponse);
-                    session.invalidate();
-                }
-            } else {
-                chain.doFilter(request, response);
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain next) throws IOException, ServletException {
+        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+//        HttpServletResponse httpServletResponse = (HttpServletResponse) response;
+//        HttpSession session = httpServletRequest.getSession();
+//        Locale locale = (Locale) session.getAttribute(Parameter.LOCALE);
+        CommandType commandType = RequestParser.parseCommandType(httpServletRequest);
+        switch (commandType) {
+            case MAKEBILL: {
+                checkAuthorization(httpServletRequest);
+                break;
             }
-        } catch (IllegalArgumentException e) {
-            String page = PagePath.INDEX_PAGE_PATH;
-            RequestDispatcher dispatcher = request.getRequestDispatcher(page);
-            dispatcher.forward(httpRequest, httpResponse);
+            case GOTOROOMTYPEREDACTOR: {
+                checkRole(httpServletRequest);
+                break;
+            }
+            case GOTOROOMSREDACTOR: {
+                checkRole(httpServletRequest);
+                break;
+            }
+        }
+        if (commandType.name().equals(commandType.MAKEBILL.toString())) {
+            checkAuthorization(httpServletRequest);
+        }
+        next.doFilter(request, response);
+    }
+
+    @Override
+    public void destroy() {
+
+    }
+
+
+    private UserDto checkAuthorization(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        UserDto userDto = (UserDto) session.getAttribute(Parameter.USER);
+        if (userDto == null) {
+//                ResourceBundle bundle = ResourceManager.OPERATION_MESSAGES.setLocale(locale).create();
+            request.setAttribute(Parameter.OPERATION_MESSAGE, OperationMessageManager.AUTHORIZATION_ERRON.getLocalised());
+            request.setAttribute(Parameter.COMMAND, "cancelAction");
+        }
+        return userDto;
+    }
+
+    private void checkRole(HttpServletRequest request) {
+        UserDto userDto = checkAuthorization(request);
+        String role = userDto.getRole();
+        switch (role) {
+            case FieldValue.ROLE_CLIENT: {
+//                String opertaionMessage = bundle.getString(OperationMessageKey.LOW_ACCESS_LEVEL);
+                request.setAttribute(Parameter.OPERATION_MESSAGE, OperationMessageManager.LOW_ACCESS_LEVEL.getLocalised());
+                request.setAttribute(Parameter.COMMAND, "cancelAction");
+            }
         }
     }
 
-    public void destroy() {
-    }
 }
