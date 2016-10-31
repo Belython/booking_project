@@ -9,6 +9,7 @@ import by.kanarski.booking.mail.send.SendMailSSL;
 import by.kanarski.booking.managers.OperationMessageManager;
 import by.kanarski.booking.requestHandler.ServletAction;
 import by.kanarski.booking.services.impl.UserServiceImpl;
+import by.kanarski.booking.utils.threadLocal.UserPreferences;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,13 +23,12 @@ public class RemindPasswordCommand extends AbstractCommand {
         ServletAction servletAction = ServletAction.FORWARD_PAGE;
         String page = null;
         HttpSession session = request.getSession();
-        Locale locale = (Locale) session.getAttribute(Parameter.LOCALE);
+        Locale locale = UserPreferences.getLocale();
         String email = request.getParameter(Parameter.USER_EMAIL);
         try {
             UserDto userDto = UserServiceImpl.getInstance().getByEmail(email);
             String password = userDto.getPassword();
             SendMailSSL.getInstance().sendPassword(email, password, locale);
-//            ResourceBundle bundle = ResourceManager.OPERATION_MESSAGES.setLocale(locale).create();
             String operationResult = OperationMessageManager.PASSWORD_SENT.getLocalised();
             request.setAttribute(Parameter.OPERATION_MESSAGE, operationResult);
             page = PagePath.INDEX_PAGE_PATH;

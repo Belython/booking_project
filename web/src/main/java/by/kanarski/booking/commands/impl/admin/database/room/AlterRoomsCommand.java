@@ -25,12 +25,9 @@ public class AlterRoomsCommand extends AbstractCommand {
         ServletAction servletAction = null;
         String page = null;
         HttpSession session = request.getSession();
-//        Locale locale = (Locale) session.getAttribute(Parameter.LOCALE);
-//        Currency currency = (Currency) session.getAttribute(Parameter.CURRENCY);
         String subCommand = request.getParameter(Parameter.SUB_COMMAND);
         try {
             List<RoomDto> roomDtoList = RequestParser.parseRoomDtoList(request);
-//            List<Room> roomList = DtoToEntityConverter.toRoomList(roomDtoList, locale, currency);
             switch (subCommand) {
                 case Value.ADD_NEW: {
                     RoomServiceImpl.getInstance().addList(roomDtoList);
@@ -44,7 +41,6 @@ public class AlterRoomsCommand extends AbstractCommand {
             List<RoomDto> newRoomDtoList = RoomServiceImpl.getInstance().getAll();
             session.setAttribute(Parameter.ROOM_LIST, newRoomDtoList);
             session.setAttribute(Parameter.ROOM_DTO_LIST, newRoomDtoList);
-//            ResourceBundle bundle = ResourceManager.OPERATION_MESSAGES.setLocale(locale).create();
             String responseText = OperationMessageManager.DATABASE_CHANGE_SUCCES.getLocalised();
             if (RequestParser.isAjaxRequest(request)) {
                 servletAction = ServletAction.AJAX_REQUEST;

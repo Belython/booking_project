@@ -9,6 +9,10 @@ public class HotelDto {
     private String hotelName;
     private String hotelStatus;
 
+    public HotelDto() {
+
+    }
+
     public HotelDto(long hotelId, LocationDto location, String hotelName, String hotelStatus) {
         this.hotelId = hotelId;
         this.location = location;

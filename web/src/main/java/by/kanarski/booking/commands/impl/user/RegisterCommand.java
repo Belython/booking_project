@@ -21,9 +21,6 @@ public class RegisterCommand extends AbstractCommand {
         ServletAction servletAction = ServletAction.FORWARD_PAGE;
         String page = null;
         HttpSession session = request.getSession();
-//        Locale locale = (Locale) session.getAttribute(Parameter.LOCALE);
-//        Locale locale = UserPreferences.getLocale();
-//        ResourceBundle bundle = ResourceManager.OPERATION_MESSAGES.setLocale(locale).create();
         try {
             UserDto userDto = RequestParser.parseUserDto(request);
             if (areFieldsFullStocked(userDto)) {
@@ -43,7 +40,6 @@ public class RegisterCommand extends AbstractCommand {
             page = PagePath.ERROR;
             handleServiceException(request);
         } catch (NumberFormatException e) {
-//            String exceptionMessage = bundle.getString(OperationMessageKey.INVALID_NUMBER_FORMAT);
             request.setAttribute(Parameter.OPERATION_MESSAGE, OperationMessageManager.INVALID_NUMBER_FORMAT.getLocalised());
             page = PagePath.REGISTRATION_PAGE_PATH;
         }

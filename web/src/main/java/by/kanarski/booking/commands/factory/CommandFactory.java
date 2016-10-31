@@ -1,7 +1,7 @@
 package by.kanarski.booking.commands.factory;
 
 import by.kanarski.booking.commands.ICommand;
-import by.kanarski.booking.commands.impl.user.LoginUserCommand;
+import by.kanarski.booking.commands.impl.user.GoToMainPageCommand;
 import by.kanarski.booking.utils.RequestParser;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +25,7 @@ public class CommandFactory {
             CommandType type = RequestParser.parseCommandType(request);
             current = type.getCurrentCommand();
         } catch (IllegalArgumentException e) {
-            current = new LoginUserCommand();
+            current = new GoToMainPageCommand();
         }
         return current;
     }

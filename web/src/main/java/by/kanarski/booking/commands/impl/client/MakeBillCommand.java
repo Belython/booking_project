@@ -7,6 +7,7 @@ import by.kanarski.booking.dto.BillDto;
 import by.kanarski.booking.dto.RoomDto;
 import by.kanarski.booking.exceptions.LocalisationException;
 import by.kanarski.booking.exceptions.ServiceException;
+import by.kanarski.booking.managers.OperationMessageManager;
 import by.kanarski.booking.requestHandler.ServletAction;
 import by.kanarski.booking.services.impl.BillServiceImpl;
 import by.kanarski.booking.services.impl.RoomServiceImpl;
@@ -40,6 +41,8 @@ public class MakeBillCommand extends AbstractCommand {
             }
             RoomServiceImpl.getInstance().reserveRoomList(requestedRoomList);
             BillServiceImpl.getInstance().add(billDto);
+            String paymentRecived = OperationMessageManager.ORDER_ACCEPTED.getLocalised();
+            request.setAttribute(Parameter.OPERATION_MESSAGE, paymentRecived);
             page = PagePath.INDEX_PAGE_PATH;
         } catch (ServiceException | LocalisationException e) {
             page = PagePath.ERROR;

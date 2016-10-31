@@ -88,7 +88,6 @@ public enum CommandType {
 
             case ALTERROOMTYPE:
                 return new AlterRoomTypesCommand();
-
             default:
                 throw new EnumConstantNotPresentException(this.getDeclaringClass(), this.name());
         }

@@ -28,9 +28,9 @@ public class BookingSystemLogger {
         logger.error(message, error);
     }
 
-    public void logInfo(Class sender, String message) {
+    public void logError(Class sender, String message) {
         logger = Logger.getLogger(sender);
-        logger.info(message);
+        logger.error(message);
     }
 
     public void logError(String message, Throwable error) {
@@ -41,6 +41,11 @@ public class BookingSystemLogger {
     public void logError(String message) {
         logger = Logger.getLogger(sender);
         logger.error(message);
+    }
+
+    public void logInfo(Class sender, String message) {
+        logger = Logger.getLogger(sender);
+        logger.info(message);
     }
 
     public void logInfo(String message) {

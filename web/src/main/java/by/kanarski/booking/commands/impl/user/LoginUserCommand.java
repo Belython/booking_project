@@ -13,7 +13,6 @@ import by.kanarski.booking.utils.RequestParser;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.Locale;
 
 public class LoginUserCommand extends AbstractCommand {
 
@@ -22,8 +21,6 @@ public class LoginUserCommand extends AbstractCommand {
         ServletAction servletAction = ServletAction.FORWARD_PAGE;
         String page = null;
         HttpSession session = request.getSession();
-        Locale locale = (Locale) session.getAttribute(Parameter.LOCALE);
-//        Locale locale = UserPreferences.getLocale();
         try {
             UserDto user = RequestParser.parseUserDto(request);
             boolean isAuthorised = UserServiceImpl.getInstance().checkAuthorization(user);
@@ -36,7 +33,6 @@ public class LoginUserCommand extends AbstractCommand {
                 }
             } else {
                 page = PagePath.INDEX_PAGE_PATH;
-//                ResourceBundle bundle = ResourceManager.OPERATION_MESSAGES.setLocale(locale).create();
                 String errorMessage = OperationMessageManager.WRONG_LOGIN_OR_PASSWORD.getLocalised();
                 request.setAttribute(Parameter.OPERATION_MESSAGE, errorMessage);
             }

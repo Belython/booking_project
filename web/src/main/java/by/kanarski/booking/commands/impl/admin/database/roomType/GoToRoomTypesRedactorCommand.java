@@ -28,11 +28,7 @@ public class GoToRoomTypesRedactorCommand implements ICommand {
         ServletAction servletAction;
         String page = null;
         HttpSession session = request.getSession();
-//        Locale locale = (Locale) session.getAttribute(Parameter.LOCALE);
-//        Currency currency = (Currency) session.getAttribute(Parameter.CURRENCY);
-//        ResourceBundle bundle = ResourceManager.OPERATION_MESSAGES.setLocale(locale).create();
         try {
-//            UserDto admin = (UserDto) session.getAttribute(Parameter.USER);
             servletAction = ServletAction.FORWARD_PAGE;
             page = PagePath.ROOM_TYPE_REDACTOR_PATH;
             List<RoomTypeDto> roomTypeDtoList = RoomTypeServiceImpl.getInstance().getAll();
@@ -54,7 +50,6 @@ public class GoToRoomTypesRedactorCommand implements ICommand {
                 FieldDescriptor<RoomTypeDto> roomTypeDtoDescriptor = FieldBuilder.buildEntity(roomTypeDescriptors, roomTypeDto);
                 descriptorList.add(roomTypeDtoDescriptor);
             }
-
             session.setAttribute(Parameter.ALTER_TABLE_COMMAND, Value.ALTER_ROOM_TYPE);
             session.setAttribute(Parameter.DESCRIPTOR_LIST, descriptorList);
             session.setAttribute(Parameter.ROOM_TYPE_LIST, roomTypeDtoList);
@@ -70,6 +65,4 @@ public class GoToRoomTypesRedactorCommand implements ICommand {
         servletAction.setPage(page);
         return servletAction;
     }
-
-
 }

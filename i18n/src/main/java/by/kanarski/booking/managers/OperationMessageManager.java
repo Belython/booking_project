@@ -12,11 +12,13 @@ import java.util.ResourceBundle;
 
 public enum OperationMessageManager {
 
-    WRONG_LOGIN_OR_PASSWORD("message.loginerror"),
-    USER_EXISTS("message.userexsistserror"),
-    EMPTY_LIST("message.emptylist"),
-    EMPTY_CHOICE("message.emptychoice"),
-    SUCCESS_OPERATION("message.successoperation"),
+    WRONG_LOGIN_OR_PASSWORD("message.loginError"),
+    USER_EXISTS("message.userExsistsError"),
+    EMPTY_LIST("message.emptyList"),
+    EMPTY_CHOICE("message.emptyChoice"),
+    SUCCESS_OPERATION("message.successOperation"),
+    ORDER_ACCEPTED("message.orderAccepted"),
+    PAYMENT_RECIVED("message.paymentRecived"),
     FAILED_OPERATION("message.failedoperation"),
     NEGATIVE_ARGUMENT("message.negativeoperator"),
     INVALID_NUMBER_FORMAT("message.invalidnumberformat"),

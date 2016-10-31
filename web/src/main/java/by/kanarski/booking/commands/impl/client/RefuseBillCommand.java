@@ -27,8 +27,6 @@ public class RefuseBillCommand extends AbstractCommand{
         ServletAction servletAction = ServletAction.FORWARD_PAGE;
         String page = null;
         HttpSession session = request.getSession();
-//        Locale locale = (Locale) session.getAttribute(Parameter.LOCALE);
-//        ResourceBundle bundle = ResourceManager.OPERATION_MESSAGES.setLocale(locale).create();
         try {
             BillDto refusedBillDto = refuseBill(request);
             List<BillDto> newBillDtoList = getNewBillDtoList(session, refusedBillDto);
@@ -49,8 +47,6 @@ public class RefuseBillCommand extends AbstractCommand{
         long refusedBillId = Long.valueOf(request.getParameter(Parameter.BILL_TO_REFUSE));
         BillDto refusedBillDto = BillServiceImpl.getInstance().getById(refusedBillId);
         String checkInDate = refusedBillDto.getCheckInDate();
-//        List<Long> roomIdList = refusedBillDto.getBookedRoomIdList();
-//        List<Room> roomList = RoomServiceImpl.getInstance().getByIdList(roomIdList);
         List<RoomDto> refusedRoomDtoList = refusedBillDto.getBookedRoomList();
         for (RoomDto roomDto : refusedRoomDtoList) {
             TreeMap<String, String> bookedDates = roomDto.getBookedDates();

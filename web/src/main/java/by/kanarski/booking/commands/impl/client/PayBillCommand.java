@@ -23,8 +23,6 @@ public class PayBillCommand extends AbstractCommand {
         ServletAction servletAction = ServletAction.FORWARD_PAGE;
         String page = null;
         HttpSession session = request.getSession();
-//        Locale locale = (Locale) session.getAttribute(Parameter.LOCALE);
-//        Currency currency = (Currency) session.getAttribute(Parameter.CURRENCY);
         try {
             UserDto user = (UserDto) session.getAttribute(Parameter.USER);
             long billId = Long.valueOf(request.getParameter(Parameter.BILL_TO_PAY));
@@ -32,11 +30,9 @@ public class PayBillCommand extends AbstractCommand {
             billToPay.setBillStatus(FieldValue.STATUS_PAID);
             BillServiceImpl.getInstance().update(billToPay);
             List<BillDto> billDtoList = BillServiceImpl.getInstance().getByUserId(user.getUserId());
+            String paymentRecived = OperationMessageManager.PAYMENT_RECIVED.getLocalised();
+            request.setAttribute(Parameter.OPERATION_MESSAGE, paymentRecived);
             session.setAttribute(Parameter.BILL_LIST, billDtoList);
-//            ResourceBundle bundle = ResourceManager.OPERATION_MESSAGES.setLocale(locale).create();
-
-            String errorMessage = OperationMessageManager.ERROR_DATABASE.getLocalised();
-            request.setAttribute(Parameter.ERROR_DATABASE, errorMessage);
             page = PagePath.ACCOUNT_PAGE_PATH;
         } catch (ServiceException e) {
             page = PagePath.ERROR;

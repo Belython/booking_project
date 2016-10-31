@@ -59,7 +59,6 @@ public class BillDao implements IBillDao {
             resultSet.next();
             bill.setBillId(resultSet.getLong(1));
         } catch (SQLException e) {
-            BookingSystemLogger.getInstance().logError(getClass(), DaoMessage.ADD_BILL_EXCEPTION);
             throw new DaoException(DaoMessage.ADD_BILL_EXCEPTION, e);
         } finally {
             ClosingUtil.close(resultSet);
@@ -77,7 +76,6 @@ public class BillDao implements IBillDao {
             resultSet.next();
             bill = EntityParser.parseBill(resultSet);
         } catch (SQLException e) {
-            BookingSystemLogger.getInstance().logError(getClass(), DaoMessage.GET_BILL_EXCEPTION);
             throw new DaoException(DaoMessage.GET_BILL_EXCEPTION, e);
         }
         return bill;
@@ -103,7 +101,6 @@ public class BillDao implements IBillDao {
             stm.setLong(8, bill.getBillId());
             stm.executeUpdate();
         } catch (SQLException e) {
-            BookingSystemLogger.getInstance().logError(getClass(), DaoMessage.GET_BILL_EXCEPTION);
             throw new DaoException(DaoMessage.GET_BILL_EXCEPTION, e);
         }
     }
@@ -124,7 +121,6 @@ public class BillDao implements IBillDao {
                 bills.add(EntityParser.parseBill(resultSet));
             }
         } catch (SQLException e) {
-            BookingSystemLogger.getInstance().logError(getClass(), DaoMessage.GET_BILL_EXCEPTION);
             throw new DaoException(DaoMessage.GET_BILL_EXCEPTION, e);
         }
         return bills;

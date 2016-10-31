@@ -34,16 +34,13 @@ public class GoToRoomsRedactorCommand implements ICommand {
         ServletAction servletAction;
         String page = null;
         HttpSession session = request.getSession();
-//        Locale locale = (Locale) session.getAttribute(Parameter.LOCALE);
         Currency currency = (Currency) session.getAttribute(Parameter.CURRENCY);
-//        ResourceBundle bundle = ResourceManager.OPERATION_MESSAGES.setLocale(locale).create();
         try {
             servletAction = ServletAction.FORWARD_PAGE;
             page = PagePath.ROOMS_REDACTOR_PATH;
             List<RoomDto> roomDtoList = RoomServiceImpl.getInstance().getAll();
             List<HotelDto> hotelDtoList = HotelServiceImpl.getInstance().getAll();
             List<RoomTypeDto> roomTypeDtoList = RoomTypeServiceImpl.getInstance().getAll();
-
             List<FieldDescriptor<RoomDto>> descriptorList = new ArrayList<>();
             for (RoomDto roomDto: roomDtoList) {
                 LinkedHashMap<String, FieldDescriptor> roomFields = new LinkedHashMap<>();
@@ -62,7 +59,6 @@ public class GoToRoomsRedactorCommand implements ICommand {
                 FieldDescriptor<RoomDto> roomDtoEntity = FieldBuilder.buildEntity(roomFields, roomDto);
                 descriptorList.add(roomDtoEntity);
             }
-
             session.setAttribute(Parameter.ALTER_TABLE_COMMAND, Value.ALTER_ROOMS);
             session.setAttribute(Parameter.DESCRIPTOR_LIST, descriptorList);
             session.setAttribute(Parameter.ROOM_LIST, roomDtoList);
