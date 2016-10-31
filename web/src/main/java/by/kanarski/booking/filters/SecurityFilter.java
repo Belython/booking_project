@@ -22,9 +22,6 @@ public class SecurityFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain next) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-//        HttpServletResponse httpServletResponse = (HttpServletResponse) response;
-//        HttpSession session = httpServletRequest.getSession();
-//        Locale locale = (Locale) session.getAttribute(Parameter.LOCALE);
         CommandType commandType = RequestParser.parseCommandType(httpServletRequest);
         switch (commandType) {
             case MAKEBILL: {
@@ -56,7 +53,6 @@ public class SecurityFilter implements Filter {
         HttpSession session = request.getSession();
         UserDto userDto = (UserDto) session.getAttribute(Parameter.USER);
         if (userDto == null) {
-//                ResourceBundle bundle = ResourceManager.OPERATION_MESSAGES.setLocale(locale).create();
             request.setAttribute(Parameter.OPERATION_MESSAGE, OperationMessageManager.AUTHORIZATION_ERRON.getLocalised());
             request.setAttribute(Parameter.COMMAND, "cancelAction");
         }
@@ -68,7 +64,6 @@ public class SecurityFilter implements Filter {
         String role = userDto.getRole();
         switch (role) {
             case FieldValue.ROLE_CLIENT: {
-//                String opertaionMessage = bundle.getString(OperationMessageKey.LOW_ACCESS_LEVEL);
                 request.setAttribute(Parameter.OPERATION_MESSAGE, OperationMessageManager.LOW_ACCESS_LEVEL.getLocalised());
                 request.setAttribute(Parameter.COMMAND, "cancelAction");
             }

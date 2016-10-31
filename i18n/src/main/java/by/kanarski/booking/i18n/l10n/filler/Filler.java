@@ -18,8 +18,6 @@ public class Filler {
     }
 
     public void fill (HttpServletRequest request) {
-//        HttpSession session = request.getSession();
-//        Locale locale = (Locale) session.getAttribute(Parameter.LOCALE);
         Locale locale = UserPreferences.getLocale();
         ResourceBundle bundle = ResourceManager.JSP_TEXT.get(locale);
         for (Map<String, List<String>> contentMap : pageDescriptor) {

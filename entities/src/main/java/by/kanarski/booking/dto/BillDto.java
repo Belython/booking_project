@@ -1,7 +1,7 @@
 package by.kanarski.booking.dto;
 
 import by.kanarski.booking.constants.FieldValue;
-import by.kanarski.booking.utils.Counter;
+import by.kanarski.booking.utils.HotelUtil;
 
 import java.util.List;
 import java.util.Map;
@@ -33,7 +33,7 @@ public class BillDto {
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
         this.bookedHotel = bookedHotel;
-        this.bookedRoomTypeMap = Counter.countRoomTypeDto(bookedRoomList);
+        this.bookedRoomTypeMap = HotelUtil.countRoomTypeDto(bookedRoomList);
         this.bookedRoomList = bookedRoomList;
         this.paymentAmount = paymentAmount;
         this.billStatus = billStatus;
@@ -48,7 +48,7 @@ public class BillDto {
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
         this.bookedHotel = bookedHotel;
-        this.bookedRoomTypeMap = Counter.countRoomTypeDto(bookedRoomList);
+        this.bookedRoomTypeMap = HotelUtil.countRoomTypeDto(bookedRoomList);
         this.bookedRoomList = bookedRoomList;
         this.paymentAmount = paymentAmount;
         this.billStatus = FieldValue.STATUS_NOT_PAID;
@@ -142,7 +142,7 @@ public class BillDto {
     }
 
     public void setBookedRoomList(List<RoomDto> bookedRoomList) {
-        this.bookedRoomTypeMap = Counter.countRoomTypeDto(bookedRoomList);
+        this.bookedRoomTypeMap = HotelUtil.countRoomTypeDto(bookedRoomList);
         this.bookedRoomList = bookedRoomList;
     }
 

@@ -19,9 +19,9 @@ public class BillUtil {
     public static int getBookedDays(String formattedCheckInDate, String formattedCheckOutDate)
             throws LocalisationException {
         final long MILLISECONDS_IN_DAY = 24 * 60 * 60 * 1000;
-        long date1 = DateUtil.parseDate(formattedCheckInDate);
-        long date2 = DateUtil.parseDate(formattedCheckOutDate);
-        int bookedDays = Math.round((date2 - date1) / MILLISECONDS_IN_DAY);
+        long checkInDate = DateUtil.parseDate(formattedCheckInDate);
+        long checkOutDate = DateUtil.parseDate(formattedCheckOutDate);
+        int bookedDays = Math.round((checkOutDate - checkInDate) / MILLISECONDS_IN_DAY);
         return bookedDays;
     }
 

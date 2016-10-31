@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Counter {
+public class HotelUtil {
 
     public static Map<RoomTypeDto, Integer> countRoomTypeDto(List<RoomDto> roomDtoList) {
         Map<RoomTypeDto, Integer> roomTypeMap = new HashMap<>();

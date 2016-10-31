@@ -1,6 +1,6 @@
 package by.kanarski.booking.dto;
 
-import by.kanarski.booking.utils.Counter;
+import by.kanarski.booking.utils.HotelUtil;
 
 import java.util.List;
 import java.util.Map;
@@ -39,7 +39,7 @@ public class GlobalHotelDto {
         this.hotelName = hotelName;
         this.roomList = roomList;
         this.roomsAvailable = roomList.size();
-        this.roomTypesCount = Counter.countRoomTypeDto(roomList);
+        this.roomTypesCount = HotelUtil.countRoomTypeDto(roomList);
     }
 
     public GlobalHotelDto(HotelDto hotel, List<RoomDto> roomList) {
@@ -48,7 +48,7 @@ public class GlobalHotelDto {
         this.hotelName = hotel.getHotelName();
         this.hotelStatus = hotel.getHotelStatus();
         this.roomList = roomList;
-        this.roomTypesCount = Counter.countRoomTypeDto(this.roomList);
+        this.roomTypesCount = HotelUtil.countRoomTypeDto(this.roomList);
         this.roomsAvailable = this.roomList.size();
     }
 
@@ -82,7 +82,7 @@ public class GlobalHotelDto {
 
     public void setRoomList(List<RoomDto> roomList) {
         this.roomList = roomList;
-        this.roomTypesCount = Counter.countRoomTypeDto(roomList);
+        this.roomTypesCount = HotelUtil.countRoomTypeDto(roomList);
         this.roomsAvailable = roomList.size();
     }
 

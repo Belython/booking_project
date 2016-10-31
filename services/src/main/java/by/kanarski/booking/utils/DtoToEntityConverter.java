@@ -10,54 +10,41 @@ import java.util.*;
 
 public class DtoToEntityConverter {
 
-    public static Room toRoom(RoomDto roomDto, Locale locale, Currency currency) throws LocalisationException {
-        long roomId = roomDto.getRoomId();
-        Hotel roomHotel = toHotel(roomDto.getHotel());
-        RoomType roomType = toRoomType(roomDto.getRoomType(), currency);
+    public static Locale defaultLocale = BookingSystemLocale.DEFAULT;
+    public static Currency defaultCurrency = BookingSystemCurrency.DEFAULT;
 
-        int roomNumber = roomDto.getRoomNumber();
-        TreeMap<Long, Long> boodedDates = DateUtil.delocalizeBookedDates(roomDto.getBookedDates(), locale);
-        String roomStatus = roomDto.getRoomStatus();
-
-        Room room = EntityBuilder.buildRoom(roomId, roomHotel, roomType, roomNumber, boodedDates, roomStatus);
-        return room;
-    }
-
-    public static RoomDto toRoomDto(Room room, Locale locale, Currency currency) throws LocalisationException {
+    public static RoomDto toRoomDto(Room room) throws LocalisationException {
         long roomId = room.getRoomId();
         Hotel roomHotel = room.getHotel();
         HotelDto roomHotelDto = toHotelDto(roomHotel);
         RoomType roomType = room.getRoomType();
-        RoomTypeDto roomTypeDto = toRoomTypeDto(roomType, currency);
+        RoomTypeDto roomTypeDto = toRoomTypeDto(roomType);
         int roomNumber = room.getRoomNumber();
-        TreeMap<String, String> bookedDates = DateUtil.localizeBookedDates(room.getBookedDates(), locale);
+        TreeMap<String, String> bookedDates = DateUtil.localizeBookedDates(room.getBookedDates(), defaultLocale);
         String roomStatus = room.getRoomStatus();
         RoomDto roomDto = new RoomDto(roomId, roomHotelDto, roomTypeDto, roomNumber, bookedDates, roomStatus);
         return roomDto;
     }
 
-
-    public static List<Room> toRoomList(List<RoomDto> roomDtoList, Locale locale, Currency currency)
-            throws LocalisationException {
+    public static List<Room> toRoomList(List<RoomDto> roomDtoList) throws LocalisationException {
         List<Room> roomList = new ArrayList<>();
         for (RoomDto roomDto : roomDtoList) {
-            Room room = toRoom(roomDto, locale, currency);
+            Room room = toRoom(roomDto);
             roomList.add(room);
         }
         return roomList;
     }
 
-    public static List<RoomDto> toRoomDtoList(List<Room> roomList, Locale locale, Currency currency)
-            throws LocalisationException {
+    public static List<RoomDto> toRoomDtoList(List<Room> roomList) throws LocalisationException {
         List<RoomDto> roomDtoList = new ArrayList<>();
         for (Room room : roomList) {
-            RoomDto roomDto = toRoomDto(room, locale, currency);
+            RoomDto roomDto = toRoomDto(room);
             roomDtoList.add(roomDto);
         }
         return roomDtoList;
     }
 
-    public static BillDto toBillDto(Bill bill, List<Room> bookedRoomList, Locale locale, Currency currency) throws LocalisationException {
+    public static BillDto toBillDto(Bill bill, List<Room> bookedRoomList) throws LocalisationException {
         long billId = bill.getBillId();
         User client = bill.getClient();
         UserDto clientDto = toUserDto(client);
@@ -74,16 +61,6 @@ public class DtoToEntityConverter {
                 bookedRoomDtoList, paymentAmount, billStatus);
         return billDto;
     }
-
-//    public static List<BillDto> toBillDtoList(List<Bill> billList, Locale locale, Currency currency)
-//            throws LocalisationException {
-//        List<BillDto> billDtoList = new ArrayList<>();
-//        for (Bill bill : billList) {
-//            BillDto billDto = toBillDto(bill, locale, currency);
-//            billDtoList.add(billDto);
-//        }
-//        return billDtoList;
-//    }
 
     public static RoomTypeDto toRoomTypeDto(RoomType roomType, Currency currency) {
         long rtId = roomType.getRoomTypeId();
@@ -212,15 +189,14 @@ public class DtoToEntityConverter {
     public static Room toRoom(RoomDto roomDto) throws LocalisationException {
         Locale locale = BookingSystemLocale.DEFAULT;
         Currency currency = BookingSystemCurrency.DEFAULT;
-        Room room = toRoom(roomDto, locale, currency);
+        long roomId = roomDto.getRoomId();
+        Hotel roomHotel = toHotel(roomDto.getHotel());
+        RoomType roomType = toRoomType(roomDto.getRoomType(), currency);
+        int roomNumber = roomDto.getRoomNumber();
+        TreeMap<Long, Long> boodedDates = DateUtil.delocalizeBookedDates(roomDto.getBookedDates(), locale);
+        String roomStatus = roomDto.getRoomStatus();
+        Room room = EntityBuilder.buildRoom(roomId, roomHotel, roomType, roomNumber, boodedDates, roomStatus);
         return room;
-    }
-
-    public static List<Room> toRoomList(List<RoomDto> roomDtoList) throws LocalisationException {
-        Locale locale = BookingSystemLocale.DEFAULT;
-        Currency currency = BookingSystemCurrency.DEFAULT;
-        List<Room> roomList = toRoomList(roomDtoList, locale, currency);
-        return roomList;
     }
 
     public static RoomDto toRoomDto(Room room) throws LocalisationException{

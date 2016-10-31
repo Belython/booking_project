@@ -24,20 +24,6 @@ public enum ResourceManager {
         this.resoucePath = resoucePath;
     }
 
-//    public ResourceBuilder setLocale(Locale locale) {
-//        this.locale = locale;
-//        return this;
-//    }
-//
-//    public ResourceBundle create() {
-//        if (locale == null) {
-//            bundle = ResourceBundle.getBundle(resoucePath);
-//        } else {
-//            bundle = ResourceBundle.getBundle(resoucePath, locale);
-//        }
-//        return bundle;
-//    }
-
     private static final ResourceCache RESOURCE_CACHE = new ResourceCache();
 
     public ResourceBundle get() {

@@ -33,12 +33,6 @@ public enum OperationMessageManager {
         this.resourceKey = resourceKey;
     }
 
-//    public String get() {
-//        ResourceBundle bundle = ResourceManager.AUTHENTIFICATION.get();
-//        String property = bundle.getString(resourceKey);
-//        return property;
-//    }
-
     public String getLocalised() {
         Locale locale = UserPreferences.getLocale();
         ResourceBundle bundle = ResourceManager.OPERATION_MESSAGES.get(locale);
