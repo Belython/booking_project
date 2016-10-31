@@ -22,7 +22,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
-import java.util.Currency;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -34,7 +33,6 @@ public class GoToRoomsRedactorCommand implements ICommand {
         ServletAction servletAction;
         String page = null;
         HttpSession session = request.getSession();
-        Currency currency = (Currency) session.getAttribute(Parameter.CURRENCY);
         try {
             servletAction = ServletAction.FORWARD_PAGE;
             page = PagePath.ROOMS_REDACTOR_PATH;
@@ -46,7 +44,7 @@ public class GoToRoomsRedactorCommand implements ICommand {
                 LinkedHashMap<String, FieldDescriptor> roomFields = new LinkedHashMap<>();
                 FieldDescriptor roomIdFieldDescriptor = FieldBuilder.buildFreePrimitive();
                 FieldDescriptor<HotelDto> hotelDtoFieldDescriptor = ConstrainUtil.byHotel(roomDto.getHotel(), hotelDtoList);
-                FieldDescriptor<RoomTypeDto> roomTypeDtoFieldDescriptor = ConstrainUtil.byRoomType(roomDto.getRoomType(), roomTypeDtoList, currency);
+                FieldDescriptor<RoomTypeDto> roomTypeDtoFieldDescriptor = ConstrainUtil.byRoomType(roomDto.getRoomType(), roomTypeDtoList);
                 roomDto.setHotel(hotelDtoFieldDescriptor.getOwner());
                 roomDto.setRoomType(roomTypeDtoFieldDescriptor.getOwner());
                 FieldDescriptor roomNumberFieldDescriptor = FieldBuilder.buildFreePrimitive();

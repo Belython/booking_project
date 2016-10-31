@@ -17,7 +17,6 @@ import by.kanarski.booking.utils.field.FieldDescriptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.Currency;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -58,7 +57,6 @@ public class ConstrainRowCommand extends AbstractCommand{
 
     private void constrainRoom(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        Currency currency = (Currency) session.getAttribute(Parameter.CURRENCY);
 
         RoomDto roomDto = RequestParser.parseRoomDto(request);
         List<RoomTypeDto> roomTypeDtoList = (List<RoomTypeDto>) session.getAttribute(Parameter.ROOM_TYPE_LIST);
@@ -67,7 +65,7 @@ public class ConstrainRowCommand extends AbstractCommand{
         LinkedHashMap<String, FieldDescriptor> roomFields = new LinkedHashMap<>();
         FieldDescriptor roomIdFieldDescriptor = FieldBuilder.buildFreePrimitive();
         FieldDescriptor<HotelDto> hotelDtoFieldDescriptor = ConstrainUtil.byHotel(roomDto.getHotel(), hotelDtoList);
-        FieldDescriptor<RoomTypeDto> roomTypeDtoFieldDescriptor = ConstrainUtil.byRoomType(roomDto.getRoomType(), roomTypeDtoList, currency);
+        FieldDescriptor<RoomTypeDto> roomTypeDtoFieldDescriptor = ConstrainUtil.byRoomType(roomDto.getRoomType(), roomTypeDtoList);
         roomDto.setHotel(hotelDtoFieldDescriptor.getOwner());
         roomDto.setRoomType(roomTypeDtoFieldDescriptor.getOwner());
         FieldDescriptor roomNumberFieldDescriptor = FieldBuilder.buildFreePrimitive();

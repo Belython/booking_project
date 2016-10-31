@@ -18,7 +18,7 @@ import java.util.Locale;
  * @see by.kanarski.booking.utils.threadLocal.UserPreferences
  */
 
-public class LocalisatorImpl {
+public class Localisator {
 
     /**
      * Formats the given date according to the current locale
@@ -33,7 +33,7 @@ public class LocalisatorImpl {
         try {
             date = DateUtil.parseDate(defaultFormattedDate, defaultLocale);
         } catch (LocalisationException e) {
-            BookingSystemLogger.getInstance().logError(LocalisatorImpl.class, L10nMessage.PARSE_DATE_EXCEPTION, e);
+            BookingSystemLogger.getInstance().logError(Localisator.class, L10nMessage.PARSE_DATE_EXCEPTION, e);
         }
         String formattedDate = DateUtil.getFormattedDate(date, userLocale);
         return formattedDate;
@@ -45,6 +45,7 @@ public class LocalisatorImpl {
      * @param defaultCurrencyMoney money, formatted according to the default currency (USD)
      * @return formatted currency
      */
+
     public static double getMoney(double defaultCurrencyMoney) {
         Currency userCurrency = UserPreferences.getCurrency();
         double formattedMoney = CurrencyUtil.convertFromUSD(defaultCurrencyMoney, userCurrency);

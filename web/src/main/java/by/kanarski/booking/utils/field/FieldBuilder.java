@@ -4,10 +4,13 @@ import java.util.*;
 
 public class FieldBuilder {
 
-    public static final String PRIMITIVE = "primitive";
-    public static final String FREE_PRIMITIVE = "freePrimitive";
-    public static final String ITERABLE = "iterable";
-    public static final String ENTITY = "entity";
+    private static final String PRIMITIVE = "primitive";
+    private static final String FREE_PRIMITIVE = "freePrimitive";
+    private static final String DATE = "date";
+    private static final String MONEY = "money";
+    private static final String ITERABLE = "iterable";
+    private static final String MAP_DATE_DATE = "mapDateDate";
+    private static final String ENTITY = "entity";
 
     public static <T> FieldDescriptor<T> buildPrimitive(Iterable<T> allowedValues) {
         FieldDescriptor<T> fieldDescriptor = new FieldDescriptor<>();
@@ -22,6 +25,17 @@ public class FieldBuilder {
         return fieldDescriptor;
     }
 
+    public static FieldDescriptor buildDate() {
+        FieldDescriptor fieldDescriptor = new FieldDescriptor();
+        fieldDescriptor.setFieldType(DATE);
+        return fieldDescriptor;
+    }
+
+    public static FieldDescriptor buildMoney() {
+        FieldDescriptor fieldDescriptor = new FieldDescriptor();
+        fieldDescriptor.setFieldType(MONEY);
+        return fieldDescriptor;
+    }
 
     public static FieldDescriptor buildIterable() {
         FieldDescriptor fieldDescriptor = new FieldDescriptor();

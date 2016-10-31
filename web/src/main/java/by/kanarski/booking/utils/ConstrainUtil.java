@@ -1,5 +1,7 @@
 package by.kanarski.booking.utils;
 
+import by.kanarski.booking.constants.BookingSystemCurrency;
+import by.kanarski.booking.constants.BookingSystemLocale;
 import by.kanarski.booking.constants.Parameter;
 import by.kanarski.booking.dto.HotelDto;
 import by.kanarski.booking.dto.LocationDto;
@@ -14,9 +16,10 @@ import java.util.*;
 
 public class ConstrainUtil {
 
-    public static FieldDescriptor<HotelDto> byHotel(HotelDto selectedHotelDto, 
-                                                          List<HotelDto> hotelDtoList) {
+    private static final Locale DEFAULT_LOCALE = BookingSystemLocale.DEFAULT;
+    private static final Currency DEFAULT_CURRENCY = BookingSystemCurrency.DEFAULT;
 
+    public static FieldDescriptor<HotelDto> byHotel(HotelDto selectedHotelDto, List<HotelDto> hotelDtoList) {
         String selectedHotelCountry = selectedHotelDto.getLocation().getCountry();
         String selectedHotelCity = selectedHotelDto.getLocation().getCity();
         String selectedHotelName = selectedHotelDto.getHotelName();
@@ -54,9 +57,9 @@ public class ConstrainUtil {
         locationFields.put(Parameter.LOCATION_COUNTRY, FieldBuilder.buildPrimitive(countrySet));
         locationFields.put(Parameter.LOCATION_CITY, FieldBuilder.buildPrimitive(citySet));
 
-        FieldDescriptor hotelIdPrimitive = FieldBuilder.buildFreePrimitive();
+        FieldDescriptor<Long> hotelIdPrimitive = FieldBuilder.buildFreePrimitive();
         FieldDescriptor<LocationDto> locationEntity = FieldBuilder.buildEntity(locationFields, selectedHotelDto.getLocation());
-        FieldDescriptor hotelNamePrimitive = FieldBuilder.buildPrimitive(hotelNameSet);
+        FieldDescriptor<String> hotelNamePrimitive = FieldBuilder.buildPrimitive(hotelNameSet);
         LinkedHashMap<String, FieldDescriptor> hotelFields = new LinkedHashMap<>();
         hotelFields.put(Parameter.HOTEL_ID, hotelIdPrimitive);
         hotelFields.put(Parameter.HOTEL_LOCATION, locationEntity);
@@ -74,8 +77,7 @@ public class ConstrainUtil {
         return hotelEntity;
     }
 
-    public static FieldDescriptor<RoomTypeDto> byRoomType(RoomTypeDto selectedRTDto, List<RoomTypeDto> roomTypeDtoList,
-                                                          Currency currency) {
+    public static FieldDescriptor<RoomTypeDto> byRoomType(RoomTypeDto selectedRTDto, List<RoomTypeDto> roomTypeDtoList) {
         String selectedRTName = selectedRTDto.getRoomTypeName();
         int selectedRTmaxPersons = selectedRTDto.getMaxPersons();
         double selectedRTPricePerNight = selectedRTDto.getPricePerNight();
@@ -131,7 +133,7 @@ public class ConstrainUtil {
         if (pricePerNightSet.isEmpty()) {
             int maxPersons = maxPersonsSet.iterator().next();
             selectedRTDto.setMaxPersons(maxPersons);
-            roomTypeEntity = byRoomType(selectedRTDto, roomTypeDtoList, currency);
+            roomTypeEntity = byRoomType(selectedRTDto, roomTypeDtoList);
         }
         roomTypeFields = roomTypeEntity.getFieldMap();
         facilitiesFieldDescriptor = roomTypeFields.get(Parameter.ROOM_TYPE_FACILITIES);
@@ -139,7 +141,7 @@ public class ConstrainUtil {
         if (facilitiesSet.isEmpty()) {
             double pricePerNight = pricePerNightSet.iterator().next();
             selectedRTDto.setPricePerNight(pricePerNight);
-            roomTypeEntity = byRoomType(selectedRTDto, roomTypeDtoList, currency);
+            roomTypeEntity = byRoomType(selectedRTDto, roomTypeDtoList);
         }
 
         roomTypeEntity.setOwner(selectedRTDto);

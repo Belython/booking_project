@@ -11,13 +11,13 @@
 
     <function>
         <name>getDate</name>
-        <function-class>by.kanarski.booking.taglib.LocalisatorImpl</function-class>
+        <function-class>by.kanarski.booking.taglib.Localisator</function-class>
         <function-signature>java.lang.String getDate(java.lang.String)</function-signature>
     </function>
 
     <function>
         <name>getMoney</name>
-        <function-class>by.kanarski.booking.taglib.LocalisatorImpl</function-class>
+        <function-class>by.kanarski.booking.taglib.Localisator</function-class>
         <function-signature>double getMoney(double)</function-signature>
     </function>
 
