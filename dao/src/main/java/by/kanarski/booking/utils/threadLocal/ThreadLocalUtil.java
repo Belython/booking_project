@@ -11,6 +11,7 @@ import by.kanarski.booking.utils.ConnectionUtil;
 
 public enum ThreadLocalUtil {
     CONNECTION,
+    HIBERNATE_SESSION,
     LOCALE,
     CURRENCY;
 

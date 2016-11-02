@@ -1,51 +1,60 @@
 function main() {
-
-    $(".submitBtn").click(function (event) {
-        alterEntity(event)
-    });
-
-    $(".addRowBtn").click(function () {
-        addRow()
-    });
-
-    $(".alterEntityBtn").click(function (event) {
-        alterEntity(event)
-    });
-
-    $(".addEntityBtn").click(function (event) {
-        alterEntity(event)
-    });
-
-    $(".removeRowBtn").click(function (event) {
-        removeRow(event)
-    });
     
-    $(".entityForm select").change(function (event) {
-        constrainRow(event)
-    });
-
+    refreshAll();
+    
     function getTableRow(event) {
         var eventTarget = event.target;
         var tableRow = $(eventTarget).parents().eq(1);
         return tableRow;
     }
 
-    function refresh() {
+    function refresh(row) {
+        var rowElement = $(row);
+        var addEntityButton = rowElement.find(".addEntityBtn");
+        var removeRowButton = rowElement.find(".removeRowBtn");
+        var alterEntityButton = rowElement.find(".alterEntityBtn");
+        var selectElements = rowElement.find("select");
         setTimeout(function () {
-            $(".addEntityBtn").bind("click", function (event) {
+            addEntityButton.bind("click", function (event) {
                 alterEntity(event)
             });
-            $(".removeRowBtn").bind("click", function (event) {
+            removeRowButton.bind("click", function (event) {
                 removeRow(event)
             });
-            $(".alterEntityBtn").bind("click", function (event) {
+            alterEntityButton.bind("click", function (event) {
                 alterEntity(event)
             });
-            $(".entityForm select").bind("change", function (event) {
+            selectElements.bind("change", function (event) {
                 constrainRow(event)
             });
             $("#mt").trigger("update");
         }, 1000);
+    }
+    
+    function refreshAll() {
+        $(".submitBtn").click(function (event) {
+            alterEntity(event)
+        });
+
+        $(".addRowBtn").click(function () {
+            addRow()
+        });
+
+        $(".alterEntityBtn").click(function (event) {
+            alterEntity(event)
+        });
+
+        $(".addEntityBtn").click(function (event) {
+            alterEntity(event)
+        });
+
+        $(".removeRowBtn").click(function (event) {
+            removeRow(event)
+        });
+
+        $(".entityForm select").change(function (event) {
+            constrainRow(event)
+        });
     }
     
     function constrainRow(event) {
@@ -63,18 +72,18 @@ function main() {
             newRow.children("td").first().text(rowNumber);
             tableRow.after(newRow);
             tableRow.remove();
+            refresh(newRow);
         });
-        refresh();
     }
 
     function addRow() {
         var tableRow = $(".newEntity tr").last();
         var rowNumber = tableRow.children("td").first().text();
         var newRowNumber = +rowNumber + 1;
-        var newTableRow = tableRow.clone();
-        newTableRow.children("td").first().text(newRowNumber);
-        $(".newEntity tbody").append(newTableRow);
-        refresh();
+        var newRow = tableRow.clone();
+        newRow.children("td").first().text(newRowNumber);
+        $(".newEntity tbody").append(newRow);
+        refresh(newRow);
     }
     
     function alterEntity(event) {

@@ -15,6 +15,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <mysql.version>5.1.38</mysql.version>
         <log4j.version>1.2.17</log4j.version>
+        <slf4j.version>1.5.6</slf4j.version>
         <servlet-api.version>3.1.0</servlet-api.version>
         <jsp-api.version>2.1</jsp-api.version>
         <jstl.version>1.2</jstl.version>
@@ -22,12 +23,13 @@
         <javax.mail.version>1.4</javax.mail.version>
         <junit.version>4.12</junit.version>
         <gson.vervion>2.7</gson.vervion>
-
         <!--Plugin versions-->
         <cobertura.version>2.7</cobertura.version>
         <mvn-dependency.version>2.10</mvn-dependency.version>
         <mvn-compiler.version>3.3</mvn-compiler.version>
         <tomcat7.version>2.2</tomcat7.version>
+
+        <hibernate.version>4.3.11.Final</hibernate.version>
     </properties>
 
     <dependencyManagement>
@@ -81,6 +83,21 @@
                 <artifactId>gson</artifactId>
                 <version>${gson.vervion}</version>
                 <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-core</artifactId>
+                <version>${hibernate.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-entitymanager</artifactId>
+                <version>${hibernate.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
