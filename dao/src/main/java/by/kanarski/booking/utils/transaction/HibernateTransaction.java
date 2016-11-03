@@ -1,5 +1,6 @@
 package by.kanarski.booking.utils.transaction;
 
+import by.kanarski.booking.utils.threadLocal.ThreadLocalUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -13,8 +14,8 @@ public class HibernateTransaction implements TransactoinWrapper {
     private Session hibernateSession;
     private Transaction transaction;
 
-    public HibernateTransaction(Session hibernateSession) {
-        this.hibernateSession = hibernateSession;
+    public HibernateTransaction() {
+        this.hibernateSession = (Session) ThreadLocalUtil.HIBERNATE_SESSION.get();
     }
 
     @Override

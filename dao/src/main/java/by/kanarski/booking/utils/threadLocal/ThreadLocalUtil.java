@@ -73,7 +73,16 @@ public enum ThreadLocalUtil {
         THREAD_VARIABLES.remove();
     }
 
+    /**
+     * Checks if the thread variables map contains the variable
+     * @param variableName the required variable name
+     * @return true, if contains, else false
+     */
 
+    public static boolean hasVariable(String variableName) {
+        ThreadVariables threadVariables = THREAD_VARIABLES.get();
+        return threadVariables.containsKey(variableName);
+    }
 }
 
 
