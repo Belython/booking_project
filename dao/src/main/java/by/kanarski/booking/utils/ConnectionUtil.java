@@ -1,6 +1,6 @@
 package by.kanarski.booking.utils;
 
-import by.kanarski.booking.constants.DaoMessage;
+import by.kanarski.booking.managers.ExceptionMessageManager;
 import by.kanarski.booking.utils.threadLocal.ThreadLocalUtil;
 
 import java.sql.Connection;
@@ -27,7 +27,8 @@ public class ConnectionUtil {
                 connection = (Connection) ThreadLocalUtil.CONNECTION.get(newConnection);
             }
         } catch (SQLException e) {
-            BookingSystemLogger.getInstance().logError(ConnectionUtil.class, DaoMessage.INPUT_ERROR, e);
+            BookingSystemLogger.getInstance().logError(ConnectionUtil.class,
+                    ExceptionMessageManager.INPUT_ERROR.get(), e);
         }
         return connection;
     }

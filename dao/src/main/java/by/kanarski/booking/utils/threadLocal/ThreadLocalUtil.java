@@ -81,7 +81,7 @@ public enum ThreadLocalUtil {
 
     public static boolean hasVariable(String variableName) {
         ThreadVariables threadVariables = THREAD_VARIABLES.get();
-        return threadVariables.containsKey(variableName);
+        return threadVariables.containsKey(variableName.toUpperCase());
     }
 }
 

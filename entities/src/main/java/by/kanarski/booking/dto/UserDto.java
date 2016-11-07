@@ -2,9 +2,6 @@ package by.kanarski.booking.dto;
 
 import by.kanarski.booking.constants.FieldValue;
 
-import java.util.Currency;
-import java.util.Locale;
-
 /**
  * Created by Дмитрий on 19.10.2016.
  */

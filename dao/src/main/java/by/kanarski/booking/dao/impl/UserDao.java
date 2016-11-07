@@ -1,9 +1,9 @@
 package by.kanarski.booking.dao.impl;
 
-import by.kanarski.booking.constants.DaoMessage;
 import by.kanarski.booking.dao.interfaces.IUserDao;
 import by.kanarski.booking.entities.User;
 import by.kanarski.booking.exceptions.DaoException;
+import by.kanarski.booking.managers.ExceptionMessageManager;
 import by.kanarski.booking.utils.ClosingUtil;
 import by.kanarski.booking.utils.ConnectionUtil;
 import by.kanarski.booking.utils.EntityParser;
@@ -65,7 +65,7 @@ public class UserDao implements IUserDao {
             resultSet.next();
             user.setUserId(resultSet.getLong(1));
         } catch (SQLException e) {
-            throw new DaoException(DaoMessage.ADD_USER_EXCEPTION, e);
+            throw new DaoException(ExceptionMessageManager.ADD_EXCEPTION.get(), e);
         } finally {
             ClosingUtil.close(resultSet);
         }
@@ -83,7 +83,7 @@ public class UserDao implements IUserDao {
             resultSet.next();
             user = EntityParser.parseUser(resultSet);
         } catch (SQLException e) {
-            throw new DaoException(DaoMessage.GET_USER_EXCEPTION, e);
+            throw new DaoException(ExceptionMessageManager.GET_EXCEPTION.get(), e);
         } finally {
             ClosingUtil.close(resultSet);
         }
@@ -102,7 +102,7 @@ public class UserDao implements IUserDao {
                 list.add(user);
             }
         } catch (SQLException e) {
-            throw new DaoException(DaoMessage.GET_USERS_EXCEPTION, e);
+            throw new DaoException(ExceptionMessageManager.GET_EXCEPTION.get(), e);
         } finally {
             ClosingUtil.close(resultSet);
         }
@@ -123,7 +123,7 @@ public class UserDao implements IUserDao {
             stm.setLong(8, user.getUserId());
             stm.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException(DaoMessage.UPDATE_USER_EXCEPTION, e);
+            throw new DaoException(ExceptionMessageManager.UPDATE_EXCEPTION.get(), e);
         }
     }
 
@@ -134,7 +134,7 @@ public class UserDao implements IUserDao {
             stm.setLong(1, user.getUserId());
             stm.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException(DaoMessage.DELETE_USER_EXCEPTION, e);
+            throw new DaoException(ExceptionMessageManager.DELETE_EXCEPTION.get(), e);
         }
     }
 
@@ -154,7 +154,7 @@ public class UserDao implements IUserDao {
             }
             stm.executeBatch();
         } catch (SQLException e) {
-            throw new DaoException(DaoMessage.ADD_USER_EXCEPTION, e);
+            throw new DaoException(ExceptionMessageManager.ADD_EXCEPTION.get(), e);
         }
     }
 
@@ -169,7 +169,7 @@ public class UserDao implements IUserDao {
             resultSet.next();
             user = EntityParser.parseUser(resultSet);
         } catch (SQLException e) {
-            throw new DaoException(DaoMessage.GET_USER_EXCEPTION, e);
+            throw new DaoException(ExceptionMessageManager.GET_EXCEPTION.get(), e);
         } finally {
             ClosingUtil.close(resultSet);
         }
@@ -187,7 +187,7 @@ public class UserDao implements IUserDao {
             resultSet.next();
             user = EntityParser.parseUser(resultSet);
         } catch (SQLException e) {
-            throw new DaoException(DaoMessage.GET_USER_EXCEPTION, e);
+            throw new DaoException(ExceptionMessageManager.GET_EXCEPTION.get(), e);
         } finally {
             ClosingUtil.close(resultSet);
         }
@@ -205,7 +205,7 @@ public class UserDao implements IUserDao {
             resultSet = stm.executeQuery();
             isLogIn = resultSet.next();
         } catch (SQLException e) {
-            throw new DaoException(DaoMessage.CHECK_USER_AUTHORIZATION_EXCEPTION, e);
+            throw new DaoException(ExceptionMessageManager.GET_EXCEPTION.get(), e);
         } finally {
             ClosingUtil.close(resultSet);
         }
@@ -222,7 +222,7 @@ public class UserDao implements IUserDao {
             resultSet = stm.executeQuery();
             isNew = !resultSet.next();
         } catch (SQLException e) {
-            throw new DaoException(DaoMessage.CHECK_IS_NEW_USER_EXCEPTION, e);
+            throw new DaoException(ExceptionMessageManager.GET_EXCEPTION.get(), e);
         } finally {
             ClosingUtil.close(resultSet);
         }

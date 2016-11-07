@@ -1,7 +1,7 @@
 package by.kanarski.booking.utils;
 
-import by.kanarski.booking.constants.DaoMessage;
 import by.kanarski.booking.managers.DatabaseManager;
+import by.kanarski.booking.managers.ExceptionMessageManager;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 import java.beans.PropertyVetoException;
@@ -26,7 +26,6 @@ public class DataSource {
     private DataSource() {
         cpds = new ComboPooledDataSource();
         try {
-//            ResourceBundle bundle = ResourceManager.DATABASE.get();
             cpds.setDriverClass(DatabaseManager.JDBC_DRIVER_PATH.get());
             cpds.setJdbcUrl(DatabaseManager.DATABASE_PATH.get());
             cpds.setUser(DatabaseManager.USER_NAME.get());
@@ -40,7 +39,8 @@ public class DataSource {
             cpds.setContextClassLoaderSource("library");
             cpds.setPrivilegeSpawnedThreads(true);
         } catch (PropertyVetoException e) {
-            BookingSystemLogger.getInstance().logError(getClass(), DaoMessage.WRONG_DATASOURCE_SETTINGS + e);
+            BookingSystemLogger.getInstance().logError(getClass(),
+                    ExceptionMessageManager.WRONG_DATASOURCE_SETTINGS.get() + e);
         }
     }
 
@@ -57,11 +57,7 @@ public class DataSource {
      * @throws SQLException
      */
 
-    // TODO: 27.10.2016 Разобраться с пулом, не отпускает соединения вообще никогда
-
     public Connection getConnection() throws SQLException {
-//        javax.sql.PooledConnection pooledConnection = cpds.getConnectionPoolDataSource().getPooledConnection();
-//        Connection connection = pooledConnection.getConnection();
         Connection connection = cpds.getConnection();
         return connection;
     }

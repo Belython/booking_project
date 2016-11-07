@@ -159,6 +159,24 @@ public class DtoToEntityConverter {
         return location;
     }
 
+    public static List<LocationDto> toLocationDtoList(List<Location> locationList) {
+        List<LocationDto> locationDtoList = new ArrayList<>();
+        for (Location location : locationList) {
+            LocationDto locationDto = DtoToEntityConverter.toLocationDto(location);
+            locationDtoList.add(locationDto);
+        }
+        return locationDtoList;
+    }
+
+    public static List<Location> toLocationList(List<LocationDto> locationDtoList) {
+        List<Location> locationList = new ArrayList<>();
+        for (LocationDto locationDto : locationDtoList) {
+            Location location = DtoToEntityConverter.toLocation(locationDto);
+            locationList.add(location);
+        }
+        return locationList;
+    }
+
     public static HotelDto toHotelDto(Hotel hotel) {
         long hotelId = hotel.getHotelId();
         Location location = hotel.getLocation();

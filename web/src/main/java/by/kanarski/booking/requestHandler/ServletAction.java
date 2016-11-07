@@ -4,11 +4,8 @@ package by.kanarski.booking.requestHandler;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Created by Дмитрий on 19.07.2016.
- */
 public enum ServletAction {
-    FORWARD_PAGE, REDIRECT_PAGE, AJAX_REQUEST, CALL_COMMAND;
+    FORWARD_PAGE, REDIRECT_PAGE, AJAX_REQUEST, AJAX_INCLUDE_REQUEST, CALL_COMMAND;
 
     private String page;
     private String commandName;

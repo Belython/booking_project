@@ -1,16 +1,8 @@
 package by.kanarski.booking.dao.interfaces;
 
-import by.kanarski.booking.constants.DaoMessage;
 import by.kanarski.booking.entities.User;
 import by.kanarski.booking.exceptions.DaoException;
-import by.kanarski.booking.utils.ClosingUtil;
-import by.kanarski.booking.utils.ConnectionUtil;
-import by.kanarski.booking.utils.EntityParser;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 /**

@@ -1,11 +1,12 @@
 package by.kanarski.booking.dao.impl;
 
-import by.kanarski.booking.constants.DaoMessage;
 import by.kanarski.booking.dao.interfaces.ILocationDao;
 import by.kanarski.booking.entities.Location;
 import by.kanarski.booking.exceptions.DaoException;
-import by.kanarski.booking.utils.*;
+import by.kanarski.booking.managers.ExceptionMessageManager;
+import by.kanarski.booking.utils.ClosingUtil;
 import by.kanarski.booking.utils.ConnectionUtil;
+import by.kanarski.booking.utils.EntityParser;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -49,8 +50,7 @@ public class LocationDao implements ILocationDao {
             resultSet.next();
             location.setLocationId(resultSet.getLong(1));
         } catch (SQLException e) {
-            BookingSystemLogger.getInstance().logError(getClass(), DaoMessage.ADD_LOCATION_EXCEPTION);
-            throw new DaoException(DaoMessage.ADD_LOCATION_EXCEPTION, e);
+            throw new DaoException(ExceptionMessageManager.ADD_EXCEPTION.get(), e);
         } finally {
             ClosingUtil.close(resultSet);
         }
@@ -67,8 +67,7 @@ public class LocationDao implements ILocationDao {
             resultSet.next();
             location = EntityParser.parseLocation(resultSet);
         } catch (SQLException e) {
-            BookingSystemLogger.getInstance().logError(getClass(), DaoMessage.GET_LOCATION_EXCEPTION);
-            throw new DaoException(DaoMessage.GET_LOCATION_EXCEPTION, e);
+            throw new DaoException(ExceptionMessageManager.GET_EXCEPTION.get(), e);
         }
         return location;
     }
@@ -83,8 +82,7 @@ public class LocationDao implements ILocationDao {
                 locations.add(EntityParser.parseLocation(resultSet));
             }
         } catch (SQLException e) {
-            BookingSystemLogger.getInstance().logError(getClass(), DaoMessage.GET_LOCATION_EXCEPTION);
-            throw new DaoException(DaoMessage.GET_LOCATION_EXCEPTION, e);
+            throw new DaoException(ExceptionMessageManager.GET_EXCEPTION.get(), e);
         }
         return locations;
     }
@@ -99,8 +97,7 @@ public class LocationDao implements ILocationDao {
             stm.setLong(4, location.getLocationId());
             stm.executeUpdate();
         } catch (SQLException e) {
-            BookingSystemLogger.getInstance().logError(getClass(), DaoMessage.UPDATE_LOCATION_EXCEPTION);
-            throw new DaoException(DaoMessage.UPDATE_LOCATION_EXCEPTION, e);
+            throw new DaoException(ExceptionMessageManager.UPDATE_EXCEPTION.get(), e);
         }
     }
 
@@ -111,7 +108,7 @@ public class LocationDao implements ILocationDao {
             stm.setLong(1, location.getLocationId());
             stm.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException(DaoMessage.DELETE_USER_EXCEPTION, e);
+            throw new DaoException(ExceptionMessageManager.DELETE_EXCEPTION.get(), e);
         }
     }
 
@@ -128,8 +125,7 @@ public class LocationDao implements ILocationDao {
             }
             stm.executeBatch();
         } catch (SQLException e) {
-            BookingSystemLogger.getInstance().logError(getClass(), DaoMessage.UPDATE_LOCATION_EXCEPTION);
-            throw new DaoException(DaoMessage.UPDATE_LOCATION_EXCEPTION, e);
+            throw new DaoException(ExceptionMessageManager.UPDATE_EXCEPTION.get(), e);
         }
     }
 
@@ -146,8 +142,7 @@ public class LocationDao implements ILocationDao {
             }
             stm.executeBatch();
         } catch (SQLException e) {
-            BookingSystemLogger.getInstance().logError(getClass(), DaoMessage.ADD_LOCATION_EXCEPTION);
-            throw new DaoException(DaoMessage.ADD_LOCATION_EXCEPTION, e);
+            throw new DaoException(ExceptionMessageManager.ADD_EXCEPTION.get(), e);
         }
     }
 }

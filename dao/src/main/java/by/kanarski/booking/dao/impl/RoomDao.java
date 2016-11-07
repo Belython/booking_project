@@ -1,16 +1,18 @@
 package by.kanarski.booking.dao.impl;
 
-import by.kanarski.booking.constants.DaoMessage;
 import by.kanarski.booking.dao.interfaces.IRoomDao;
 import by.kanarski.booking.dto.OrderDto;
 import by.kanarski.booking.entities.Room;
 import by.kanarski.booking.entities.RoomType;
 import by.kanarski.booking.exceptions.DaoException;
+import by.kanarski.booking.managers.ExceptionMessageManager;
 import by.kanarski.booking.utils.*;
-import by.kanarski.booking.utils.ConnectionUtil;
 
 import java.sql.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class RoomDao implements IRoomDao {
@@ -90,8 +92,7 @@ public class RoomDao implements IRoomDao {
             resultSet.next();
             room.setRoomId(resultSet.getLong(1));
         } catch (SQLException e) {
-            BookingSystemLogger.getInstance().logError(getClass(), DaoMessage.ADD_ROOM_EXCEPTION);
-            throw new DaoException(DaoMessage.ADD_ROOM_EXCEPTION, e);
+            throw new DaoException(ExceptionMessageManager.ADD_EXCEPTION.get(), e);
         } finally {
             ClosingUtil.close(resultSet);
         }
@@ -108,8 +109,7 @@ public class RoomDao implements IRoomDao {
             resultSet.next();
             room = EntityParser.parseRoom(resultSet);
         } catch (SQLException e) {
-            BookingSystemLogger.getInstance().logError(getClass(), DaoMessage.GET_ROOM_EXCEPTION);
-            throw new DaoException(DaoMessage.GET_ROOM_EXCEPTION, e);
+            throw new DaoException(ExceptionMessageManager.GET_EXCEPTION.get(), e);
         }
         return room;
     }
@@ -124,8 +124,7 @@ public class RoomDao implements IRoomDao {
                 roomList.add(EntityParser.parseRoom(resultSet));
             }
         } catch (SQLException e) {
-            BookingSystemLogger.getInstance().logError(getClass(), DaoMessage.GET_ROOM_EXCEPTION);
-            throw new DaoException(DaoMessage.GET_ROOM_EXCEPTION, e);
+            throw new DaoException(ExceptionMessageManager.GET_EXCEPTION.get(), e);
         }
         return roomList;
     }
@@ -143,8 +142,7 @@ public class RoomDao implements IRoomDao {
             stm.setLong(6, room.getRoomId());
             stm.executeUpdate();
         } catch (SQLException e) {
-            BookingSystemLogger.getInstance().logError(getClass(), DaoMessage.UPDATE_ROOM_EXCEPTION);
-            throw new DaoException(DaoMessage.UPDATE_ROOM_EXCEPTION, e);
+            throw new DaoException(ExceptionMessageManager.UPDATE_EXCEPTION.get(), e);
         }
     }
 
@@ -168,8 +166,7 @@ public class RoomDao implements IRoomDao {
                 rooms.add(EntityParser.parseRoom(resultSet));
             }
         } catch (SQLException e) {
-            BookingSystemLogger.getInstance().logError(getClass(), DaoMessage.GET_ROOM_EXCEPTION);
-            throw new DaoException(DaoMessage.GET_ROOM_EXCEPTION, e);
+            throw new DaoException(ExceptionMessageManager.GET_EXCEPTION.get(), e);
         }
         return rooms;
     }
@@ -185,8 +182,7 @@ public class RoomDao implements IRoomDao {
                 rooms.add(EntityParser.parseRoom(resultSet));
             }
         } catch (SQLException e) {
-            BookingSystemLogger.getInstance().logError(getClass(), DaoMessage.GET_ROOM_EXCEPTION);
-            throw new DaoException(DaoMessage.GET_ROOM_EXCEPTION, e);
+            throw new DaoException(ExceptionMessageManager.GET_EXCEPTION.get(), e);
         }
         return rooms;
     }
@@ -203,8 +199,7 @@ public class RoomDao implements IRoomDao {
                 roomList.add(room);
             }
         } catch (SQLException e) {
-            BookingSystemLogger.getInstance().logError(getClass(), DaoMessage.GET_ROOM_EXCEPTION);
-            throw new DaoException(DaoMessage.GET_ROOM_EXCEPTION, e);
+            throw new DaoException(ExceptionMessageManager.GET_EXCEPTION.get(), e);
         }
         return roomList;
     }
@@ -225,8 +220,7 @@ public class RoomDao implements IRoomDao {
             }
             stm.executeBatch();
         } catch (SQLException e) {
-            BookingSystemLogger.getInstance().logError(getClass(), DaoMessage.UPDATE_ROOM_EXCEPTION);
-            throw new DaoException(DaoMessage.UPDATE_ROOM_EXCEPTION, e);
+            throw new DaoException(ExceptionMessageManager.UPDATE_EXCEPTION.get(), e);
         }
     }
 
@@ -246,8 +240,7 @@ public class RoomDao implements IRoomDao {
             }
             stm.executeBatch();
         } catch (SQLException e) {
-            BookingSystemLogger.getInstance().logError(getClass(), DaoMessage.ADD_ROOM_EXCEPTION);
-            throw new DaoException(DaoMessage.ADD_ROOM_EXCEPTION, e);
+            throw new DaoException(ExceptionMessageManager.ADD_EXCEPTION.get(), e);
         }
     }
 
@@ -263,8 +256,7 @@ public class RoomDao implements IRoomDao {
             }
             stm.executeBatch();
         } catch (SQLException e) {
-            BookingSystemLogger.getInstance().logError(getClass(), DaoMessage.UPDATE_ROOM_EXCEPTION);
-            throw new DaoException(DaoMessage.UPDATE_ROOM_EXCEPTION, e);
+            throw new DaoException(ExceptionMessageManager.UPDATE_EXCEPTION.get(), e);
         }
     }
 

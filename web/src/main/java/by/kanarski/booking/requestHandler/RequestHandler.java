@@ -31,10 +31,11 @@ public class RequestHandler {
                     break;
                 }
                 case AJAX_REQUEST: {
-                    if (page != null) {
-                        RequestDispatcher dispatcher = request.getRequestDispatcher(page);
-                        dispatcher.forward(request, response);
-                    }
+                    break;
+                }
+                case AJAX_INCLUDE_REQUEST: {
+                    RequestDispatcher dispatcher = request.getRequestDispatcher(page);
+                    dispatcher.forward(request, response);
                     break;
                 }
                 case CALL_COMMAND: {

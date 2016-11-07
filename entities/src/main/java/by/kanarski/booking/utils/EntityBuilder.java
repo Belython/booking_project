@@ -105,36 +105,6 @@ public class EntityBuilder {
         hotel.setHotelStatus(hotelStatus);
         return hotel;
     }
-//    public static Hotel buildHotel(long hotelId, String hotelCountry, String hotelCity, String hotelName, String hotelStatus) {
-//        Hotel hotel = buildHotel(hotelCountry, hotelCity, hotelName);
-//        hotel.setHotelId(hotelId);
-//        hotel.setHotelStatus(hotelStatus);
-//        return hotel;
-//    }
-//
-//    public static Hotel buildHotel(String hotelCountry, String hotelCity, String hotelName, String hotelStatus) {
-//        Hotel hotel = buildHotel(hotelCountry, hotelCity, hotelName);
-//        hotel.setHotelStatus(hotelStatus);
-//        return hotel;
-//    }
-
-//    public static Hotel buildHotel(String hotelCountry, String hotelCity, String hotelName) {
-//        Location location = buildLocation(hotelCountry, hotelCity);
-//        Hotel hotel = new Hotel();
-//        hotel.setLocation(location);
-//        hotel.setHotelName(hotelName);
-//        return hotel;
-//    }
-
-
-//    public static Hotel buildHotel(long hotelId, String hotelCountry, String hotelCity, String hotelName) {
-//        Location location = buildLocation(hotelCountry, hotelCity);
-//        Hotel hotel = new Hotel();
-//        hotel.setHotelId(hotelId);
-//        hotel.setLocation(location);
-//        hotel.setHotelName(hotelName);
-//        return hotel;
-//    }
 
     public static RoomType buildRoomType(String roomTypeName, int maxPersons, double roomPricePerNight,
                                          Set<String> facilities) {

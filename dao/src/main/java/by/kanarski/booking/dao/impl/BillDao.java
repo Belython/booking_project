@@ -1,11 +1,13 @@
 package by.kanarski.booking.dao.impl;
 
-import by.kanarski.booking.constants.DaoMessage;
 import by.kanarski.booking.dao.interfaces.IBillDao;
 import by.kanarski.booking.entities.Bill;
 import by.kanarski.booking.exceptions.DaoException;
-import by.kanarski.booking.utils.*;
+import by.kanarski.booking.managers.ExceptionMessageManager;
+import by.kanarski.booking.utils.ClosingUtil;
 import by.kanarski.booking.utils.ConnectionUtil;
+import by.kanarski.booking.utils.EntityParser;
+import by.kanarski.booking.utils.SerializationUtil;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -59,7 +61,7 @@ public class BillDao implements IBillDao {
             resultSet.next();
             bill.setBillId(resultSet.getLong(1));
         } catch (SQLException e) {
-            throw new DaoException(DaoMessage.ADD_BILL_EXCEPTION, e);
+            throw new DaoException(ExceptionMessageManager.ADD_EXCEPTION.get(), e);
         } finally {
             ClosingUtil.close(resultSet);
         }
@@ -76,7 +78,7 @@ public class BillDao implements IBillDao {
             resultSet.next();
             bill = EntityParser.parseBill(resultSet);
         } catch (SQLException e) {
-            throw new DaoException(DaoMessage.GET_BILL_EXCEPTION, e);
+            throw new DaoException(ExceptionMessageManager.GET_EXCEPTION.get(), e);
         }
         return bill;
     }
@@ -101,7 +103,7 @@ public class BillDao implements IBillDao {
             stm.setLong(8, bill.getBillId());
             stm.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException(DaoMessage.GET_BILL_EXCEPTION, e);
+            throw new DaoException(ExceptionMessageManager.UPDATE_EXCEPTION.get(), e);
         }
     }
 
@@ -121,7 +123,7 @@ public class BillDao implements IBillDao {
                 bills.add(EntityParser.parseBill(resultSet));
             }
         } catch (SQLException e) {
-            throw new DaoException(DaoMessage.GET_BILL_EXCEPTION, e);
+            throw new DaoException(ExceptionMessageManager.GET_EXCEPTION.get(), e);
         }
         return bills;
     }

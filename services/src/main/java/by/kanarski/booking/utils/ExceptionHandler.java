@@ -1,7 +1,8 @@
 package by.kanarski.booking.utils;
 
-import by.kanarski.booking.constants.ServiceMessage;
 import by.kanarski.booking.exceptions.ServiceException;
+import by.kanarski.booking.managers.ExceptionMessageManager;
+import by.kanarski.booking.utils.transaction.TransactoinWrapper;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -11,12 +12,15 @@ public class ExceptionHandler {
     public static void handleSQLOrDaoException(Connection connection, Exception exception, Class serviceClass) throws ServiceException {
         try {
             connection.rollback();
-//            BookingSystemLogger.getInstance().logError(serviceClass, ServiceMessage.TRANSACTION_FAILED);
-            throw new ServiceException(exception.getMessage(), exception);
+            throw new ServiceException(ExceptionMessageManager.TRANSACTION_FAILED.get(), exception);
         } catch (SQLException e) {
-//            BookingSystemLogger.getInstance().logError(serviceClass, ServiceMessage.ROLLBACK_FAILED);
-            throw new ServiceException(e.getMessage(), exception);
+            throw new ServiceException(ExceptionMessageManager.ROLLBACK_FAILED.get(), exception);
         }
+    }
+
+    public static void handleDaoException(TransactoinWrapper transaction, Exception exception) throws ServiceException {
+        transaction.rollback();
+        throw new ServiceException(ExceptionMessageManager.TRANSACTION_FAILED.get(), exception);
     }
 
 

@@ -1,8 +1,8 @@
 package by.kanarski.booking.listeners.request;
 
 import by.kanarski.booking.constants.Parameter;
-import by.kanarski.booking.utils.threadLocal.UserPreferences;
 import by.kanarski.booking.utils.threadLocal.ThreadLocalUtil;
+import by.kanarski.booking.utils.threadLocal.UserPreferences;
 
 import javax.servlet.ServletRequestEvent;
 import javax.servlet.ServletRequestListener;

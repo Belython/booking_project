@@ -1,6 +1,5 @@
 package by.kanarski.booking.services.impl;
 
-import by.kanarski.booking.constants.ServiceMessage;
 import by.kanarski.booking.dao.impl.BillDao;
 import by.kanarski.booking.dao.impl.RoomDao;
 import by.kanarski.booking.dto.BillDto;
@@ -10,8 +9,10 @@ import by.kanarski.booking.exceptions.DaoException;
 import by.kanarski.booking.exceptions.LocalisationException;
 import by.kanarski.booking.exceptions.ServiceException;
 import by.kanarski.booking.services.interfaces.IBillService;
-import by.kanarski.booking.utils.*;
+import by.kanarski.booking.utils.BookingSystemLogger;
 import by.kanarski.booking.utils.ConnectionUtil;
+import by.kanarski.booking.utils.DtoToEntityConverter;
+import by.kanarski.booking.utils.ExceptionHandler;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -42,7 +43,6 @@ public class BillServiceImpl implements IBillService {
             Bill bill = DtoToEntityConverter.toBill(billDto);
             billDao.add(bill);
             connection.commit();
-            BookingSystemLogger.getInstance().logInfo(getClass(), ServiceMessage.TRANSACTION_SUCCEEDED);
         } catch (SQLException | LocalisationException | DaoException e) {
             ExceptionHandler.handleSQLOrDaoException(connection, e, getClass());
         }
@@ -63,7 +63,6 @@ public class BillServiceImpl implements IBillService {
             List<Room> roomList = RoomDao.getInstance().getByIdList(bill.getBookedRoomIdList());
             billDto = DtoToEntityConverter.toBillDto(bill, roomList);
             connection.commit();
-            BookingSystemLogger.getInstance().logInfo(getClass(), ServiceMessage.TRANSACTION_SUCCEEDED);
         } catch (SQLException | LocalisationException | DaoException e) {
             ExceptionHandler.handleSQLOrDaoException(connection, e, getClass());
         }
@@ -78,7 +77,6 @@ public class BillServiceImpl implements IBillService {
             Bill bill = DtoToEntityConverter.toBill(billDto);
             billDao.update(bill);
             connection.commit();
-            BookingSystemLogger.getInstance().logInfo(getClass(), ServiceMessage.TRANSACTION_SUCCEEDED);
         } catch (SQLException | LocalisationException | DaoException e) {
             ExceptionHandler.handleSQLOrDaoException(connection, e, getClass());
         }
@@ -102,7 +100,6 @@ public class BillServiceImpl implements IBillService {
                 billDtoList.add(billDto);
             }
             connection.commit();
-            BookingSystemLogger.getInstance().logInfo(getClass(), ServiceMessage.TRANSACTION_SUCCEEDED);
         } catch (SQLException | LocalisationException | DaoException e) {
             ExceptionHandler.handleSQLOrDaoException(connection, e, getClass());
         }

@@ -1,10 +1,9 @@
 package by.kanarski.booking.dao.impl;
 
-import by.kanarski.booking.constants.DaoMessage;
 import by.kanarski.booking.dao.interfaces.IHotelDao;
 import by.kanarski.booking.entities.Hotel;
 import by.kanarski.booking.exceptions.DaoException;
-import by.kanarski.booking.utils.BookingSystemLogger;
+import by.kanarski.booking.managers.ExceptionMessageManager;
 import by.kanarski.booking.utils.ClosingUtil;
 import by.kanarski.booking.utils.ConnectionUtil;
 import by.kanarski.booking.utils.EntityParser;
@@ -63,8 +62,7 @@ public class HotelDao implements IHotelDao {
             resultSet.next();
             hotel.setHotelId(resultSet.getLong(1));
         } catch (SQLException e) {
-            BookingSystemLogger.getInstance().logError(getClass(), DaoMessage.ADD_HOTEL_EXCEPTION);
-            throw new DaoException(DaoMessage.ADD_HOTEL_EXCEPTION, e);
+            throw new DaoException(ExceptionMessageManager.ADD_EXCEPTION.get(), e);
         } finally {
             ClosingUtil.close(resultSet);
         }
@@ -82,8 +80,7 @@ public class HotelDao implements IHotelDao {
             resultSet.next();
             hotel = EntityParser.parseHotel(resultSet);
         } catch (SQLException e) {
-            BookingSystemLogger.getInstance().logError(getClass(), DaoMessage.GET_HOTEL_EXCEPTION);
-            throw new DaoException(DaoMessage.GET_HOTEL_EXCEPTION, e);
+            throw new DaoException(ExceptionMessageManager.GET_EXCEPTION.get(), e);
         } finally {
             ClosingUtil.close(resultSet);
         }
@@ -100,7 +97,7 @@ public class HotelDao implements IHotelDao {
             stm.setLong(4, hotel.getHotelId());
             stm.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException(DaoMessage.UPDATE_HOTEL_EXCEPTION, e);
+            throw new DaoException(ExceptionMessageManager.UPDATE_EXCEPTION.get(), e);
         }
     }
 
@@ -111,7 +108,7 @@ public class HotelDao implements IHotelDao {
             stm.setLong(1, hotel.getHotelId());
             stm.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException(DaoMessage.DELETE_HOTEL_EXCEPTION, e);
+            throw new DaoException(ExceptionMessageManager.DELETE_EXCEPTION.get(), e);
         }
     }
 
@@ -127,8 +124,7 @@ public class HotelDao implements IHotelDao {
             }
             stm.executeBatch();
         } catch (SQLException e) {
-            BookingSystemLogger.getInstance().logError(getClass(), DaoMessage.UPDATE_HOTEL_EXCEPTION);
-            throw new DaoException(DaoMessage.UPDATE_HOTEL_EXCEPTION, e);
+            throw new DaoException(ExceptionMessageManager.UPDATE_EXCEPTION.get(), e);
         }
     }
 
@@ -143,8 +139,7 @@ public class HotelDao implements IHotelDao {
                 hotelList.add(EntityParser.parseHotel(resultSet));
             }
         } catch (SQLException e) {
-            BookingSystemLogger.getInstance().logError(getClass(), DaoMessage.GET_HOTEL_EXCEPTION);
-            throw new DaoException(DaoMessage.GET_HOTEL_EXCEPTION, e);
+            throw new DaoException(ExceptionMessageManager.GET_EXCEPTION.get(), e);
         } finally {
             ClosingUtil.close(resultSet);
         }
@@ -161,8 +156,7 @@ public class HotelDao implements IHotelDao {
             resultSet.next();
             hotel = EntityParser.parseHotel(resultSet);
         } catch (SQLException e) {
-            BookingSystemLogger.getInstance().logError(getClass(), DaoMessage.GET_HOTEL_EXCEPTION);
-            throw new DaoException(DaoMessage.GET_HOTEL_EXCEPTION, e);
+            throw new DaoException(ExceptionMessageManager.GET_EXCEPTION.get(), e);
         } finally {
             ClosingUtil.close(resultSet);
         }
@@ -180,8 +174,7 @@ public class HotelDao implements IHotelDao {
                 hotelList.add(EntityParser.parseHotel(resultSet));
             }
         } catch (SQLException e) {
-            BookingSystemLogger.getInstance().logError(getClass(), DaoMessage.GET_HOTEL_EXCEPTION);
-            throw new DaoException(DaoMessage.GET_HOTEL_EXCEPTION, e);
+            throw new DaoException(ExceptionMessageManager.GET_EXCEPTION.get(), e);
         } finally {
             ClosingUtil.close(resultSet);
         }
@@ -199,8 +192,7 @@ public class HotelDao implements IHotelDao {
                 hotelList.add(EntityParser.parseHotel(resultSet));
             }
         } catch (SQLException e) {
-            BookingSystemLogger.getInstance().logError(getClass(), DaoMessage.GET_HOTEL_EXCEPTION);
-            throw new DaoException(DaoMessage.GET_HOTEL_EXCEPTION, e);
+            throw new DaoException(ExceptionMessageManager.GET_EXCEPTION.get(), e);
         } finally {
             ClosingUtil.close(resultSet);
         }
@@ -220,8 +212,7 @@ public class HotelDao implements IHotelDao {
             }
             stm.executeBatch();
         } catch (SQLException e) {
-            BookingSystemLogger.getInstance().logError(getClass(), DaoMessage.ADD_HOTEL_EXCEPTION);
-            throw new DaoException(DaoMessage.ADD_HOTEL_EXCEPTION, e);
+            throw new DaoException(ExceptionMessageManager.ADD_EXCEPTION.get(), e);
         }
     }
 }

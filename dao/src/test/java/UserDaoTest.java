@@ -1,11 +1,11 @@
 import by.kanarski.booking.dao.impl.UserDao;
 import by.kanarski.booking.entities.User;
 import by.kanarski.booking.exceptions.DaoException;
-import pre.util.TestEntityBuilder;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import pre.util.TestEntityBuilder;
 
 import java.util.List;
 

@@ -169,9 +169,16 @@ public class PageTextContentKeys {
             "entityField.roomTypeStatus"
     );
 
+    public static final List<String> LOCATION_COLUMN_LIST = Arrays.asList(
+            "tableRedactor.rowNumber",
+            "entityField.country",
+            "entityField.city",
+            "entityField.locationStatus"
+    );
+
     public static final List<String> TABLE_REDACTOR = Arrays.asList(
             "tableRedactor.roomsRedactor",
-            "tableRedactor.roomTypeRedactor",
+            "tableRedactor.roomTypesRedactor",
             "tableRedactor.alter",
             "tableRedactor.alterAll",
             "tableRedactor.add",

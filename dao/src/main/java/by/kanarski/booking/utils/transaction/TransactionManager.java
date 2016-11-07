@@ -10,6 +10,8 @@ import by.kanarski.booking.utils.threadLocal.ThreadLocalUtil;
 public class TransactionManager {
 
     public static TransactoinWrapper getTransaction() {
+        String g = "dasasd";
+        String v = g + "dads";
         if (ThreadLocalUtil.hasVariable(ThreadLocalUtil.CONNECTION.name())) {
             return new SimpleTransaction();
         } else {

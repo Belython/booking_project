@@ -1,8 +1,8 @@
 package by.kanarski.booking.utils;
 
 import by.kanarski.booking.constants.BookingSystemLocale;
-import by.kanarski.booking.constants.L10nMessage;
 import by.kanarski.booking.exceptions.LocalisationException;
+import by.kanarski.booking.managers.ExceptionMessageManager;
 import by.kanarski.booking.utils.threadLocal.UserPreferences;
 
 import java.text.DateFormat;
@@ -30,7 +30,7 @@ public class DateUtil {
         try {
             date = dateFormat.parse(formattedDate).getTime();
         } catch (ParseException e) {
-            throw new LocalisationException(L10nMessage.PARSE_DATE_EXCEPTION, e);
+            throw new LocalisationException(ExceptionMessageManager.PARSE_DATE_EXCEPTION.get(), e);
         }
         return date;
     }
@@ -41,7 +41,7 @@ public class DateUtil {
         try {
             date = dateFormat.parse(formattedDate).getTime();
         } catch (ParseException e) {
-            throw new LocalisationException(L10nMessage.PARSE_DATE_EXCEPTION, e);
+            throw new LocalisationException(ExceptionMessageManager.PARSE_DATE_EXCEPTION.get(), e);
         }
         return date;
     }
@@ -88,7 +88,8 @@ public class DateUtil {
         try {
             date = DateUtil.parseDate(formattedDate, userLocale);
         } catch (LocalisationException e) {
-            BookingSystemLogger.getInstance().logError(DateUtil.class, L10nMessage.PARSE_DATE_EXCEPTION, e);
+            BookingSystemLogger.getInstance().logError(DateUtil.class,
+                    ExceptionMessageManager.PARSE_DATE_EXCEPTION.get(), e);
         }
         return DateUtil.getFormattedDate(date, DEFAULT_LOCALE);
 

@@ -1,6 +1,5 @@
 package by.kanarski.booking.services.impl;
 
-import by.kanarski.booking.constants.ServiceMessage;
 import by.kanarski.booking.dao.impl.HotelDao;
 import by.kanarski.booking.dao.impl.RoomDao;
 import by.kanarski.booking.dto.GlobalHotelDto;
@@ -53,7 +52,6 @@ public class GlobalHotelServiceImpl implements IGlobalHotelService {
 
             globalHotelDto = toGlobalHotelDto(hotel);
             connection.commit();
-            BookingSystemLogger.getInstance().logInfo(getClass(), ServiceMessage.TRANSACTION_SUCCEEDED);
         } catch (SQLException | LocalisationException | DaoException e) {
             ExceptionHandler.handleSQLOrDaoException(connection, e, getClass());
         }
@@ -69,7 +67,6 @@ public class GlobalHotelServiceImpl implements IGlobalHotelService {
             List<Hotel> hotelList = hotelDao.getAll();
             globalHotelDtoList = toGlobalHotelDtoList(hotelList);
             connection.commit();
-            BookingSystemLogger.getInstance().logInfo(getClass(), ServiceMessage.TRANSACTION_SUCCEEDED);
         } catch (SQLException | LocalisationException | DaoException e) {
             ExceptionHandler.handleSQLOrDaoException(connection, e, getClass());
         }
@@ -95,7 +92,6 @@ public class GlobalHotelServiceImpl implements IGlobalHotelService {
             Hotel hotel = hotelDao.getByHotelName(hotelName);
             globalHotelDto = toGlobalHotelDto(hotel);
             connection.commit();
-            BookingSystemLogger.getInstance().logInfo(getClass(), ServiceMessage.TRANSACTION_SUCCEEDED);
         } catch (SQLException | LocalisationException | DaoException e) {
             ExceptionHandler.handleSQLOrDaoException(connection, e, getClass());
         }
@@ -110,7 +106,6 @@ public class GlobalHotelServiceImpl implements IGlobalHotelService {
             List<Hotel> hotelList = DtoToEntityConverter.toHotelListFromGlobal(globalHotelDtoList);
             hotelDao.updateList(hotelList);
             connection.commit();
-            BookingSystemLogger.getInstance().logInfo(getClass(), ServiceMessage.TRANSACTION_SUCCEEDED);
         } catch (SQLException | DaoException e) {
             ExceptionHandler.handleSQLOrDaoException(connection, e, getClass());
         }
@@ -124,7 +119,6 @@ public class GlobalHotelServiceImpl implements IGlobalHotelService {
             List<Hotel> hotelList = DtoToEntityConverter.toHotelListFromGlobal(globalHotelDtoList);
             hotelDao.addList(hotelList);
             connection.commit();
-            BookingSystemLogger.getInstance().logInfo(getClass(), ServiceMessage.TRANSACTION_SUCCEEDED);
         } catch (SQLException | DaoException e) {
             ExceptionHandler.handleSQLOrDaoException(connection, e, getClass());
         }
@@ -139,7 +133,6 @@ public class GlobalHotelServiceImpl implements IGlobalHotelService {
             List<Hotel> hotelList = hotelDao.getByCountry(country);
             globalHotelDtoList = toGlobalHotelDtoList(hotelList);
             connection.commit();
-            BookingSystemLogger.getInstance().logInfo(getClass(), ServiceMessage.TRANSACTION_SUCCEEDED);
         } catch (SQLException | LocalisationException | DaoException e) {
             ExceptionHandler.handleSQLOrDaoException(connection, e, getClass());
         }
@@ -155,7 +148,6 @@ public class GlobalHotelServiceImpl implements IGlobalHotelService {
             List<Hotel> hotelList = hotelDao.getByCity(city);
             globalHotelDtoList = toGlobalHotelDtoList(hotelList);
             connection.commit();
-            BookingSystemLogger.getInstance().logInfo(getClass(), ServiceMessage.TRANSACTION_SUCCEEDED);
         } catch (SQLException | LocalisationException | DaoException e) {
             ExceptionHandler.handleSQLOrDaoException(connection, e, getClass());
         }
@@ -190,7 +182,6 @@ public class GlobalHotelServiceImpl implements IGlobalHotelService {
                 }
             }
             connection.commit();
-            BookingSystemLogger.getInstance().logInfo(getClass(), ServiceMessage.TRANSACTION_SUCCEEDED);
         } catch (SQLException | LocalisationException | DaoException e) {
             ExceptionHandler.handleSQLOrDaoException(connection, e, getClass());
         }
@@ -207,7 +198,6 @@ public class GlobalHotelServiceImpl implements IGlobalHotelService {
             List<Room> availableRoomList = roomDao.getAvailableRooms(orderDto);
             globalHotelDto = DtoToEntityConverter.toGlobalHotelDto(hotel, availableRoomList);
             connection.commit();
-            BookingSystemLogger.getInstance().logInfo(getClass(), ServiceMessage.TRANSACTION_SUCCEEDED);
         } catch (SQLException | LocalisationException | DaoException e) {
             ExceptionHandler.handleSQLOrDaoException(connection, e, getClass());
         }

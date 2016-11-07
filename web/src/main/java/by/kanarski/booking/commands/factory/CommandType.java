@@ -2,8 +2,10 @@ package by.kanarski.booking.commands.factory;
 
 import by.kanarski.booking.commands.ICommand;
 import by.kanarski.booking.commands.impl.admin.GoToAdminPageCommand;
-import by.kanarski.booking.commands.impl.admin.database.room.AlterRoomsCommand;
 import by.kanarski.booking.commands.impl.admin.database.ConstrainRowCommand;
+import by.kanarski.booking.commands.impl.admin.database.location.AlterLocationsCommand;
+import by.kanarski.booking.commands.impl.admin.database.location.GoToLocationsRedactorCommand;
+import by.kanarski.booking.commands.impl.admin.database.room.AlterRoomsCommand;
 import by.kanarski.booking.commands.impl.admin.database.room.GoToRoomsRedactorCommand;
 import by.kanarski.booking.commands.impl.admin.database.roomType.AlterRoomTypesCommand;
 import by.kanarski.booking.commands.impl.admin.database.roomType.GoToRoomTypesRedactorCommand;
@@ -19,6 +21,7 @@ public enum CommandType {
     GOTOADMINPAGE,
     GOTOROOMSREDACTOR, ALTERROOMS,
     GOTOROOMTYPEREDACTOR, ALTERROOMTYPE,
+    GOTOLOCATIONSREDACTOR, ALTERLOCATIONS,
     CONSTRAINROW;
 
     public ICommand getCurrentCommand() throws EnumConstantNotPresentException {
@@ -88,6 +91,13 @@ public enum CommandType {
 
             case ALTERROOMTYPE:
                 return new AlterRoomTypesCommand();
+
+            case GOTOLOCATIONSREDACTOR:
+                return new GoToLocationsRedactorCommand();
+
+            case ALTERLOCATIONS:
+                return new AlterLocationsCommand();
+
             default:
                 throw new EnumConstantNotPresentException(this.getDeclaringClass(), this.name());
         }

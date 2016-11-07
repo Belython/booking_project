@@ -9,21 +9,20 @@ import by.kanarski.booking.exceptions.ServiceException;
 import by.kanarski.booking.managers.OperationMessageManager;
 import by.kanarski.booking.requestHandler.ServletAction;
 import by.kanarski.booking.services.impl.RoomServiceImpl;
+import by.kanarski.booking.utils.CommandHelper;
 import by.kanarski.booking.utils.RequestParser;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 public class AlterRoomsCommand extends AbstractCommand {
 
     @Override
     public ServletAction execute(HttpServletRequest request, HttpServletResponse response) {
-        ServletAction servletAction = null;
-        String page = null;
+        ServletAction servletAction;
+        String page;
         HttpSession session = request.getSession();
         String subCommand = request.getParameter(Parameter.SUB_COMMAND);
         try {
@@ -40,39 +39,18 @@ public class AlterRoomsCommand extends AbstractCommand {
             }
             List<RoomDto> newRoomDtoList = RoomServiceImpl.getInstance().getAll();
             session.setAttribute(Parameter.ROOM_LIST, newRoomDtoList);
-            session.setAttribute(Parameter.ROOM_DTO_LIST, newRoomDtoList);
             String responseText = OperationMessageManager.DATABASE_CHANGE_SUCCES.getLocalised();
-            if (RequestParser.isAjaxRequest(request)) {
-                servletAction = ServletAction.AJAX_REQUEST;
-                writeResponse(response, responseText);
-                page = (String) session.getAttribute(Parameter.CURRENT_PAGE_PATH);
-            } else {
-                servletAction = ServletAction.FORWARD_PAGE;
-                request.setAttribute(Parameter.OPERATION_MESSAGE, responseText);
-                page = (String) session.getAttribute(Parameter.CURRENT_PAGE_PATH);
-            }
+            servletAction = CommandHelper.generateServletAction(request, response, responseText);
         } catch (ServiceException e) {
             servletAction = ServletAction.FORWARD_PAGE;
             page = PagePath.ERROR;
+            servletAction.setPage(page);
             handleServiceException(request);
         }
+        page = servletAction.getPage();
         session.setAttribute(Parameter.CURRENT_PAGE_PATH, page);
         request.setAttribute(Parameter.CURRENT_PAGE_PATH, page);
-        servletAction.setPage(page);
         return servletAction;
-    }
-
-    private void writeResponse(HttpServletResponse response, String responseText) {
-        try {
-            String contentType = "text/html; charset=UTF-8";
-            response.setContentType(contentType);
-            PrintWriter out = response.getWriter();
-            out.write(responseText);
-            out.flush();
-            out.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
 }

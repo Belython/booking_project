@@ -9,7 +9,7 @@ public enum ResourceManager {
 
     OPERATION_MESSAGES(ResourcePath.OPERATION_MESSAGES_SOURCE),
     JSP_TEXT(ResourcePath.TEXT_SOURCE),
-    EXCEPTION(ResourcePath.EXCEPTION_MESSAGES_SOURCE),
+    EXCEPTION_MESSAGES(ResourcePath.EXCEPTION_MESSAGES_SOURCE),
     DATABASE(ResourcePath.DATABASE_SOURCE),
 
     //Mail resources

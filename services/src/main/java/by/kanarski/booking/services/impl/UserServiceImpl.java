@@ -1,14 +1,13 @@
 package by.kanarski.booking.services.impl;
 
-import by.kanarski.booking.constants.ServiceMessage;
 import by.kanarski.booking.dao.impl.UserDao;
 import by.kanarski.booking.dto.UserDto;
 import by.kanarski.booking.entities.User;
 import by.kanarski.booking.exceptions.DaoException;
 import by.kanarski.booking.exceptions.ServiceException;
 import by.kanarski.booking.services.interfaces.IUserService;
-import by.kanarski.booking.utils.BookingSystemLogger;
 import by.kanarski.booking.utils.DtoToEntityConverter;
+import by.kanarski.booking.utils.ExceptionHandler;
 import by.kanarski.booking.utils.transaction.TransactionManager;
 import by.kanarski.booking.utils.transaction.TransactoinWrapper;
 
@@ -180,13 +179,10 @@ public class UserServiceImpl implements IUserService {
         TransactoinWrapper transaction = TransactionManager.getTransaction();
         try {
             User user = DtoToEntityConverter.toUser(userDto);
-
             userDao.add(user);
             transaction.commit();
-            BookingSystemLogger.getInstance().logInfo(getClass(), ServiceMessage.TRANSACTION_SUCCEEDED);
         } catch (DaoException e) {
-            transaction.rollback();
-            BookingSystemLogger.getInstance().logError(UserServiceImpl.class, "ERRRRRRRRRORRRR", e);
+            ExceptionHandler.handleDaoException(transaction, e);
         }
     }
 
@@ -199,10 +195,8 @@ public class UserServiceImpl implements IUserService {
             User user = userDao.getById(id);
             userDto = DtoToEntityConverter.toUserDto(user);
             transaction.commit();
-            BookingSystemLogger.getInstance().logInfo(getClass(), ServiceMessage.TRANSACTION_SUCCEEDED);
         } catch (DaoException e) {
-            transaction.rollback();
-            BookingSystemLogger.getInstance().logError(UserServiceImpl.class, "ERRRRRRRRRORRRR", e);
+            ExceptionHandler.handleDaoException(transaction, e);
         }
         return userDto;
     }
@@ -216,10 +210,8 @@ public class UserServiceImpl implements IUserService {
             List<User> userList = userDao.getAll();
             userDtoList = DtoToEntityConverter.toUserDtoList(userList);
             transaction.commit();
-            BookingSystemLogger.getInstance().logInfo(getClass(), ServiceMessage.TRANSACTION_SUCCEEDED);
         } catch (DaoException e) {
-            transaction.rollback();
-            BookingSystemLogger.getInstance().logError(UserServiceImpl.class, "ERRRRRRRRRORRRR", e);
+            ExceptionHandler.handleDaoException(transaction, e);
         }
         return userDtoList;
     }
@@ -232,10 +224,8 @@ public class UserServiceImpl implements IUserService {
             User user = DtoToEntityConverter.toUser(userDto);
             userDao.update(user);
             transaction.commit();
-            BookingSystemLogger.getInstance().logInfo(getClass(), ServiceMessage.TRANSACTION_SUCCEEDED);
         } catch (DaoException e) {
-            transaction.rollback();
-            BookingSystemLogger.getInstance().logError(UserServiceImpl.class, "ERRRRRRRRRORRRR", e);
+            ExceptionHandler.handleDaoException(transaction, e);
         }
     }
 
@@ -254,10 +244,8 @@ public class UserServiceImpl implements IUserService {
             String  password = userDto.getPassword();
             isAuthorized = userDao.isAuthorized(login, password);
             transaction.commit();
-            BookingSystemLogger.getInstance().logInfo(getClass(), ServiceMessage.TRANSACTION_SUCCEEDED);
         } catch (DaoException e) {
-            transaction.rollback();
-            BookingSystemLogger.getInstance().logError(UserServiceImpl.class, "ERRRRRRRRRORRRR", e);
+            ExceptionHandler.handleDaoException(transaction, e);
         }
         return isAuthorized;
     }
@@ -271,10 +259,8 @@ public class UserServiceImpl implements IUserService {
             User user = userDao.getByLogin(login);
             userDto = DtoToEntityConverter.toUserDto(user);
             transaction.commit();
-            BookingSystemLogger.getInstance().logInfo(getClass(), ServiceMessage.TRANSACTION_SUCCEEDED);
         } catch (DaoException e) {
-            transaction.rollback();
-            BookingSystemLogger.getInstance().logError(UserServiceImpl.class, "ERRRRRRRRRORRRR", e);
+            ExceptionHandler.handleDaoException(transaction, e);
         }
         return userDto;
     }
@@ -288,10 +274,8 @@ public class UserServiceImpl implements IUserService {
             User user = userDao.getByEmail(email);
             userDto = DtoToEntityConverter.toUserDto(user);
             transaction.commit();
-            BookingSystemLogger.getInstance().logInfo(getClass(), ServiceMessage.TRANSACTION_SUCCEEDED);
         } catch (DaoException e) {
-            transaction.rollback();
-            BookingSystemLogger.getInstance().logError(UserServiceImpl.class, "ERRRRRRRRRORRRR", e);
+            ExceptionHandler.handleDaoException(transaction, e);
         }
         return userDto;
     }
@@ -305,10 +289,8 @@ public class UserServiceImpl implements IUserService {
             String login = userDto.getLogin();
             isNew = userDao.isNewUser(login);
             transaction.commit();
-            BookingSystemLogger.getInstance().logInfo(getClass(), ServiceMessage.TRANSACTION_SUCCEEDED);
         } catch (DaoException e) {
-            transaction.rollback();
-            BookingSystemLogger.getInstance().logError(UserServiceImpl.class, "ERRRRRRRRRORRRR", e);
+            ExceptionHandler.handleDaoException(transaction, e);
         }
         return isNew;
     }
@@ -321,10 +303,8 @@ public class UserServiceImpl implements IUserService {
             User user = DtoToEntityConverter.toUser(userDto);
             userDao.add(user);
             transaction.commit();
-            BookingSystemLogger.getInstance().logInfo(getClass(), ServiceMessage.TRANSACTION_SUCCEEDED);
         } catch (DaoException e) {
-            transaction.rollback();
-            BookingSystemLogger.getInstance().logError(UserServiceImpl.class, "ERRRRRRRRRORRRR", e);
+            ExceptionHandler.handleDaoException(transaction, e);
         }
     }
 }

@@ -48,7 +48,6 @@ public class SecurityFilter implements Filter {
 
     }
 
-
     private UserDto checkAuthorization(HttpServletRequest request) {
         HttpSession session = request.getSession();
         UserDto userDto = (UserDto) session.getAttribute(Parameter.USER);

@@ -1,7 +1,6 @@
 package by.kanarski.booking.commands.impl.user;
 
 import by.kanarski.booking.commands.AbstractCommand;
-import by.kanarski.booking.commands.ICommand;
 import by.kanarski.booking.constants.PagePath;
 import by.kanarski.booking.constants.Parameter;
 import by.kanarski.booking.requestHandler.ServletAction;

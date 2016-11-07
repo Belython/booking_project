@@ -1,12 +1,8 @@
 package by.kanarski.booking.dao.interfaces;
 
-import by.kanarski.booking.constants.DaoMessage;
 import by.kanarski.booking.entities.RoomType;
 import by.kanarski.booking.exceptions.DaoException;
-import by.kanarski.booking.utils.*;
 
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

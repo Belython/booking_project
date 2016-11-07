@@ -1,8 +1,8 @@
 package by.kanarski.booking.i18n.l10n.filler.factory;
 
 import by.kanarski.booking.constants.ContentName;
-import by.kanarski.booking.i18n.l10n.filler.Filler;
 import by.kanarski.booking.constants.PageTextContentKeys;
+import by.kanarski.booking.i18n.l10n.filler.Filler;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -35,7 +35,7 @@ public enum FillerManager {
         Arrays.asList(getRoomsRedactor(), getSideBar(), getHeader())
     ),
     ROOMTYPEREDACTOR(
-            Arrays.asList(getRoomTypeRedactor(), getSideBar(), getHeader())
+            Arrays.asList(getRoomTypesRedactor(), getSideBar(), getHeader())
     ),
     REMINDPASSWORD(
         Arrays.asList(getRemindPassword(), getHeader())
@@ -114,10 +114,17 @@ public enum FillerManager {
         return contentMap;
     }
 
-    public static Map<String, List<String>> getRoomTypeRedactor() {
+    public static Map<String, List<String>> getRoomTypesRedactor() {
         Map<String, List<String>> contentMap = new HashMap<>();
         contentMap.put(ContentName.STRING, PageTextContentKeys.TABLE_REDACTOR);
         contentMap.put(ContentName.COLUMN_NAME_LIST, PageTextContentKeys.ROOM_TYPE_COLUMN_LIST);
+        return contentMap;
+    }
+
+    public static Map<String, List<String>> getLocationsRedactor() {
+        Map<String, List<String>> contentMap = new HashMap<>();
+        contentMap.put(ContentName.STRING, PageTextContentKeys.TABLE_REDACTOR);
+        contentMap.put(ContentName.COLUMN_NAME_LIST, PageTextContentKeys.LOCATION_COLUMN_LIST);
         return contentMap;
     }
 

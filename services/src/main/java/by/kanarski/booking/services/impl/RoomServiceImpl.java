@@ -1,6 +1,5 @@
 package by.kanarski.booking.services.impl;
 
-import by.kanarski.booking.constants.ServiceMessage;
 import by.kanarski.booking.dao.impl.RoomDao;
 import by.kanarski.booking.dto.BillDto;
 import by.kanarski.booking.dto.OrderDto;
@@ -15,7 +14,10 @@ import by.kanarski.booking.utils.*;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NavigableSet;
+import java.util.TreeMap;
 
 public class RoomServiceImpl implements IRoomService {
 
@@ -77,7 +79,6 @@ public class RoomServiceImpl implements IRoomService {
             connection.setAutoCommit(false);
             roomDao.update(room);
             connection.commit();
-            BookingSystemLogger.getInstance().logInfo(getClass(), ServiceMessage.TRANSACTION_SUCCEEDED);
         } catch (SQLException | LocalisationException | DaoException e) {
             ExceptionHandler.handleSQLOrDaoException(connection, e, getClass());
         }
@@ -125,7 +126,6 @@ public class RoomServiceImpl implements IRoomService {
             }
             roomDtoList = DtoToEntityConverter.toRoomDtoList(roomList);
             connection.commit();
-            BookingSystemLogger.getInstance().logInfo(getClass(), ServiceMessage.TRANSACTION_SUCCEEDED);
         } catch (SQLException | LocalisationException | DaoException e) {
             ExceptionHandler.handleSQLOrDaoException(connection, e, getClass());
         }
@@ -141,7 +141,6 @@ public class RoomServiceImpl implements IRoomService {
             List<Room> roomList = roomDao.getByHotelId(hotelId);
             roomDtoList = DtoToEntityConverter.toRoomDtoList(roomList);
             connection.commit();
-            BookingSystemLogger.getInstance().logInfo(getClass(), ServiceMessage.TRANSACTION_SUCCEEDED);
         } catch (SQLException | LocalisationException | DaoException e) {
             ExceptionHandler.handleSQLOrDaoException(connection, e, getClass());
         }
@@ -158,7 +157,6 @@ public class RoomServiceImpl implements IRoomService {
             List<Room> roomList = roomDao.getByIdList(bill.getBookedRoomIdList());
             roomDtoList = DtoToEntityConverter.toRoomDtoList(roomList);
             connection.commit();
-            BookingSystemLogger.getInstance().logInfo(getClass(), ServiceMessage.TRANSACTION_SUCCEEDED);
         } catch (SQLException | LocalisationException | DaoException e) {
             ExceptionHandler.handleSQLOrDaoException(connection, e, getClass());
         }
@@ -173,7 +171,6 @@ public class RoomServiceImpl implements IRoomService {
             connection.setAutoCommit(false);
             roomDao.updateList(roomList);
             connection.commit();
-            BookingSystemLogger.getInstance().logInfo(getClass(), ServiceMessage.TRANSACTION_SUCCEEDED);
         } catch (SQLException | LocalisationException | DaoException e) {
             ExceptionHandler.handleSQLOrDaoException(connection, e, getClass());
         }
@@ -187,7 +184,6 @@ public class RoomServiceImpl implements IRoomService {
             connection.setAutoCommit(false);
             roomDao.addList(roomList);
             connection.commit();
-            BookingSystemLogger.getInstance().logInfo(getClass(), ServiceMessage.TRANSACTION_SUCCEEDED);
         } catch (SQLException | LocalisationException | DaoException e) {
             ExceptionHandler.handleSQLOrDaoException(connection, e, getClass());
         }
@@ -201,7 +197,6 @@ public class RoomServiceImpl implements IRoomService {
             connection.setAutoCommit(false);
             roomDao.reserveRoomList(roomList);
             connection.commit();
-            BookingSystemLogger.getInstance().logInfo(getClass(), ServiceMessage.TRANSACTION_SUCCEEDED);
         } catch (SQLException | LocalisationException | DaoException e) {
             ExceptionHandler.handleSQLOrDaoException(connection, e, getClass());
         }
@@ -216,7 +211,6 @@ public class RoomServiceImpl implements IRoomService {
             List<Room> roomList = roomDao.getByIdList(roomIdList);
             roomDtoList = DtoToEntityConverter.toRoomDtoList(roomList);
             connection.commit();
-            BookingSystemLogger.getInstance().logInfo(getClass(), ServiceMessage.TRANSACTION_SUCCEEDED);
         } catch (SQLException | LocalisationException | DaoException e) {
             ExceptionHandler.handleSQLOrDaoException(connection, e, getClass());
         }

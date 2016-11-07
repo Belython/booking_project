@@ -255,8 +255,56 @@ public class RequestParser {
         return roomTypeDtoList;
     }
 
+    public static List<LocationDto> parseLocationDtoList(HttpServletRequest request) throws ServiceException{
+        List<LocationDto> locationDtoList = new ArrayList<>();
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        Set<String> parameterSet = parameterMap.keySet();
+        String[] locationIdArray = null;
+        String[] countryArray = null;
+        String[] cityArray = null;
+        String[] locationStatusArray = null;
+        for (String parameter : parameterSet) {
+            switch (parameter) {
+                case Parameter.LOCATION_ID: {
+                    locationIdArray = parameterMap.get(parameter);
+                    break;
+                }
+                case Parameter.LOCATION_COUNTRY: {
+                    countryArray = parameterMap.get(parameter);
+                    break;
+                }
+                case Parameter.LOCATION_CITY: {
+                    cityArray = parameterMap.get(parameter);
+                    break;
+                }
+                case Parameter.LOCATION_STATUS: {
+                    locationStatusArray = parameterMap.get(parameter);
+                    break;
+                }
+            }
+        }
+        for (int i = 0; i < locationIdArray.length; i++) {
+            long locationId = Long.valueOf(locationIdArray[i]);
+            String contry = countryArray[i];
+            String city = cityArray[i];
+            String locationStatus = locationStatusArray[i];
+            LocationDto locationDto = new LocationDto(locationId, contry, city, locationStatus);
+            locationDtoList.add(locationDto);
+        }
+        return locationDtoList;
+    }
+
+
     public static boolean isAjaxRequest(HttpServletRequest request) {String stringValue = request.getParameter(Parameter.IS_AJAX_REQUEST);
         return Boolean.parseBoolean(stringValue);
+    }
+
+    public static LocationDto parseLocationDto(HttpServletRequest request) {
+        long locationId = Long.valueOf(request.getParameter(Parameter.LOCATION_ID));
+        String contry = request.getParameter(Parameter.LOCATION_COUNTRY);
+        String city = request.getParameter(Parameter.LOCATION_CITY);
+        String locationStatus = request.getParameter(Parameter.LOCATION_STATUS);
+        return new LocationDto(locationId, contry, city, locationStatus);
     }
 
     public static RoomTypeDto parseRoomTypeDto(HttpServletRequest request) {

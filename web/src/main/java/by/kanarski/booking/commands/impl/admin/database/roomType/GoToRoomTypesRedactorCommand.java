@@ -26,11 +26,11 @@ public class GoToRoomTypesRedactorCommand implements ICommand {
     @Override
     public ServletAction execute(HttpServletRequest request, HttpServletResponse response) {
         ServletAction servletAction;
-        String page = null;
+        String page;
         HttpSession session = request.getSession();
         try {
             servletAction = ServletAction.FORWARD_PAGE;
-            page = PagePath.ROOM_TYPE_REDACTOR_PATH;
+            page = PagePath.ROOM_TYPES_REDACTOR_PATH;
             List<RoomTypeDto> roomTypeDtoList = RoomTypeServiceImpl.getInstance().getAll();
             List<FieldDescriptor<RoomTypeDto>> descriptorList = new ArrayList<>();
             for (RoomTypeDto roomTypeDto: roomTypeDtoList) {
@@ -50,7 +50,7 @@ public class GoToRoomTypesRedactorCommand implements ICommand {
                 FieldDescriptor<RoomTypeDto> roomTypeDtoDescriptor = FieldBuilder.buildEntity(roomTypeDescriptors, roomTypeDto);
                 descriptorList.add(roomTypeDtoDescriptor);
             }
-            session.setAttribute(Parameter.ALTER_TABLE_COMMAND, Value.ALTER_ROOM_TYPE);
+            session.setAttribute(Parameter.ALTER_TABLE_COMMAND, Value.ALTER_ROOM_TYPES);
             session.setAttribute(Parameter.DESCRIPTOR_LIST, descriptorList);
             session.setAttribute(Parameter.ROOM_TYPE_LIST, roomTypeDtoList);
             session.setAttribute(Parameter.STATUS_LIST, FieldValue.STATUS_LIST);

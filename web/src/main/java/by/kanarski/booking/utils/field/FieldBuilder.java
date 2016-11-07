@@ -1,6 +1,6 @@
 package by.kanarski.booking.utils.field;
 
-import java.util.*;
+import java.util.LinkedHashMap;
 
 public class FieldBuilder {
 

@@ -1,12 +1,11 @@
 package by.kanarski.booking.services.impl;
 
-import by.kanarski.booking.dao.impl.RoomTypeDao;
-import by.kanarski.booking.dto.RoomTypeDto;
-import by.kanarski.booking.entities.RoomType;
+import by.kanarski.booking.dao.impl.LocationDao;
+import by.kanarski.booking.dto.LocationDto;
+import by.kanarski.booking.entities.Location;
 import by.kanarski.booking.exceptions.DaoException;
 import by.kanarski.booking.exceptions.ServiceException;
-import by.kanarski.booking.services.interfaces.IRoomTypeService;
-import by.kanarski.booking.utils.BookingSystemLogger;
+import by.kanarski.booking.services.interfaces.ILocationService;
 import by.kanarski.booking.utils.ConnectionUtil;
 import by.kanarski.booking.utils.DtoToEntityConverter;
 import by.kanarski.booking.utils.ExceptionHandler;
@@ -15,53 +14,53 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-public class RoomTypeServiceImpl implements IRoomTypeService {
+public class LocationServiceImpl implements ILocationService {
 
-    private static RoomTypeServiceImpl instance;
-    private static RoomTypeDao roomTypeDao = RoomTypeDao.getInstance();
+    private static LocationServiceImpl instance;
+    private static LocationDao locationDao = LocationDao.getInstance();
 
-    private RoomTypeServiceImpl() {
+    private LocationServiceImpl() {
     }
 
-    public static synchronized RoomTypeServiceImpl getInstance() {
+    public static synchronized LocationServiceImpl getInstance() {
         if (instance == null) {
-            instance = new RoomTypeServiceImpl();
+            instance = new LocationServiceImpl();
         }
         return instance;
     }
 
     @Override
-    public void add(RoomTypeDto roomTypeDto) throws ServiceException {
+    public void add(LocationDto locationDto) throws ServiceException {
 
     }
 
     @Override
-    public List<RoomTypeDto> getAll() throws ServiceException {
+    public List<LocationDto> getAll() throws ServiceException {
         Connection connection = ConnectionUtil.getConnection();
-        List<RoomTypeDto> roomTypeDtoList = null;
+        List<LocationDto> locationDtoList = null;
         try {
             connection.setAutoCommit(false);
-            List<RoomType> roomTypeList = roomTypeDao.getAll();
-            roomTypeDtoList = DtoToEntityConverter.toRoomTypeDtoList(roomTypeList);
+            List<Location> locationList = locationDao.getAll();
+            locationDtoList = DtoToEntityConverter.toLocationDtoList(locationList);
             connection.commit();
         } catch (SQLException | DaoException e) {
             ExceptionHandler.handleSQLOrDaoException(connection, e, getClass());
         }
-        return roomTypeDtoList;
+        return locationDtoList;
     }
 
     @Override
-    public RoomTypeDto getById(long id) throws ServiceException {
+    public LocationDto getById(long id) throws ServiceException {
         return null;
     }
 
     @Override
-    public void update(RoomTypeDto roomTypeDto) throws ServiceException {
+    public void update(LocationDto locationDto) throws ServiceException {
         Connection connection = ConnectionUtil.getConnection();
         try {
             connection.setAutoCommit(false);
-            RoomType roomType = DtoToEntityConverter.toRoomType(roomTypeDto);
-            roomTypeDao.update(roomType);
+            Location location = DtoToEntityConverter.toLocation(locationDto);
+            locationDao.update(location);
             connection.commit();
         } catch (SQLException | DaoException e) {
             ExceptionHandler.handleSQLOrDaoException(connection, e, getClass());
@@ -74,12 +73,12 @@ public class RoomTypeServiceImpl implements IRoomTypeService {
     }
 
     @Override
-    public void updateList(List<RoomTypeDto> roomTypeDtoList) throws ServiceException {
+    public void updateList(List<LocationDto> locationDtoList) throws ServiceException {
         Connection connection = ConnectionUtil.getConnection();
         try {
             connection.setAutoCommit(false);
-            List<RoomType> roomTypeList = DtoToEntityConverter.toRoomTypeList(roomTypeDtoList);
-            roomTypeDao.updateList(roomTypeList);
+            List<Location> locationList = DtoToEntityConverter.toLocationList(locationDtoList);
+            locationDao.updateList(locationList);
             connection.commit();
         } catch (SQLException | DaoException e) {
             ExceptionHandler.handleSQLOrDaoException(connection, e, getClass());
@@ -87,12 +86,12 @@ public class RoomTypeServiceImpl implements IRoomTypeService {
     }
 
     @Override
-    public void addList(List<RoomTypeDto> roomTypeDtoList) throws ServiceException {
+    public void addList(List<LocationDto> locationDtoList) throws ServiceException {
         Connection connection = ConnectionUtil.getConnection();
         try {
             connection.setAutoCommit(false);
-            List<RoomType> roomTypeList = DtoToEntityConverter.toRoomTypeList(roomTypeDtoList);
-            roomTypeDao.addList(roomTypeList);
+            List<Location> locationList = DtoToEntityConverter.toLocationList(locationDtoList);
+            locationDao.addList(locationList);
             connection.commit();
         } catch (SQLException | DaoException e) {
             ExceptionHandler.handleSQLOrDaoException(connection, e, getClass());

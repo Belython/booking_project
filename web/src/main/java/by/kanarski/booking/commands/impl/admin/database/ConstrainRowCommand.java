@@ -6,6 +6,7 @@ import by.kanarski.booking.constants.PagePath;
 import by.kanarski.booking.constants.Parameter;
 import by.kanarski.booking.constants.Value;
 import by.kanarski.booking.dto.HotelDto;
+import by.kanarski.booking.dto.LocationDto;
 import by.kanarski.booking.dto.RoomDto;
 import by.kanarski.booking.dto.RoomTypeDto;
 import by.kanarski.booking.requestHandler.ServletAction;
@@ -34,8 +35,13 @@ public class ConstrainRowCommand extends AbstractCommand{
                 constrainRoom(request);
                 break;
             }
-            case PagePath.ROOM_TYPE_REDACTOR_PATH: {
+            case PagePath.ROOM_TYPES_REDACTOR_PATH: {
                 constrainRoomType(request);
+                break;
+            }
+            case PagePath.LOCATIONS_REDACTOR_PATH: {
+                constrainLocation(request);
+                break;
             }
         }
 
@@ -99,5 +105,22 @@ public class ConstrainRowCommand extends AbstractCommand{
         FieldDescriptor<RoomTypeDto> roomTypeDtoDescriptor = FieldBuilder.buildEntity(roomTypeDescriptors, roomTypeDto);
 
         request.setAttribute(Parameter.DESCRIPTOR, roomTypeDtoDescriptor);
+    }
+
+    private void constrainLocation(HttpServletRequest request) {
+        LocationDto locationDto = RequestParser.parseLocationDto(request);
+
+        LinkedHashMap<String, FieldDescriptor> locationDescriptors = new LinkedHashMap<>();
+        FieldDescriptor locationIdDescriptor = FieldBuilder.buildFreePrimitive();
+        FieldDescriptor locationCountryDescriptor = FieldBuilder.buildFreePrimitive();
+        FieldDescriptor locationCityDescriptor = FieldBuilder.buildFreePrimitive();
+        FieldDescriptor locationStatusDescriptor = FieldBuilder.buildPrimitive(FieldValue.STATUS_LIST);
+        locationDescriptors.put(Parameter.LOCATION_ID, locationIdDescriptor);
+        locationDescriptors.put(Parameter.LOCATION_COUNTRY, locationCountryDescriptor);
+        locationDescriptors.put(Parameter.LOCATION_CITY, locationCityDescriptor);
+        locationDescriptors.put(Parameter.LOCATION_STATUS, locationStatusDescriptor);
+        FieldDescriptor<LocationDto> locationDtoDescriptor = FieldBuilder.buildEntity(locationDescriptors, locationDto);
+
+        request.setAttribute(Parameter.DESCRIPTOR, locationDtoDescriptor);
     }
 }

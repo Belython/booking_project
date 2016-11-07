@@ -20,11 +20,6 @@
             <artifactId>entities</artifactId>
             <version>1.0</version>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>by.kanarski.booking</groupId>-->
-            <!--<artifactId>i18n</artifactId>-->
-            <!--<version>1.0</version>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>

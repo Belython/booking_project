@@ -31,10 +31,13 @@ public class Parameter {
 
     //Location parameters
 
+    public static final String LOCATION_ID = "locationId";
     public static final String LOCATION_COUNTRY = "country";
     public static final String LOCATION_CITY = "city";
     public static final String LOCATION_COUNTRY_SET = "countrySet";
     public static final String LOCATION_CITY_SET = "citySet";
+    public static final String LOCATION_LIST = "locationList";
+    public static final String LOCATION_STATUS = "locationStatus";
     public static final String SUPPORTED_COUNTRIES = "supportedCountries";
     public static final String SUPPORTED_CITIES = "supportedCities";
 
