@@ -13,7 +13,7 @@ public class Parameter {
     public static final String USER_PASSWORD = "password";
     public static final String USER_ROLE = "role";
     public static final String USER_STATUS = "userStatus";
-    public static final String USER_DTO = "userDto";
+    public static final String USER_LIST = "userList";
 
     //Bill parameters
 
@@ -45,7 +45,7 @@ public class Parameter {
 
     public static final String HOTEL = "hotel";
     public static final String HOTEL_ID = "hotelId";
-    public static final String HOTEL_LOCATION = "hotelLocatin";
+    public static final String HOTEL_LOCATION = "hotelLocatoin";
     public static final String HOTEL_COUNTRY = "hotelCountry";
     public static final String HOTEL_CITY = "hotelCity";
     public static final String HOTEL_NAME = "hotelName";

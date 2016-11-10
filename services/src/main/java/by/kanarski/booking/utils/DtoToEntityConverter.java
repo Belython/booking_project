@@ -285,6 +285,14 @@ public class DtoToEntityConverter {
         return user;
     }
 
-    // TODO: 22.10.2016 Исправить
+    public static List<User> toUserList(List<UserDto> userDtoList) {
+        List<User> userList = new ArrayList<>();
+        for (UserDto userDto : userDtoList) {
+            User user = toUser(userDto);
+            userList.add(user);
+        }
+        return userList;
+    }
+
 
 }

@@ -1,7 +1,5 @@
 package by.kanarski.booking.utils;
 
-import by.kanarski.booking.constants.BookingSystemCurrency;
-import by.kanarski.booking.constants.BookingSystemLocale;
 import by.kanarski.booking.constants.Parameter;
 import by.kanarski.booking.dto.HotelDto;
 import by.kanarski.booking.dto.LocationDto;
@@ -16,16 +14,13 @@ import java.util.*;
 
 public class ConstrainUtil {
 
-    private static final Locale DEFAULT_LOCALE = BookingSystemLocale.DEFAULT;
-    private static final Currency DEFAULT_CURRENCY = BookingSystemCurrency.DEFAULT;
-
     public static FieldDescriptor<HotelDto> byHotel(HotelDto selectedHotelDto, List<HotelDto> hotelDtoList) {
-        String selectedHotelCountry = selectedHotelDto.getLocation().getCountry();
-        String selectedHotelCity = selectedHotelDto.getLocation().getCity();
+        LocationDto selectedLocationDto = selectedHotelDto.getLocation();
+        String selectedHotelCountry = selectedLocationDto.getCountry();
+        String selectedHotelCity = selectedLocationDto.getCity();
         String selectedHotelName = selectedHotelDto.getHotelName();
 
-        Set<String> countrySet = new HashSet<>();
-        Set<String> citySet = new HashSet<>();
+        List<LocationDto> locationDtoList = new ArrayList<>();
         Set<String> hotelNameSet = new HashSet<>();
         HotelDto resHotelDto = null;
 
@@ -33,32 +28,28 @@ public class ConstrainUtil {
             long hotelId = hotelDto.getHotelId();
             String hotelCountry = hotelDto.getLocation().getCountry();
             String hotelCity = hotelDto.getLocation().getCity();
+            LocationDto locationDto = hotelDto.getLocation();
             String hotelName = hotelDto.getHotelName();
-            if (hotelCountry.equals(selectedHotelCountry)) {
-                citySet.add(hotelCity);
-                if (hotelCity.equals(selectedHotelCity)) {
-                    if (hotelNameSet.isEmpty()) {
-                        resHotelDto = hotelDto;
-                    }
-                    if (hotelName.equals(selectedHotelName)) {
-                        selectedHotelDto.setHotelId(hotelId);
-                    }
-                    hotelNameSet.add(hotelName);
+            if ((selectedHotelCountry.equals(hotelCountry)) &&
+                    (selectedHotelCity.equals(hotelCity))) {
+                if (hotelNameSet.isEmpty()) {
+                    resHotelDto = hotelDto;
                 }
+                if (hotelName.equals(selectedHotelName)) {
+                    selectedHotelDto.setHotelId(hotelId);
+                }
+                hotelNameSet.add(hotelName);
+                
             }
-            countrySet.add(hotelCountry);
+            locationDtoList.add(locationDto);
         }
         if (!(hotelNameSet.contains(selectedHotelName)) && resHotelDto != null) {
             selectedHotelDto.setHotelName(resHotelDto.getHotelName());
             selectedHotelDto.setHotelId(resHotelDto.getHotelId());
         }
 
-        LinkedHashMap<String, FieldDescriptor> locationFields = new LinkedHashMap<>();
-        locationFields.put(Parameter.LOCATION_COUNTRY, FieldBuilder.buildPrimitive(countrySet));
-        locationFields.put(Parameter.LOCATION_CITY, FieldBuilder.buildPrimitive(citySet));
-
         FieldDescriptor<Long> hotelIdPrimitive = FieldBuilder.buildFreePrimitive();
-        FieldDescriptor<LocationDto> locationEntity = FieldBuilder.buildEntity(locationFields, selectedHotelDto.getLocation());
+        FieldDescriptor<LocationDto> locationEntity = byLocation(selectedLocationDto, locationDtoList);
         FieldDescriptor<String> hotelNamePrimitive = FieldBuilder.buildPrimitive(hotelNameSet);
         LinkedHashMap<String, FieldDescriptor> hotelFields = new LinkedHashMap<>();
         hotelFields.put(Parameter.HOTEL_ID, hotelIdPrimitive);
@@ -66,22 +57,15 @@ public class ConstrainUtil {
         hotelFields.put(Parameter.HOTEL_NAME, hotelNamePrimitive);
         FieldDescriptor<HotelDto> hotelEntity = FieldBuilder.buildEntity(hotelFields, selectedHotelDto);
 
-        if (hotelNameSet.isEmpty()) {
-            String hotelCity = citySet.iterator().next();
-            LocationDto location = selectedHotelDto.getLocation();
-            location.setCity(hotelCity);
-            selectedHotelDto.setLocation(location);
-            hotelEntity = byHotel(selectedHotelDto, hotelDtoList);
-        }
         hotelEntity.setOwner(selectedHotelDto);
         return hotelEntity;
     }
 
-    public static FieldDescriptor<RoomTypeDto> byRoomType(RoomTypeDto selectedRTDto, List<RoomTypeDto> roomTypeDtoList) {
-        String selectedRTName = selectedRTDto.getRoomTypeName();
-        int selectedRTmaxPersons = selectedRTDto.getMaxPersons();
-        double selectedRTPricePerNight = selectedRTDto.getPricePerNight();
-        String selectedFacilities = selectedRTDto.getFacilities();
+    public static FieldDescriptor<RoomTypeDto> byRoomType(RoomTypeDto selectedRoomTypeDto, List<RoomTypeDto> roomTypeDtoList) {
+        String selectedRoomTypeName = selectedRoomTypeDto.getRoomTypeName();
+        int selectedRoomTypemaxPersons = selectedRoomTypeDto.getMaxPersons();
+        double selectedRoomTypePricePerNight = selectedRoomTypeDto.getPricePerNight();
+        String selectedFacilities = selectedRoomTypeDto.getFacilities();
 
         Set<String> roomTypeDtoNameSet = new HashSet<>();
         Set<Integer> maxPersonsSet = new HashSet<>();
@@ -95,16 +79,16 @@ public class ConstrainUtil {
             int maxPersons = roomTypeDto.getMaxPersons();
             double pricePerNight = roomTypeDto.getPricePerNight();
             String facilities = roomTypeDto.getFacilities();
-            if (roomTypeName.equals(selectedRTName)) {
+            if (roomTypeName.equals(selectedRoomTypeName)) {
                 maxPersonsSet.add(maxPersons);
-                if (maxPersons == selectedRTmaxPersons) {
+                if (maxPersons == selectedRoomTypemaxPersons) {
                     pricePerNightSet.add(pricePerNight);
-                    if (pricePerNight == selectedRTPricePerNight) {
+                    if (pricePerNight == selectedRoomTypePricePerNight) {
                         if (facilitiesSet.isEmpty()) {
                             resRoomTypeDto = roomTypeDto;
                         }
                         if (facilities.equals(selectedFacilities)) {
-                            selectedRTDto.setRoomTypeId(roomTypeId);
+                            selectedRoomTypeDto.setRoomTypeId(roomTypeId);
                         }
                         facilitiesSet.add(facilities);
                     }
@@ -113,8 +97,8 @@ public class ConstrainUtil {
             roomTypeDtoNameSet.add(roomTypeName);
         }
         if ((!facilitiesSet.contains(selectedFacilities)) && (resRoomTypeDto != null)) {
-            selectedRTDto.setFacilities(resRoomTypeDto.getFacilities());
-            selectedRTDto.setRoomTypeId(resRoomTypeDto.getRoomTypeId());
+            selectedRoomTypeDto.setFacilities(resRoomTypeDto.getFacilities());
+            selectedRoomTypeDto.setRoomTypeId(resRoomTypeDto.getRoomTypeId());
         }
 
         LinkedHashMap<String, FieldDescriptor> roomTypeFields = new LinkedHashMap<>();
@@ -128,24 +112,65 @@ public class ConstrainUtil {
         roomTypeFields.put(Parameter.ROOM_TYPE_MAX_PERSONS, maxPersonsFieldDescriptor);
         roomTypeFields.put(Parameter.ROOM_TYPE_PRICE_PER_NIGHT, pricePerNightFieldDescriptor);
         roomTypeFields.put(Parameter.ROOM_TYPE_FACILITIES, facilitiesFieldDescriptor);
-        FieldDescriptor<RoomTypeDto> roomTypeEntity = FieldBuilder.buildEntity(roomTypeFields, selectedRTDto);
+        FieldDescriptor<RoomTypeDto> roomTypeEntity = FieldBuilder.buildEntity(roomTypeFields, selectedRoomTypeDto);
 
         if (pricePerNightSet.isEmpty()) {
             int maxPersons = maxPersonsSet.iterator().next();
-            selectedRTDto.setMaxPersons(maxPersons);
-            roomTypeEntity = byRoomType(selectedRTDto, roomTypeDtoList);
+            selectedRoomTypeDto.setMaxPersons(maxPersons);
+            roomTypeEntity = byRoomType(selectedRoomTypeDto, roomTypeDtoList);
         }
         roomTypeFields = roomTypeEntity.getFieldMap();
         facilitiesFieldDescriptor = roomTypeFields.get(Parameter.ROOM_TYPE_FACILITIES);
         facilitiesSet = (Set<String>) facilitiesFieldDescriptor.getAllowedValues();
         if (facilitiesSet.isEmpty()) {
             double pricePerNight = pricePerNightSet.iterator().next();
-            selectedRTDto.setPricePerNight(pricePerNight);
-            roomTypeEntity = byRoomType(selectedRTDto, roomTypeDtoList);
+            selectedRoomTypeDto.setPricePerNight(pricePerNight);
+            roomTypeEntity = byRoomType(selectedRoomTypeDto, roomTypeDtoList);
         }
 
-        roomTypeEntity.setOwner(selectedRTDto);
+        roomTypeEntity.setOwner(selectedRoomTypeDto);
         return roomTypeEntity;
+    }
+
+    public static FieldDescriptor<LocationDto> byLocation(LocationDto selectedLocationDto, List<LocationDto> locationDtoList) {
+        String selectedCountry = selectedLocationDto.getCountry();
+        String selectedCity = selectedLocationDto.getCity();
+
+        Set<String> countrySet = new HashSet<>();
+        Set<String> citySet = new HashSet<>();
+        LocationDto resLocationDto = null;
+
+        for (LocationDto locationDto : locationDtoList) {
+            long locationId = locationDto.getLocationId();
+            String country = locationDto.getCountry();
+            String city = locationDto.getCity();
+            if (country.equals(selectedCountry)) {
+                if (citySet.isEmpty()) {
+                    resLocationDto = locationDto;
+                }
+                if (city.equals(selectedCity)) {
+                    selectedLocationDto.setLocationId(locationId);
+                }
+                citySet.add(city);
+            }
+            countrySet.add(country);
+        }
+        if (!(citySet.contains(selectedCity)) && resLocationDto != null) {
+            selectedLocationDto.setCity(resLocationDto.getCity());
+            selectedLocationDto.setLocationId(resLocationDto.getLocationId());
+        }
+
+        FieldDescriptor<Long> locationIdPrimitive = FieldBuilder.buildFreePrimitive();
+        FieldDescriptor<String> locationContryPrimitive = FieldBuilder.buildPrimitive(countrySet);
+        FieldDescriptor<String> locationCityPrmitive = FieldBuilder.buildPrimitive(citySet);
+        LinkedHashMap<String, FieldDescriptor> locationFields = new LinkedHashMap<>();
+        locationFields.put(Parameter.LOCATION_ID, locationIdPrimitive);
+        locationFields.put(Parameter.LOCATION_COUNTRY, locationContryPrimitive);
+        locationFields.put(Parameter.LOCATION_CITY, locationCityPrmitive);
+        FieldDescriptor<LocationDto> locationEntity = FieldBuilder.buildEntity(locationFields, selectedLocationDto);
+
+        locationEntity.setOwner(selectedLocationDto);
+        return locationEntity;
     }
 
 }

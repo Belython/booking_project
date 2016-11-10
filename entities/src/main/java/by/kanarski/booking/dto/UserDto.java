@@ -14,27 +14,11 @@ public class UserDto {
     private String login;
     private String password;
     private String role;
-//    private Locale locale;
-//    private Currency currency;
     private String userStatus;
 
     public UserDto() {
 
     }
-
-//    public UserDto(long userId, String firstName, String lastName, String email, String login,
-//                   String password, String role, Locale locale, Currency currency, String userStatus) {
-//        this.userId = userId;
-//        this.firstName = firstName;
-//        this.lastName = lastName;
-//        this.email = email;
-//        this.login = login;
-//        this.password = password;
-//        this.role = role;
-//        this.locale = locale;
-//        this.currency = currency;
-//        this.userStatus = userStatus;
-//    }
 
     public UserDto(long userId, String firstName, String lastName, String email, String login, String password, String role, String userStatus) {
         this.userId = userId;

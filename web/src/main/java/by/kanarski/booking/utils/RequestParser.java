@@ -6,6 +6,7 @@ import by.kanarski.booking.constants.Parameter;
 import by.kanarski.booking.dto.*;
 import by.kanarski.booking.exceptions.LocalisationException;
 import by.kanarski.booking.exceptions.ServiceException;
+import by.kanarski.booking.services.impl.LocationServiceImpl;
 import by.kanarski.booking.services.impl.RoomServiceImpl;
 
 import javax.servlet.ServletRequest;
@@ -52,11 +53,13 @@ public class RequestParser {
         if (request.getParameter(Parameter.HOTEL_ID) != null) {
             hotelId = Long.valueOf(request.getParameter(Parameter.HOTEL_ID));
         }
-        String country = request.getParameter(Parameter.LOCATION_COUNTRY);
-        String city = request.getParameter(Parameter.LOCATION_CITY);
-        LocationDto locationDto = new LocationDto(country, city);
+        long locationId = Long.valueOf(request.getParameter(Parameter.LOCATION_ID));
+//        String country = request.getParameter(Parameter.LOCATION_COUNTRY);
+//        String city = request.getParameter(Parameter.LOCATION_CITY);
+        LocationDto locationDto = LocationServiceImpl.getInstance().getById(locationId);
         String hotelName = request.getParameter(Parameter.HOTEL_NAME);
-        return new HotelDto(hotelId, locationDto, hotelName);
+        String hotelStatus = request.getParameter(Parameter.HOTEL_STATUS);
+        return new HotelDto(hotelId, locationDto, hotelName, hotelStatus);
     }
 
     public static String parsePagePath(ServletRequest request) {
@@ -70,7 +73,7 @@ public class RequestParser {
         } else {
             commandName = request.getParameter(Parameter.COMMAND);
         }
-        CommandType commandType = CommandType.LOGIN;
+        CommandType commandType = CommandType.GOTOMAIN;
         if (commandName != null) {
             commandType = CommandType.valueOf(commandName.toUpperCase());
         }
@@ -138,9 +141,7 @@ public class RequestParser {
         return new BillDto(userDto, totalPersons, checkInDate, checkOutDate, selectedHotelDto,
                 selectedRoomList, paymentAmount);
     }
-
-
-
+    
     public static List<RoomDto> parseRoomDtoList(HttpServletRequest request) throws ServiceException{
         List<RoomDto> roomDtoList = new ArrayList<>();
         Map<String, String[]> parameterMap = request.getParameterMap();
@@ -182,6 +183,7 @@ public class RequestParser {
             long hotelId = Long.valueOf(hotelIdArray[i]);
             long roomTypelId = Long.valueOf(roomTypeIdArray[i]);
             int roomNumber = Integer.valueOf(roomNumberArray[i]);
+            String roomStatus = roomStatusArray[i];
             HotelDto requestedHotelDto = null;
             RoomTypeDto requestedRoomTypeDto = null;
             for (HotelDto hotelDto : hotelDtoList) {
@@ -197,7 +199,7 @@ public class RequestParser {
             }
             // TODO: 25.09.2016 Не хочу заморачиваться с датами номера, буду получать их из базы данных
             TreeMap<String, String> bookedDates = likeParseBookedDates(roomId, request);
-            RoomDto roomDto = new RoomDto(roomId, requestedHotelDto, requestedRoomTypeDto, roomNumber, bookedDates, roomStatusArray[i]);
+            RoomDto roomDto = new RoomDto(roomId, requestedHotelDto, requestedRoomTypeDto, roomNumber, bookedDates, roomStatus);
             roomDtoList.add(roomDto);
         }
         return roomDtoList;
@@ -294,6 +296,172 @@ public class RequestParser {
         return locationDtoList;
     }
 
+    public static List<UserDto> parseUserDtoList(HttpServletRequest request) throws ServiceException{
+        List<UserDto> userDtoList = new ArrayList<>();
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        Set<String> parameterSet = parameterMap.keySet();
+        String[] userIdArray = null;
+        String[] firstNameArray = null;
+        String[] lastNameArray = null;
+        String[] emailArray = null;
+        String[] loginArray = null;
+        String[] passwordArray = null;
+        String[] roleArray = null;
+        String[] userStatusArray = null;
+        for (String parameter : parameterSet) {
+            switch (parameter) {
+                case Parameter.USER_ID: {
+                    userIdArray = parameterMap.get(parameter);
+                    break;
+                }
+                case Parameter.USER_FIRST_NAME: {
+                    firstNameArray = parameterMap.get(parameter);
+                    break;
+                }
+                case Parameter.USER_LAST_NAME: {
+                    lastNameArray = parameterMap.get(parameter);
+                    break;
+                }
+                case Parameter.USER_EMAIL: {
+                    emailArray = parameterMap.get(parameter);
+                    break;
+                }
+                case Parameter.USER_LOGIN: {
+                    loginArray = parameterMap.get(parameter);
+                    break;
+                }
+                case Parameter.USER_PASSWORD: {
+                    passwordArray = parameterMap.get(parameter);
+                    break;
+                }
+                case Parameter.USER_ROLE: {
+                    roleArray = parameterMap.get(parameter);
+                    break;
+                }
+                case Parameter.USER_STATUS: {
+                    userStatusArray = parameterMap.get(parameter);
+                    break;
+                }
+            }
+        }
+        for (int i = 0; i < userIdArray.length; i++) {
+            long userId = Long.valueOf(userIdArray[i]);
+            String firstName = firstNameArray[i];
+            String lastName = lastNameArray[i];
+            String email = emailArray[i];
+            String login = loginArray[i];
+            String password = passwordArray[i];
+            String role = roleArray[i];
+            String userStatus = userStatusArray[i];
+            UserDto userDto = new UserDto(userId, firstName, lastName, email, login, password, role, userStatus);
+            userDtoList.add(userDto);
+        }
+        return userDtoList;
+    }
+
+    public static List<HotelDto> parseHotelDtoList(HttpServletRequest request) throws ServiceException{
+        List<HotelDto> hotelDtoList = new ArrayList<>();
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        Set<String> parameterSet = parameterMap.keySet();
+        String[] hotelIdArray = null;
+        String[] locationIdArray = null;
+        String[] hotelStatusArray = null;
+        for (String parameter : parameterSet) {
+            switch (parameter) {
+                case Parameter.HOTEL_ID: {
+                    hotelIdArray = parameterMap.get(parameter);
+                    break;
+                }
+                case Parameter.LOCATION_ID: {
+                    hotelIdArray = parameterMap.get(parameter);
+                    break;
+                }
+                case Parameter.HOTEL_STATUS: {
+                    hotelStatusArray = parameterMap.get(parameter);
+                    break;
+                }
+            }
+        }
+        HttpSession session = request.getSession();
+        for (int i = 0; i < hotelIdArray.length; i++) {
+            List<LocationDto> locationDtoList = (List<LocationDto>) session.getAttribute(Parameter.LOCATION_LIST);
+            long hotelId = Long.valueOf(hotelIdArray[i]);
+            long locationId = Long.valueOf(locationIdArray[i]);
+            String hotelStatus = hotelStatusArray[i];
+            LocationDto requestedLocationDto = null;
+            for (LocationDto locationDto : locationDtoList) {
+                if (locationDto.getLocationId() == locationId) {
+                    requestedLocationDto = locationDto;
+                }
+            }
+            HotelDto hotelDto = new HotelDto(hotelId, requestedLocationDto, hotelStatus);
+            hotelDtoList.add(hotelDto);
+        }
+        return hotelDtoList;
+    }
+
+    public static List<BillDto> parseBillDtoList(HttpServletRequest request) throws ServiceException{
+        List<BillDto> billDtoList = new ArrayList<>();
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        Set<String> parameterSet = parameterMap.keySet();
+        String[] billIdArray = null;
+        String[] hotelIdArray = null;
+        String[] billTypeIdArray = null;
+        String[] billNumberArray = null;
+        String[] billStatusArray = null;
+        for (String parameter : parameterSet) {
+            switch (parameter) {
+                case Parameter.BILL_ID: {
+                    billIdArray = parameterMap.get(parameter);
+                    break;
+                }
+                case Parameter.HOTEL_ID: {
+                    hotelIdArray = parameterMap.get(parameter);
+                    break;
+                }
+                case Parameter.BILL_TYPE_ID: {
+                    billTypeIdArray = parameterMap.get(parameter);
+                    break;
+                }
+                case Parameter.BILL_NUMBER: {
+                    billNumberArray = parameterMap.get(parameter);
+                    break;
+                }
+                case Parameter.BILL_STATUS: {
+                    billStatusArray = parameterMap.get(parameter);
+                    break;
+                }
+            }
+        }
+        HttpSession session = request.getSession();
+        for (int i = 0; i < billIdArray.length; i++) {
+            List<HotelDto> hotelDtoList = (List<HotelDto>) session.getAttribute(Parameter.HOTEL_LIST);
+            List<BillTypeDto> billTypeDtoList = (List<BillTypeDto>) session.getAttribute(Parameter.BILL_TYPE_LIST);
+            long billId = Long.valueOf(billIdArray[i]);
+            long hotelId = Long.valueOf(hotelIdArray[i]);
+            long billTypelId = Long.valueOf(billTypeIdArray[i]);
+            int billNumber = Integer.valueOf(billNumberArray[i]);
+            String billStatus = billStatusArray[i];
+            HotelDto requestedHotelDto = null;
+            BillTypeDto requestedBillTypeDto = null;
+            for (HotelDto hotelDto : hotelDtoList) {
+                if (hotelDto.getHotelId() == hotelId) {
+                    requestedHotelDto = hotelDto;
+                }
+            }
+            for (BillTypeDto billTypeDto : billTypeDtoList) {
+                if (billTypeDto.getBillTypeId() == billTypelId) {
+                    requestedBillTypeDto = billTypeDto;
+
+                }
+            }
+            // TODO: 25.09.2016 Не хочу заморачиваться с датами номера, буду получать их из базы данных
+            TreeMap<String, String> bookedDates = likeParseBookedDates(billId, request);
+            BillDto billDto = new BillDto(billId, requestedHotelDto, requestedBillTypeDto, billNumber, bookedDates, billStatus);
+            billDtoList.add(billDto);
+        }
+        return billDtoList;
+    }
 
     public static boolean isAjaxRequest(HttpServletRequest request) {String stringValue = request.getParameter(Parameter.IS_AJAX_REQUEST);
         return Boolean.parseBoolean(stringValue);

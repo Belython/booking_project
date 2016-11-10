@@ -34,8 +34,17 @@ public enum FillerManager {
     ROOMSREDACTOR(
         Arrays.asList(getRoomsRedactor(), getSideBar(), getHeader())
     ),
-    ROOMTYPEREDACTOR(
-            Arrays.asList(getRoomTypesRedactor(), getSideBar(), getHeader())
+    ROOMTYPESREDACTOR(
+        Arrays.asList(getRoomTypesRedactor(), getSideBar(), getHeader())
+    ),
+    LOCATIONSREDACTOR(
+        Arrays.asList(getLocationsRedactor(), getSideBar(), getHeader())
+    ),
+    USERSREDACTOR(
+            Arrays.asList(getUsersRedactor(), getSideBar(), getHeader())
+    ),
+    HOTELSREDACTOR(
+            Arrays.asList(getHotelsRedactor(), getSideBar(), getHeader())
     ),
     REMINDPASSWORD(
         Arrays.asList(getRemindPassword(), getHeader())
@@ -125,6 +134,20 @@ public enum FillerManager {
         Map<String, List<String>> contentMap = new HashMap<>();
         contentMap.put(ContentName.STRING, PageTextContentKeys.TABLE_REDACTOR);
         contentMap.put(ContentName.COLUMN_NAME_LIST, PageTextContentKeys.LOCATION_COLUMN_LIST);
+        return contentMap;
+    }
+
+    public static Map<String, List<String>> getUsersRedactor() {
+        Map<String, List<String>> contentMap = new HashMap<>();
+        contentMap.put(ContentName.STRING, PageTextContentKeys.TABLE_REDACTOR);
+        contentMap.put(ContentName.COLUMN_NAME_LIST, PageTextContentKeys.USER_COLUMN_LIST);
+        return contentMap;
+    }
+
+    public static Map<String, List<String>> getHotelsRedactor() {
+        Map<String, List<String>> contentMap = new HashMap<>();
+        contentMap.put(ContentName.STRING, PageTextContentKeys.TABLE_REDACTOR);
+        contentMap.put(ContentName.COLUMN_NAME_LIST, PageTextContentKeys.HOTEL_COLUMN_LIST);
         return contentMap;
     }
 

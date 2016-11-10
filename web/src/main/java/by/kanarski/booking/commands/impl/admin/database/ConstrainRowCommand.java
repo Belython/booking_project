@@ -5,10 +5,7 @@ import by.kanarski.booking.constants.FieldValue;
 import by.kanarski.booking.constants.PagePath;
 import by.kanarski.booking.constants.Parameter;
 import by.kanarski.booking.constants.Value;
-import by.kanarski.booking.dto.HotelDto;
-import by.kanarski.booking.dto.LocationDto;
-import by.kanarski.booking.dto.RoomDto;
-import by.kanarski.booking.dto.RoomTypeDto;
+import by.kanarski.booking.dto.*;
 import by.kanarski.booking.requestHandler.ServletAction;
 import by.kanarski.booking.utils.ConstrainUtil;
 import by.kanarski.booking.utils.RequestParser;
@@ -43,6 +40,13 @@ public class ConstrainRowCommand extends AbstractCommand{
                 constrainLocation(request);
                 break;
             }
+            case PagePath.USERS_REDACTOR_PATH: {
+                constrainUser(request);
+                break;
+            }
+            case PagePath.HOTELS_REDACTOR_PATH: {
+                constrainHotel(request);
+            }
         }
 
         String formName = RequestParser.parseFormName(request);
@@ -56,7 +60,7 @@ public class ConstrainRowCommand extends AbstractCommand{
                 break;
             }
         }
-        servletAction = ServletAction.AJAX_REQUEST;
+        servletAction = ServletAction.AJAX_INCLUDE_REQUEST;
         servletAction.setPage(page);
         return servletAction;
     }
@@ -122,5 +126,52 @@ public class ConstrainRowCommand extends AbstractCommand{
         FieldDescriptor<LocationDto> locationDtoDescriptor = FieldBuilder.buildEntity(locationDescriptors, locationDto);
 
         request.setAttribute(Parameter.DESCRIPTOR, locationDtoDescriptor);
+    }
+
+    private void constrainUser(HttpServletRequest request) {
+        UserDto userDto = RequestParser.parseUserDto(request);
+
+        LinkedHashMap<String, FieldDescriptor> userDescriptors = new LinkedHashMap<>();
+        FieldDescriptor userIdDescriptor = FieldBuilder.buildFreePrimitive();
+        FieldDescriptor userFirstNameDescriptor = FieldBuilder.buildFreePrimitive();
+        FieldDescriptor userLastNameDescriptor = FieldBuilder.buildFreePrimitive();
+        FieldDescriptor userEmailDescriptor = FieldBuilder.buildFreePrimitive();
+        FieldDescriptor userLoginDescriptor = FieldBuilder.buildFreePrimitive();
+        FieldDescriptor userPasswordDescriptor = FieldBuilder.buildFreePrimitive();
+        FieldDescriptor userRoleDescriptor = FieldBuilder.buildPrimitive(FieldValue.ROLE_LIST);
+        FieldDescriptor userStatusDescriptor = FieldBuilder.buildPrimitive(FieldValue.STATUS_LIST);
+        userDescriptors.put(Parameter.USER_ID, userIdDescriptor);
+        userDescriptors.put(Parameter.USER_FIRST_NAME, userFirstNameDescriptor);
+        userDescriptors.put(Parameter.USER_LAST_NAME, userLastNameDescriptor);
+        userDescriptors.put(Parameter.USER_EMAIL, userEmailDescriptor);
+        userDescriptors.put(Parameter.USER_LOGIN, userLoginDescriptor);
+        userDescriptors.put(Parameter.USER_PASSWORD, userPasswordDescriptor);
+        userDescriptors.put(Parameter.USER_ROLE, userRoleDescriptor);
+        userDescriptors.put(Parameter.USER_STATUS, userStatusDescriptor);
+        FieldDescriptor<UserDto> userDtoDescriptor = FieldBuilder.buildEntity(userDescriptors, userDto);
+
+        request.setAttribute(Parameter.DESCRIPTOR, userDtoDescriptor);
+    }
+
+    private void constrainHotel(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+
+        HotelDto hotelDto = RequestParser.parseHotelDto(request);
+        List<LocationDto> locationDtoList = (List<LocationDto>) session.getAttribute(Parameter.LOCATION_LIST);
+
+        LinkedHashMap<String, FieldDescriptor> hotelFields = new LinkedHashMap<>();
+        FieldDescriptor hotelIdFieldDescriptor = FieldBuilder.buildFreePrimitive();
+        FieldDescriptor<LocationDto> locationDtoFieldDescriptor = ConstrainUtil.byLocation(
+                hotelDto.getLocation(), locationDtoList);
+        hotelDto.setLocation(locationDtoFieldDescriptor.getOwner());
+        FieldDescriptor hotelNameFieldDescriptor = FieldBuilder.buildFreePrimitive();
+        FieldDescriptor hotelStatusFieldDescriptor = FieldBuilder.buildPrimitive(FieldValue.STATUS_LIST);
+        hotelFields.put(Parameter.HOTEL_ID, hotelIdFieldDescriptor);
+        hotelFields.put(Parameter.HOTEL_LOCATION, locationDtoFieldDescriptor);
+        hotelFields.put(Parameter.HOTEL_NAME, hotelNameFieldDescriptor);
+        hotelFields.put(Parameter.HOTEL_STATUS, hotelStatusFieldDescriptor);
+        FieldDescriptor<HotelDto> hotelDtoEntity = FieldBuilder.buildEntity(hotelFields, hotelDto);
+
+        request.setAttribute(Parameter.DESCRIPTOR, hotelDtoEntity);
     }
 }

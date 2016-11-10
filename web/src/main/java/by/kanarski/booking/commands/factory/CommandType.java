@@ -3,12 +3,16 @@ package by.kanarski.booking.commands.factory;
 import by.kanarski.booking.commands.ICommand;
 import by.kanarski.booking.commands.impl.admin.GoToAdminPageCommand;
 import by.kanarski.booking.commands.impl.admin.database.ConstrainRowCommand;
+import by.kanarski.booking.commands.impl.admin.database.hotel.AlterHotelsCommand;
+import by.kanarski.booking.commands.impl.admin.database.hotel.GoToHotelsRedactorCommand;
 import by.kanarski.booking.commands.impl.admin.database.location.AlterLocationsCommand;
 import by.kanarski.booking.commands.impl.admin.database.location.GoToLocationsRedactorCommand;
 import by.kanarski.booking.commands.impl.admin.database.room.AlterRoomsCommand;
 import by.kanarski.booking.commands.impl.admin.database.room.GoToRoomsRedactorCommand;
 import by.kanarski.booking.commands.impl.admin.database.roomType.AlterRoomTypesCommand;
 import by.kanarski.booking.commands.impl.admin.database.roomType.GoToRoomTypesRedactorCommand;
+import by.kanarski.booking.commands.impl.admin.database.user.AlterUsersCommand;
+import by.kanarski.booking.commands.impl.admin.database.user.GoToUsersRedactorCommand;
 import by.kanarski.booking.commands.impl.client.*;
 import by.kanarski.booking.commands.impl.user.*;
 
@@ -22,6 +26,8 @@ public enum CommandType {
     GOTOROOMSREDACTOR, ALTERROOMS,
     GOTOROOMTYPEREDACTOR, ALTERROOMTYPE,
     GOTOLOCATIONSREDACTOR, ALTERLOCATIONS,
+    GOTOUSERSREDACTOR, ALTERUSERS,
+    GOTOHOTELSREDACTOR, ALTERHOTELS,
     CONSTRAINROW;
 
     public ICommand getCurrentCommand() throws EnumConstantNotPresentException {
@@ -98,6 +104,17 @@ public enum CommandType {
             case ALTERLOCATIONS:
                 return new AlterLocationsCommand();
 
+            case GOTOUSERSREDACTOR:
+                return new GoToUsersRedactorCommand();
+
+            case ALTERUSERS:
+                return new AlterUsersCommand();
+
+            case GOTOHOTELSREDACTOR:
+                return new GoToHotelsRedactorCommand();
+
+            case ALTERHOTELS:
+                return new AlterHotelsCommand();
             default:
                 throw new EnumConstantNotPresentException(this.getDeclaringClass(), this.name());
         }

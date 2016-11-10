@@ -176,6 +176,25 @@ public class PageTextContentKeys {
             "entityField.locationStatus"
     );
 
+    public static final List<String> USER_COLUMN_LIST = Arrays.asList(
+            "tableRedactor.rowNumber",
+            "entityField.firstName",
+            "entityField.lastName",
+            "entityField.email",
+            "entityField.login",
+            "entityField.password",
+            "entityField.userRole",
+            "entityField.userStatus"
+    );
+
+    public static final List<String> HOTEL_COLUMN_LIST = Arrays.asList(
+            "tableRedactor.rowNumber",
+            "entityField.country",
+            "entityField.city",
+            "entityField.hotelName",
+            "entityField.hotelStatus"
+    );
+
     public static final List<String> TABLE_REDACTOR = Arrays.asList(
             "tableRedactor.roomsRedactor",
             "tableRedactor.roomTypesRedactor",

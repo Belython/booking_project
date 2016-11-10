@@ -35,7 +35,7 @@ public class RequestHandler {
                 }
                 case AJAX_INCLUDE_REQUEST: {
                     RequestDispatcher dispatcher = request.getRequestDispatcher(page);
-                    dispatcher.forward(request, response);
+                    dispatcher.include(request, response);
                     break;
                 }
                 case CALL_COMMAND: {

@@ -307,4 +307,26 @@ public class UserServiceImpl implements IUserService {
             ExceptionHandler.handleDaoException(transaction, e);
         }
     }
+
+    public void addList(List<UserDto> userDtoList) throws ServiceException {
+        TransactoinWrapper transaction = TransactionManager.getTransaction();
+        try {
+            List<User> userList = DtoToEntityConverter.toUserList(userDtoList);
+            userDao.addList(userList);
+            transaction.commit();
+        } catch (DaoException e) {
+            ExceptionHandler.handleDaoException(transaction, e);
+        }
+    }
+
+    public void updateList(List<UserDto> userDtoList) throws ServiceException {
+        TransactoinWrapper transaction = TransactionManager.getTransaction();
+        try {
+            List<User> userList = DtoToEntityConverter.toUserList(userDtoList);
+            userDao.updateList(userList);
+            transaction.commit();
+        } catch (DaoException e) {
+            ExceptionHandler.handleDaoException(transaction, e);
+        }
+    }
 }
