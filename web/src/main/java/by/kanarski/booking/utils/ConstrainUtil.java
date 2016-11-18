@@ -16,8 +16,8 @@ public class ConstrainUtil {
 
     public static FieldDescriptor<HotelDto> byHotel(HotelDto selectedHotelDto, List<HotelDto> hotelDtoList) {
         LocationDto selectedLocationDto = selectedHotelDto.getLocation();
-        String selectedHotelCountry = selectedLocationDto.getCountry();
-        String selectedHotelCity = selectedLocationDto.getCity();
+//        String selectedHotelCountry = selectedLocationDto.getCountry();
+//        String selectedHotelCity = selectedLocationDto.getCity();
         String selectedHotelName = selectedHotelDto.getHotelName();
 
         List<LocationDto> locationDtoList = new ArrayList<>();
@@ -26,12 +26,11 @@ public class ConstrainUtil {
 
         for (HotelDto hotelDto : hotelDtoList) {
             long hotelId = hotelDto.getHotelId();
-            String hotelCountry = hotelDto.getLocation().getCountry();
-            String hotelCity = hotelDto.getLocation().getCity();
+//            String hotelCountry = hotelDto.getLocation().getCountry();
+//            String hotelCity = hotelDto.getLocation().getCity();
             LocationDto locationDto = hotelDto.getLocation();
             String hotelName = hotelDto.getHotelName();
-            if ((selectedHotelCountry.equals(hotelCountry)) &&
-                    (selectedHotelCity.equals(hotelCity))) {
+            if (locationDto.equals(selectedLocationDto)) {
                 if (hotelNameSet.isEmpty()) {
                     resHotelDto = hotelDto;
                 }

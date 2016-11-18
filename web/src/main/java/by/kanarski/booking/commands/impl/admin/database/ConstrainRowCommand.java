@@ -6,7 +6,9 @@ import by.kanarski.booking.constants.PagePath;
 import by.kanarski.booking.constants.Parameter;
 import by.kanarski.booking.constants.Value;
 import by.kanarski.booking.dto.*;
+import by.kanarski.booking.exceptions.ServiceException;
 import by.kanarski.booking.requestHandler.ServletAction;
+import by.kanarski.booking.utils.BookingSystemLogger;
 import by.kanarski.booking.utils.ConstrainUtil;
 import by.kanarski.booking.utils.RequestParser;
 import by.kanarski.booking.utils.field.FieldBuilder;
@@ -27,26 +29,31 @@ public class ConstrainRowCommand extends AbstractCommand{
         HttpSession session = request.getSession();
 
         String currentPagePath = (String) session.getAttribute(Parameter.CURRENT_PAGE_PATH);
-        switch (currentPagePath) {
-            case PagePath.ROOMS_REDACTOR_PATH: {
-                constrainRoom(request);
-                break;
+        try {
+
+            switch (currentPagePath) {
+                case PagePath.ROOMS_REDACTOR_PATH: {
+                    constrainRoom(request);
+                    break;
+                }
+                case PagePath.ROOM_TYPES_REDACTOR_PATH: {
+                    constrainRoomType(request);
+                    break;
+                }
+                case PagePath.LOCATIONS_REDACTOR_PATH: {
+                    constrainLocation(request);
+                    break;
+                }
+                case PagePath.USERS_REDACTOR_PATH: {
+                    constrainUser(request);
+                    break;
+                }
+                case PagePath.HOTELS_REDACTOR_PATH: {
+                    constrainHotel(request);
+                }
             }
-            case PagePath.ROOM_TYPES_REDACTOR_PATH: {
-                constrainRoomType(request);
-                break;
-            }
-            case PagePath.LOCATIONS_REDACTOR_PATH: {
-                constrainLocation(request);
-                break;
-            }
-            case PagePath.USERS_REDACTOR_PATH: {
-                constrainUser(request);
-                break;
-            }
-            case PagePath.HOTELS_REDACTOR_PATH: {
-                constrainHotel(request);
-            }
+        } catch (ServiceException e) {
+            BookingSystemLogger.getInstance().logError(getClass(), e.getMessage(), e);
         }
 
         String formName = RequestParser.parseFormName(request);
@@ -65,7 +72,7 @@ public class ConstrainRowCommand extends AbstractCommand{
         return servletAction;
     }
 
-    private void constrainRoom(HttpServletRequest request) {
+    private void constrainRoom(HttpServletRequest request) throws ServiceException {
         HttpSession session = request.getSession();
 
         RoomDto roomDto = RequestParser.parseRoomDto(request);
@@ -153,7 +160,7 @@ public class ConstrainRowCommand extends AbstractCommand{
         request.setAttribute(Parameter.DESCRIPTOR, userDtoDescriptor);
     }
 
-    private void constrainHotel(HttpServletRequest request) {
+    private void constrainHotel(HttpServletRequest request) throws ServiceException {
         HttpSession session = request.getSession();
 
         HotelDto hotelDto = RequestParser.parseHotelDto(request);

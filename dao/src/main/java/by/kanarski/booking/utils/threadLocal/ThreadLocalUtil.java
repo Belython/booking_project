@@ -73,6 +73,12 @@ public enum ThreadLocalUtil {
         THREAD_VARIABLES.remove();
     }
 
+    public void remove() {
+        String name = this.name();
+        THREAD_VARIABLES.get().remove(name);
+    }
+
+
     /**
      * Checks if the thread variables map contains the variable
      * @param variableName the required variable name
