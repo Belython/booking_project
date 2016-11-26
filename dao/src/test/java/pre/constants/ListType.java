@@ -1,8 +1,8 @@
 package pre.constants;
 
+import by.kanarski.booking.entities.User;
 import by.kanarski.booking.entities.hotel.Hotel;
 import by.kanarski.booking.entities.location.Location;
-import by.kanarski.booking.entities.User;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;

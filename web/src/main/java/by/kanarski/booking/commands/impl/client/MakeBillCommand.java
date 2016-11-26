@@ -4,7 +4,6 @@ import by.kanarski.booking.commands.AbstractCommand;
 import by.kanarski.booking.constants.PagePath;
 import by.kanarski.booking.constants.Parameter;
 import by.kanarski.booking.dto.BillDto;
-import by.kanarski.booking.dto.RoomDto;
 import by.kanarski.booking.exceptions.LocalisationException;
 import by.kanarski.booking.exceptions.ServiceException;
 import by.kanarski.booking.managers.OperationMessageManager;
@@ -15,8 +14,6 @@ import by.kanarski.booking.utils.RequestParser;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.List;
-import java.util.TreeMap;
 
 public class MakeBillCommand extends AbstractCommand {
 

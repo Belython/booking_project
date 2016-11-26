@@ -1,8 +1,8 @@
 package pre.jsonHandler;
 
+import by.kanarski.booking.entities.User;
 import by.kanarski.booking.entities.hotel.Hotel;
 import by.kanarski.booking.entities.location.Location;
-import by.kanarski.booking.entities.User;
 import by.kanarski.booking.utils.BookingSystemLogger;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;

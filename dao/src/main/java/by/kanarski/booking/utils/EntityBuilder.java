@@ -2,13 +2,9 @@ package by.kanarski.booking.utils;
 
 
 import by.kanarski.booking.constants.FieldValue;
-import by.kanarski.booking.dao.impl.BillDao;
-import by.kanarski.booking.dao.impl.RoomDao;
-import by.kanarski.booking.dao.impl.UserDao;
-import by.kanarski.booking.entities.facility.Facility;
-import by.kanarski.booking.dao.impl.HotelDao;
-import by.kanarski.booking.dao.impl.RoomTypeDao;
+import by.kanarski.booking.dao.impl.*;
 import by.kanarski.booking.entities.*;
+import by.kanarski.booking.entities.facility.Facility;
 import by.kanarski.booking.entities.hotel.Hotel;
 import by.kanarski.booking.entities.hotel.HotelTranslation;
 import by.kanarski.booking.entities.location.Location;
@@ -17,7 +13,6 @@ import by.kanarski.booking.entities.roomType.RoomType;
 import by.kanarski.booking.entities.roomType.RoomTypeTranslation;
 import by.kanarski.booking.exceptions.DaoException;
 import by.kanarski.booking.managers.SupportedLanguagesManager;
-import by.kanarski.booking.dao.impl.LocationDao;
 import by.kanarski.booking.utils.threadLocal.UserPreferences;
 import by.kanarski.booking.utils.wrappers.SupportedLanguages;
 

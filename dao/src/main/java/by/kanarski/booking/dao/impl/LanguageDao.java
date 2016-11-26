@@ -1,7 +1,7 @@
 package by.kanarski.booking.dao.impl;
 
-import by.kanarski.booking.entities.Language;
 import by.kanarski.booking.dao.interfaces.ILanguageDao;
+import by.kanarski.booking.entities.Language;
 
 public class LanguageDao extends ExtendedBaseDao<Language> implements ILanguageDao {
 

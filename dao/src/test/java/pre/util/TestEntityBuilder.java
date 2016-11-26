@@ -1,17 +1,5 @@
 package pre.util;
 
-import by.kanarski.booking.entities.hotel.Hotel;
-import by.kanarski.booking.entities.location.Location;
-import by.kanarski.booking.entities.User;
-import by.kanarski.booking.exceptions.DaoException;
-import by.kanarski.booking.utils.EntityBuilder;
-import pre.jsonHandler.JsonManager;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static by.kanarski.booking.constants.FieldValue.ROLE_CLIENT;
-
 public class TestEntityBuilder {
 
 //    private static int EXPECTED = 0;

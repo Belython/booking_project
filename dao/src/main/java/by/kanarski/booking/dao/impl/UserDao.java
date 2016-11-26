@@ -1,7 +1,7 @@
 package by.kanarski.booking.dao.impl;
 
-import by.kanarski.booking.entities.User;
 import by.kanarski.booking.dao.interfaces.IUserDao;
+import by.kanarski.booking.entities.User;
 
 /**
  * @author Dzmitry Kanarski

@@ -5,7 +5,6 @@ import by.kanarski.booking.constants.FieldValue;
 import by.kanarski.booking.constants.PagePath;
 import by.kanarski.booking.constants.Parameter;
 import by.kanarski.booking.dto.BillDto;
-import by.kanarski.booking.dto.RoomDto;
 import by.kanarski.booking.exceptions.ServiceException;
 import by.kanarski.booking.managers.OperationMessageManager;
 import by.kanarski.booking.requestHandler.ServletAction;
@@ -17,7 +16,6 @@ import javax.servlet.http.HttpSession;
 import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
-import java.util.TreeMap;
 
 public class RefuseBillCommand extends AbstractCommand{
 

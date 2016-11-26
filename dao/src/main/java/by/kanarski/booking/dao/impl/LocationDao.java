@@ -1,7 +1,7 @@
 package by.kanarski.booking.dao.impl;
 
-import by.kanarski.booking.entities.location.Location;
 import by.kanarski.booking.dao.interfaces.ILocationDao;
+import by.kanarski.booking.entities.location.Location;
 
 public class LocationDao extends ExtendedBaseDao<Location> implements ILocationDao {
 
