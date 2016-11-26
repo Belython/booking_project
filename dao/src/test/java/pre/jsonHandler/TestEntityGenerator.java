@@ -1,10 +1,9 @@
 package pre.jsonHandler;
 
 import by.kanarski.booking.dao.impl.*;
+import by.kanarski.booking.entities.User;
 import by.kanarski.booking.entities.hotel.Hotel;
 import by.kanarski.booking.entities.location.Location;
-import by.kanarski.booking.entities.roomType.RoomType;
-import by.kanarski.booking.entities.User;
 import by.kanarski.booking.exceptions.DaoException;
 import by.kanarski.booking.utils.EntityBuilder;
 

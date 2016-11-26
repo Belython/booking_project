@@ -1,7 +1,7 @@
 package by.kanarski.booking.dao.impl;
 
-import by.kanarski.booking.entities.hotel.HotelTranslation;
 import by.kanarski.booking.dao.interfaces.IHotelTranslationDao;
+import by.kanarski.booking.entities.hotel.HotelTranslation;
 
 public class HotelTranslationDao extends ExtendedBaseDao<HotelTranslation> implements IHotelTranslationDao {
 

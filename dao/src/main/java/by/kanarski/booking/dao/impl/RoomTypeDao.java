@@ -1,7 +1,7 @@
 package by.kanarski.booking.dao.impl;
 
-import by.kanarski.booking.entities.roomType.RoomType;
 import by.kanarski.booking.dao.interfaces.IRoomTypeDao;
+import by.kanarski.booking.entities.roomType.RoomType;
 
 public class RoomTypeDao extends ExtendedBaseDao<RoomType> implements IRoomTypeDao {
 

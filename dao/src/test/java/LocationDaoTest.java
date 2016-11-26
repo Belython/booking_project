@@ -1,13 +1,4 @@
-import by.kanarski.booking.dao.impl.LocationDao;
-import by.kanarski.booking.entities.location.Location;
-import by.kanarski.booking.exceptions.DaoException;
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import pre.util.TestEntityBuilder;
-
-import java.util.List;
 
 /**
  * @author Dzmitry Kanarski

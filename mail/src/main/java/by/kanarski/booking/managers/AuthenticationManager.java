@@ -1,10 +1,5 @@
 package by.kanarski.booking.managers;
 
-import by.kanarski.booking.utils.threadLocal.UserPreferences;
-
-import java.util.Locale;
-import java.util.ResourceBundle;
-
 /**
  * @author Dzmitry Kanarski
  * @version 1.0

@@ -1,10 +1,5 @@
 package by.kanarski.booking.managers;
 
-import by.kanarski.booking.constants.ResourcePath;
-
-import java.util.Locale;
-import java.util.ResourceBundle;
-
 public enum ResourceManager {
 
     OPERATION_MESSAGES(ResourcePath.OPERATION_MESSAGES_SOURCE),
