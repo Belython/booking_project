@@ -5,7 +5,7 @@ import by.kanarski.booking.constants.FieldValue;
 import by.kanarski.booking.constants.PagePath;
 import by.kanarski.booking.constants.Parameter;
 import by.kanarski.booking.constants.Value;
-import by.kanarski.booking.dto.RoomTypeDto;
+import by.kanarski.booking.dto.roomType.RoomTypeDto;
 import by.kanarski.booking.exceptions.ServiceException;
 import by.kanarski.booking.managers.OperationMessageManager;
 import by.kanarski.booking.requestHandler.ServletAction;

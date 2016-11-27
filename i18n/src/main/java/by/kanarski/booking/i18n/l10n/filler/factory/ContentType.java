@@ -32,12 +32,10 @@ public class ContentType {
     public static String getContentType(String contentName) {
         if (contentName.equals(STRING)) {
             return STRING;
-        }
-        ;
+        };
         if (MAP_CONTENT.contains(contentName)) {
             return MAP;
-        }
-        ;
+        };
         if (LIST_CONTENT.contains(contentName)) {
             return LIST;
         };

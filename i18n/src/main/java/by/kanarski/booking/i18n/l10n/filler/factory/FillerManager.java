@@ -1,5 +1,14 @@
 package by.kanarski.booking.i18n.l10n.filler.factory;
 
+import by.kanarski.booking.constants.ContentName;
+import by.kanarski.booking.constants.PageTextContentKeys;
+import by.kanarski.booking.i18n.l10n.filler.Filler;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public enum FillerManager {
     INDEX (
         Arrays.asList(getIndex(), getHeader())

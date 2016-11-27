@@ -64,8 +64,8 @@ public class Parameter {
     //Locale parameters
 
     public static final String LOCALE_LIST = "localeList";
-    public static final String LOCALE = "locale";
-    public static final String CURRENCY = "currency";
+    public static final String CURRENT_LOCALE = "currentLocale";
+    public static final String CURRENT_CURRENCY = "currentCurrency";
 
     //RoomType parameters
 

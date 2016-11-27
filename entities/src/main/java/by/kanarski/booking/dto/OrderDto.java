@@ -1,5 +1,6 @@
 package by.kanarski.booking.dto;
 
+import by.kanarski.booking.dto.hotel.HotelDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -51,13 +51,13 @@
             <label for="currentLocale">${header_selectLanguage}</label>
             <select id="currentLocale" name="locale">
                 <c:set var="localeSet" value="${localeMap.keySet()}"/>
-                <c:forEach var="localeElement" items="${localeSet}">
+                <c:forEach var="locale" items="${localeSet}">
                     <c:choose>
-                        <c:when test="${locale eq localeElement}">
-                            <option value="${localeElement}" selected="selected">${localeMap.get(localeElement)}</option>
+                        <c:when test="${locale eq locale}">
+                            <option value="${locale}" selected="selected">${localeMap.get(locale)}</option>
                         </c:when>
                         <c:otherwise>
-                            <option value="${localeElement}">${localeMap.get(localeElement)}</option>
+                            <option value="${locale}">${localeMap.get(locale)}</option>
                         </c:otherwise>
                     </c:choose>
                 </c:forEach>
@@ -72,13 +72,13 @@
             <label for="currentCurrency">${header_selectCurrency}</label>
             <select id="currentCurrency" name="currency">
                 <c:set var="currencySet" value="${currencyMap.keySet()}"/>
-                <c:forEach var="currencyElement" items="${currencySet}">
+                <c:forEach var="currency" items="${currencySet}">
                     <c:choose>
-                        <c:when test="${currency eq currencyElement}">
-                            <option value="${currencyElement}" selected="selected">${currencyMap.get(currencyElement)}</option>
+                        <c:when test="${currency eq currency}">
+                            <option value="${currency}" selected="selected">${currencyMap.get(currency)}</option>
                         </c:when>
                         <c:otherwise>
-                            <option value="${currencyElement}">${currencyMap.get(currencyElement)}</option>
+                            <option value="${currency}">${currencyMap.get(currency)}</option>
                         </c:otherwise>
                     </c:choose>
                 </c:forEach>

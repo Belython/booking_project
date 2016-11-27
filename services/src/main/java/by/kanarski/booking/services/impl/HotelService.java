@@ -3,7 +3,7 @@ package by.kanarski.booking.services.impl;
 import by.kanarski.booking.dao.impl.HotelDao;
 import by.kanarski.booking.dao.impl.HotelTranslationDao;
 import by.kanarski.booking.dao.impl.LocationTranslationDao;
-import by.kanarski.booking.dto.HotelDto;
+import by.kanarski.booking.dto.hotel.HotelDto;
 import by.kanarski.booking.entities.hotel.Hotel;
 import by.kanarski.booking.entities.hotel.HotelTranslation;
 import by.kanarski.booking.exceptions.DaoException;

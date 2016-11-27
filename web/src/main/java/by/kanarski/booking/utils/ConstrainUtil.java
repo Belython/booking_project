@@ -1,9 +1,9 @@
 package by.kanarski.booking.utils;
 
 import by.kanarski.booking.constants.Parameter;
-import by.kanarski.booking.dto.HotelDto;
-import by.kanarski.booking.dto.LocationDto;
-import by.kanarski.booking.dto.RoomTypeDto;
+import by.kanarski.booking.dto.hotel.HotelDto;
+import by.kanarski.booking.dto.location.LocationDto;
+import by.kanarski.booking.dto.roomType.RoomTypeDto;
 import by.kanarski.booking.utils.field.FieldBuilder;
 import by.kanarski.booking.utils.field.FieldDescriptor;
 

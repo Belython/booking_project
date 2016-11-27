@@ -30,8 +30,8 @@ public class ThreadLocalListener implements ServletRequestListener {
     public void requestInitialized(ServletRequestEvent servletRequestEvent) {
         HttpServletRequest request = (HttpServletRequest) servletRequestEvent.getServletRequest();
         HttpSession session = request.getSession();
-        Locale locale = (Locale) session.getAttribute(Parameter.LOCALE);
-        Currency currency = (Currency) session.getAttribute(Parameter.CURRENCY);
+        Locale locale = (Locale) session.getAttribute(Parameter.CURRENT_LOCALE);
+        Currency currency = (Currency) session.getAttribute(Parameter.CURRENT_CURRENCY);
         UserPreferences.setLocale(locale);
         UserPreferences.setCurrency(currency);
     }

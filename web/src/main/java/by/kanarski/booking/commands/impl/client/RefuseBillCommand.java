@@ -60,8 +60,8 @@ public class RefuseBillCommand extends AbstractCommand{
     }
 
     private List<BillDto> getNewBillDtoList(HttpSession session, BillDto refusedBillDto) {
-        Locale locale = (Locale) session.getAttribute(Parameter.LOCALE);
-        Currency currency = (Currency) session.getAttribute(Parameter.CURRENCY);
+        Locale locale = (Locale) session.getAttribute(Parameter.CURRENT_LOCALE);
+        Currency currency = (Currency) session.getAttribute(Parameter.CURRENT_CURRENCY);
         long refusedBillId = refusedBillDto.getBillId();
         List<BillDto> billDtoList = (List<BillDto>) session.getAttribute(Parameter.BILL_LIST);
         for (BillDto billDto : billDtoList) {

@@ -5,6 +5,10 @@ import by.kanarski.booking.constants.BookingSystemLocale;
 import by.kanarski.booking.constants.DtoName;
 import by.kanarski.booking.dao.impl.RoomTypeDao;
 import by.kanarski.booking.dto.*;
+import by.kanarski.booking.dto.hotel.HotelDto;
+import by.kanarski.booking.dto.hotel.UserHotelDto;
+import by.kanarski.booking.dto.location.LocationDto;
+import by.kanarski.booking.dto.roomType.RoomTypeDto;
 import by.kanarski.booking.entities.Bill;
 import by.kanarski.booking.entities.Room;
 import by.kanarski.booking.entities.User;
@@ -29,9 +33,7 @@ public class DtoToEntityConverter<E, D> {
 
     private static Locale defaultLocale = BookingSystemLocale.DEFAULT;
     private static Currency defaultCurrency = BookingSystemCurrency.DEFAULT;
-    private static SupportedLanguages supportedLanguages = SupportedLanguagesManager.get();
-    private static String currentLanguage = UserPreferences.getLocale().getLanguage().toUpperCase();
-//    private static Long currentLanguageId = Integer.toUnsignedLong(supportedLanguages.indexOf(currentLanguage + 1));
+
     private static Long currentLanguageId = 2L;
 
     private Class<E> entityClass;
@@ -40,7 +42,12 @@ public class DtoToEntityConverter<E, D> {
     public DtoToEntityConverter(Class<E> entityClass, Class<D> dtoClass) {
         this.entityClass = entityClass;
         this.dtoClass = dtoClass;
+        SupportedLanguages supportedLanguages = SupportedLanguagesManager.get();
+        String currentLanguage = UserPreferences.getLocale().getLanguage().toUpperCase();
+        this.currentLanguageId = Integer.toUnsignedLong(supportedLanguages.indexOf(currentLanguage) + 1);
     }
+
+    public DtoToEntityConverter(Class<E> entityClass, Class<D> dtoClass)
 
     @SuppressWarnings("unchecked")
     public E toEntity(D dto) throws LocalisationException, DaoException {
