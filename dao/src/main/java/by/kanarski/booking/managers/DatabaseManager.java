@@ -1,5 +1,7 @@
 package by.kanarski.booking.managers;
 
+import java.util.ResourceBundle;
+
 /**
  * @author Dzmitry Kanarski
  * @version 1.0

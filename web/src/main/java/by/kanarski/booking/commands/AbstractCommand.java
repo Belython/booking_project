@@ -12,7 +12,7 @@ public abstract class AbstractCommand implements ICommand {
 
     protected void handleServiceException(HttpServletRequest request, Exception exception) {
         HttpSession session = request.getSession();
-        Locale locale = (Locale) session.getAttribute(Parameter.LOCALE);
+        Locale locale = (Locale) session.getAttribute(Parameter.CURRENT_LOCALE);
 //        ResourceBundle bundle = ResourceManager.OPERATION_MESSAGES.setLocale(locale).create();
         String errorMessage = OperationMessageManager.ERROR_DATABASE.getLocalised();
         request.setAttribute(Parameter.ERROR_DATABASE, errorMessage);
@@ -21,7 +21,7 @@ public abstract class AbstractCommand implements ICommand {
 
     protected void handleServiceException(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        Locale locale = (Locale) session.getAttribute(Parameter.LOCALE);
+        Locale locale = (Locale) session.getAttribute(Parameter.CURRENT_LOCALE);
 //        ResourceBundle bundle = ResourceManager.OPERATION_MESSAGES.setLocale(locale).create();
         String errorMessage = OperationMessageManager.ERROR_DATABASE.getLocalised();
         request.setAttribute(Parameter.ERROR_DATABASE, errorMessage);

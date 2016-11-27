@@ -1,7 +1,7 @@
 package by.kanarski.booking.services.interfaces;
 
 import by.kanarski.booking.dto.OrderDto;
-import by.kanarski.booking.dto.UserHotelDto;
+import by.kanarski.booking.dto.hotel.UserHotelDto;
 import by.kanarski.booking.exceptions.ServiceException;
 
 import java.util.List;

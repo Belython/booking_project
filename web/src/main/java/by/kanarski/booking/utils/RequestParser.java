@@ -4,6 +4,10 @@ import by.kanarski.booking.commands.factory.CommandType;
 import by.kanarski.booking.constants.FieldValue;
 import by.kanarski.booking.constants.Parameter;
 import by.kanarski.booking.dto.*;
+import by.kanarski.booking.dto.hotel.HotelDto;
+import by.kanarski.booking.dto.hotel.UserHotelDto;
+import by.kanarski.booking.dto.location.LocationDto;
+import by.kanarski.booking.dto.roomType.RoomTypeDto;
 import by.kanarski.booking.exceptions.LocalisationException;
 import by.kanarski.booking.exceptions.ServiceException;
 import by.kanarski.booking.services.impl.LocationService;
@@ -88,11 +92,11 @@ public class RequestParser {
     }
 
     public static Locale parseLocale(HttpServletRequest request) {
-        String localeName = request.getParameter(Parameter.LOCALE);
+        String localeName = request.getParameter(Parameter.CURRENT_LOCALE);
         Locale locale = null;
         if (localeName == null) {
             HttpSession session = request.getSession();
-            locale = (Locale) session.getAttribute(Parameter.LOCALE);
+            locale = (Locale) session.getAttribute(Parameter.CURRENT_LOCALE);
         } else {
             String fullLocaleRegexp = "[a-z]+_[A-Z]+";
             String language = null;
@@ -114,11 +118,11 @@ public class RequestParser {
     }
 
     public static Currency parseCurrency(HttpServletRequest request) {
-        String currencyCode = request.getParameter(Parameter.CURRENCY);
+        String currencyCode = request.getParameter(Parameter.CURRENT_CURRENCY);
         Currency currency = null;
         if (currencyCode == null) {
             HttpSession session = request.getSession();
-            currency = (Currency) session.getAttribute(Parameter.CURRENCY);
+            currency = (Currency) session.getAttribute(Parameter.CURRENT_CURRENCY);
         } else {
             currency = Currency.getInstance(currencyCode);
         }

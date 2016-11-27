@@ -22,16 +22,16 @@ public class LocalizationFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain next) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         HttpSession session = httpServletRequest.getSession();
-        Locale locale = (Locale) session.getAttribute(Parameter.LOCALE);
+        Locale locale = (Locale) session.getAttribute(Parameter.CURRENT_LOCALE);
         if (locale == null) {
             locale = request.getLocale();
-            session.setAttribute(Parameter.LOCALE, locale);
+            session.setAttribute(Parameter.CURRENT_LOCALE, locale);
             UserPreferences.setLocale(locale);
         }
-        Currency currency = (Currency) session.getAttribute(Parameter.CURRENCY);
+        Currency currency = (Currency) session.getAttribute(Parameter.CURRENT_CURRENCY);
         if (currency == null) {
             currency = Currency.getInstance(locale);
-            session.setAttribute(Parameter.CURRENCY, currency);
+            session.setAttribute(Parameter.CURRENT_CURRENCY, currency);
             UserPreferences.setCurrency(currency);
         }
         String currentPagePath = (String) request.getAttribute(Parameter.CURRENT_PAGE_PATH);

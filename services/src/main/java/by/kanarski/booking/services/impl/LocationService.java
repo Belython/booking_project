@@ -2,7 +2,7 @@ package by.kanarski.booking.services.impl;
 
 import by.kanarski.booking.dao.impl.LocationDao;
 import by.kanarski.booking.dao.impl.LocationTranslationDao;
-import by.kanarski.booking.dto.LocationDto;
+import by.kanarski.booking.dto.location.LocationDto;
 import by.kanarski.booking.entities.location.Location;
 import by.kanarski.booking.entities.location.LocationTranslation;
 import by.kanarski.booking.exceptions.DaoException;

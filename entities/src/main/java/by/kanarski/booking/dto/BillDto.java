@@ -1,6 +1,8 @@
 package by.kanarski.booking.dto;
 
 import by.kanarski.booking.constants.FieldValue;
+import by.kanarski.booking.dto.hotel.HotelDto;
+import by.kanarski.booking.dto.roomType.RoomTypeDto;
 import by.kanarski.booking.utils.HotelUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;

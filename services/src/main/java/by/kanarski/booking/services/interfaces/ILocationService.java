@@ -1,6 +1,6 @@
 package by.kanarski.booking.services.interfaces;
 
-import by.kanarski.booking.dto.LocationDto;
+import by.kanarski.booking.dto.location.LocationDto;
 import by.kanarski.booking.exceptions.ServiceException;
 
 import java.util.List;

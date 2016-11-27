@@ -1,7 +1,7 @@
 package by.kanarski.booking.services.impl;
 
 import by.kanarski.booking.dao.impl.RoomTypeDao;
-import by.kanarski.booking.dto.RoomTypeDto;
+import by.kanarski.booking.dto.roomType.RoomTypeDto;
 import by.kanarski.booking.entities.roomType.RoomType;
 import by.kanarski.booking.services.interfaces.IRoomTypeService;
 

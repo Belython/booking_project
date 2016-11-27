@@ -1,5 +1,15 @@
 package by.kanarski.booking.commands.factory;
 
+import by.kanarski.booking.commands.ICommand;
+import by.kanarski.booking.commands.impl.user.*;
+import by.kanarski.booking.commands.impl.client.*;
+import by.kanarski.booking.commands.impl.admin.*;
+import by.kanarski.booking.commands.impl.admin.database.*;
+import by.kanarski.booking.commands.impl.admin.database.hotel.*;
+import by.kanarski.booking.commands.impl.admin.database.location.*;
+import by.kanarski.booking.commands.impl.admin.database.room.*;
+import by.kanarski.booking.commands.impl.admin.database.roomType.*;
+import by.kanarski.booking.commands.impl.admin.database.user.*;
 public enum CommandType {
     //user commands
     LOGIN, LOGOUT, REGISTER, GOTOREGISTRATION, GOTOMAIN, GOTOSELECTHOTEL, GOTOSELECTROOMS, MAKEBILL, GOTOACCOUNT, PAYBILL,

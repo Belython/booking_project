@@ -22,7 +22,7 @@ public class SetCurrencyCommand implements ICommand {
         String page;
         HttpSession session = request.getSession();
         Currency currency = RequestParser.parseCurrency(request);
-        session.setAttribute(Parameter.CURRENCY, currency);
+        session.setAttribute(Parameter.CURRENT_CURRENCY, currency);
         UserPreferences.setCurrency(currency);
         page = (String) session.getAttribute(Parameter.CURRENT_PAGE_PATH);
         Filler filler = FillerFactory.getInstance().defineFiller(page);

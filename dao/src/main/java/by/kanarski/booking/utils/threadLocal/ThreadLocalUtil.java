@@ -1,5 +1,7 @@
 package by.kanarski.booking.utils.threadLocal;
 
+import by.kanarski.booking.utils.wrappers.ThreadVariables;
+
 /**
  * Main thread local util. Provides access to thread local variable
  * @author Dzmitry Kanarski

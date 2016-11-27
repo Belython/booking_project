@@ -22,7 +22,7 @@ public class SetLocaleCommand implements ICommand {
         String page;
         HttpSession session = request.getSession();
         Locale locale = RequestParser.parseLocale(request);
-        session.setAttribute(Parameter.LOCALE, locale);
+        session.setAttribute(Parameter.CURRENT_LOCALE, locale);
         UserPreferences.setLocale(locale);
         page = (String) session.getAttribute(Parameter.CURRENT_PAGE_PATH);
         Filler filler = FillerFactory.getInstance().defineFiller(page);

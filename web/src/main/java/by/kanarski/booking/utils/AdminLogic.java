@@ -1,7 +1,7 @@
 package by.kanarski.booking.utils;
 
 import by.kanarski.booking.dto.RoomDto;
-import by.kanarski.booking.dto.RoomTypeDto;
+import by.kanarski.booking.dto.roomType.RoomTypeDto;
 
 import java.util.ArrayList;
 import java.util.HashMap;
