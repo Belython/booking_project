@@ -6,50 +6,11 @@
         <!--logo-->
         <h1 class="logo">
             <a href="controller?command=goToMain" title="Book Your Travel - home">
-                <img src="images/txt/logo.png" alt="Book Your Travel" />
+                <img src="${pageContext.request.contextPath}/assets/images/txt/logo.png" alt="Book Your Travel" />
+
             </a>
         </h1>
         <!--//logo-->
-
-        <div id="uesrForm">
-            <ul class="userCenterNav">
-                <li class="userCenterLanguage"></li>
-                <c:choose>
-                    <c:when test="${empty user}">
-                        <li class="userCenterLoginField">
-                            <form id="login" name="loginForm" method="POST" action="controller">
-                                <input type="hidden" name="command" value="login"/>
-                                <fieldset id="inputs">
-                                    <input id="username" type="text" name="login" placeholder="${header_login}" autofocus required>
-                                    <input id="password" type="password" name="password" placeholder="${header_password}" required>
-                                </fieldset>
-                                <fieldset id="actions">
-                                    <input type="submit" id="submit" value="${header_signIn}">
-                                    <a href="controller?command=goToRemindPassword">${header_forgotPassword}</a>
-                                    <a href="controller?command=goToRegistration">${header_register}</a>
-                                </fieldset>
-                                    ${errorLoginOrPassword}<br/>
-                            </form>
-                        </li>
-                    </c:when>
-                    <c:otherwise>
-                        <li>${header_welcome} ${user.firstName}</li>
-                        <li>
-                            <c:if test="${user.role eq 'admin'}">
-                                <p>${header_administrator}</p>
-                                <a href="controller?command=goToAdminPage">${header_goToAdminPage}</a>
-                            </c:if>
-                        </li>
-                        <li class="userCenterAccount">
-                            <a href="controller?command=goToAccount">${header_goToAccount}</a>
-                        </li>
-                        <li class="userCenterLogoutField">
-                            <a href="controller?command=logout">${header_signOut}</a>
-                        </li>
-                    </c:otherwise>
-                </c:choose>
-            </ul>
-        </div>
 
         <!--ribbon-->
         <div class="ribbon">
@@ -101,6 +62,7 @@
                 </ul>
 
                 <ul class="currency-nav">
+                    <c:set var="currencySet" value="${currencyMap.keySet()}"/>
                     <c:forEach var="currency" items="${currencySet}">
                         <c:set var="displayCurrency" value="${currencyMap.get(currency)}"/>
                         <c:choose>
@@ -175,3 +137,10 @@
     <!--//operation message-->
 
 </header>
+
+<c:if test="${needLogin}">
+    <%@include file="login.jsp"%>
+</c:if>
+<c:if test="${needRegister}">
+    <%@include file="regisration.jsp"%>
+</c:if>

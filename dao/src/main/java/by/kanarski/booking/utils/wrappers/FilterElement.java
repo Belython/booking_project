@@ -15,8 +15,24 @@ import lombok.NoArgsConstructor;
 public class FilterElement {
 
     private String property;
-    private CriteriaRule rule;
+    private CriteriaConstraint constraint;
     private Object value;
+    private boolean asc = true;
+
+    public FilterElement(String property, CriteriaConstraint constraint, Object value) {
+        this.property = property;
+        this.constraint = constraint;
+        this.value = value;
+        setAsc();
+    }
+
+    public void setAsc() {
+        this.asc = true;
+    }
+
+    public void setDesc() {
+        this.asc = false;
+    }
 
 }
 

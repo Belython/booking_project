@@ -27,6 +27,7 @@
         <javax.mail.version>1.4</javax.mail.version>
         <junit.version>4.12</junit.version>
         <gson.vervion>2.7</gson.vervion>
+        <commons-lang3.version>3.4</commons-lang3.version>
         <!--Plugin versions-->
         <cobertura.version>2.7</cobertura.version>
         <mvn-dependency.version>2.10</mvn-dependency.version>
@@ -161,6 +162,11 @@
             <artifactId>cobertura-maven-plugin</artifactId>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.version}</version>
+        </dependency>
     </dependencies>
 
     <reporting>

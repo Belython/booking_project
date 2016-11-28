@@ -1,6 +1,7 @@
 package by.kanarski.booking.dto.hotel;
 
 import by.kanarski.booking.dto.RoomDto;
+import by.kanarski.booking.dto.abstr.LocalizableDto;
 import by.kanarski.booking.dto.location.LocationDto;
 import by.kanarski.booking.dto.roomType.RoomTypeDto;
 import by.kanarski.booking.utils.HotelUtil;
@@ -14,7 +15,7 @@ import java.util.Map;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserHotelDto {
+public class UserHotelDto extends LocalizableDto {
 
     private Long hotelId;
     private LocationDto location;
@@ -22,9 +23,10 @@ public class UserHotelDto {
     private String hotelStatus;
     private List<RoomDto> roomList;
     private Map<RoomTypeDto, Integer> roomTypesCount;
-    private int roomsAvailable;
+    private Integer roomsAvailable;
 
     public UserHotelDto(Long hotelId, String country, String city, String hotelName, String hotelStatus) {
+        super();
         this.hotelId = hotelId;
         this.location = new LocationDto(country, city);
         this.hotelName = hotelName;
@@ -32,6 +34,7 @@ public class UserHotelDto {
     }
 
     public UserHotelDto(Long hotelId, LocationDto location, String hotelName, String hotelStatus) {
+        super();
         this.hotelId = hotelId;
         this.location = location;
         this.hotelName = hotelName;
@@ -39,6 +42,7 @@ public class UserHotelDto {
     }
 
     public UserHotelDto(Long hotelId, LocationDto location, String hotelName, List<RoomDto> roomList) {
+        super();
         this.hotelId = hotelId;
         this.location = location;
         this.hotelName = hotelName;
@@ -48,6 +52,7 @@ public class UserHotelDto {
     }
 
     public UserHotelDto(HotelDto hotel, List<RoomDto> roomList) {
+        super();
         this.hotelId = hotel.getHotelId();
         this.location = hotel.getLocation();
         this.hotelName = hotel.getHotelName();

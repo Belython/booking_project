@@ -1,6 +1,6 @@
 package by.kanarski.booking.dto.roomType;
 
-import by.kanarski.booking.dto.abstr.AdminDto;
+import by.kanarski.booking.dto.abstr.LocalizableDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AdminRoomTypeDto extends AdminDto {
+public class LocalizableRoomTypeDto extends LocalizableDto {
 
     private Long roomTypeId;
     private String roomTypeName;
@@ -17,8 +17,8 @@ public class AdminRoomTypeDto extends AdminDto {
     private String facilities;
     private String roomTypeStatus;
 
-    public AdminRoomTypeDto(String roomTypeName, Integer maxPersons, Double pricePerNight,
-                            String facilities, String roomTypeStatus) {
+    public LocalizableRoomTypeDto(String roomTypeName, Integer maxPersons, Double pricePerNight,
+                                  String facilities, String roomTypeStatus) {
         this.roomTypeName = roomTypeName;
         this.maxPersons = maxPersons;
         this.pricePerNight = pricePerNight;

@@ -1,6 +1,6 @@
 package by.kanarski.booking.dto.hotel;
 
-import by.kanarski.booking.dto.abstr.AdminDto;
+import by.kanarski.booking.dto.abstr.LocalizableDto;
 import by.kanarski.booking.dto.location.LocationDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AdminHotelDto extends AdminDto {
+public class AdminHotelDto extends LocalizableDto {
 
     private Long hotelId;
     private LocationDto location;
@@ -17,6 +17,7 @@ public class AdminHotelDto extends AdminDto {
     private String hotelStatus;
 
     public AdminHotelDto(LocationDto location, String hotelName, String hotelStatus) {
+        super();
         this.location = location;
         this.hotelName = hotelName;
         this.hotelStatus = hotelStatus;
