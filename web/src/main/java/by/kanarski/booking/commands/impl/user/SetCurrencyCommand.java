@@ -31,7 +31,7 @@ public class SetCurrencyCommand implements ICommand {
         if (page == null) {
             page = PagePath.INDEX_PAGE_PATH;
             servletAction.setPage(page);
-}
+        }
         return servletAction;
     }
 }

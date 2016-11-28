@@ -5,13 +5,14 @@ package by.kanarski.booking.utils.wrappers;
  * @version 1.0
  */
 
-public enum CriteriaRule {
+public enum CriteriaConstraint {
 
-    EQ("="), GT(">"), LT("<"), GE("=>"), LE("<=");
+    EQ("="), GT(">"), LT("<"), GE("=>"), LE("<="),
+    LIKE(""), ILIKE("");
 
     private String operator;
 
-    CriteriaRule(String operator) {
+    CriteriaConstraint(String operator) {
         this.operator = operator;
     }
 

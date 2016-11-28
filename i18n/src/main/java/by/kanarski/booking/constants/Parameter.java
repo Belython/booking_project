@@ -60,12 +60,9 @@ public class Parameter {
     public static final String SELECTED_USER_HOTEL = "selectedUserHotel";
     public static final String SELECTED_USER_HOTEL_LIST = "selectedUserHotelList";
 
+    //Destination parameters
 
-    //Locale parameters
-
-    public static final String LOCALE_LIST = "localeList";
-    public static final String CURRENT_LOCALE = "currentLocale";
-    public static final String CURRENT_CURRENCY = "currentCurrency";
+    public static final String DESTINATION = "destination";
 
     //RoomType parameters
 
@@ -97,6 +94,12 @@ public class Parameter {
     public static final String ROOM_STATUS = "roomStatus";
     public static final String ROOM_LIST = "roomList";
     public static final String ROOM_DTO_LIST = "roomDtoList";
+
+    //Locale parameters
+
+    public static final String LOCALE_LIST = "localeList";
+    public static final String CURRENT_LOCALE = "currentLocale";
+    public static final String CURRENT_CURRENCY = "currentCurrency";
 
     //Command attributes
 

@@ -3,13 +3,14 @@ package by.kanarski.booking.dao.impl;
 import by.kanarski.booking.dao.interfaces.IExtendedDao;
 import by.kanarski.booking.exceptions.DaoException;
 import by.kanarski.booking.utils.threadLocal.UserPreferences;
-import by.kanarski.booking.utils.wrappers.CriteriaRule;
+import by.kanarski.booking.utils.wrappers.CriteriaConstraint;
 import by.kanarski.booking.utils.wrappers.FilterElement;
 import by.kanarski.booking.utils.wrappers.SearchFilter;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
@@ -61,13 +62,7 @@ public class ExtendedBaseDao<T> extends BaseDao<T> implements IExtendedDao<T> {
 
     @Override
     public List<T> getListByFilter(SearchFilter filter, int page, int perPage) throws DaoException {
-        Criteria criteria = getSession().createCriteria(getEntityClass());
-        if (filter != null) {
-            for (FilterElement filterElement : filter) {
-                Criterion criterion = getCriterion(filterElement);
-                criteria.add(criterion);
-            }
-        }
+        Criteria criteria = getCriteria(filter);
         criteria.setFirstResult(page);
         criteria.setMaxResults(perPage);
         return getResultList(criteria);
@@ -75,11 +70,7 @@ public class ExtendedBaseDao<T> extends BaseDao<T> implements IExtendedDao<T> {
 
     @Override
     public List<T> getListByFilter(SearchFilter filter) throws DaoException {
-        Criteria criteria = getSession().createCriteria(getEntityClass());
-        for (FilterElement filterElement : filter) {
-            Criterion criterion = getCriterion(filterElement);
-            criteria.add(criterion);
-        }
+        Criteria criteria = getCriteria(filter);
         paginateCriteria(criteria);
         return getResultList(criteria);
     }
@@ -111,12 +102,26 @@ public class ExtendedBaseDao<T> extends BaseDao<T> implements IExtendedDao<T> {
         return resultsSize;
     }
 
+    private Criteria getCriteria(SearchFilter filter) {
+        Criteria criteria = getSession().createCriteria(getEntityClass());
+        for (FilterElement filterElement : filter) {
+            Criterion criterion = getCriterion(filterElement);
+            criteria.add(criterion);
+            if (filterElement.isAsc()) {
+                criteria.addOrder(Order.asc(filterElement.getProperty()));
+            } else {
+                criteria.addOrder(Order.desc(filterElement.getProperty()));
+            }
+        }
+        return criteria;
+    }
+
     private Criterion getCriterion(FilterElement filterElement) {
         Criterion criterion = null;
         String property = filterElement.getProperty();
-        CriteriaRule rule = filterElement.getRule();
+        CriteriaConstraint constraint = filterElement.getConstraint();
         Object value = filterElement.getValue();
-        switch (rule) {
+        switch (constraint) {
             case EQ: {
                 criterion = Restrictions.eq(property, value);
                 break;
@@ -127,6 +132,22 @@ public class ExtendedBaseDao<T> extends BaseDao<T> implements IExtendedDao<T> {
             }
             case LT: {
                 criterion = Restrictions.lt(property, value);
+                break;
+            }
+            case LE: {
+                criterion = Restrictions.lt(property, value);
+                break;
+            }
+            case GE : {
+                criterion = Restrictions.ge(property, value);
+                break;
+            }
+            case LIKE: {
+                criterion = Restrictions.like(property, value);
+                break;
+            }
+            case ILIKE: {
+                criterion = Restrictions.ilike(property, value);
                 break;
             }
         }
@@ -141,7 +162,7 @@ public class ExtendedBaseDao<T> extends BaseDao<T> implements IExtendedDao<T> {
         criteria.setMaxResults(perPage);
     }
 
-    public List<T> getResultList(Criteria criteria) throws DaoException {
+    private List<T> getResultList(Criteria criteria) throws DaoException {
         List<T> resultList;
         try {
             resultList = criteria.list();
@@ -151,7 +172,7 @@ public class ExtendedBaseDao<T> extends BaseDao<T> implements IExtendedDao<T> {
         return resultList;
     }
 
-    public T getUniqueResult(Criteria criteria) throws DaoException {
+    private T getUniqueResult(Criteria criteria) throws DaoException {
         T result;
         try {
             result = (T) criteria.uniqueResult();

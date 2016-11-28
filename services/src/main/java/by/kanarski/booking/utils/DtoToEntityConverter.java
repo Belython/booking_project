@@ -47,7 +47,13 @@ public class DtoToEntityConverter<E, D> {
         this.currentLanguageId = Integer.toUnsignedLong(supportedLanguages.indexOf(currentLanguage) + 1);
     }
 
-    public DtoToEntityConverter(Class<E> entityClass, Class<D> dtoClass)
+    public DtoToEntityConverter(Class<E> entityClass, Class<D> dtoClass, Long languageId) {
+        this.entityClass = entityClass;
+        this.dtoClass = dtoClass;
+//        SupportedLanguages supportedLanguages = SupportedLanguagesManager.get();
+//        String currentLanguage = UserPreferences.getLocale().getLanguage().toUpperCase();
+        this.currentLanguageId = languageId;
+    }
 
     @SuppressWarnings("unchecked")
     public E toEntity(D dto) throws LocalisationException, DaoException {

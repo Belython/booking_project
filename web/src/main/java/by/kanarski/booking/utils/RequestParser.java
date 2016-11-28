@@ -3,6 +3,7 @@ package by.kanarski.booking.utils;
 import by.kanarski.booking.commands.factory.CommandType;
 import by.kanarski.booking.constants.FieldValue;
 import by.kanarski.booking.constants.Parameter;
+import by.kanarski.booking.constants.RegExp;
 import by.kanarski.booking.dto.*;
 import by.kanarski.booking.dto.hotel.HotelDto;
 import by.kanarski.booking.dto.hotel.UserHotelDto;
@@ -49,7 +50,7 @@ public class RequestParser {
     public static OrderDto parseOrderDto(HttpServletRequest request) throws ServiceException {
         HttpSession session = request.getSession();
         UserDto userDto = (UserDto) session.getAttribute(Parameter.USER);
-        int totalPersons = Integer.valueOf(request.getParameter(Parameter.ORDER_TOTAL_PERSONS));
+        Integer totalPersons = Integer.valueOf(request.getParameter(Parameter.ORDER_TOTAL_PERSONS));
         HotelDto hotelDto = parseHotelDto(request);
         String checkInDate = request.getParameter(Parameter.ORDER_CHECK_IN_DATE);
         String defaultFormattedCheckInDate = DateUtil.getDefaultLocaleDate(checkInDate);
@@ -57,6 +58,19 @@ public class RequestParser {
         String defaultFormattedCheckOutDate = DateUtil.getDefaultLocaleDate(checkOutDate);
         return new OrderDto(userDto, hotelDto, totalPersons,
                 defaultFormattedCheckInDate, defaultFormattedCheckOutDate);
+    }
+
+    public static DestinationDto parseDestinationDto(HttpServletRequest request) {
+        String destination = request.getParameter(Parameter.DESTINATION);
+        DestinationDto destinationDto = new DestinationDto();
+        if (!StringUtils.isBlank(destination)) {
+            Pattern pattern = Pattern.compile(RegExp.DESTINATION);
+            Matcher matcher = pattern.matcher(destination);
+            while (matcher.find()) {
+                destinationDto.add(matcher.group());
+            }
+        }
+        return destinationDto;
     }
 
     public static HotelDto parseHotelDto(ServletRequest request) throws ServiceException {
