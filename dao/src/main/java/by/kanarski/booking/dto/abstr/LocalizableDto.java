@@ -16,5 +16,8 @@ public abstract class LocalizableDto {
     public LocalizableDto() {
         this.language = UserPreferences.getLocale().getLanguage();
     }
+    public LocalizableDto(String govno) {
+        this.language = UserPreferences.getLocale().getLanguage();
+    }
 
 }

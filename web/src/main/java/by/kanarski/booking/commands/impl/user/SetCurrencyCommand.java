@@ -29,7 +29,7 @@ public class SetCurrencyCommand implements ICommand {
         filler.fill(request);
         servletAction.setPage(page);
         if (page == null) {
-            page = PagePath.INDEX_PAGE_PATH;
+            page = PagePath.INDEX;
             servletAction.setPage(page);
         }
         return servletAction;

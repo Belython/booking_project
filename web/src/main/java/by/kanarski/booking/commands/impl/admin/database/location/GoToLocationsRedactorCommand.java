@@ -30,7 +30,7 @@ public class GoToLocationsRedactorCommand implements ICommand {
         HttpSession session = request.getSession();
         try {
             servletAction = ServletAction.FORWARD_PAGE;
-            page = PagePath.LOCATIONS_REDACTOR_PATH;
+            page = PagePath.LOCATIONS_REDACTOR;
             List<LocationDto> locationDtoList = LocationService.getInstance().getAll(0, 100);
             List<FieldDescriptor<LocationDto>> descriptorList = new ArrayList<>();
             for (LocationDto locationDto: locationDtoList) {

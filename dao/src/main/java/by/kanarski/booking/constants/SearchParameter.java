@@ -7,7 +7,7 @@ package by.kanarski.booking.constants;
 
 public class SearchParameter {
 
-    public static final String LANGUAGE = "language";
+    public static final String LANGUAGE_NAME = "language.name";
 
     //Hotel parameters
 

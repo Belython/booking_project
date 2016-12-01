@@ -2,15 +2,14 @@ package by.kanarski.booking.commands.impl.user;
 
 import by.kanarski.booking.commands.AbstractCommand;
 import by.kanarski.booking.commands.factory.CommandType;
+import by.kanarski.booking.constants.FieldValue;
 import by.kanarski.booking.constants.PagePath;
 import by.kanarski.booking.constants.Parameter;
-import by.kanarski.booking.constants.Value;
-import by.kanarski.booking.dto.hotel.HotelDto;
 import by.kanarski.booking.dto.OrderDto;
+import by.kanarski.booking.dto.hotel.HotelDto;
 import by.kanarski.booking.dto.hotel.UserHotelDto;
 import by.kanarski.booking.exceptions.ServiceException;
 import by.kanarski.booking.requestHandler.ServletAction;
-import by.kanarski.booking.services.impl.HotelService;
 import by.kanarski.booking.services.impl.UserHotelService;
 import by.kanarski.booking.utils.RequestParser;
 
@@ -29,8 +28,10 @@ public class GoToSelectHotelCommand extends AbstractCommand {
         try {
             OrderDto orderDto = RequestParser.parseOrderDto(request);
             String hotelName = orderDto.getHotel().getHotelName();
-            if (!hotelName.equals(Value.HOTEL_ALL_HOTELS)) {
-                HotelDto hotelDto = HotelService.getInstance().getByHotelName(hotelName);
+            if (!hotelName.equals(FieldValue.ANY_HOTEL)) {
+                // TODO: 29.11.2016 НЕРАБОТАЕТ
+//                HotelDto hotelDto = HotelService.getInstance().getByHotelName(orderDto.getHotel());
+                HotelDto hotelDto = new HotelDto();
                 orderDto.setHotel(hotelDto);
                 servletAction = ServletAction.CALL_COMMAND;
                 servletAction.setCommandName(CommandType.GOTOSELECTROOMS.name());

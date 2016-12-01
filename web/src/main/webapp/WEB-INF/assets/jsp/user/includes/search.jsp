@@ -42,7 +42,8 @@
                     <h4><span>02</span> Where?</h4>
                     <div class="f-item">
                         <label for="destination">Your destination</label>
-                        <input type="text" list="destinations" placeholder="City, region, district or specific hotel" id="destination" name="destination"/>
+                        <input type="text" list="destinations" placeholder="City, region, district or specific hotel"
+                               id="destination" name="destination"/>
                         <datalist id="destinations">
                             <%--HERE IS SOME AJAX (see destinations.jsp)--%>
                         </datalist>

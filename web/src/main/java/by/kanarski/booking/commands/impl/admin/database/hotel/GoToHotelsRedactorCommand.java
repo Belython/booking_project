@@ -33,7 +33,7 @@ public class GoToHotelsRedactorCommand implements ICommand {
         HttpSession session = request.getSession();
         try {
             servletAction = ServletAction.FORWARD_PAGE;
-            page = PagePath.HOTELS_REDACTOR_PATH;
+            page = PagePath.HOTELS_REDACTOR;
             List<HotelDto> hotelDtoList = HotelService.getInstance().getAll(0, 100);
             List<LocationDto> locationDtoList = LocationService.getInstance().getAll(0, 100);
             List<FieldDescriptor<HotelDto>> descriptorList = new ArrayList<>();

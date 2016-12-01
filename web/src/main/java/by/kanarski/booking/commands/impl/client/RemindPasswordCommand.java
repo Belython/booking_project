@@ -31,7 +31,7 @@ public class RemindPasswordCommand extends AbstractCommand {
             SendMailSSL.getInstance().sendPassword(email, password, locale);
             String operationResult = OperationMessageManager.PASSWORD_SENT.getLocalised();
             request.setAttribute(Parameter.OPERATION_MESSAGE, operationResult);
-            page = PagePath.INDEX_PAGE_PATH;
+            page = PagePath.INDEX;
         }  catch (ServiceException e) {
             page = PagePath.ERROR;
             handleServiceException(request);

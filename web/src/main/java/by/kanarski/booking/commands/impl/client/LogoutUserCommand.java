@@ -16,7 +16,7 @@ public class LogoutUserCommand extends AbstractCommand {
         ServletAction servletAction = ServletAction.FORWARD_PAGE;
         HttpSession session = request.getSession();
         session.removeAttribute(Parameter.USER);
-        String page = PagePath.INDEX_PAGE_PATH;
+        String page = PagePath.INDEX;
         session.setAttribute(Parameter.CURRENT_PAGE_PATH, page);
         request.setAttribute(Parameter.CURRENT_PAGE_PATH, page);
         servletAction.setPage(page);

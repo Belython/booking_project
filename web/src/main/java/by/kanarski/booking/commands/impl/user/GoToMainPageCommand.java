@@ -15,7 +15,7 @@ public class GoToMainPageCommand extends AbstractCommand {
     public ServletAction execute(HttpServletRequest request, HttpServletResponse response) {
         ServletAction servletAction = ServletAction.FORWARD_PAGE;
         HttpSession session = request.getSession();
-        String page = PagePath.INDEX_PAGE_PATH;
+        String page = PagePath.INDEX;
         session.setAttribute(Parameter.CURRENT_PAGE_PATH, page);
         request.setAttribute(Parameter.CURRENT_PAGE_PATH, page);
         servletAction.setPage(page);

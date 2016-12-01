@@ -17,7 +17,7 @@ public class PageRedirectFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         // переход на стартовую страницу
-        httpResponse.sendRedirect(httpRequest.getContextPath() + PagePath.INDEX_PAGE_PATH);
+        httpResponse.sendRedirect(httpRequest.getContextPath() + PagePath.INDEX);
         chain.doFilter(request, response);
     }
 

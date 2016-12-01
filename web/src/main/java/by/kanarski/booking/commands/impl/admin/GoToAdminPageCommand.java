@@ -17,7 +17,7 @@ public class GoToAdminPageCommand implements ICommand {
         String page = null;
         HttpSession session = request.getSession();
         servletAction = ServletAction.FORWARD_PAGE;
-        page = PagePath.ADMIN_MAIN_PAGE_PATH;
+        page = PagePath.ADMIN_MAIN;
         session.setAttribute(Parameter.CURRENT_PAGE_PATH, page);
         request.setAttribute(Parameter.CURRENT_PAGE_PATH, page);
         servletAction.setPage(page);

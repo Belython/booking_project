@@ -4,16 +4,15 @@ import by.kanarski.booking.dto.RoomDto;
 import by.kanarski.booking.dto.abstr.LocalizableDto;
 import by.kanarski.booking.dto.location.LocationDto;
 import by.kanarski.booking.dto.roomType.RoomTypeDto;
+import by.kanarski.booking.entities.roomType.RoomType;
 import by.kanarski.booking.utils.HotelUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.Map;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 public class UserHotelDto extends LocalizableDto {
 
@@ -23,7 +22,9 @@ public class UserHotelDto extends LocalizableDto {
     private String hotelStatus;
     private List<RoomDto> roomList;
     private Map<RoomTypeDto, Integer> roomTypesCount;
-    private Integer roomsAvailable;
+    private RoomType suitableRoomType;
+    private Integer availableRooms;
+    private Integer stars = 5;
 
     public UserHotelDto(Long hotelId, String country, String city, String hotelName, String hotelStatus) {
         super();
@@ -47,7 +48,7 @@ public class UserHotelDto extends LocalizableDto {
         this.location = location;
         this.hotelName = hotelName;
         this.roomList = roomList;
-        this.roomsAvailable = roomList.size();
+        this.availableRooms = roomList.size();
         this.roomTypesCount = HotelUtil.countRoomTypeDto(roomList);
     }
 
@@ -59,7 +60,11 @@ public class UserHotelDto extends LocalizableDto {
         this.hotelStatus = hotel.getHotelStatus();
         this.roomList = roomList;
         this.roomTypesCount = HotelUtil.countRoomTypeDto(this.roomList);
-        this.roomsAvailable = this.roomList.size();
+        this.availableRooms = this.roomList.size();
+    }
+
+    public UserHotelDto() {
+        super();
     }
 
     public List<RoomDto> getRoomList() {
@@ -69,6 +74,6 @@ public class UserHotelDto extends LocalizableDto {
     public void setRoomList(List<RoomDto> roomList) {
         this.roomList = roomList;
         this.roomTypesCount = HotelUtil.countRoomTypeDto(roomList);
-        this.roomsAvailable = roomList.size();
+        this.availableRooms = roomList.size();
     }
 }

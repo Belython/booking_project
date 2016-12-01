@@ -10,10 +10,10 @@ import java.util.List;
  */
 public interface IHotelService extends IBaseService<HotelDto> {
 
-    HotelDto getByHotelName(String hotelName) throws ServiceException;
+    List<HotelDto> getByHotelName(HotelDto hotelDto, int page, int perPage) throws ServiceException;
 
-    List<HotelDto> getByCountry(String country, int page, int perPage) throws ServiceException;
+    List<HotelDto> getByCountry(HotelDto hotelDto, int page, int perPage) throws ServiceException;
 
-    List<HotelDto> getByCity(String city, int page, int perPage) throws ServiceException;
+    List<HotelDto> getByCity(HotelDto hotelDto, int page, int perPage) throws ServiceException;
 
 }

@@ -26,22 +26,22 @@ public class RegisterCommand extends AbstractCommand {
             if (areFieldsFullStocked(userDto)) {
                 if (UserService.getInstance().isNewUser(userDto)) {
                     UserService.getInstance().registrateUser(userDto);
-                    page = PagePath.REGISTRATION_PAGE_PATH;
+                    page = PagePath.INDEX;
                     request.setAttribute(Parameter.OPERATION_MESSAGE, OperationMessageManager.SUCCESS_OPERATION.getLocalised());
                 } else {
-                    page = PagePath.REGISTRATION_PAGE_PATH;
+                    page = PagePath.INDEX;
                     request.setAttribute(Parameter.ERROR_USER_EXISTS, OperationMessageManager.USER_EXISTS.getLocalised());
                 }
             } else {
                 request.setAttribute(Parameter.OPERATION_MESSAGE, OperationMessageManager.EMPTY_FIELDS.getLocalised());
-                page = PagePath.REGISTRATION_PAGE_PATH;
+                page = PagePath.INDEX;
             }
         } catch (ServiceException e) {
             page = PagePath.ERROR;
             handleServiceException(request);
         } catch (NumberFormatException e) {
             request.setAttribute(Parameter.OPERATION_MESSAGE, OperationMessageManager.INVALID_NUMBER_FORMAT.getLocalised());
-            page = PagePath.REGISTRATION_PAGE_PATH;
+            page = PagePath.INDEX;
         }
         session.setAttribute(Parameter.CURRENT_PAGE_PATH, page);
         request.setAttribute(Parameter.CURRENT_PAGE_PATH, page);

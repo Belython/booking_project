@@ -9,7 +9,7 @@ public class Value {
     public static final String ASCENDING = "ascending";
     public static final String DESCENDING = "descending";
 
-    public static final String HOTEL_ALL_HOTELS = "allHotels";
+    public static final String HOTEL_ANY_HOTELS = "any";
     public static final String HOTEL_CITY = "hotelCity";
     public static final String HOTEL_COUNTRY = "hotelCountry";
     public static final String HOTEL_NAME = "hotelName";

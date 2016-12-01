@@ -8,14 +8,15 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class LocalizableLocationDto extends LocalizableDto {
+public class AdminLocationDto extends LocalizableDto {
 
     private Long locationId;
     private String country;
     private String city;
     private String locationStatus;
 
-    public LocalizableLocationDto(String country, String city, String locationStatus) {
+    public AdminLocationDto(String country, String city, String locationStatus) {
+        super();
         this.country = country;
         this.city = city;
         this.locationStatus = locationStatus;

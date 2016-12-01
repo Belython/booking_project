@@ -1,8 +1,14 @@
 package by.kanarski.booking.utils.wrappers;
 
+import by.kanarski.booking.constants.AliasName;
+import by.kanarski.booking.constants.AliasValue;
+import by.kanarski.booking.constants.BookingSystemLocale;
 import by.kanarski.booking.constants.SearchParameter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Dzmitry Kanarski
@@ -10,6 +16,60 @@ import java.util.ArrayList;
  */
 
 public class SearchFilter extends ArrayList<FilterElement> {
+
+    private Map<String, String> aliasMap = new HashMap<>();
+
+    public static SearchFilter createBasicEqFilter(String property, Object value) {
+        FilterElement filterElement = new FilterElement(property, CriteriaConstraint.EQ, value);
+        SearchFilter searchFilter = new SearchFilter();
+        searchFilter.add(filterElement);
+        return searchFilter;
+    }
+
+    public static SearchFilter createBasicLikeFilter(String property, Object value) {
+        FilterElement filterElement = new FilterElement(property, CriteriaConstraint.LIKE, value + "%");
+        SearchFilter searchFilter = new SearchFilter();
+        searchFilter.add(filterElement);
+        return searchFilter;
+    }
+
+    public static SearchFilter createBasicIlikeFilter(String property, Object value) {
+        FilterElement filterElement = new FilterElement(property, CriteriaConstraint.ILIKE, value + "%");
+        SearchFilter searchFilter = new SearchFilter();
+        searchFilter.add(filterElement);
+        return searchFilter;
+    }
+
+    public static SearchFilter createLanguageFilter(String language) {
+        SearchFilter searchFilter = SearchFilter.createBasicEqFilter(SearchParameter.LANGUAGE_NAME, language);
+        searchFilter.addAlias(AliasName.LANGUAGE, AliasValue.LANGUAGE);
+        return searchFilter;
+    }
+
+    public static SearchFilter createBasicLanguageFilter() {
+        String language = BookingSystemLocale.DEFAULT.getLanguage().toUpperCase();
+        SearchFilter searchFilter = SearchFilter.createBasicEqFilter(SearchParameter.LANGUAGE_NAME, language);
+        searchFilter.addAlias(AliasName.LANGUAGE, AliasValue.LANGUAGE);
+        return searchFilter;
+    }
+
+    public static SearchFilter createAliasFilter(String aliasName, String alias) {
+        SearchFilter searchFilter = new SearchFilter();
+        searchFilter.addAlias(aliasName, alias);
+        return searchFilter;
+    }
+
+    public void addAlias(String aliasName, String alias) {
+        aliasMap.put(aliasName, alias);
+    }
+
+    public Set<String> getAliasNames() {
+        return aliasMap.keySet();
+    }
+
+    public String getAlias(String aliasName) {
+        return aliasMap.get(aliasName);
+    }
 
     public void setFilter(String property, CriteriaConstraint filterRule, Object value) {
         FilterElement filterElement = new FilterElement(property, filterRule, value);
@@ -42,27 +102,14 @@ public class SearchFilter extends ArrayList<FilterElement> {
     }
 
     public void setLikeFilter(String property, Object value) {
-        FilterElement filterElement = new FilterElement(property, CriteriaConstraint.LIKE, value);
+        FilterElement filterElement = new FilterElement(property, CriteriaConstraint.LIKE, value + "%");
         this.add(filterElement);
     }
 
     public void setILikeFilter(String property, Object value) {
-        FilterElement filterElement = new FilterElement(property, CriteriaConstraint.ILIKE, value);
+        FilterElement filterElement = new FilterElement(property, CriteriaConstraint.ILIKE, value + "%");
         this.add(filterElement);
     }
 
-    public static SearchFilter createBasicEqFilter(String property, Object value) {
-        FilterElement filterElement = new FilterElement(property, CriteriaConstraint.EQ, value);
-        SearchFilter searchFilter = new SearchFilter();
-        searchFilter.add(filterElement);
-        return searchFilter;
-    }
-
-    public static SearchFilter createLanguageFilter(Object language) {
-        FilterElement filterElement = new FilterElement(SearchParameter.LANGUAGE, CriteriaConstraint.EQ, language);
-        SearchFilter searchFilter = new SearchFilter();
-        searchFilter.add(filterElement);
-        return searchFilter;
-    }
 
 }

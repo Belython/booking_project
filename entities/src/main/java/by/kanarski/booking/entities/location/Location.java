@@ -19,7 +19,7 @@ public class Location implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long locationId;
-    private String contry;
+    private String country;
     private String city;
     private Map<Long, LocationTranslation> locationTranslationMap = new HashMap<>();
     private String locationStatus;
@@ -38,12 +38,12 @@ public class Location implements Serializable {
     }
 
     @Formula(Formulas.COUNTRY_FORMULA)
-    public String getContry() {
-        return contry;
+    public String getCountry() {
+        return country;
     }
 
-    public void setContry(String contry) {
-        this.contry = contry;
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     @Formula(Formulas.CITY_FORMULA)

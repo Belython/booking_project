@@ -25,7 +25,7 @@ public class GoToAccountCommand extends AbstractCommand {
             UserDto userDto = (UserDto) session.getAttribute(Parameter.USER);
             List<BillDto> billDtoList = BillService.getInstance().getByUserId(userDto.getUserId(), 0, 100);
             session.setAttribute(Parameter.BILL_LIST, billDtoList);
-            page = PagePath.ACCOUNT_PAGE_PATH;
+            page = PagePath.ACCOUNT;
         } catch (ServiceException e) {
             page = PagePath.ERROR;
             handleServiceException(request);

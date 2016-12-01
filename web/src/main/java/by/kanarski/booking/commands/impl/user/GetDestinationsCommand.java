@@ -1,18 +1,13 @@
 package by.kanarski.booking.commands.impl.user;
 
 import by.kanarski.booking.commands.AbstractCommand;
-import by.kanarski.booking.commands.factory.CommandType;
 import by.kanarski.booking.constants.PagePath;
 import by.kanarski.booking.constants.Parameter;
-import by.kanarski.booking.constants.Value;
 import by.kanarski.booking.dto.DestinationDto;
-import by.kanarski.booking.dto.OrderDto;
 import by.kanarski.booking.dto.hotel.HotelDto;
-import by.kanarski.booking.dto.hotel.UserHotelDto;
 import by.kanarski.booking.exceptions.ServiceException;
 import by.kanarski.booking.requestHandler.ServletAction;
 import by.kanarski.booking.services.impl.HotelService;
-import by.kanarski.booking.services.impl.UserHotelService;
 import by.kanarski.booking.utils.RequestParser;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,25 +29,14 @@ public class GetDestinationsCommand extends AbstractCommand {
         HttpSession session = request.getSession();
         try {
             DestinationDto destinationDto = RequestParser.parseDestinationDto(request);
-
-            OrderDto orderDto = RequestParser.parseOrderDto(request);
-            String hotelName = orderDto.getHotel().getHotelName();
-            if (!hotelName.equals(Value.HOTEL_ALL_HOTELS)) {
-                HotelDto hotelDto = HotelService.getInstance().getByHotelName(hotelName);
-                orderDto.setHotel(hotelDto);
-                servletAction = ServletAction.CALL_COMMAND;
-                servletAction.setCommandName(CommandType.GOTOSELECTROOMS.name());
-            } else {
-                List<UserHotelDto> userHotelDtoList = UserHotelService.getInstance().getListByOrder(orderDto, 0, 100);
-                session.setAttribute(Parameter.SELECTED_USER_HOTEL_LIST, userHotelDtoList);
-                page = PagePath.SELECT_HOTEL;
-                servletAction = ServletAction.FORWARD_PAGE;
-            }
-            session.setAttribute(Parameter.ORDER, orderDto);
+            List<HotelDto> hotelDtoList = HotelService.getInstance().getByDestination(destinationDto, 0, 5);
+            request.setAttribute(Parameter.POSSIBLE_DESTINATIONS, hotelDtoList);
+            servletAction = ServletAction.AJAX_INCLUDE_REQUEST;
+            page = PagePath.POSSIBLE_DESTINATIONS;
         } catch (ServiceException e) {
             page = PagePath.ERROR;
             servletAction = ServletAction.REDIRECT_PAGE;
-            handleServiceException(request);
+            handleServiceException(request, e);
         }
         session.setAttribute(Parameter.CURRENT_PAGE_PATH, page);
         request.setAttribute(Parameter.CURRENT_PAGE_PATH, page);
