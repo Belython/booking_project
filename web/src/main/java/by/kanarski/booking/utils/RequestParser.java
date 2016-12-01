@@ -64,11 +64,18 @@ public class RequestParser {
         String destination = request.getParameter(Parameter.DESTINATION);
         DestinationDto destinationDto = new DestinationDto();
         if (!StringUtils.isBlank(destination)) {
-            Pattern pattern = Pattern.compile(RegExp.DESTINATION);
-            Matcher matcher = pattern.matcher(destination);
-            while (matcher.find()) {
-                destinationDto.add(matcher.group());
+            Pattern destinationPattern = Pattern.compile(RegExp.RAW_DESTINATION);
+            Matcher destinationMatcher = destinationPattern.matcher(destination);
+            while (destinationMatcher.find()) {
+                String rawParameter = destinationMatcher.group();
+                String parameter = rawParameter.replaceAll(RegExp.COMMAS, "").trim();
+                destinationDto.addParameter(parameter);
             }
+            String country = getFirstInList(destination);
+            String city = getNInList(destination);
+            String hotelName = getLastInList(destination);
+            HotelDto hotelDto = new HotelDto(country, city, hotelName);
+            destinationDto.setHotelDto(hotelDto);
         }
         return destinationDto;
     }
@@ -160,6 +167,7 @@ public class RequestParser {
                 selectedRoomTypes.put(roomTypeDto, roomTypeCount);
             }
         }
+//        List<Room> roomList = RoomService.getInstance()
         List<RoomDto> selectedRoomList = AdminLogic.chooseRoomList(selectedRoomTypes, selectedUserHotelDto.getRoomList());
         int bookedDays = BillUtil.getBookedDays(checkInDate, checkOutDate);
         double paymentAmount = BillUtil.getPaymentAmount(bookedDays, selectedRoomList);
@@ -556,4 +564,37 @@ public class RequestParser {
 //        }
 //        return bookedDates;
 //    }
+
+    private static String getFirstInList(String listAsString) {
+        Pattern pattern = Pattern.compile(RegExp.FIRST_IN_LIST);
+        Matcher matcher = pattern.matcher(listAsString);
+        String result = null;
+        if (matcher.find()) {
+            String rawResult = matcher.group();
+            result = rawResult.substring(0, rawResult.length() - 2);
+        }
+        return result;
+    }
+
+    private static String getLastInList(String listAsString) {
+        Pattern pattern = Pattern.compile(RegExp.LAST_IN_LIST);
+        Matcher matcher = pattern.matcher(listAsString);
+        String result = null;
+        if (matcher.find()) {
+            String rawResult = matcher.group();
+            result = rawResult.substring(2);
+        }
+        return result;
+    }
+
+    private static String getNInList(String listAsString) {
+        Pattern pattern = Pattern.compile(RegExp.N_IN_LIST);
+        Matcher matcher = pattern.matcher(listAsString);
+        String result = null;
+        if (matcher.find()) {
+            String rawResult = matcher.group();
+            result = rawResult.substring(2, rawResult.length() - 2);
+        }
+        return result;
+    }
 }

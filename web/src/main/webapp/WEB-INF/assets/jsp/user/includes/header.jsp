@@ -1,12 +1,14 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<c:set var="context" value="${pageContext.request.contextPath}"/>
+
 <header>
     <div class="wrap clearfix">
         <!--logo-->
         <h1 class="logo">
             <a href="controller?command=goToMain" title="Book Your Travel - home">
-                <img src="${pageContext.request.contextPath}/assets/images/txt/logo.png" alt="Book Your Travel" />
+                <img src="${context}/assets/images/txt/logo.png" alt="Book Your Travel" />
 
             </a>
         </h1>
@@ -22,7 +24,7 @@
                     <c:choose>
                         <c:when test="${empty user}">
                             <li>
-                                <a href="controller?command=goToLogin" title="Login">Login</a>
+                                <a id="loginRef" href="#" title="Login">Login</a>
                             </li>
                         </c:when>
                         <c:otherwise>
@@ -54,7 +56,7 @@
                             </c:when>
                             <c:otherwise>
                                 <li>
-                                    <a href="controller?command=setLocale&${locale}" title=${displayLanguage}>${displayLanguage}</a>
+                                    <a href="controller?command=setLocale&currentLocale=${locale}" title=${displayLanguage}>${displayLanguage}</a>
                                 </li>
                             </c:otherwise>
                         </c:choose>
@@ -73,7 +75,7 @@
                             </c:when>
                             <c:otherwise>
                                 <li>
-                                    <a href="controller?command=setCurrency&${currency}" title="${displayCurrency}">${displayCurrency}</a>
+                                    <a href="controller?command=setCurrency&currentCurrency=${currency}" title="${displayCurrency}">${displayCurrency}</a>
                                 </li>
                             </c:otherwise>
                         </c:choose>
@@ -98,6 +100,15 @@
             <span class="number">1- 555 - 555 - 555</span>
         </div>
         <!--//contact-->
+
+        <!--login-->
+        <%@include file="login.jsp"%>
+        <!--//login-->
+
+        <!--registration-->
+        <%@include file="regisration.jsp"%>
+        <!--//registration-->
+
     </div>
 
     <!--main navigation-->
@@ -138,9 +149,3 @@
 
 </header>
 
-<c:if test="${needLogin}">
-    <%@include file="login.jsp"%>
-</c:if>
-<c:if test="${needRegister}">
-    <%@include file="regisration.jsp"%>
-</c:if>

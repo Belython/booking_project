@@ -38,7 +38,7 @@ public class LocalizationFilter implements Filter {
         if (currentPagePath == null) {
             currentPagePath = (String) session.getAttribute(Parameter.CURRENT_PAGE_PATH);
             if (currentPagePath == null) {
-                currentPagePath = PagePath.INDEX_PAGE_PATH;
+                currentPagePath = PagePath.INDEX;
                 session.setAttribute(Parameter.CURRENT_PAGE_PATH, currentPagePath);
             }
             request.setAttribute(Parameter.CURRENT_PAGE_PATH, currentPagePath);

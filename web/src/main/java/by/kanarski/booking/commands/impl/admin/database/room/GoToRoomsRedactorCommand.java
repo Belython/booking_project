@@ -35,7 +35,7 @@ public class GoToRoomsRedactorCommand implements ICommand {
         HttpSession session = request.getSession();
         try {
             servletAction = ServletAction.FORWARD_PAGE;
-            page = PagePath.ROOMS_REDACTOR_PATH;
+            page = PagePath.ROOMS_REDACTOR;
             List<RoomDto> roomDtoList = RoomService.getInstance().getAll(0, 100);
             List<HotelDto> hotelDtoList = HotelService.getInstance().getAll(0, 100);
             List<RoomTypeDto> roomTypeDtoList = RoomTypeService.getInstance().getAll(0, 100);

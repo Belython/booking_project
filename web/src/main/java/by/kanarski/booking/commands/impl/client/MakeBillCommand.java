@@ -39,7 +39,7 @@ public class MakeBillCommand extends AbstractCommand {
             BillService.getInstance().add(billDto);
             String paymentRecived = OperationMessageManager.ORDER_ACCEPTED.getLocalised();
             request.setAttribute(Parameter.OPERATION_MESSAGE, paymentRecived);
-            page = PagePath.INDEX_PAGE_PATH;
+            page = PagePath.INDEX;
         } catch (ServiceException | LocalisationException e) {
             page = PagePath.ERROR;
             handleServiceException(request, e);

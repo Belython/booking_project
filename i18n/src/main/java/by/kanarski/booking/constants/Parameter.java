@@ -57,12 +57,14 @@ public class Parameter {
     public static final String SUPPORTED_HOTELS = "supportedHotels";
     public static final String HOTEL_DTO_LIST = "hotelDtoList";
     public static final String HOTEL_ID_SET = "hotelIdSet";
-    public static final String SELECTED_USER_HOTEL = "selectedUserHotel";
-    public static final String SELECTED_USER_HOTEL_LIST = "selectedUserHotelList";
+    public static final String SELECTED_USER_HOTEL = "userHotel";
+    public static final String SELECTED_USER_HOTEL_LIST = "userHotelList";
+    public static final String POSSIBLE_DESTINATIONS = "possibleDestinations";
 
     //Destination parameters
 
     public static final String DESTINATION = "destination";
+    public static final String POSSIBLE_DESTINATION = "possibleDestination";
 
     //RoomType parameters
 

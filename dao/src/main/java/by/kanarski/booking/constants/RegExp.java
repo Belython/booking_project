@@ -7,6 +7,12 @@ package by.kanarski.booking.constants;
 
 public class RegExp {
 
-    public static final String DESTINATION = "([\\s,._])*(\\w|-)+(\\1)+";
+    public static final String RAW_DESTINATION = "([\\s,._]*)[A-Яа-я\\w-]+(\\1)";
+//    public static final String RAW_DESTINATION = "[A-Яа-я\\w-]+";
+    public static final String COMMAS = "[,._]";
+    public static final String FIRST_IN_LIST = "^[A-Яа-я\\w- ]+, ";
+    public static final String LAST_IN_LIST = ", [A-Яа-я\\w- ]+$";
+    public static final String N_IN_LIST = ", [A-Яа-я\\w- ]+, ";
+    public static final String DESTINATION = "((^[A-Яа-я\\w- ]+, )|(, (\\3), )|(, (\\3))$)";
 
 }

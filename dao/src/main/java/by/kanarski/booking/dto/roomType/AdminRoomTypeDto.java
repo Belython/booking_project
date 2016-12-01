@@ -3,12 +3,10 @@ package by.kanarski.booking.dto.roomType;
 import by.kanarski.booking.dto.abstr.LocalizableDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class LocalizableRoomTypeDto extends LocalizableDto {
+public class AdminRoomTypeDto extends LocalizableDto {
 
     private Long roomTypeId;
     private String roomTypeName;
@@ -17,12 +15,17 @@ public class LocalizableRoomTypeDto extends LocalizableDto {
     private String facilities;
     private String roomTypeStatus;
 
-    public LocalizableRoomTypeDto(String roomTypeName, Integer maxPersons, Double pricePerNight,
-                                  String facilities, String roomTypeStatus) {
+    public AdminRoomTypeDto(String roomTypeName, Integer maxPersons, Double pricePerNight,
+                            String facilities, String roomTypeStatus) {
+        super();
         this.roomTypeName = roomTypeName;
         this.maxPersons = maxPersons;
         this.pricePerNight = pricePerNight;
         this.facilities = facilities;
         this.roomTypeStatus = roomTypeStatus;
+    }
+
+    public AdminRoomTypeDto() {
+        super();
     }
 }

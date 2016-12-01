@@ -25,4 +25,8 @@ public class FieldValue {
     public static final String STATUS_NOT_PAID = "notPaid";
     public static final String STATUS_REFUSED = "refused";
 
+    //Hotel values
+
+    public static final String ANY_HOTEL = "any";
+
 }

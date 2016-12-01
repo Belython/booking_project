@@ -28,4 +28,8 @@ public class SupportedLanguagesManager {
         return supportedLanguages;
     }
 
+    public static Long getLanguageId(String language) {
+        return (Integer.toUnsignedLong(get().indexOf(language.toUpperCase())) + 1);
+    }
+
 }

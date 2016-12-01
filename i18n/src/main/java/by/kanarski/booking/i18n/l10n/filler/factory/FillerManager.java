@@ -1,58 +1,74 @@
 package by.kanarski.booking.i18n.l10n.filler.factory;
 
 import by.kanarski.booking.constants.ContentName;
+import by.kanarski.booking.constants.PagePath;
 import by.kanarski.booking.constants.PageTextContentKeys;
 import by.kanarski.booking.i18n.l10n.filler.Filler;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public enum FillerManager {
     INDEX (
-        Arrays.asList(getIndex(), getHeader())
+            Arrays.asList(getIndex(), getHeader()),
+            PagePath.INDEX
     ),
     ERROR (
-        Arrays.asList(getError(), getHeader())
+            Arrays.asList(getError(), getHeader()),
+            PagePath.ERROR
     ),
     REGISTRATION (
-        Arrays.asList(getRegistration(), getHeader())
+            Arrays.asList(getRegistration(), getHeader()),
+            PagePath.REGISTRATION
     ),
     SELECTHOTEL (
-        Arrays.asList(getSelectHotel(), getHeader())
+            Arrays.asList(getSelectHotel(), getHeader()),
+            PagePath.SELECT_HOTEL
     ),
     SELECTROOMS(
-        Arrays.asList(getSelectRoom(), getHeader())
+            Arrays.asList(getSelectRoom(), getHeader()),
+            PagePath.SELECT_ROOMS
     ),
     ACCOUNT(
-        Arrays.asList(getAccount(), getHeader())
+            Arrays.asList(getAccount(), getHeader()),
+            PagePath.ACCOUNT
     ),
     ADMINMAIN(
-        Arrays.asList(getAminMain(), getSideBar(), getHeader())
+            Arrays.asList(getAminMain(), getSideBar(), getHeader()),
+            PagePath.ADMIN_MAIN
     ),
     ROOMSREDACTOR(
-        Arrays.asList(getRoomsRedactor(), getSideBar(), getHeader())
+            Arrays.asList(getRoomsRedactor(), getSideBar(), getHeader()),
+            PagePath.ROOMS_REDACTOR
+            
     ),
     ROOMTYPESREDACTOR(
-        Arrays.asList(getRoomTypesRedactor(), getSideBar(), getHeader())
+            Arrays.asList(getRoomTypesRedactor(), getSideBar(), getHeader()),
+            PagePath.ROOM_TYPES_REDACTOR
+            
     ),
     LOCATIONSREDACTOR(
-        Arrays.asList(getLocationsRedactor(), getSideBar(), getHeader())
+            Arrays.asList(getLocationsRedactor(), getSideBar(), getHeader()),
+            PagePath.LOCATIONS_REDACTOR
     ),
     USERSREDACTOR(
-            Arrays.asList(getUsersRedactor(), getSideBar(), getHeader())
+            Arrays.asList(getUsersRedactor(), getSideBar(), getHeader()),
+            PagePath.USERS_REDACTOR
+            
     ),
     HOTELSREDACTOR(
-            Arrays.asList(getHotelsRedactor(), getSideBar(), getHeader())
+            Arrays.asList(getHotelsRedactor(), getSideBar(), getHeader()),
+            PagePath.HOTELS_REDACTOR
+                    
     ),
     REMINDPASSWORD(
-        Arrays.asList(getRemindPassword(), getHeader())
+            Arrays.asList(getRemindPassword(), getHeader()),
+            PagePath.REMIND_PASSWORD
     );
 
     private List<Map<String, List<String>>> pageDescriptor;
+    private String pagePath;
 
-    FillerManager(List<Map<String, List<String>>> pageDescriptor) {
+    FillerManager(List<Map<String, List<String>>> pageDescriptor, String pagePath) {
         this.pageDescriptor = pageDescriptor;
     }
 
@@ -68,7 +84,10 @@ public enum FillerManager {
 
     public static Map<String, List<String>> getHeader() {
         Map<String, List<String>> contentMap = new HashMap<>();
-        contentMap.put(ContentName.STRING, PageTextContentKeys.HEADER);
+        List<String> tempStringKeyList = new ArrayList<>();
+        tempStringKeyList.addAll(PageTextContentKeys.HEADER);
+        tempStringKeyList.addAll(PageTextContentKeys.REGISTRATION);
+        contentMap.put(ContentName.STRING, tempStringKeyList);
         contentMap.put(ContentName.LOCALE_MAP, PageTextContentKeys.LOCALE_LIST);
         contentMap.put(ContentName.CURRENCY_MAP, PageTextContentKeys.CURRENCY_LIST);
         return contentMap;
@@ -157,4 +176,8 @@ public enum FillerManager {
         return contentMap;
     }
 
+    @Override
+    public String toString() {
+        return this.pagePath;
+    }
 }

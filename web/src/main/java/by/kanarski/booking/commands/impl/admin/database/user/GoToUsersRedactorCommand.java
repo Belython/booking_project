@@ -30,7 +30,7 @@ public class GoToUsersRedactorCommand implements ICommand {
         HttpSession session = request.getSession();
         try {
             servletAction = ServletAction.FORWARD_PAGE;
-            page = PagePath.USERS_REDACTOR_PATH;
+            page = PagePath.USERS_REDACTOR;
             List<UserDto> userDtoList = UserService.getInstance().getAll(0, 100);
             List<FieldDescriptor<UserDto>> descriptorList = new ArrayList<>();
             for (UserDto userDto: userDtoList) {

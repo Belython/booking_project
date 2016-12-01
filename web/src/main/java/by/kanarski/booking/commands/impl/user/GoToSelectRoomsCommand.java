@@ -35,7 +35,7 @@ public class GoToSelectRoomsCommand extends AbstractCommand {
             }
             UserHotelDto selectedUserHotelDto = UserHotelService.getInstance().getByOrder(orderDto);
             session.setAttribute(Parameter.SELECTED_USER_HOTEL, selectedUserHotelDto);
-            page = PagePath.SELECT_ROOM_PATH;
+            page = PagePath.SELECT_ROOMS;
         } catch (ServiceException e) {
             page = PagePath.ERROR;
             handleServiceException(request);

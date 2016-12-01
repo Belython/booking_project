@@ -30,7 +30,7 @@ public class GoToRoomTypesRedactorCommand implements ICommand {
         HttpSession session = request.getSession();
         try {
             servletAction = ServletAction.FORWARD_PAGE;
-            page = PagePath.ROOM_TYPES_REDACTOR_PATH;
+            page = PagePath.ROOM_TYPES_REDACTOR;
             List<RoomTypeDto> roomTypeDtoList = RoomTypeService.getInstance().getAll(0, 100);
             List<FieldDescriptor<RoomTypeDto>> descriptorList = new ArrayList<>();
             for (RoomTypeDto roomTypeDto: roomTypeDtoList) {

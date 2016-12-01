@@ -35,23 +35,23 @@ public class ConstrainRowCommand extends AbstractCommand{
         try {
 
             switch (currentPagePath) {
-                case PagePath.ROOMS_REDACTOR_PATH: {
+                case PagePath.ROOMS_REDACTOR: {
                     constrainRoom(request);
                     break;
                 }
-                case PagePath.ROOM_TYPES_REDACTOR_PATH: {
+                case PagePath.ROOM_TYPES_REDACTOR: {
                     constrainRoomType(request);
                     break;
                 }
-                case PagePath.LOCATIONS_REDACTOR_PATH: {
+                case PagePath.LOCATIONS_REDACTOR: {
                     constrainLocation(request);
                     break;
                 }
-                case PagePath.USERS_REDACTOR_PATH: {
+                case PagePath.USERS_REDACTOR: {
                     constrainUser(request);
                     break;
                 }
-                case PagePath.HOTELS_REDACTOR_PATH: {
+                case PagePath.HOTELS_REDACTOR: {
                     constrainHotel(request);
                 }
             }
@@ -62,11 +62,11 @@ public class ConstrainRowCommand extends AbstractCommand{
         String formName = RequestParser.parseFormName(request);
         switch (formName) {
             case Value.NEW_ENTITY_FORM: {
-                page = PagePath.NEW_TABLE_ROW_PATH;
+                page = PagePath.NEW_TABLE_ROW;
                 break;
             }
             case Value.ALTER_ENTITY_FORM: {
-                page = PagePath.ALTER_TABLE_ROW_PATH;
+                page = PagePath.ALTER_TABLE_ROW;
                 break;
             }
         }

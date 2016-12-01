@@ -29,7 +29,7 @@ public class RefuseBillCommand extends AbstractCommand{
             List<BillDto> newBillDtoList = getNewBillDtoList(session, refusedBillDto);
             session.setAttribute(Parameter.BILL_LIST, newBillDtoList);
             request.setAttribute(Parameter.OPERATION_MESSAGE, OperationMessageManager.SUCCESS_OPERATION.getLocalised());
-            page = PagePath.ACCOUNT_PAGE_PATH;
+            page = PagePath.ACCOUNT;
         } catch (ServiceException e) {
             page = PagePath.ERROR;
             handleServiceException(request);

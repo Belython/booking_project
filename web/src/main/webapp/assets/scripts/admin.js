@@ -121,4 +121,5 @@ function main() {
     
     $("#mt").tablesorter({textExtraction: extractor})
 }
+
 $("document").ready(main);

@@ -1,11 +1,12 @@
-﻿<!DOCTYPE html>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+﻿<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<div class="lightbox" style="display:block;">
+<div id="registrationBlock" class="lightbox" style="display:none;">
 	<div class="lb-wrap">
 		<a href="#" class="close">x</a>
 		<div class="lb-content">
 			<form name="registrationForm" method="POST" action="controller">
+				<input type="hidden" name="command" value="register"/>
 				<h1>${registration_registration}</h1>
 				<div class="f-item">
 					<label for="f_name">${registration_firstName}</label>

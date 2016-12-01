@@ -5,10 +5,8 @@ import by.kanarski.booking.dto.abstr.LocalizableDto;
 import by.kanarski.booking.dto.location.LocationDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 public class HotelDto extends LocalizableDto {
 
@@ -30,5 +28,16 @@ public class HotelDto extends LocalizableDto {
         this.location = location;
         this.hotelName = hotelName;
         this.hotelStatus = FieldValue.STATUS_ACTIVE;
+    }
+
+    public HotelDto(String coutry, String city, String hotelName) {
+        super();
+        this.location = new LocationDto(coutry, city);
+        this.hotelName = hotelName;
+        this.hotelStatus = FieldValue.STATUS_ACTIVE;
+    }
+
+    public HotelDto() {
+        super();
     }
 }

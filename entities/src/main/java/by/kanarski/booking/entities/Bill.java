@@ -90,10 +90,12 @@ public class Bill implements Serializable {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "BILL_ROOMS",
-            joinColumns = @JoinColumn(
-                    name = "BILL_ID",
-                    foreignKey = @ForeignKey(name = "BILL_ROOMS")
-            ),
+            joinColumns = {
+                    @JoinColumn(
+                            name = "BILL_ID",
+                            foreignKey = @ForeignKey(name = "BILL_ROOMS")
+                    )
+            },
             inverseJoinColumns = @JoinColumn(
                     name = "ROOM_ID",
                     foreignKey = @ForeignKey(name = "ROOM_BILLS")

@@ -15,6 +15,7 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Dzmitry Kanarski
@@ -104,6 +105,7 @@ public class ExtendedBaseDao<T> extends BaseDao<T> implements IExtendedDao<T> {
 
     private Criteria getCriteria(SearchFilter filter) {
         Criteria criteria = getSession().createCriteria(getEntityClass());
+        addAliases(criteria, filter);
         for (FilterElement filterElement : filter) {
             Criterion criterion = getCriterion(filterElement);
             criteria.add(criterion);
@@ -152,6 +154,14 @@ public class ExtendedBaseDao<T> extends BaseDao<T> implements IExtendedDao<T> {
             }
         }
         return criterion;
+    }
+
+    private void addAliases(Criteria criteria, SearchFilter filter) {
+        Set<String> aliasNames = filter.getAliasNames();
+        for (String aliasName : aliasNames) {
+            criteria.createAlias(aliasName, filter.getAlias(aliasName));
+        }
+
     }
 
     private void paginateCriteria(Criteria criteria) {

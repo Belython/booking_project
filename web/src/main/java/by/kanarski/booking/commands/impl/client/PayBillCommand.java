@@ -33,7 +33,7 @@ public class PayBillCommand extends AbstractCommand {
             String paymentRecived = OperationMessageManager.PAYMENT_RECIVED.getLocalised();
             request.setAttribute(Parameter.OPERATION_MESSAGE, paymentRecived);
             session.setAttribute(Parameter.BILL_LIST, billDtoList);
-            page = PagePath.ACCOUNT_PAGE_PATH;
+            page = PagePath.ACCOUNT;
         } catch (ServiceException e) {
             page = PagePath.ERROR;
             handleServiceException(request);

@@ -14,6 +14,7 @@ public enum CommandType {
     //user commands
     LOGIN, LOGOUT, REGISTER, GOTOREGISTRATION, GOTOMAIN, GOTOSELECTHOTEL, GOTOSELECTROOMS, MAKEBILL, GOTOACCOUNT, PAYBILL,
     SETLOCALE, CANCELACTION, REFUSEBILL, GOTOREMINDPASSWORD, REMINDPASSWORD, SETCURRENCY,
+    GETDESTINATIONS,
 
     //admin commands
     GOTOADMINPAGE,
@@ -109,6 +110,9 @@ public enum CommandType {
 
             case ALTERHOTELS:
                 return new AlterHotelsCommand();
+
+            case GETDESTINATIONS:
+                return new GetDestinationsCommand();
             default:
                 throw new EnumConstantNotPresentException(this.getDeclaringClass(), this.name());
         }

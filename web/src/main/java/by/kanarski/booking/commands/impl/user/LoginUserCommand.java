@@ -29,10 +29,10 @@ public class LoginUserCommand extends AbstractCommand {
                 session.setAttribute(Parameter.USER, user);
                 page = (String) session.getAttribute(Parameter.CURRENT_PAGE_PATH);
                 if (page == null) {
-                    page = PagePath.INDEX_PAGE_PATH;
+                    page = PagePath.INDEX;
                 }
             } else {
-                page = PagePath.INDEX_PAGE_PATH;
+                page = PagePath.INDEX;
                 String errorMessage = OperationMessageManager.WRONG_LOGIN_OR_PASSWORD.getLocalised();
                 request.setAttribute(Parameter.OPERATION_MESSAGE, errorMessage);
             }
