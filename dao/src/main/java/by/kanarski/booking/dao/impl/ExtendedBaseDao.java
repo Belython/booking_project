@@ -2,16 +2,16 @@ package by.kanarski.booking.dao.impl;
 
 import by.kanarski.booking.dao.interfaces.IExtendedDao;
 import by.kanarski.booking.exceptions.DaoException;
+import by.kanarski.booking.utils.filter.CriteriaConstraint;
+import by.kanarski.booking.utils.filter.DisjunctionElement;
+import by.kanarski.booking.utils.filter.FilterElement;
+import by.kanarski.booking.utils.filter.SearchFilter;
 import by.kanarski.booking.utils.threadLocal.UserPreferences;
-import by.kanarski.booking.utils.wrappers.CriteriaConstraint;
-import by.kanarski.booking.utils.wrappers.FilterElement;
-import by.kanarski.booking.utils.wrappers.SearchFilter;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Restrictions;
 
 import java.util.List;
@@ -70,6 +70,13 @@ public class ExtendedBaseDao<T> extends BaseDao<T> implements IExtendedDao<T> {
     }
 
     @Override
+    public List<T> getListByCriteria(Criteria criteria, int page, int perPage) throws DaoException {
+        criteria.setFirstResult(page);
+        criteria.setMaxResults(perPage);
+        return getResultList(criteria);
+    }
+
+    @Override
     public List<T> getListByFilter(SearchFilter filter) throws DaoException {
         Criteria criteria = getCriteria(filter);
         paginateCriteria(criteria);
@@ -78,42 +85,49 @@ public class ExtendedBaseDao<T> extends BaseDao<T> implements IExtendedDao<T> {
 
     @Override
     public T getUniqueByFilter(SearchFilter filter) throws DaoException {
-        Criteria criteria = getSession().createCriteria(getEntityClass());
-        for (FilterElement filterElement : filter) {
-            Criterion criterion = getCriterion(filterElement);
-            criteria.add(criterion);
-        }
+        Criteria criteria = getCriteria(filter);
         return getUniqueResult(criteria);
     }
 
-    @Override
-    public Long getResultsSize(SearchFilter filter, String countProperty) throws DaoException {
-        Criteria criteria = getSession().createCriteria(getEntityClass());
-        for (FilterElement filterElement : filter) {
+//    @Override
+//    public Long getResultsSize(SearchFilter filter, String countProperty) throws DaoException {
+//        Criteria criteria = getSession().createCriteria(getEntityClass());
+//        for (FilterElement filterElement : filter) {
+//            Criterion criterion = getCriterion(filterElement);
+//            criteria.add(criterion);
+//        }
+//        criteria.setProjection(Projections.count(countProperty));
+//        Long resultsSize;
+//        try {
+//            resultsSize = (Long) criteria.uniqueResult();
+//        } catch (HibernateException e) {
+//            throw new DaoException(e.getMessage(), e);
+//        }
+//        return resultsSize;
+//    }
+
+    private void addSimpleFilters(Criteria criteria, SearchFilter filter) {
+        List<FilterElement> filterElementList = filter.getFilterList();
+        for (FilterElement filterElement : filterElementList) {
             Criterion criterion = getCriterion(filterElement);
             criteria.add(criterion);
         }
-        criteria.setProjection(Projections.count(countProperty));
-        Long resultsSize;
-        try {
-            resultsSize = (Long) criteria.uniqueResult();
-        } catch (HibernateException e) {
-            throw new DaoException(e.getMessage(), e);
+    }
+
+    private void addDusjunctions(Criteria criteria, SearchFilter filter) {
+        List<DisjunctionElement> disjunctionElementList = filter.getDisjunctions();
+        for (DisjunctionElement disjunctionElement : disjunctionElementList) {
+            Disjunction disjunction = getDisjunction(disjunctionElement);
+            criteria.add(disjunction);
         }
-        return resultsSize;
     }
 
     private Criteria getCriteria(SearchFilter filter) {
         Criteria criteria = getSession().createCriteria(getEntityClass());
-        addAliases(criteria, filter);
-        for (FilterElement filterElement : filter) {
-            Criterion criterion = getCriterion(filterElement);
-            criteria.add(criterion);
-            if (filterElement.isAsc()) {
-                criteria.addOrder(Order.asc(filterElement.getProperty()));
-            } else {
-                criteria.addOrder(Order.desc(filterElement.getProperty()));
-            }
+        if (filter != null) {
+            addAliases(criteria, filter);
+            addSimpleFilters(criteria, filter);
+            addDusjunctions(criteria, filter);
         }
         return criteria;
     }
@@ -122,38 +136,53 @@ public class ExtendedBaseDao<T> extends BaseDao<T> implements IExtendedDao<T> {
         Criterion criterion = null;
         String property = filterElement.getProperty();
         CriteriaConstraint constraint = filterElement.getConstraint();
-        Object value = filterElement.getValue();
+        Object value1 = filterElement.getValue1();
+        Object value2 = filterElement.getValue2();
         switch (constraint) {
             case EQ: {
-                criterion = Restrictions.eq(property, value);
+                criterion = Restrictions.eq(property, value1);
                 break;
             }
             case GT: {
-                criterion = Restrictions.gt(property, value);
+                criterion = Restrictions.gt(property, value1);
                 break;
             }
             case LT: {
-                criterion = Restrictions.lt(property, value);
+                criterion = Restrictions.lt(property, value1);
                 break;
             }
             case LE: {
-                criterion = Restrictions.lt(property, value);
+                criterion = Restrictions.lt(property, value1);
                 break;
             }
             case GE : {
-                criterion = Restrictions.ge(property, value);
+                criterion = Restrictions.ge(property, value1);
                 break;
             }
             case LIKE: {
-                criterion = Restrictions.like(property, value);
+                criterion = Restrictions.like(property, value1);
                 break;
             }
             case ILIKE: {
-                criterion = Restrictions.ilike(property, value);
+                criterion = Restrictions.ilike(property, value1);
+                break;
+            }
+            case BEETWEN: {
+                criterion = Restrictions.between(property, value1, value2);
                 break;
             }
         }
         return criterion;
+    }
+
+    private Disjunction getDisjunction(DisjunctionElement disjunctionElement) {
+        Disjunction disjunction = Restrictions.disjunction();
+        List<FilterElement> filterElementList = disjunctionElement.getFilterList();
+        for (FilterElement filterElement : filterElementList) {
+            Criterion criterion = getCriterion(filterElement);
+            disjunction.add(criterion);
+        }
+        return disjunction;
     }
 
     private void addAliases(Criteria criteria, SearchFilter filter) {
@@ -161,7 +190,6 @@ public class ExtendedBaseDao<T> extends BaseDao<T> implements IExtendedDao<T> {
         for (String aliasName : aliasNames) {
             criteria.createAlias(aliasName, filter.getAlias(aliasName));
         }
-
     }
 
     private void paginateCriteria(Criteria criteria) {

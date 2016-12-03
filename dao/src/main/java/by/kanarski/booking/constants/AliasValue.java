@@ -9,5 +9,11 @@ public class AliasValue {
 
     public static final String LANGUAGE = AliasName.LANGUAGE;
     public static final String LOCATION = AliasName.LOCATION;
+    public static final String HOTEL = AliasName.HOTEL;
+    public static final String BILLSET = AliasName.BILLSET;
+    public static final String ROOMSET = AliasName.ROOMSET;
+    public static final String ROOMTYPE = AliasName.ROOMTYPE;
+    public static final String ROOMSET_ROOMTYPE = AliasName.ROOMSET_ROOMTYPE;
+    public static final String ROOMSET_BILLSET = AliasName.ROOMSET_BILLSET;
 
 }

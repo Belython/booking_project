@@ -4,7 +4,7 @@ import by.kanarski.booking.dao.interfaces.IHotelDao;
 import by.kanarski.booking.entities.hotel.Hotel;
 import by.kanarski.booking.entities.location.Location;
 import by.kanarski.booking.exceptions.DaoException;
-import by.kanarski.booking.utils.wrappers.SearchFilter;
+import by.kanarski.booking.utils.filter.SearchFilter;
 
 import java.util.List;
 
@@ -22,8 +22,8 @@ public class HotelDao extends ExtendedBaseDao<Hotel> implements IHotelDao {
     @Override
     public Hotel getByHotelName(String hotelName, Location location) throws DaoException {
         SearchFilter searchFilter = new SearchFilter();
-        searchFilter.setEqFilter("hotelName", hotelName);
-        searchFilter.setEqFilter("locationId", location.getLocationId());
+        searchFilter.addEqFilter("hotelName", hotelName);
+        searchFilter.addEqFilter("locationId", location.getLocationId());
         return getUniqueByFilter(searchFilter);
     }
 

@@ -20,9 +20,9 @@ public enum FillerManager {
             Arrays.asList(getRegistration(), getHeader()),
             PagePath.REGISTRATION
     ),
-    SELECTHOTEL (
+    SEARCHRESULTS(
             Arrays.asList(getSelectHotel(), getHeader()),
-            PagePath.SELECT_HOTEL
+            PagePath.SEARCH_RESULTS
     ),
     SELECTROOMS(
             Arrays.asList(getSelectRoom(), getHeader()),

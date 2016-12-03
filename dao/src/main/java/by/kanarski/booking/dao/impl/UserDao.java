@@ -36,8 +36,8 @@ public class UserDao extends ExtendedBaseDao<User> implements IUserDao {
 //    @Override
 //    public boolean isAuthorized(String login, String password) throws DaoException {
 //        SearchFilter searchFilter = new SearchFilter();
-//        searchFilter.setEqFilter(ColumnName.USER_LOGIN, login);
-//        searchFilter.setEqFilter(ColumnName.USER_PASSWORD, password);
+//        searchFilter.addEqFilter(ColumnName.USER_LOGIN, login);
+//        searchFilter.addEqFilter(ColumnName.USER_PASSWORD, password);
 //        User user = getUniqueByFilter(searchFilter);
 //        return user != null;
 //    }

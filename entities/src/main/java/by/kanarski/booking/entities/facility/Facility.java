@@ -92,7 +92,6 @@ public class Facility implements Serializable {
         Facility facility = (Facility) o;
 
         if (!facilityId.equals(facility.facilityId)) return false;
-        if (!roomTypeSet.equals(facility.roomTypeSet)) return false;
         return facilityStatus.equals(facility.facilityStatus);
 
     }
@@ -100,7 +99,6 @@ public class Facility implements Serializable {
     @Override
     public int hashCode() {
         int result = facilityId.hashCode();
-        result = 31 * result + roomTypeSet.hashCode();
         result = 31 * result + facilityStatus.hashCode();
         return result;
     }

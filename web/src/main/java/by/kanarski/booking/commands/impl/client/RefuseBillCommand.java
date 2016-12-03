@@ -32,7 +32,7 @@ public class RefuseBillCommand extends AbstractCommand{
             page = PagePath.ACCOUNT;
         } catch (ServiceException e) {
             page = PagePath.ERROR;
-            handleServiceException(request);
+            handleServiceException(request, e);
         }
         session.setAttribute(Parameter.CURRENT_PAGE_PATH, page);
         request.setAttribute(Parameter.CURRENT_PAGE_PATH, page);

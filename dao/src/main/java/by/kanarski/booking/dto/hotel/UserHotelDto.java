@@ -4,7 +4,6 @@ import by.kanarski.booking.dto.RoomDto;
 import by.kanarski.booking.dto.abstr.LocalizableDto;
 import by.kanarski.booking.dto.location.LocationDto;
 import by.kanarski.booking.dto.roomType.RoomTypeDto;
-import by.kanarski.booking.entities.roomType.RoomType;
 import by.kanarski.booking.utils.HotelUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,7 +21,7 @@ public class UserHotelDto extends LocalizableDto {
     private String hotelStatus;
     private List<RoomDto> roomList;
     private Map<RoomTypeDto, Integer> roomTypesCount;
-    private RoomType suitableRoomType;
+    private RoomTypeDto suitableRoomType;
     private Integer availableRooms;
     private Integer stars = 5;
 
@@ -60,7 +59,8 @@ public class UserHotelDto extends LocalizableDto {
         this.hotelStatus = hotel.getHotelStatus();
         this.roomList = roomList;
         this.roomTypesCount = HotelUtil.countRoomTypeDto(this.roomList);
-        this.availableRooms = this.roomList.size();
+        this.suitableRoomType = roomList.get(0).getRoomType();
+        this.availableRooms = roomTypesCount.get(suitableRoomType);
     }
 
     public UserHotelDto() {

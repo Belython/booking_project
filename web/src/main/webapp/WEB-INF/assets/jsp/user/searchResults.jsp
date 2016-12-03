@@ -5,27 +5,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="loc" uri="http://booking.by/localizator" %>
-<!--[if IE 7 ]>    <html class="ie7 oldie" lang="en"> <![endif]-->
-<!--[if IE 8 ]>    <html class="ie8 oldie" lang="en"> <![endif]-->
-<!--[if IE 	 ]>    <html class="ie" lang="en"> <![endif]-->
-<!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+<c:set var="context" value="${pageContext.request.contextPath}"/>
+
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>${selectHotel_selectHotel}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="HandheldFriendly" content="True">
-    <title>Book Your Travel - Search results</title>
-    <link rel="stylesheet" href="../../../assets/css/style.css" type="text/css" media="screen,projection,print" />
-    <link rel="stylesheet" href="../../../assets/css/prettyPhoto.css" type="text/css" media="screen" />
-    <link rel="shortcut icon" href="images/favicon.ico" />
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="js/css3-mediaqueries.js"></script>
-    <script type="text/javascript" src="js/jquery.uniform.min.js"></script>
-    <script type="text/javascript" src="js/jquery.raty.min.js"></script>
-    <script type="text/javascript" src="js/jquery.prettyPhoto.js"></script>
-    <script type="text/javascript" src="js/selectnav.js"></script>
-    <script type="text/javascript" src="js/scripts.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <%@include file="includes/standardScripts.jsp"%>
     <script type="text/javascript">
         $(document).ready(function() {
             $('dt').each(function() {
@@ -62,6 +52,9 @@
 </head>
 <body>
 
+<!--header-->
+<%@include file="/WEB-INF/assets/jsp/user/includes/header.jsp"%>
+<!--//header-->
 
 <!--main-->
 <div class="main" role="main">
@@ -89,6 +82,10 @@
             </nav>
             <!--//breadcrumbs-->
 
+            <!--sidebar-->
+            <%@include file="includes/sidebar.jsp"%>
+            <!--//sidebar-->
+
             <!--three-fourth content-->
             <section class="three-fourth">
                 <div class="sort-by">
@@ -114,14 +111,14 @@
                         <article class="one-fourth">
                             <figure>
                                 <a href="controller?command=goToHotel" title="">
-                                    <img src="images/uploads/img.jpg" alt="" width="270" height="152" />
+                                    <img src="${context}/assets/images/uploads/img.jpg" alt="" width="270" height="152" />
                                 </a>
                             </figure>
                             <div class="details">
                                 <h1>${hotel.hotelName}
                                     <span class="stars">
                                         <c:forEach var="star" begin="1" end="${hotel.stars}">
-                                            <img src="images/ico/star.png" alt="" />
+                                            <img src="${context}/assets/images/ico/star.png" alt="" />
                                         </c:forEach>
                                     </span>
                                 </h1>
@@ -131,9 +128,9 @@
                                 <span class="price">Price per room per night from
                                     <em>${loc:getMoney(roomType.pricePerNight)}</em>
                                 </span>
-                                <div class="description">
-                                    <p>Overlooking the Aqueduct and Nature Park, Lorem Ipsum Hotel is situated 5 minutes’ walk from London’s Zoological Gardens and a metro station. <a href="hotel.html">More info</a></p>
-                                </div>
+                                <%--<div class="description">--%>
+                                    <%--<p>Overlooking the Aqueduct and Nature Park, Lorem Ipsum Hotel is situated 5 minutes’ walk from London’s Zoological Gardens and a metro station. <a href="hotel.html">More info</a></p>--%>
+                                <%--</div>--%>
                                 <a href="controller?command=goToHotel" title="Book now" class="gradient-button">Book now</a>
                             </div>
                         </article>
@@ -173,6 +170,9 @@
 </div>
 <!--//main-->
 
+<!--footer-->
+<%@include file="/WEB-INF/assets/jsp/user/includes/footer.jsp"%>
+<!--//footer-->
 
 <script>
     // Initiate selectnav function

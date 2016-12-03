@@ -12,7 +12,7 @@ import by.kanarski.booking.commands.impl.admin.database.roomType.*;
 import by.kanarski.booking.commands.impl.admin.database.user.*;
 public enum CommandType {
     //user commands
-    LOGIN, LOGOUT, REGISTER, GOTOREGISTRATION, GOTOMAIN, GOTOSELECTHOTEL, GOTOSELECTROOMS, MAKEBILL, GOTOACCOUNT, PAYBILL,
+    LOGIN, LOGOUT, REGISTER, GOTOREGISTRATION, GOTOMAIN, GOTOSEARCHRESULTS, GOTOSELECTROOMS, MAKEBILL, GOTOACCOUNT, PAYBILL,
     SETLOCALE, CANCELACTION, REFUSEBILL, GOTOREMINDPASSWORD, REMINDPASSWORD, SETCURRENCY,
     GETDESTINATIONS,
 
@@ -45,8 +45,8 @@ public enum CommandType {
             case SETLOCALE:
                 return new SetLocaleCommand();
 
-            case GOTOSELECTHOTEL:
-                return new GoToSelectHotelCommand();
+            case GOTOSEARCHRESULTS:
+                return new GoToSearchResultsCommand();
 
             case GOTOSELECTROOMS:
                 return new GoToSelectRoomsCommand();

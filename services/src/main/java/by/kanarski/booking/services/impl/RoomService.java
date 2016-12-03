@@ -1,22 +1,29 @@
 package by.kanarski.booking.services.impl;
 
-import by.kanarski.booking.dao.impl.LocationTranslationDao;
+import by.kanarski.booking.constants.AliasName;
+import by.kanarski.booking.constants.AliasValue;
+import by.kanarski.booking.constants.SearchParameter;
 import by.kanarski.booking.dao.impl.RoomDao;
-import by.kanarski.booking.dto.hotel.HotelDto;
 import by.kanarski.booking.dto.OrderDto;
 import by.kanarski.booking.dto.RoomDto;
+import by.kanarski.booking.dto.hotel.HotelDto;
 import by.kanarski.booking.entities.Room;
-import by.kanarski.booking.entities.location.LocationTranslation;
 import by.kanarski.booking.exceptions.DaoException;
 import by.kanarski.booking.exceptions.LocalisationException;
 import by.kanarski.booking.exceptions.ServiceException;
 import by.kanarski.booking.services.interfaces.IRoomService;
 import by.kanarski.booking.utils.DateUtil;
 import by.kanarski.booking.utils.ExceptionHandler;
+import by.kanarski.booking.utils.ServiceHelper;
+import by.kanarski.booking.utils.filter.SearchFilter;
+import by.kanarski.booking.utils.hibernate.HibernateUtil;
 import by.kanarski.booking.utils.transaction.TransactionManager;
 import by.kanarski.booking.utils.transaction.TransactoinWrapper;
-import by.kanarski.booking.utils.wrappers.SearchFilter;
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Conjunction;
+import org.hibernate.criterion.Disjunction;
+import org.hibernate.criterion.Restrictions;
 
 import java.util.List;
 
@@ -41,39 +48,59 @@ public class RoomService extends ExtendedBaseService<Room, RoomDto> implements I
         List<RoomDto> roomDtoList = null;
         HotelDto hotelDto = orderDto.getHotel();
         Long hotelId = hotelDto.getHotelId();
-        String country = hotelDto.getLocation().getCountry();
-        String city = hotelDto.getLocation().getCity();
-        SearchFilter roomFilter = new SearchFilter();
+        String localizedCountry = hotelDto.getLocation().getCountry();
+        String localizedCity = hotelDto.getLocation().getCity();
+        String language = hotelDto.getLanguage();
+        Criteria criteria = HibernateUtil.getSession().createCriteria(Room.class);
+        criteria
+                .createAlias(AliasName.HOTEL, AliasValue.HOTEL)
+                .createAlias(AliasName.LOCATION, AliasValue.LOCATION)
+                .createAlias(AliasName.ROOMTYPE, AliasValue.ROOMTYPE)
+                .createAlias(AliasName.BILLSET, AliasValue.BILLSET);
         try {
             transaction.begin();
             if (hotelId != null) {
-                roomFilter.setEqFilter("hotel.hotelId", hotelId);
+                criteria.add(Restrictions.eq(SearchParameter.HOTEL_HOTELID, hotelId));
             } else {
-                if (StringUtils.isNotBlank(country)) {
-                    SearchFilter locationFilter = SearchFilter.createBasicEqFilter("country", country);
-                    if (StringUtils.isNotBlank(city)) {
-                        locationFilter.setEqFilter("city", city);
-                    }
-                    locationFilter.setEqFilter("language", "EN");
-                    List<LocationTranslation> locationTranslationList = LocationTranslationDao.getInstance()
-                            .getListByFilter(roomFilter);
-                    if (locationTranslationList.size() > 0) {
-                        LocationTranslation locationTranslation = locationTranslationList.get(0);
-                        if (locationTranslationList.size() == 1) {
-                            Long locationId = locationTranslation.getLocation().getLocationId();
-                            roomFilter.setEqFilter("hotel.location.locationId", locationId);
-                        } else {
-                            country = locationTranslation.getCountry();
-                            roomFilter.setEqFilter("hotel.location.country", country);
-                        }
+                if (StringUtils.isNotBlank(localizedCountry)) {
+                    String country = ServiceHelper.getNotLocalizedCountry(localizedCountry, language);
+                    criteria.add(Restrictions.eq(SearchParameter.HOTEL_LOCATION_COUNTRY, country));
+                    if (StringUtils.isNotBlank(localizedCity)) {
+                        String city = ServiceHelper.getNotLocalizedCity(localizedCity, language);
+                        criteria.add(Restrictions.eq(SearchParameter.HOTEL_LOCATION_CITY, city));
                     }
                 }
             }
             Integer totalPersons = orderDto.getTotalPersons();
-            roomFilter.setGeFilter("roomType.maxPersons", totalPersons);
+            Integer totalRooms = orderDto.getTotalRooms();
+            Integer maxPersons = Math.round(totalPersons / totalRooms);
+            maxPersons = (maxPersons <= 0) ? 1 : maxPersons;
+            criteria.add(Restrictions.ge(SearchParameter.ROOMTYPE_MAXPERSONS, maxPersons));
             Long checkInDate = DateUtil.parseDate(orderDto.getCheckInDate());
             Long checkOutDate = DateUtil.parseDate(orderDto.getCheckOutDate());
-            List<Room> roomList = roomDao.getListByFilter(roomFilter, page, perPage);
+
+            Conjunction condition1 = Restrictions.conjunction();
+            condition1
+                    .add(Restrictions.lt(SearchParameter.BILLSET_CHECKINDATE, checkInDate))
+                    .add(Restrictions.ge(SearchParameter.BILLSET_CHECKOUTDATE, checkOutDate));
+            Conjunction condition2 = Restrictions.conjunction();
+            condition2
+                    .add(Restrictions.gt(SearchParameter.BILLSET_CHECKOUTDATE, checkInDate))
+                    .add(Restrictions.lt(SearchParameter.BILLSET_CHECKINDATE, checkOutDate));
+            Conjunction condition3 = Restrictions.conjunction();
+            condition3
+                    .add(condition1)
+                    .add(condition2);
+            Conjunction condition4 = Restrictions.conjunction();
+            condition4
+                    .add(Restrictions.gt(SearchParameter.BILLSET_CHECKOUTDATE, checkInDate))
+                    .add(Restrictions.between(SearchParameter.BILLSET_CHECKINDATE, checkInDate, checkOutDate));
+            Disjunction disjunction = Restrictions.disjunction();
+            disjunction
+                    .add(condition3)
+                    .add(condition4);
+
+            List<Room> roomList = roomDao.getListByCriteria(criteria, page, perPage);
             roomDtoList = converter.toDtoList(roomList);
             transaction.commit();
         } catch (DaoException e) {
@@ -88,7 +115,9 @@ public class RoomService extends ExtendedBaseService<Room, RoomDto> implements I
     public List<RoomDto> getByHotelId(Long hotelId, int page, int perPage) throws ServiceException {
         TransactoinWrapper transaction = TransactionManager.getTransaction();
         List<RoomDto> roomDtoList = null;
-        SearchFilter searchFilter = SearchFilter.createBasicEqFilter("hotel.hotelId", hotelId);
+        SearchFilter searchFilter = SearchFilter
+                .createAliasFilter(AliasName.HOTEL, AliasValue.HOTEL)
+                .addEqFilter(SearchParameter.HOTEL_HOTELID, hotelId);
         try {
             transaction.begin();
             List<Room> roomList = roomDao.getListByFilter(searchFilter, page, perPage);

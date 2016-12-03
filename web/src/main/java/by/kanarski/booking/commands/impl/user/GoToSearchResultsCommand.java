@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-public class GoToSelectHotelCommand extends AbstractCommand {
+public class GoToSearchResultsCommand extends AbstractCommand {
 
     @Override
     public ServletAction execute(HttpServletRequest request, HttpServletResponse response) {
@@ -38,14 +38,14 @@ public class GoToSelectHotelCommand extends AbstractCommand {
             } else {
                 List<UserHotelDto> userHotelDtoList = UserHotelService.getInstance().getListByOrder(orderDto, 0, 100);
                 session.setAttribute(Parameter.SELECTED_USER_HOTEL_LIST, userHotelDtoList);
-                page = PagePath.SELECT_HOTEL;
+                page = PagePath.SEARCH_RESULTS;
                 servletAction = ServletAction.FORWARD_PAGE;
             }
             session.setAttribute(Parameter.ORDER, orderDto);
         } catch (ServiceException e) {
             page = PagePath.ERROR;
             servletAction = ServletAction.REDIRECT_PAGE;
-            handleServiceException(request);
+            handleServiceException(request, e);
         }
         session.setAttribute(Parameter.CURRENT_PAGE_PATH, page);
         request.setAttribute(Parameter.CURRENT_PAGE_PATH, page);

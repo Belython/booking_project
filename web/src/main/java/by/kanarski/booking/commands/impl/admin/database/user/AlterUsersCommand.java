@@ -45,7 +45,7 @@ public class AlterUsersCommand extends AbstractCommand {
             servletAction = ServletAction.FORWARD_PAGE;
             page = PagePath.ERROR;
             servletAction.setPage(page);
-            handleServiceException(request);
+            handleServiceException(request, e);
         }
         page = servletAction.getPage();
         session.setAttribute(Parameter.CURRENT_PAGE_PATH, page);

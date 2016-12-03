@@ -1,5 +1,6 @@
 package by.kanarski.booking.entities.roomType;
 
+import by.kanarski.booking.entities.Room;
 import by.kanarski.booking.entities.facility.Facility;
 import by.kanarski.booking.utils.Formulas;
 import org.hibernate.annotations.Formula;
@@ -23,6 +24,7 @@ public class RoomType implements Serializable {
     private Integer maxPersons;
     private Double pricePerNight;
     private Set<Facility> facilitySet = new TreeSet<>();
+    private Set<Room> roomSet;
     private Map<Long, RoomTypeTranslation> roomTypeTranslationMap = new HashMap<>();
     private String roomTypeStatus;
 
@@ -80,6 +82,15 @@ public class RoomType implements Serializable {
         this.facilitySet = facilitySet;
     }
 
+    @OneToMany(mappedBy = "roomType")
+    public Set<Room> getRoomSet() {
+        return roomSet;
+    }
+
+    public void setRoomSet(Set<Room> roomSet) {
+        this.roomSet = roomSet;
+    }
+
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "ROOM_TYPE_ID")
     @MapKeyColumn(name = "LANGUAGE_ID")
@@ -111,7 +122,6 @@ public class RoomType implements Serializable {
         if (!maxPersons.equals(roomType.maxPersons)) return false;
         if (!pricePerNight.equals(roomType.pricePerNight)) return false;
         if (!facilitySet.equals(roomType.facilitySet)) return false;
-        if (!roomTypeTranslationMap.equals(roomType.roomTypeTranslationMap)) return false;
         return roomTypeStatus.equals(roomType.roomTypeStatus);
 
     }
@@ -122,7 +132,6 @@ public class RoomType implements Serializable {
         result = 31 * result + maxPersons.hashCode();
         result = 31 * result + pricePerNight.hashCode();
         result = 31 * result + facilitySet.hashCode();
-        result = 31 * result + roomTypeTranslationMap.hashCode();
         result = 31 * result + roomTypeStatus.hashCode();
         return result;
     }

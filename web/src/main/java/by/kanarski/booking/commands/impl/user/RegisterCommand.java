@@ -38,7 +38,7 @@ public class RegisterCommand extends AbstractCommand {
             }
         } catch (ServiceException e) {
             page = PagePath.ERROR;
-            handleServiceException(request);
+            handleServiceException(request, e);
         } catch (NumberFormatException e) {
             request.setAttribute(Parameter.OPERATION_MESSAGE, OperationMessageManager.INVALID_NUMBER_FORMAT.getLocalised());
             page = PagePath.INDEX;

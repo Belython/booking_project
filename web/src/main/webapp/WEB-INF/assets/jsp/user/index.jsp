@@ -10,6 +10,9 @@
 <html>
 <head>
 	<title>${index_booking}</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="HandheldFriendly" content="True">
 	<%@include file="/WEB-INF/assets/jsp/user/includes/standardScripts.jsp"%>
 
 	<c:choose>
