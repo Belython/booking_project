@@ -3,7 +3,7 @@
 <!--search-->
 <div class="main-search">
     <form id="main-search" method="post" action="controller">
-        <input type="hidden" name="command" value="goToSelectHotel"/>
+        <input type="hidden" name="command" value="goToSearchResults"/>
         <!--column-->
         <div class="column radios">
             <h4><span>01</span> What?</h4>

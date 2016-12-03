@@ -12,7 +12,7 @@ import by.kanarski.booking.services.interfaces.ILocationService;
 import by.kanarski.booking.utils.ExceptionHandler;
 import by.kanarski.booking.utils.transaction.TransactionManager;
 import by.kanarski.booking.utils.transaction.TransactoinWrapper;
-import by.kanarski.booking.utils.wrappers.SearchFilter;
+import by.kanarski.booking.utils.filter.SearchFilter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +36,7 @@ public class LocationService extends ExtendedBaseService<Location, LocationDto> 
         TransactoinWrapper transaction = TransactionManager.getTransaction();
         List<LocationDto> locationDtoList = null;
         SearchFilter locationFilter = SearchFilter.createBasicEqFilter("country", country);
-        locationFilter.setEqFilter("language", "EN");
+        locationFilter.addEqFilter("language", "EN");
         try {
             transaction.begin();
             List<Location> locationList = new ArrayList<>();
@@ -60,7 +60,7 @@ public class LocationService extends ExtendedBaseService<Location, LocationDto> 
 //        TransactoinWrapper transaction = TransactionManager.getTransaction();
 //        List<LocationDto> locationDtoList = null;
 //        SearchFilter locationFilter = SearchFilter.createBasicEqFilter("country", country);
-//        locationFilter.setEqFilter("language", "EN");
+//        locationFilter.addEqFilter("language", "EN");
 //        try {
 //            transaction.begin();
 //            List<Location> locationList = new ArrayList<>();

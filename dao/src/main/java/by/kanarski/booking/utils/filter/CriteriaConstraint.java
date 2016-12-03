@@ -1,4 +1,4 @@
-package by.kanarski.booking.utils.wrappers;
+package by.kanarski.booking.utils.filter;
 
 /**
  * @author Dzmitry Kanarski
@@ -8,7 +8,8 @@ package by.kanarski.booking.utils.wrappers;
 public enum CriteriaConstraint {
 
     EQ("="), GT(">"), LT("<"), GE("=>"), LE("<="),
-    LIKE(""), ILIKE("");
+    LIKE(""), ILIKE(""),
+    BEETWEN("");
 
     private String operator;
 

@@ -1,5 +1,6 @@
 package by.kanarski.booking.entities.location;
 
+import by.kanarski.booking.entities.hotel.Hotel;
 import by.kanarski.booking.utils.Formulas;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.GenericGenerator;
@@ -8,6 +9,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 @Entity
 @GenericGenerator(
@@ -21,6 +23,7 @@ public class Location implements Serializable {
     private Long locationId;
     private String country;
     private String city;
+    private Set<Hotel> hotelSet;
     private Map<Long, LocationTranslation> locationTranslationMap = new HashMap<>();
     private String locationStatus;
 
@@ -53,6 +56,15 @@ public class Location implements Serializable {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    @OneToMany(mappedBy = "location")
+    public Set<Hotel> getHotelSet() {
+        return hotelSet;
+    }
+
+    public void setHotelSet(Set<Hotel> hotelSet) {
+        this.hotelSet = hotelSet;
     }
 
     @OneToMany(cascade = CascadeType.ALL)

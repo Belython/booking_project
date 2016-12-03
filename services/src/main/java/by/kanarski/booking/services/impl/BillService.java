@@ -10,7 +10,7 @@ import by.kanarski.booking.services.interfaces.IBillService;
 import by.kanarski.booking.utils.ExceptionHandler;
 import by.kanarski.booking.utils.transaction.TransactionManager;
 import by.kanarski.booking.utils.transaction.TransactoinWrapper;
-import by.kanarski.booking.utils.wrappers.SearchFilter;
+import by.kanarski.booking.utils.filter.SearchFilter;
 
 import java.util.List;
 

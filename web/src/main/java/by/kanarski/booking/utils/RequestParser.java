@@ -51,12 +51,14 @@ public class RequestParser {
         HttpSession session = request.getSession();
         UserDto userDto = (UserDto) session.getAttribute(Parameter.USER);
         Integer totalPersons = Integer.valueOf(request.getParameter(Parameter.ORDER_TOTAL_PERSONS));
-        HotelDto hotelDto = parseHotelDto(request);
+        Integer totalRooms = Integer.valueOf(request.getParameter(Parameter.ORDER_TOTAL_ROOMS));
+//        HotelDto hotelDto = parseHotelDto(request);
+        HotelDto hotelDto = parseDestinationDto(request).getHotelDto();
         String checkInDate = request.getParameter(Parameter.ORDER_CHECK_IN_DATE);
         String defaultFormattedCheckInDate = DateUtil.getDefaultLocaleDate(checkInDate);
         String checkOutDate = request.getParameter(Parameter.ORDER_CHECK_OUT_DATE);
         String defaultFormattedCheckOutDate = DateUtil.getDefaultLocaleDate(checkOutDate);
-        return new OrderDto(userDto, hotelDto, totalPersons,
+        return new OrderDto(userDto, hotelDto, totalPersons, totalRooms,
                 defaultFormattedCheckInDate, defaultFormattedCheckOutDate);
     }
 
@@ -74,6 +76,10 @@ public class RequestParser {
             String country = getFirstInList(destination);
             String city = getNInList(destination);
             String hotelName = getLastInList(destination);
+            if (city == null) {
+                city = hotelName;
+                hotelName = FieldValue.ANY_HOTEL;
+            }
             HotelDto hotelDto = new HotelDto(country, city, hotelName);
             destinationDto.setHotelDto(hotelDto);
         }
@@ -81,11 +87,11 @@ public class RequestParser {
     }
 
     public static HotelDto parseHotelDto(ServletRequest request) throws ServiceException {
-        long hotelId = FieldValue.UNDEFINED_ID;
+        Long hotelId = null;
         if (request.getParameter(Parameter.HOTEL_ID) != null) {
             hotelId = Long.valueOf(request.getParameter(Parameter.HOTEL_ID));
         }
-        long locationId = Long.valueOf(request.getParameter(Parameter.LOCATION_ID));
+        Long locationId = Long.valueOf(request.getParameter(Parameter.LOCATION_ID));
 //        String country = request.getParameter(Parameter.LOCATION_COUNTRY);
 //        String city = request.getParameter(Parameter.LOCATION_CITY);
         LocationDto locationDto = LocationService.getInstance().getById(locationId);

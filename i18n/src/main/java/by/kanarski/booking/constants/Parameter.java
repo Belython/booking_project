@@ -25,6 +25,7 @@ public class Parameter {
     //Orrder parameters
 
     public static final String ORDER_TOTAL_PERSONS = "totalPersons";
+    public static final String ORDER_TOTAL_ROOMS = "totalRooms";
     public static final String ORDER_CHECK_IN_DATE = "checkInDate";
     public static final String ORDER_CHECK_OUT_DATE = "checkOutDate";
     public static final String ORDER = "order";

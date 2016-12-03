@@ -10,7 +10,7 @@ import by.kanarski.booking.services.interfaces.IUserService;
 import by.kanarski.booking.utils.ExceptionHandler;
 import by.kanarski.booking.utils.transaction.TransactionManager;
 import by.kanarski.booking.utils.transaction.TransactoinWrapper;
-import by.kanarski.booking.utils.wrappers.SearchFilter;
+import by.kanarski.booking.utils.filter.SearchFilter;
 
 public class UserService extends ExtendedBaseService<User, UserDto> implements IUserService {
 
@@ -70,8 +70,8 @@ public class UserService extends ExtendedBaseService<User, UserDto> implements I
         try {
             transaction.begin();
             SearchFilter searchFilter = new SearchFilter();
-            searchFilter.setEqFilter("login", userDto.getLogin());
-            searchFilter.setEqFilter("password", userDto.getPassword());
+            searchFilter.addEqFilter("login", userDto.getLogin());
+            searchFilter.addEqFilter("password", userDto.getPassword());
             User user = userDao.getUniqueByFilter(searchFilter);
             isAuthorized = !(user == null);
             transaction.commit();
@@ -88,7 +88,7 @@ public class UserService extends ExtendedBaseService<User, UserDto> implements I
         try {
             transaction.begin();
             SearchFilter searchFilter = new SearchFilter();
-            searchFilter.setEqFilter("login", userDto.getLogin());
+            searchFilter.addEqFilter("login", userDto.getLogin());
             User user = userDao.getUniqueByFilter(searchFilter);
             isNewUser = (user == null);
             transaction.commit();

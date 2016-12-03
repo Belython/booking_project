@@ -4,25 +4,22 @@ import by.kanarski.booking.constants.AliasName;
 import by.kanarski.booking.constants.AliasValue;
 import by.kanarski.booking.constants.SearchParameter;
 import by.kanarski.booking.dao.impl.HotelDao;
-import by.kanarski.booking.dao.impl.HotelTranslationDao;
 import by.kanarski.booking.dao.impl.LocationDao;
-import by.kanarski.booking.dao.impl.LocationTranslationDao;
 import by.kanarski.booking.dto.DestinationDto;
 import by.kanarski.booking.dto.hotel.HotelDto;
 import by.kanarski.booking.dto.location.LocationDto;
 import by.kanarski.booking.entities.hotel.Hotel;
-import by.kanarski.booking.entities.hotel.HotelTranslation;
 import by.kanarski.booking.entities.location.Location;
-import by.kanarski.booking.entities.location.LocationTranslation;
 import by.kanarski.booking.exceptions.DaoException;
 import by.kanarski.booking.exceptions.LocalisationException;
 import by.kanarski.booking.exceptions.ServiceException;
 import by.kanarski.booking.services.interfaces.IHotelService;
 import by.kanarski.booking.utils.DtoToEntityConverter;
 import by.kanarski.booking.utils.ExceptionHandler;
+import by.kanarski.booking.utils.ServiceHelper;
 import by.kanarski.booking.utils.transaction.TransactionManager;
 import by.kanarski.booking.utils.transaction.TransactoinWrapper;
-import by.kanarski.booking.utils.wrappers.SearchFilter;
+import by.kanarski.booking.utils.filter.SearchFilter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +52,7 @@ public class HotelService extends ExtendedBaseService<Hotel, HotelDto> implement
             transaction.begin();
             String localizedHotelName = initialHotelDto.getHotelName();
             String language = initialHotelDto.getLanguage();
-            String hotelName = getNotLocalizedHotelName(localizedHotelName);
+            String hotelName = ServiceHelper.getNotLocalizedHotelName(localizedHotelName, language);
             SearchFilter hotelFilter = SearchFilter.createBasicEqFilter(SearchParameter.HOTELNAME, hotelName);
             List<Hotel> hotelList = hotelDao.getListByFilter(hotelFilter, page, perPage);
             hotelDtoList = converter.toDtoList(hotelList);
@@ -75,9 +72,10 @@ public class HotelService extends ExtendedBaseService<Hotel, HotelDto> implement
         try {
             transaction.begin();
             String localizedCountry = initialHotelDto.getLocation().getCountry();
-            String country = getNotLocalizedCountry(localizedCountry);
+            String language = initialHotelDto.getLanguage();
+            String country = ServiceHelper.getNotLocalizedCountry(localizedCountry, language);
             SearchFilter hotelFilter = SearchFilter.createAliasFilter(AliasName.LOCATION, AliasValue.LANGUAGE);
-            hotelFilter.setEqFilter(SearchParameter.LOCATION_COUNTRY, country);
+            hotelFilter.addEqFilter(SearchParameter.LOCATION_COUNTRY, country);
             List<Hotel> hotelList = hotelDao.getListByFilter(hotelFilter, page, perPage);
             hotelDtoList = converter.toDtoList(hotelList);
             transaction.commit();
@@ -96,9 +94,10 @@ public class HotelService extends ExtendedBaseService<Hotel, HotelDto> implement
         try {
             transaction.begin();
             String localizedCity = initialHotelDto.getLocation().getCity();
-            String notLocalizedCity = getNotLocalizedCity(localizedCity);
+            String language = initialHotelDto.getLanguage();
+            String city = ServiceHelper.getNotLocalizedCity(localizedCity, language);
             SearchFilter hotelFilter = SearchFilter.createAliasFilter(AliasName.LOCATION, AliasValue.LANGUAGE);
-            hotelFilter.setEqFilter(SearchParameter.LOCATION_CITY, notLocalizedCity);
+            hotelFilter.addEqFilter(SearchParameter.LOCATION_CITY, city);
             List<Hotel> hotelList = hotelDao.getListByFilter(hotelFilter, page, perPage);
             hotelDtoList = converter.toDtoList(hotelList);
             transaction.commit();
@@ -114,6 +113,7 @@ public class HotelService extends ExtendedBaseService<Hotel, HotelDto> implement
         TransactoinWrapper transaction = TransactionManager.getTransaction();
         List<HotelDto> hotelDtoList = null;
         List<String> parameterList = destinationDto.getParameterList();
+        String language = destinationDto.getLanguage();
         try {
             transaction.begin();
             int resultsLeft = perPage;
@@ -124,7 +124,7 @@ public class HotelService extends ExtendedBaseService<Hotel, HotelDto> implement
                 default: {
                     String parameter = parameterList.get(0);
                     {
-                        String defaultHotelName = getNotLocalizedHotelName(parameter);
+                        String defaultHotelName = ServiceHelper.getNotLocalizedHotelName(parameter, language);
                         SearchFilter filter = SearchFilter.createBasicIlikeFilter(SearchParameter.HOTELNAME,
                                 defaultHotelName);
                         List<Hotel> partHotelList = hotelDao.getListByFilter(filter, page, resultsLeft);
@@ -132,7 +132,7 @@ public class HotelService extends ExtendedBaseService<Hotel, HotelDto> implement
                         resultsLeft -= hotelList.size();
                     }
                     if (resultsLeft > 0) {
-                        String defaultCountry = getNotLocalizedCountry(parameter);
+                        String defaultCountry = ServiceHelper.getNotLocalizedCountry(parameter, language);
                         SearchFilter filter = SearchFilter.createBasicIlikeFilter(SearchParameter.COUNTRY,
                                 defaultCountry);
                         List<Location> partLocationList = locationDao.getListByFilter(filter, page, resultsLeft);
@@ -140,7 +140,7 @@ public class HotelService extends ExtendedBaseService<Hotel, HotelDto> implement
                         resultsLeft -= locationList.size();
                     }
                     if (resultsLeft > 0) {
-                        String defaultCity = getNotLocalizedCity(parameter);
+                        String defaultCity = ServiceHelper.getNotLocalizedCity(parameter, language);
                         SearchFilter filter = SearchFilter.createBasicIlikeFilter(SearchParameter.CITY,
                                 defaultCity);
                         List<Location> partLocationList = locationDao.getListByFilter(filter, page, resultsLeft);
@@ -170,38 +170,5 @@ public class HotelService extends ExtendedBaseService<Hotel, HotelDto> implement
             ExceptionHandler.handleLocalizationException(e);
         }
         return hotelDtoList;
-    }
-
-    private String getNotLocalizedHotelName(String hotelName) throws DaoException {
-        SearchFilter filter = SearchFilter.createLanguageFilter("RU");
-        filter.setILikeFilter(SearchParameter.HOTELNAME, hotelName);
-        List<HotelTranslation> hotelTranslationList = HotelTranslationDao.getInstance().getListByFilter(filter, 0, 1);
-        String notLocalizedHotelName = null;
-        if (hotelTranslationList.size() > 0) {
-            notLocalizedHotelName = hotelTranslationList.get(0).getHotel().getHotelName();
-        }
-        return notLocalizedHotelName;
-    }
-
-    private String getNotLocalizedCountry(String country) throws DaoException {
-        SearchFilter filter = SearchFilter.createLanguageFilter("RU");
-        filter.setILikeFilter(SearchParameter.COUNTRY, country);
-        List<LocationTranslation> locationTranslationList = LocationTranslationDao.getInstance().getListByFilter(filter, 0, 1);
-        String notLocalizedCountry = null;
-        if (locationTranslationList.size() > 0) {
-            notLocalizedCountry = locationTranslationList.get(0).getLocation().getCountry();
-        }
-        return notLocalizedCountry;
-    }
-
-    private String getNotLocalizedCity(String city) throws DaoException {
-        SearchFilter filter = SearchFilter.createLanguageFilter("RU");
-        filter.setILikeFilter(SearchParameter.CITY, city);
-        List<LocationTranslation> locationTranslationList = LocationTranslationDao.getInstance().getListByFilter(filter, 0, 1);
-        String notLocalizedCity = null;
-        if (locationTranslationList.size() > 0) {
-            notLocalizedCity = locationTranslationList.get(0).getLocation().getCity();
-        }
-        return notLocalizedCity;
     }
 }
