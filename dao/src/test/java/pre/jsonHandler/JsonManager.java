@@ -3,7 +3,7 @@ package pre.jsonHandler;
 import by.kanarski.booking.entities.User;
 import by.kanarski.booking.entities.hotel.Hotel;
 import by.kanarski.booking.entities.location.Location;
-import by.kanarski.booking.utils.BookingSystemLogger;
+import by.kanarski.booking.utils.SystemLogger;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import pre.constants.ListType;
@@ -36,7 +36,7 @@ public class JsonManager {
             jsonReader.close();
             fileReader.close();
         } catch (IOException e) {
-            BookingSystemLogger.getInstance().logError(JsonManager.class, e.getMessage(), e);
+            SystemLogger.getInstance().logError(JsonManager.class, e.getMessage(), e);
         }
         return userList;
     }
@@ -51,7 +51,7 @@ public class JsonManager {
             jsonReader.close();
             fileReader.close();
         } catch (IOException e) {
-            BookingSystemLogger.getInstance().logError(JsonManager.class, e.getMessage(), e);
+            SystemLogger.getInstance().logError(JsonManager.class, e.getMessage(), e);
         }
         return locationList;
     }
@@ -66,7 +66,7 @@ public class JsonManager {
             jsonReader.close();
             fileReader.close();
         } catch (IOException e) {
-            BookingSystemLogger.getInstance().logError(JsonManager.class, e.getMessage(), e);
+            SystemLogger.getInstance().logError(JsonManager.class, e.getMessage(), e);
         }
         return hotelList;
     }

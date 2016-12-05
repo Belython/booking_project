@@ -1,6 +1,6 @@
 package by.kanarski.booking.utils;
 
-import by.kanarski.booking.constants.BookingSystemLocale;
+import by.kanarski.booking.constants.SystemLocale;
 import by.kanarski.booking.exceptions.LocalisationException;
 import by.kanarski.booking.managers.ExceptionMessageManager;
 import by.kanarski.booking.utils.threadLocal.UserPreferences;
@@ -14,7 +14,7 @@ import java.util.TreeMap;
 
 public class DateUtil {
 
-    private static final Locale DEFAULT_LOCALE = BookingSystemLocale.DEFAULT;
+    private static final Locale DEFAULT_LOCALE = SystemLocale.DEFAULT;
 
     private DateUtil() {
     }
@@ -88,7 +88,7 @@ public class DateUtil {
         try {
             date = DateUtil.parseDate(formattedDate, userLocale);
         } catch (LocalisationException e) {
-            BookingSystemLogger.getInstance().logError(DateUtil.class,
+            SystemLogger.getInstance().logError(DateUtil.class,
                     ExceptionMessageManager.PARSE_DATE_EXCEPTION.get(), e);
         }
         return DateUtil.getFormattedDate(date, DEFAULT_LOCALE);

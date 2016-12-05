@@ -39,7 +39,7 @@ public class DataSource {
             cpds.setContextClassLoaderSource("library");
             cpds.setPrivilegeSpawnedThreads(true);
         } catch (PropertyVetoException e) {
-            BookingSystemLogger.getInstance().logError(getClass(),
+            SystemLogger.getInstance().logError(getClass(),
                     ExceptionMessageManager.WRONG_DATASOURCE_SETTINGS.get() + e);
         }
     }

@@ -1,12 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 
 <div id="loginBlock" class="lightbox" style="display:none;">
     <div class="lb-wrap">
         <a href="#" class="close">x</a>
         <div class="lb-content">
-            <form id="loginForm" name="loginForm" method="POST" action="controller">
+            <form id="loginForm" name="loginForm" method="POST" action="login">
                 <input type="hidden" name="command" value="login"/>
                 <h1>Log in</h1>
                 <div class="f-item">

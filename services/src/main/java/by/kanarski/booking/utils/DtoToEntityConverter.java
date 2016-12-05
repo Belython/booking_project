@@ -1,9 +1,9 @@
 package by.kanarski.booking.utils;
 
-import by.kanarski.booking.constants.BookingSystemCurrency;
-import by.kanarski.booking.constants.BookingSystemLocale;
 import by.kanarski.booking.constants.DtoName;
 import by.kanarski.booking.constants.FieldValue;
+import by.kanarski.booking.constants.SystemCurrency;
+import by.kanarski.booking.constants.SystemLocale;
 import by.kanarski.booking.dto.BillDto;
 import by.kanarski.booking.dto.RoomDto;
 import by.kanarski.booking.dto.UserDto;
@@ -27,7 +27,7 @@ import by.kanarski.booking.exceptions.LocalisationException;
 import by.kanarski.booking.managers.SupportedLanguagesManager;
 import by.kanarski.booking.utils.threadLocal.UserPreferences;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.*;
 
@@ -35,14 +35,14 @@ import java.util.*;
 //@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class DtoToEntityConverter<E, D> {
 
-    private static Locale defaultLocale = BookingSystemLocale.DEFAULT;
-    private static Currency defaultCurrency = BookingSystemCurrency.DEFAULT;
+    private static Locale defaultLocale = SystemLocale.DEFAULT;
+    private static Currency defaultCurrency = SystemCurrency.DEFAULT;
 
 //    @Autowired
 //    private IRoomTypeDao roomTypeDao;
 
 //    @Autowired
-    private ApplicationContext context = new AnnotationConfigApplicationContext("service-config.xml");
+    private ApplicationContext context = new ClassPathXmlApplicationContext("service-config.xml");
     private EntityBuilder entityBuilder = context.getBean(EntityBuilder.class);
 
     private Long languageId;

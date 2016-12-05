@@ -2,7 +2,7 @@ package by.kanarski.booking.i18n.l10n.filler.factory;
 
 
 import by.kanarski.booking.i18n.l10n.filler.Filler;
-import by.kanarski.booking.utils.BookingSystemLogger;
+import by.kanarski.booking.utils.SystemLogger;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 public class FillerFactory {
 
     private static FillerFactory instance;
-    private static BookingSystemLogger logger = BookingSystemLogger.getInstance().setSender(FillerFactory.class);
+    private static SystemLogger logger = SystemLogger.getInstance().setSender(FillerFactory.class);
 
     private FillerFactory() {
     }

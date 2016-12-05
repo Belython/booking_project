@@ -1,7 +1,7 @@
 package by.kanarski.booking.utils.threadLocal;
 
-import by.kanarski.booking.constants.BookingSystemCurrency;
-import by.kanarski.booking.constants.BookingSystemLocale;
+import by.kanarski.booking.constants.SystemCurrency;
+import by.kanarski.booking.constants.SystemLocale;
 
 import java.util.Currency;
 import java.util.Locale;
@@ -24,7 +24,7 @@ public class UserPreferences {
     }
 
     public static Locale getLocale() {
-        Locale locale = (Locale) ThreadLocalUtil.LOCALE.get(BookingSystemLocale.DEFAULT);
+        Locale locale = (Locale) ThreadLocalUtil.LOCALE.get(SystemLocale.DEFAULT);
         return locale;
     }
 
@@ -33,7 +33,7 @@ public class UserPreferences {
     }
 
     public static Currency getCurrency() {
-        Currency currency = (Currency) ThreadLocalUtil.CURRENCY.get(BookingSystemCurrency.DEFAULT);
+        Currency currency = (Currency) ThreadLocalUtil.CURRENCY.get(SystemCurrency.DEFAULT);
         return currency;
     }
 

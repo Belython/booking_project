@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 public class ExceptionHandler {
 
-    private static final BookingSystemLogger LOGGER = BookingSystemLogger.getInstance().setSender(ExceptionHandler.class);
+    private static final SystemLogger LOGGER = SystemLogger.getInstance().setSender(ExceptionHandler.class);
 
     public static void handleSQLOrDaoException(Connection connection, Exception exception, Class serviceClass) throws ServiceException {
         try {

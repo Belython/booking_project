@@ -27,7 +27,7 @@ public class ConnectionUtil {
                 connection = (Connection) ThreadLocalUtil.CONNECTION.get(newConnection);
             }
         } catch (SQLException e) {
-            BookingSystemLogger.getInstance().logError(ConnectionUtil.class,
+            SystemLogger.getInstance().logError(ConnectionUtil.class,
                     ExceptionMessageManager.INPUT_ERROR.get(), e);
         }
         return connection;

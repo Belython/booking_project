@@ -4,9 +4,11 @@ import by.kanarski.booking.constants.*;
 import by.kanarski.booking.dto.UserDto;
 import by.kanarski.booking.exceptions.ServiceException;
 import by.kanarski.booking.services.interfaces.IUserService;
+import by.kanarski.booking.utils.SystemLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -24,7 +26,14 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
-    @RequestMapping(value = VALUE_LOGIN, method = RequestMethod.POST)
+    @ExceptionHandler(Exception.class)
+    public String handleException(HttpServletRequest request) {
+        SystemLogger.getInstance().logError(getClass(), (Throwable) request.getAttribute(Message.ERROR));
+//        request.setAttribute(WebErrorMessages.EXCEPTION_MESSAGE, ERROR_500);
+        return Pages.PAGE_ERROR;
+    }
+
+    @RequestMapping(value = Pages.VALUE_LOGIN, method = RequestMethod.POST)
     public String loginUser(UserDto unauthorizedUser, Model model, HttpServletRequest request) throws ServiceException {
         String login = unauthorizedUser.getLogin();
         String password = unauthorizedUser.getPassword();
@@ -40,15 +49,15 @@ public class UserController {
                     model.addAttribute(Parameter.USER, authorizedUser);
                     HttpSession session = request.getSession();
                     session.setAttribute(Parameter.USER, authorizedUser);
-                    return Pa;
+                    return Pages.PAGE_INDEX;
                 }
                 // TODO: 05.12.2016 что-нибудь связанное с авторизацией
             }
-            model.addAttribute(PASSWORD_ERROR, PASSWORD_ERROR_I18N);
-            return PAGE_INDEX;
+            model.addAttribute(UIParams.PASSWORD_ERROR, Message.PASSWORD_ERROR_I18N);
+            return Pages.PAGE_INDEX;
         }
-        model.addAttribute(EMAIL_ERROR, EMAIL_ERROR_I18N);
-        return PAGE_INDEX;
+        model.addAttribute(UIParams.LOGIN_ERROR, Message.LOGIN_ERROR_I18N);
+        return Pages.PAGE_INDEX;
     }
 
 }
