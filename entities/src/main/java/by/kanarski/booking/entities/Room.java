@@ -39,8 +39,8 @@ public class Room implements Serializable {
 
     @ManyToOne
     @JoinColumn(
-            name = "HOTEL_ID",
-            foreignKey = @ForeignKey(name = "HOTEL_ROOMS")
+            name = "HOTEL_ID"
+//            foreignKey = @ForeignKey(name = "HOTEL_ROOMS")
     )
     public Hotel getHotel() {
         return hotel;
@@ -52,8 +52,8 @@ public class Room implements Serializable {
 
     @ManyToOne
     @JoinColumn(
-            name = "ROOM_TYPE_ID",
-            foreignKey = @ForeignKey(name = "ROOM_TYPE_ROOMS")
+            name = "ROOM_TYPE_ID"
+//            foreignKey = @ForeignKey(name = "ROOM_TYPE_ROOMS")
     )
     public RoomType getRoomType() {
         return roomType;

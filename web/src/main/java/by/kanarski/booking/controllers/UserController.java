@@ -1,4 +1,4 @@
-package by.kanarski.booking.commands.impl.user;
+package by.kanarski.booking.controllers;
 
 import by.kanarski.booking.constants.*;
 import by.kanarski.booking.dto.UserDto;

@@ -59,8 +59,8 @@ public class FacilityTranslation implements Serializable {
 
     @ManyToOne
     @JoinColumn(
-            name = "LANGUAGE_ID",
-            foreignKey = @ForeignKey(name = "FACILITY_LANGUAGES")
+            name = "LANGUAGE_ID"
+//            foreignKey = @ForeignKey(name = "FACILITY_LANGUAGES")
     )
     public Language getLanguage() {
         return language;

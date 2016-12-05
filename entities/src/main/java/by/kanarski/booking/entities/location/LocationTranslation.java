@@ -53,8 +53,8 @@ public class LocationTranslation implements Serializable {
 
     @ManyToOne
     @JoinColumn(
-            name = "LOCATION_ID",
-            foreignKey = @ForeignKey(name = "LOCATION_TRANSLATIONS")
+            name = "LOCATION_ID"
+//            foreignKey = @ForeignKey(name = "LOCATION_TRANSLATIONS")
     )
     public Location getLocation() {
         return location;
@@ -66,8 +66,8 @@ public class LocationTranslation implements Serializable {
 
     @ManyToOne
     @JoinColumn(
-            name = "LANGUAGE_ID",
-            foreignKey = @ForeignKey(name = "LOCATION_LANGUAGES")
+            name = "LANGUAGE_ID"
+//            foreignKey = @ForeignKey(name = "LOCATION_LANGUAGES")
     )
     public Language getLanguage() {
         return language;

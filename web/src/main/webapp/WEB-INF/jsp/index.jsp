@@ -12,7 +12,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<meta name="HandheldFriendly" content="True">
-	<%@include file="/WEB-INF/jsp/user/includes/standardScripts.jsp"%>
+	<%@include file="/WEB-INF/jsp/includes/standardScripts.jsp"%>
 
 	<c:choose>
 		<c:when test="${currentLocale eq 'ru_RU'}">
@@ -34,7 +34,7 @@
 </head>
 <body>
 	<!--header-->
-	<%@include file="/WEB-INF/jsp/user/includes/header.jsp"%>
+	<%@include file="/WEB-INF/jsp/includes/header.jsp"%>
 	<!--//header-->
 
 	<!--slider-->
@@ -68,11 +68,11 @@
 	<!--//slider-->
 
 	<!--search-->
-	<%@include file="/WEB-INF/jsp/user/includes/search.jsp"%>
+	<%@include file="/WEB-INF/jsp/includes/search.jsp"%>
 	<!--//search-->
 
 	<!--footer-->
-	<%@include file="/WEB-INF/jsp/user/includes/footer.jsp"%>
+	<%@include file="/WEB-INF/jsp/includes/footer.jsp"%>
 	<!--//footer-->
 	
 	<script>

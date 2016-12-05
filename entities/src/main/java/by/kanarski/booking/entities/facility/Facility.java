@@ -54,8 +54,8 @@ public class Facility implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(
-            name = "FACILITY_ID",
-            foreignKey = @ForeignKey(name = "FACILITY_TRANSLATIONS")
+            name = "FACILITY_ID"
+//            foreignKey = @ForeignKey(name = "FACILITY_TRANSLATIONS")
     )
     @MapKeyColumn(name = "LANGUAGE_ID")
     public Map<Long, FacilityTranslation> getFacilityTranslationMap() {

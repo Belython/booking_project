@@ -49,8 +49,8 @@ public class Bill implements Serializable {
 
     @ManyToOne
     @JoinColumn(
-            name = "USER_ID",
-            foreignKey = @ForeignKey(name = "USER_BILLS")
+            name = "USER_ID"
+//            foreignKey = @ForeignKey(name = "USER_BILLS")
     )
     public User getClient() {
         return client;
@@ -92,13 +92,13 @@ public class Bill implements Serializable {
             name = "BILL_ROOMS",
             joinColumns = {
                     @JoinColumn(
-                            name = "BILL_ID",
-                            foreignKey = @ForeignKey(name = "BILL_ROOMS")
+                            name = "BILL_ID"
+//                            foreignKey = @ForeignKey(name = "BILL_ROOMS")
                     )
             },
             inverseJoinColumns = @JoinColumn(
-                    name = "ROOM_ID",
-                    foreignKey = @ForeignKey(name = "ROOM_BILLS")
+                    name = "ROOM_ID"
+//                    foreignKey = @ForeignKey(name = "ROOM_BILLS")
             )
     )
     public Set<Room> getRoomSet() {

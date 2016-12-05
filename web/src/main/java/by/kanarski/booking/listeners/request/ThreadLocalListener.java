@@ -1,7 +1,6 @@
 package by.kanarski.booking.listeners.request;
 
 import by.kanarski.booking.constants.Parameter;
-import by.kanarski.booking.utils.hibernate.HibernateUtil;
 import by.kanarski.booking.utils.threadLocal.ThreadLocalUtil;
 import by.kanarski.booking.utils.threadLocal.UserPreferences;
 
@@ -21,7 +20,7 @@ public class ThreadLocalListener implements ServletRequestListener {
 
     @Override
     public void requestDestroyed(ServletRequestEvent servletRequestEvent) {
-        HibernateUtil.closeSession();
+//        HibernateUtil.closeSession();
         ThreadLocalUtil.destroy();
 
     }

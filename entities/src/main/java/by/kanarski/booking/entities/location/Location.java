@@ -69,8 +69,8 @@ public class Location implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(
-            name = "LOCATION_ID",
-            foreignKey = @ForeignKey(name = "LOCATION_TRANSLATIONS")
+            name = "LOCATION_ID"
+//            foreignKey = @ForeignKey(name = "LOCATION_TRANSLATIONS")
     )
     @MapKeyColumn(name = "LANGUAGE_ID")
     public Map<Long, LocationTranslation> getLocationTranslationMap() {

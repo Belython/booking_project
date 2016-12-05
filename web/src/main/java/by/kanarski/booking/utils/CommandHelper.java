@@ -1,6 +1,5 @@
 package by.kanarski.booking.utils;
 
-import by.kanarski.booking.constants.Parameter;
 import by.kanarski.booking.requestHandler.ServletAction;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,18 +34,18 @@ public class CommandHelper {
 
     public static ServletAction generateServletAction(HttpServletRequest request,
                                                       HttpServletResponse response, String responseText) {
-        ServletAction servletAction;
-        String page;
+        ServletAction servletAction = null;
+        String page = null;
         HttpSession session = request.getSession();
-        if (RequestParser.isAjaxRequest(request)) {
-            servletAction = ServletAction.AJAX_INCLUDE_REQUEST;
-            CommandHelper.writeAjaxResponse(response, responseText);
-            page = (String) session.getAttribute(Parameter.CURRENT_PAGE_PATH);
-        } else {
-            servletAction = ServletAction.FORWARD_PAGE;
-            request.setAttribute(Parameter.OPERATION_MESSAGE, responseText);
-            page = (String) session.getAttribute(Parameter.CURRENT_PAGE_PATH);
-        }
+//        if (RequestParser.isAjaxRequest(request)) {
+//            servletAction = ServletAction.AJAX_INCLUDE_REQUEST;
+//            CommandHelper.writeAjaxResponse(response, responseText);
+//            page = (String) session.getAttribute(Parameter.CURRENT_PAGE_PATH);
+//        } else {
+//            servletAction = ServletAction.FORWARD_PAGE;
+//            request.setAttribute(Parameter.OPERATION_MESSAGE, responseText);
+//            page = (String) session.getAttribute(Parameter.CURRENT_PAGE_PATH);
+//        }
         servletAction.setPage(page);
         return servletAction;
     }
