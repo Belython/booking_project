@@ -9,6 +9,6 @@ import by.kanarski.booking.entities.hotel.HotelTranslation;
  * @see IBaseDao
  */
 
-public interface IHotelTranslationDao extends IBaseDao<HotelTranslation> {
+public interface IHotelTranslationDao extends IExtendedBaseDao<HotelTranslation> {
 
 }

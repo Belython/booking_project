@@ -9,8 +9,6 @@ import by.kanarski.booking.entities.Bill;
  * @see IBaseDao
  */
 
-public interface IBillDao extends IBaseDao<Bill> {
-
-//    List<Bill> getByUserId(long userId) throws DaoException;
+public interface IBillDao extends IExtendedBaseDao<Bill> {
 
 }

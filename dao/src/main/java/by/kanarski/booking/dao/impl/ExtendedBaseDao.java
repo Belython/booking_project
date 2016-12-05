@@ -1,6 +1,6 @@
 package by.kanarski.booking.dao.impl;
 
-import by.kanarski.booking.dao.interfaces.IExtendedDao;
+import by.kanarski.booking.dao.interfaces.IExtendedBaseDao;
 import by.kanarski.booking.exceptions.DaoException;
 import by.kanarski.booking.utils.filter.CriteriaConstraint;
 import by.kanarski.booking.utils.filter.DisjunctionElement;
@@ -10,9 +10,12 @@ import by.kanarski.booking.utils.threadLocal.UserPreferences;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Set;
@@ -22,18 +25,21 @@ import java.util.Set;
  * @version 1.0
  */
 
-public class ExtendedBaseDao<T> extends BaseDao<T> implements IExtendedDao<T> {
+@Repository
+public class ExtendedBaseDao<T> extends BaseDao<T> implements IExtendedBaseDao<T> {
 
     private static final int BATCH_SIZE = 20;
 
     private Class<T> entityClass;
 
-    public ExtendedBaseDao() {
+    @Autowired
+    public ExtendedBaseDao(SessionFactory sessionFactory) {
+        super(sessionFactory);
     }
 
-    public ExtendedBaseDao(Class<T> entityClass) {
-        this.entityClass =  entityClass;
-    }
+//    public ExtendedBaseDao(Class<T> entityClass) {
+//        this.entityClass =  entityClass;
+//    }
 
     @Override
     public void updateList(List<T> entityList) throws DaoException {
@@ -89,6 +95,10 @@ public class ExtendedBaseDao<T> extends BaseDao<T> implements IExtendedDao<T> {
         return getUniqueResult(criteria);
     }
 
+    @Override
+    public void setEntityClass(Class<T> entityClass) {
+        this.entityClass = entityClass;
+    }
 //    @Override
 //    public Long getResultsSize(SearchFilter filter, String countProperty) throws DaoException {
 //        Criteria criteria = getSession().createCriteria(getEntityClass());

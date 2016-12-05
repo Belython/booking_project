@@ -1,9 +1,6 @@
 package by.kanarski.booking.dao.interfaces;
 
 import by.kanarski.booking.entities.location.Location;
-import by.kanarski.booking.exceptions.DaoException;
-
-import java.util.List;
 
 /**
  * Location dao iterface
@@ -12,10 +9,6 @@ import java.util.List;
  * @see IBaseDao
  */
 
-public interface ILocationDao extends IBaseDao<Location> {
-
-    void updateList(List<Location> locationList) throws DaoException;
-
-    void addList(List<Location> locationList) throws DaoException;
+public interface ILocationDao extends IExtendedBaseDao<Location> {
 
 }

@@ -1,9 +1,6 @@
 package by.kanarski.booking.dao.interfaces;
 
 import by.kanarski.booking.entities.Language;
-import by.kanarski.booking.exceptions.DaoException;
-
-import java.util.List;
 
 /**
  * Language dao iterface
@@ -12,10 +9,7 @@ import java.util.List;
  * @see IBaseDao
  */
 
-public interface ILanguageDao extends IBaseDao<Language> {
+public interface ILanguageDao extends IExtendedBaseDao<Language> {
 
-    void updateList(List<Language> locationList) throws DaoException;
-
-    void addList(List<Language> locationList) throws DaoException;
 
 }

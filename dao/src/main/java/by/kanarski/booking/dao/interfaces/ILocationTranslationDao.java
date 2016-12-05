@@ -9,6 +9,6 @@ import by.kanarski.booking.entities.location.LocationTranslation;
  * @see IBaseDao
  */
 
-public interface ILocationTranslationDao extends IBaseDao<LocationTranslation> {
+public interface ILocationTranslationDao extends IExtendedBaseDao<LocationTranslation> {
 
 }

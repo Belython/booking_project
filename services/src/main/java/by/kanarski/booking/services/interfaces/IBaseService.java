@@ -2,13 +2,13 @@ package by.kanarski.booking.services.interfaces;
 
 import by.kanarski.booking.exceptions.ServiceException;
 
-public interface IBaseService<T> {
+public interface IBaseService<E, D> {
 
-    void add(T t) throws ServiceException;
+    void add(D t) throws ServiceException;
 
-    T getById(Long id) throws ServiceException;
+    D getById(Long id) throws ServiceException;
 
-    void update(T t) throws ServiceException;
+    void update(D t) throws ServiceException;
 
-    void delete(T t) throws ServiceException;
+    void delete(D t) throws ServiceException;
 }

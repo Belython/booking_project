@@ -19,10 +19,12 @@
         <booking.version>1.1</booking.version>
         <mysql.version>5.1.38</mysql.version>
         <log4j.version>1.2.17</log4j.version>
-        <slf4j.version>1.5.6</slf4j.version>
+        <slf4j-log4j.version>1.5.6</slf4j-log4j.version>
+        <slf4j.version>1.7.21</slf4j.version>
         <servlet-api.version>3.1.0</servlet-api.version>
         <jsp-api.version>2.1</jsp-api.version>
         <jstl.version>1.2</jstl.version>
+        <taglibs-standard.version>1.2.1</taglibs-standard.version>
         <c3p0.version>0.9.5.2</c3p0.version>
         <javax.mail.version>1.4</javax.mail.version>
         <junit.version>4.12</junit.version>
@@ -35,10 +37,14 @@
         <tomcat7.version>2.2</tomcat7.version>
         <lombok.version>1.16.10</lombok.version>
         <!--ORM dependencies-->
+        <hibernate.version>4.3.11.Final</hibernate.version>
         <hibernate-jpa.version>1.0.0.Final</hibernate-jpa.version>
         <hibernate-validator.version>4.3.2.Final</hibernate-validator.version>
-        <hibernate.version>4.3.11.Final</hibernate.version>
-        <ejb3-persistance.version>3.3.2.Beta1</ejb3-persistance.version>
+        <!--Spring-->
+        <spring.version>4.3.1.RELEASE</spring.version>
+        <dbcp.version>1.4</dbcp.version>
+        <aspectj.version>1.8.4</aspectj.version>
+        <cglib.version>3.1</cglib.version>
     </properties>
 
     <dependencyManagement>
@@ -55,17 +61,21 @@
                 <artifactId>log4j</artifactId>
                 <version>${log4j.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>${slf4j-log4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
             <!-- Servlet-API -->
             <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>javax.servlet-api</artifactId>
                 <version>${servlet-api.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.hibernate.javax.persistence</groupId>
-                        <artifactId>hibernate-jpa-2.0-api</artifactId>
-                    </exclusion>
-                </exclusions>
                 <scope>provided</scope>
             </dependency>
             <!-- https://mvnrepository.com/artifact/javax.servlet.jsp/jsp-api -->
@@ -75,9 +85,15 @@
                 <version>${jsp-api.version}</version>
                 <scope>provided</scope>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/jstl/jstl -->
+            <!--JSP LIB-->
             <dependency>
-                <groupId>jstl</groupId>
+                <groupId>org.apache.taglibs</groupId>
+                <artifactId>taglibs-standard-impl</artifactId>
+                <version>${taglibs-standard.version}</version>
+            </dependency>
+            <!--SERVLET-->
+            <dependency>
+                <groupId>javax.servlet</groupId>
                 <artifactId>jstl</artifactId>
                 <version>${jstl.version}</version>
             </dependency>
@@ -100,11 +116,6 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-log4j12</artifactId>
-                <version>${slf4j.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-core</artifactId>
                 <version>${hibernate.version}</version>
@@ -121,8 +132,19 @@
             </dependency>
             <dependency>
                 <groupId>org.hibernate</groupId>
-                <artifactId>ejb3-persistence</artifactId>
-                <version>${ejb3-persistance.version}</version>
+                <artifactId>hibernate-validator</artifactId>
+                <version>${hibernate-validator.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-c3p0</artifactId>
+                <version>${hibernate.version}</version>
+            </dependency>
+            <!--Dbcp-->
+            <dependency>
+                <groupId>commons-dbcp</groupId>
+                <artifactId>commons-dbcp</artifactId>
+                <version>${dbcp.version}</version>
             </dependency>
             <!--CACHE-->
             <dependency>
@@ -153,6 +175,76 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>${commons-lang3.version}</version>
+            </dependency>
+            <!--SPRING-->
+            <!--CgLib-->
+            <dependency>
+                <groupId>cglib</groupId>
+                <artifactId>cglib</artifactId>
+                <version>${cglib.version}</version>
+            </dependency>
+            <!--AspectJ-->
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjweaver</artifactId>
+                <version>${aspectj.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjrt</artifactId>
+                <version>${aspectj.version}</version>
+            </dependency>
+            <!--Spring-->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-beans</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-webmvc</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-aop</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-tx</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-orm</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>${spring.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-expression</artifactId>
+                <version>${spring.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -212,7 +304,5 @@
             </plugins>
         </pluginManagement>
     </build>
-
-
 
 </project>

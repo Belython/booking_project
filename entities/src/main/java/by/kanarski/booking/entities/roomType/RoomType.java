@@ -24,7 +24,7 @@ public class RoomType implements Serializable {
     private Integer maxPersons;
     private Double pricePerNight;
     private Set<Facility> facilitySet = new TreeSet<>();
-    private Set<Room> roomSet;
+    private Set<Room> roomSet = new HashSet<>();
     private Map<Long, RoomTypeTranslation> roomTypeTranslationMap = new HashMap<>();
     private String roomTypeStatus;
 

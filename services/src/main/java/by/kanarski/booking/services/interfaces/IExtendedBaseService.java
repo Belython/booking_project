@@ -4,10 +4,10 @@ import by.kanarski.booking.exceptions.ServiceException;
 
 import java.util.List;
 
-public interface IExtendedBaseService<T> {
+public interface IExtendedBaseService<E, D> {
 
-    void updateList(List<T> tList) throws ServiceException;
+    void updateList(List<D> tList) throws ServiceException;
 
-    void addList(List<T> tList) throws ServiceException;
+    void addList(List<D> tList) throws ServiceException;
 
 }

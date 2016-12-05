@@ -1,7 +1,7 @@
 package by.kanarski.booking.dao.interfaces;
 
+import by.kanarski.booking.dto.Order;
 import by.kanarski.booking.entities.hotel.Hotel;
-import by.kanarski.booking.entities.location.Location;
 import by.kanarski.booking.exceptions.DaoException;
 
 import java.util.List;
@@ -13,20 +13,8 @@ import java.util.List;
  * @see IBaseDao
  */
 
-public interface IHotelDao extends IBaseDao<Hotel> {
+public interface IHotelDao extends IExtendedBaseDao<Hotel> {
 
-    void updateList(List<Hotel> hotelList) throws DaoException;
-
-    /**
-     *
-     * @param hotelName
-     * @return
-     * @throws DaoException
-     */
-    Hotel getByHotelName(String hotelName, Location location) throws DaoException;
-
-    List<Hotel> getByLocation(Location location) throws DaoException;
-
-    void addList(List<Hotel> hotelList) throws DaoException;
+    List<Hotel> getListByOrder(Order order, int page, int perPage) throws DaoException;
 
 }

@@ -9,6 +9,12 @@ public class SearchParameter {
 
     public static final String LANGUAGE_NAME = "language.name";
 
+    //UserParameters
+    public static final String USER_ID = "userId";
+    public static final String LOGIN = "login";
+    public static final String PASSWORD = "password";
+    public static final String EMAIL= "email";
+
     //Hotel parameters
 
     public static final String HOTELID = "hotelId";

@@ -1,9 +1,10 @@
 package by.kanarski.booking.services.interfaces;
 
 import by.kanarski.booking.dto.UserDto;
+import by.kanarski.booking.entities.User;
 import by.kanarski.booking.exceptions.ServiceException;
 
-public interface IUserService extends IBaseService<UserDto> {
+public interface IUserService extends IBaseService<User, UserDto> {
 
     boolean isAuthorized(UserDto userDto) throws ServiceException;
 
@@ -15,4 +16,7 @@ public interface IUserService extends IBaseService<UserDto> {
 
     void registrateUser(UserDto userDto) throws ServiceException;
 
-}
+    UserDto loginUser(UserDto unauthorizedUser) throws ServiceException;
+
+
+    }
