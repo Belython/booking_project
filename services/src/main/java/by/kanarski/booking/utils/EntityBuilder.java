@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-@Component
+@Component("entityBuilder")
 public class EntityBuilder {
 
     private SupportedLanguages supportedLanguages = SupportedLanguagesManager.get();

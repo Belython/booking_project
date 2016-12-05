@@ -4,7 +4,7 @@ import by.kanarski.booking.dto.UserDto;
 import by.kanarski.booking.entities.User;
 import by.kanarski.booking.exceptions.ServiceException;
 
-public interface IUserService extends IBaseService<User, UserDto> {
+public interface IUserService extends IExtendedBaseService<User, UserDto> {
 
     boolean isAuthorized(UserDto userDto) throws ServiceException;
 

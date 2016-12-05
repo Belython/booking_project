@@ -6,7 +6,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-@Repository
+@Repository("billDao")
 public class BillDao extends ExtendedBaseDao<Bill> implements IBillDao {
 
     @Autowired

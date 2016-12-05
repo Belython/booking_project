@@ -1,11 +1,9 @@
 package by.kanarski.booking.filters;
 
-import by.kanarski.booking.commands.factory.CommandType;
 import by.kanarski.booking.constants.FieldValue;
 import by.kanarski.booking.constants.Parameter;
 import by.kanarski.booking.dto.UserDto;
 import by.kanarski.booking.managers.OperationMessageManager;
-import by.kanarski.booking.utils.RequestParser;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -21,26 +19,26 @@ public class SecurityFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain next) throws IOException, ServletException {
-        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        CommandType commandType = RequestParser.parseCommandType(httpServletRequest);
-        switch (commandType) {
-            case MAKEBILL: {
-                checkAuthorization(httpServletRequest);
-                break;
-            }
-            case GOTOROOMTYPEREDACTOR: {
-                checkRole(httpServletRequest);
-                break;
-            }
-            case GOTOROOMSREDACTOR: {
-                checkRole(httpServletRequest);
-                break;
-            }
-        }
-        if (commandType.name().equals(commandType.MAKEBILL.toString())) {
-            checkAuthorization(httpServletRequest);
-        }
-        next.doFilter(request, response);
+//        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+//        CommandType commandType = RequestParser.parseCommandType(httpServletRequest);
+//        switch (commandType) {
+//            case MAKEBILL: {
+//                checkAuthorization(httpServletRequest);
+//                break;
+//            }
+//            case GOTOROOMTYPEREDACTOR: {
+//                checkRole(httpServletRequest);
+//                break;
+//            }
+//            case GOTOROOMSREDACTOR: {
+//                checkRole(httpServletRequest);
+//                break;
+//            }
+//        }
+//        if (commandType.name().equals(commandType.MAKEBILL.toString())) {
+//            checkAuthorization(httpServletRequest);
+//        }
+//        next.doFilter(request, response);
     }
 
     @Override

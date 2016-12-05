@@ -51,8 +51,8 @@ public class Hotel implements Serializable {
 
     @ManyToOne
     @JoinColumn(
-            name = "LOCATION_ID",
-            foreignKey = @ForeignKey(name = "HOTEL_LOCATIONS")
+            name = "LOCATION_ID"
+//            foreignKey = @ForeignKey(name = "HOTEL_LOCATIONS")
     )
     public Location getLocation() {
         return location;
@@ -73,8 +73,8 @@ public class Hotel implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(
-            name = "HOTEL_ID",
-            foreignKey = @ForeignKey(name = "HOTEL_TRANSLATIONS")
+            name = "HOTEL_ID"
+//            foreignKey = @ForeignKey(name = "HOTEL_TRANSLATIONS")
     )
     @MapKeyColumn(name = "LANGUAGE_ID")
     public Map<Long, HotelTranslation> getHotelTranslationMap() {

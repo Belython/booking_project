@@ -7,7 +7,6 @@ import by.kanarski.booking.dao.interfaces.IHotelDao;
 import by.kanarski.booking.dto.Order;
 import by.kanarski.booking.entities.hotel.Hotel;
 import by.kanarski.booking.exceptions.DaoException;
-import by.kanarski.booking.utils.hibernate.HibernateUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -36,7 +35,7 @@ public class HotelDao extends ExtendedBaseDao<Hotel> implements IHotelDao {
         Long hotelId = hotel.getHotelId();
         String country = hotel.getLocation().getCountry();
         String city = hotel.getLocation().getCity();
-        Criteria criteria = HibernateUtil.getSession().createCriteria(Hotel.class);
+        Criteria criteria = getSession().createCriteria(Hotel.class);
         criteria
                 .createAlias(AliasName.LOCATION, AliasValue.LOCATION)
                 .createAlias(AliasName.ROOMSET, AliasValue.ROOMSET)

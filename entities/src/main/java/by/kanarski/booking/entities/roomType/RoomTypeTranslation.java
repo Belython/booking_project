@@ -50,8 +50,8 @@ public class RoomTypeTranslation implements Serializable {
 
     @ManyToOne
     @JoinColumn(
-            name = "ROOM_TYPE_ID",
-            foreignKey = @ForeignKey(name = "ROOM_TYPE_TRANSLATIONS")
+            name = "ROOM_TYPE_ID"
+//            foreignKey = @ForeignKey(name = "ROOM_TYPE_TRANSLATIONS")
     )
     public RoomType getRoomType() {
         return roomType;
@@ -63,8 +63,8 @@ public class RoomTypeTranslation implements Serializable {
 
     @ManyToOne
     @JoinColumn(
-            name = "LANGUAGE_ID",
-            foreignKey = @ForeignKey(name = "ROOM_TYPE_LANGUAGES")
+            name = "LANGUAGE_ID"
+//            foreignKey = @ForeignKey(name = "ROOM_TYPE_LANGUAGES")
     )
     public Language getLanguage() {
         return language;

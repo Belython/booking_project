@@ -43,7 +43,9 @@ public class DtoToEntityConverter<E, D> {
 
 //    @Autowired
     private ApplicationContext context = new ClassPathXmlApplicationContext("service-config.xml");
-    private EntityBuilder entityBuilder = context.getBean(EntityBuilder.class);
+    private EntityBuilder entityBuilder = (EntityBuilder) context.getBean("entityBuilder");
+//    @Autowired
+//    private EntityBuilder entityBuilder;
 
     private Long languageId;
     private Class<E> entityClass;
