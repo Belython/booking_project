@@ -1,14 +1,10 @@
 package by.kanarski.booking.commands.impl.client;
 
 import by.kanarski.booking.commands.AbstractCommand;
-import by.kanarski.booking.constants.FieldValue;
-import by.kanarski.booking.constants.PagePath;
 import by.kanarski.booking.constants.Parameter;
 import by.kanarski.booking.dto.BillDto;
 import by.kanarski.booking.exceptions.ServiceException;
-import by.kanarski.booking.managers.OperationMessageManager;
 import by.kanarski.booking.requestHandler.ServletAction;
-import by.kanarski.booking.services.impl.BillService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,41 +18,42 @@ public class RefuseBillCommand extends AbstractCommand{
     @Override
     public ServletAction execute(HttpServletRequest request, HttpServletResponse response) {
         ServletAction servletAction = ServletAction.FORWARD_PAGE;
-        String page = null;
-        HttpSession session = request.getSession();
-        try {
-            BillDto refusedBillDto = refuseBill(request);
-            List<BillDto> newBillDtoList = getNewBillDtoList(session, refusedBillDto);
-            session.setAttribute(Parameter.BILL_LIST, newBillDtoList);
-            request.setAttribute(Parameter.OPERATION_MESSAGE, OperationMessageManager.SUCCESS_OPERATION.getLocalised());
-            page = PagePath.ACCOUNT;
-        } catch (ServiceException e) {
-            page = PagePath.ERROR;
-            handleServiceException(request, e);
-        }
-        session.setAttribute(Parameter.CURRENT_PAGE_PATH, page);
-        request.setAttribute(Parameter.CURRENT_PAGE_PATH, page);
-        servletAction.setPage(page);
+//        String page = null;
+//        HttpSession session = request.getSession();
+//        try {
+//            BillDto refusedBillDto = refuseBill(request);
+//            List<BillDto> newBillDtoList = getNewBillDtoList(session, refusedBillDto);
+//            session.setAttribute(Parameter.BILL_LIST, newBillDtoList);
+//            request.setAttribute(Parameter.OPERATION_MESSAGE, OperationMessageManager.SUCCESS_OPERATION.getLocalised());
+//            page = PagePath.ACCOUNT;
+//        } catch (ServiceException e) {
+//            page = PagePath.ERROR;
+//            handleServiceException(request, e);
+//        }
+//        session.setAttribute(Parameter.CURRENT_PAGE_PATH, page);
+//        request.setAttribute(Parameter.CURRENT_PAGE_PATH, page);
+//        servletAction.setPage(page);
         return servletAction;
     }
 
     private BillDto refuseBill(HttpServletRequest request) throws ServiceException{
-        long refusedBillId = Long.valueOf(request.getParameter(Parameter.BILL_TO_REFUSE));
-        BillDto refusedBillDto = BillService.getInstance().getById(refusedBillId);
-//        String checkInDate = refusedBillDto.getCheckInDate();
-//        List<RoomDto> refusedRoomDtoList = refusedBillDto.getRoomList();
-//        for (RoomDto roomDto : refusedRoomDtoList) {
-//            TreeMap<String, String> bookedDates = roomDto.getBookedDates();
-//            if (bookedDates != null) {
-//                bookedDates.remove(checkInDate);
-//                //Да, знаю что лишнее
-//                roomDto.setBookedDates(bookedDates);
-//            }
-//        }
-        refusedBillDto.setBillStatus(FieldValue.STATUS_REFUSED);
-//        RoomServiceImpl.getInstance().updateList(refusedRoomDtoList);
-        BillService.getInstance().update(refusedBillDto);
-        return refusedBillDto;
+//        long refusedBillId = Long.valueOf(request.getParameter(Parameter.BILL_TO_REFUSE));
+//        BillDto refusedBillDto = BillService.getInstance().getById(refusedBillId);
+////        String checkInDate = refusedBillDto.getCheckInDate();
+////        List<RoomDto> refusedRoomDtoList = refusedBillDto.getRoomList();
+////        for (RoomDto roomDto : refusedRoomDtoList) {
+////            TreeMap<String, String> bookedDates = roomDto.getBookedDates();
+////            if (bookedDates != null) {
+////                bookedDates.remove(checkInDate);
+////                //Да, знаю что лишнее
+////                roomDto.setBookedDates(bookedDates);
+////            }
+////        }
+//        refusedBillDto.setBillStatus(FieldValue.STATUS_REFUSED);
+////        RoomServiceImpl.getInstance().updateList(refusedRoomDtoList);
+//        BillService.getInstance().update(refusedBillDto);
+//        return refusedBillDto;
+        return null;
     }
 
     private List<BillDto> getNewBillDtoList(HttpSession session, BillDto refusedBillDto) {

@@ -29,7 +29,7 @@ public class CommandHelper {
             out.flush();
             out.close();
         } catch (IOException e) {
-            BookingSystemLogger.getInstance().logError(CommandHelper.class, e.getMessage(), e);
+            SystemLogger.getInstance().logError(CommandHelper.class, e.getMessage(), e);
         }
     }
 

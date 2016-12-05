@@ -11,7 +11,6 @@ import by.kanarski.booking.dto.location.LocationDto;
 import by.kanarski.booking.dto.roomType.RoomTypeDto;
 import by.kanarski.booking.exceptions.LocalisationException;
 import by.kanarski.booking.exceptions.ServiceException;
-import by.kanarski.booking.services.impl.LocationService;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.ServletRequest;
@@ -94,10 +93,11 @@ public class RequestParser {
         Long locationId = Long.valueOf(request.getParameter(Parameter.LOCATION_ID));
 //        String country = request.getParameter(Parameter.LOCATION_COUNTRY);
 //        String city = request.getParameter(Parameter.LOCATION_CITY);
-        LocationDto locationDto = LocationService.getInstance().getById(locationId);
+//        LocationDto locationDto = LocationService.getInstance().getById(locationId);
         String hotelName = request.getParameter(Parameter.HOTEL_NAME);
         String hotelStatus = request.getParameter(Parameter.HOTEL_STATUS);
-        return new HotelDto(hotelId, locationDto, hotelName, hotelStatus);
+//        return new HotelDto(hotelId, locationDto, hotelName, hotelStatus);
+        return null;
     }
 
     public static String parsePagePath(ServletRequest request) {

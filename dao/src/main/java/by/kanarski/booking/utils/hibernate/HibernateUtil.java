@@ -1,6 +1,6 @@
 package by.kanarski.booking.utils.hibernate;
 
-import by.kanarski.booking.utils.BookingSystemLogger;
+import by.kanarski.booking.utils.SystemLogger;
 import by.kanarski.booking.utils.threadLocal.ThreadLocalUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -10,7 +10,7 @@ import org.hibernate.service.ServiceRegistry;
 
 public class HibernateUtil {
 
-    private static BookingSystemLogger logger = BookingSystemLogger.getInstance().setSender(HibernateUtil.class);
+    private static SystemLogger logger = SystemLogger.getInstance().setSender(HibernateUtil.class);
     private static SessionFactory sessionFactory = null;
 
     public static Session getSession() {

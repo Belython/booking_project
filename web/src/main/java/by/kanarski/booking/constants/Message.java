@@ -4,10 +4,12 @@ package by.kanarski.booking.constants;
 public class Message {
     //I18N
     public static final String EXCEPTION_MESSAGE_I18N = "message_null_params";
+    public static final String LOGIN_ERROR_I18N = "message_wrong_login";
     public static final String PASSWORD_ERROR_I18N = "message_wrong_password";
     public static final String EMAIL_ERROR_I18N = "message_wrong_email";
     public static final String DATE_ERROR_I18N = "message_null_date";
     public static final String PASSPORT_ERROR_I18N = "message_wrong_passport";
+    public static final String WRONG_LOGIN_OR_PASSWORD = "message_wrong_login_or_password";
 
     public static final String SUCCESS_ORDER = "message_success_order";
     public static final String SUCCESS_ORDER_UPDATE = "message_success_order_update";

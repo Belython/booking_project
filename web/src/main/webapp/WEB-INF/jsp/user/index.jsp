@@ -3,8 +3,7 @@
 		 contentType="text/html; charset=UTF-8"
 		 pageEncoding="UTF-8"  %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <c:set var="context" value="${pageContext.request.contextPath}"/>
 
 <html>
@@ -13,7 +12,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<meta name="HandheldFriendly" content="True">
-	<%@include file="/WEB-INF/assets/jsp/user/includes/standardScripts.jsp"%>
+	<%@include file="/WEB-INF/jsp/user/includes/standardScripts.jsp"%>
 
 	<c:choose>
 		<c:when test="${currentLocale eq 'ru_RU'}">
@@ -35,7 +34,7 @@
 </head>
 <body>
 	<!--header-->
-	<%@include file="/WEB-INF/assets/jsp/user/includes/header.jsp"%>
+	<%@include file="/WEB-INF/jsp/user/includes/header.jsp"%>
 	<!--//header-->
 
 	<!--slider-->
@@ -69,11 +68,11 @@
 	<!--//slider-->
 
 	<!--search-->
-	<%@include file="/WEB-INF/assets/jsp/user/includes/search.jsp"%>
+	<%@include file="/WEB-INF/jsp/user/includes/search.jsp"%>
 	<!--//search-->
 
 	<!--footer-->
-	<%@include file="/WEB-INF/assets/jsp/user/includes/footer.jsp"%>
+	<%@include file="/WEB-INF/jsp/user/includes/footer.jsp"%>
 	<!--//footer-->
 	
 	<script>

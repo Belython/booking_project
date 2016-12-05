@@ -1,6 +1,6 @@
 package by.kanarski.booking.utils.transaction;
 
-import by.kanarski.booking.utils.BookingSystemLogger;
+import by.kanarski.booking.utils.SystemLogger;
 import by.kanarski.booking.utils.ConnectionUtil;
 
 import java.sql.Connection;
@@ -14,7 +14,7 @@ import java.sql.SQLException;
 public class SimpleTransaction implements TransactoinWrapper {
 
     private Connection connection;
-    private BookingSystemLogger logger = BookingSystemLogger.getInstance();
+    private SystemLogger logger = SystemLogger.getInstance();
 
     public SimpleTransaction() {
         this.connection = ConnectionUtil.getConnection();

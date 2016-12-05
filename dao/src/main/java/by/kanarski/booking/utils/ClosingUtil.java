@@ -29,7 +29,7 @@ public class ClosingUtil {
             try {
                 statement.close();
             } catch (SQLException e) {
-                BookingSystemLogger.getInstance().logError(ClosingUtil.class, e.getMessage(), e);
+                SystemLogger.getInstance().logError(ClosingUtil.class, e.getMessage(), e);
             }
         }
     }
@@ -44,7 +44,7 @@ public class ClosingUtil {
             try {
                 resultSet.close();
             } catch (SQLException e) {
-                BookingSystemLogger.getInstance().logError(ClosingUtil.class, e.getMessage(), e);
+                SystemLogger.getInstance().logError(ClosingUtil.class, e.getMessage(), e);
             }
         }
     }
@@ -54,7 +54,7 @@ public class ClosingUtil {
             try {
                 connection.close();
             } catch (SQLException e) {
-                BookingSystemLogger.getInstance().logError(ConnectionUtil.class,
+                SystemLogger.getInstance().logError(ConnectionUtil.class,
                         ExceptionMessageManager.DATABASE_CONNECTION_ERROR.get(), e);
             }
         }

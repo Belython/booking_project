@@ -11,7 +11,7 @@ import by.kanarski.booking.dto.location.LocationDto;
 import by.kanarski.booking.dto.roomType.RoomTypeDto;
 import by.kanarski.booking.exceptions.ServiceException;
 import by.kanarski.booking.requestHandler.ServletAction;
-import by.kanarski.booking.utils.BookingSystemLogger;
+import by.kanarski.booking.utils.SystemLogger;
 import by.kanarski.booking.utils.ConstrainUtil;
 import by.kanarski.booking.utils.RequestParser;
 import by.kanarski.booking.utils.field.FieldBuilder;
@@ -56,7 +56,7 @@ public class ConstrainRowCommand extends AbstractCommand{
                 }
             }
         } catch (ServiceException e) {
-            BookingSystemLogger.getInstance().logError(getClass(), e.getMessage(), e);
+            SystemLogger.getInstance().logError(getClass(), e.getMessage(), e);
         }
 
         String formName = RequestParser.parseFormName(request);

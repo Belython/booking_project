@@ -1,9 +1,9 @@
 package by.kanarski.booking.taglib;
 
-import by.kanarski.booking.constants.BookingSystemLocale;
+import by.kanarski.booking.constants.SystemLocale;
 import by.kanarski.booking.exceptions.LocalisationException;
 import by.kanarski.booking.managers.ExceptionMessageManager;
-import by.kanarski.booking.utils.BookingSystemLogger;
+import by.kanarski.booking.utils.SystemLogger;
 import by.kanarski.booking.utils.CurrencyUtil;
 import by.kanarski.booking.utils.DateUtil;
 import by.kanarski.booking.utils.threadLocal.UserPreferences;
@@ -27,13 +27,13 @@ public class Localisator {
      */
 
     public static String getDate(String defaultFormattedDate) {
-        Locale defaultLocale = BookingSystemLocale.DEFAULT;
+        Locale defaultLocale = SystemLocale.DEFAULT;
         Locale userLocale = UserPreferences.getLocale();
         long date = 0;
         try {
             date = DateUtil.parseDate(defaultFormattedDate, defaultLocale);
         } catch (LocalisationException e) {
-            BookingSystemLogger.getInstance().logError(Localisator.class, ExceptionMessageManager.PARSE_DATE_EXCEPTION.get(), e);
+            SystemLogger.getInstance().logError(Localisator.class, ExceptionMessageManager.PARSE_DATE_EXCEPTION.get(), e);
         }
         String formattedDate = DateUtil.getFormattedDate(date, userLocale);
         return formattedDate;

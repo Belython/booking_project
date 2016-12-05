@@ -2,7 +2,7 @@ package by.kanarski.booking.utils.filter;
 
 import by.kanarski.booking.constants.AliasName;
 import by.kanarski.booking.constants.AliasValue;
-import by.kanarski.booking.constants.BookingSystemLocale;
+import by.kanarski.booking.constants.SystemLocale;
 import by.kanarski.booking.constants.SearchParameter;
 
 import java.util.*;
@@ -146,7 +146,7 @@ public class SearchFilter {
     }
 
     public static SearchFilter createBasicLanguageFilter() {
-        String language = BookingSystemLocale.DEFAULT.getLanguage().toUpperCase();
+        String language = SystemLocale.DEFAULT.getLanguage().toUpperCase();
         SearchFilter searchFilter = SearchFilter.createBasicEqFilter(SearchParameter.LANGUAGE_NAME, language);
         searchFilter.addAlias(AliasName.LANGUAGE, AliasValue.LANGUAGE);
         return searchFilter;

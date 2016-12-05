@@ -2,23 +2,23 @@ package by.kanarski.booking.utils;
 
 import org.apache.log4j.Logger;
 
-public class BookingSystemLogger {
+public class SystemLogger {
 
-    private static BookingSystemLogger instance;
+    private static SystemLogger instance;
     private Logger logger;
     private Class sender;
 
-    private BookingSystemLogger() {
+    private SystemLogger() {
     }
 
-    public static synchronized BookingSystemLogger getInstance() {
+    public static synchronized SystemLogger getInstance() {
         if (instance == null) {
-            instance = new BookingSystemLogger();
+            instance = new SystemLogger();
         }
         return instance;
     }
 
-    public BookingSystemLogger setSender(Class sender) {
+    public SystemLogger setSender(Class sender) {
         this.sender = sender;
         return instance;
     }
@@ -32,6 +32,12 @@ public class BookingSystemLogger {
         logger = Logger.getLogger(sender);
         logger.error(message);
     }
+
+    public void logError(Class sender, Throwable error) {
+        logger = Logger.getLogger(sender);
+        logger.error(error);
+    }
+
 
     public void logError(String message, Throwable error) {
         logger = Logger.getLogger(sender);

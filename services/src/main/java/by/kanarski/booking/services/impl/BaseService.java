@@ -7,11 +7,6 @@ import by.kanarski.booking.exceptions.ServiceException;
 import by.kanarski.booking.services.interfaces.IBaseService;
 import by.kanarski.booking.utils.DtoToEntityConverter;
 import by.kanarski.booking.utils.ExceptionHandler;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.ParameterizedType;
 
@@ -20,11 +15,11 @@ import java.lang.reflect.ParameterizedType;
  * @version 1.0
  */
 
-@Service
-@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
+//@Service
+//@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
 public class BaseService<E, D> implements IBaseService<E, D> {
 
-    @Autowired
+//    @Autowired
     private IExtendedBaseDao<E> extendedBaseDao;
 
     protected DtoToEntityConverter<E, D> converter = new DtoToEntityConverter<>(getEntityClass(), getDtoClass());
