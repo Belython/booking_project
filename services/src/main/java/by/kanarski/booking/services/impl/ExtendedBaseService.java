@@ -1,12 +1,16 @@
 package by.kanarski.booking.services.impl;
 
+import by.kanarski.booking.dao.interfaces.IExtendedBaseDao;
 import by.kanarski.booking.exceptions.DaoException;
 import by.kanarski.booking.exceptions.LocalisationException;
 import by.kanarski.booking.exceptions.ServiceException;
 import by.kanarski.booking.services.interfaces.IExtendedBaseService;
 import by.kanarski.booking.utils.ExceptionHandler;
-import by.kanarski.booking.utils.transaction.TransactionManager;
-import by.kanarski.booking.utils.transaction.TransactoinWrapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,19 +19,21 @@ import java.util.List;
  * @version 1.0
  */
 
-public class ExtendedBaseService<E, D> extends BaseService<E, D> implements IExtendedBaseService<D> {
+@Service
+@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
+public class ExtendedBaseService<E, D> extends BaseService<E, D> implements IExtendedBaseService<E, D> {
 
+    @Autowired
+    private IExtendedBaseDao<E> extendedBaseDao;
 
     @Override
     public void updateList(List<D> dtoList) throws ServiceException {
-        TransactoinWrapper transaction = TransactionManager.getTransaction();
+        setEntityClass();
         try {
-            transaction.begin();
             List<E> entityList = converter.toEntityList(dtoList);
             extendedBaseDao.updateList(entityList);
-            transaction.commit();
         } catch (DaoException e) {
-            ExceptionHandler.handleDaoException(transaction, e);
+            ExceptionHandler.handleDaoException(e);
         } catch (LocalisationException e) {
             ExceptionHandler.handleLocalizationException(e);
         }
@@ -35,14 +41,12 @@ public class ExtendedBaseService<E, D> extends BaseService<E, D> implements IExt
 
     @Override
     public void addList(List<D> dtoList) throws ServiceException {
-        TransactoinWrapper transaction = TransactionManager.getTransaction();
+        setEntityClass();
         try {
-            transaction.begin();
             List<E> entityList = converter.toEntityList(dtoList);
             extendedBaseDao.addList(entityList);
-            transaction.commit();
         } catch (DaoException e) {
-            ExceptionHandler.handleDaoException(transaction, e);
+            ExceptionHandler.handleDaoException(e);
         } catch (LocalisationException e) {
             ExceptionHandler.handleLocalizationException(e);
         }
@@ -50,15 +54,13 @@ public class ExtendedBaseService<E, D> extends BaseService<E, D> implements IExt
 
     @Deprecated
     public List<D> getAll(int page, int perPage) throws ServiceException {
-        TransactoinWrapper transaction = TransactionManager.getTransaction();
+        setEntityClass();
         List<D> dtoList = null;
         try {
-            transaction.begin();
             List<E> entityList = extendedBaseDao.getListByFilter(null, page, perPage);
             dtoList = converter.toDtoList(entityList);
-            transaction.commit();
         } catch (DaoException e) {
-            ExceptionHandler.handleDaoException(transaction, e);
+            ExceptionHandler.handleDaoException(e);
         } catch (LocalisationException e) {
             ExceptionHandler.handleLocalizationException(e);
         }

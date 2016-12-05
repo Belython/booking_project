@@ -2,11 +2,12 @@ package by.kanarski.booking.services.interfaces;
 
 import by.kanarski.booking.dto.OrderDto;
 import by.kanarski.booking.dto.RoomDto;
+import by.kanarski.booking.entities.Room;
 import by.kanarski.booking.exceptions.ServiceException;
 
 import java.util.List;
 
-public interface IRoomService extends IBaseService<RoomDto> {
+public interface IRoomService extends IExtendedBaseService<Room, RoomDto> {
 
     List<RoomDto> getAvailableRooms(OrderDto orderDto, int page, int perPage) throws ServiceException;
 

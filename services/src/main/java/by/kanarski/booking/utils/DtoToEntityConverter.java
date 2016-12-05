@@ -4,7 +4,6 @@ import by.kanarski.booking.constants.BookingSystemCurrency;
 import by.kanarski.booking.constants.BookingSystemLocale;
 import by.kanarski.booking.constants.DtoName;
 import by.kanarski.booking.constants.FieldValue;
-import by.kanarski.booking.dao.impl.RoomTypeDao;
 import by.kanarski.booking.dto.BillDto;
 import by.kanarski.booking.dto.RoomDto;
 import by.kanarski.booking.dto.UserDto;
@@ -27,13 +26,24 @@ import by.kanarski.booking.exceptions.DaoException;
 import by.kanarski.booking.exceptions.LocalisationException;
 import by.kanarski.booking.managers.SupportedLanguagesManager;
 import by.kanarski.booking.utils.threadLocal.UserPreferences;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.*;
 
+//@Component
+//@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class DtoToEntityConverter<E, D> {
 
     private static Locale defaultLocale = BookingSystemLocale.DEFAULT;
     private static Currency defaultCurrency = BookingSystemCurrency.DEFAULT;
+
+//    @Autowired
+//    private IRoomTypeDao roomTypeDao;
+
+//    @Autowired
+    private ApplicationContext context = new AnnotationConfigApplicationContext("service-config.xml");
+    private EntityBuilder entityBuilder = context.getBean(EntityBuilder.class);
 
     private Long languageId;
     private Class<E> entityClass;
@@ -292,7 +302,7 @@ public class DtoToEntityConverter<E, D> {
         RoomType roomType = toRoomType(roomDto.getRoomType());
         Integer roomNumber = roomDto.getRoomNumber();
         String roomStatus = roomDto.getRoomStatus();
-        return EntityBuilder.buildRoom(roomId, hotel, roomType, roomNumber, roomStatus);
+        return entityBuilder.buildRoom(roomId, hotel, roomType, roomNumber, roomStatus);
     }
 
     private List<Room> toRoomList(List<RoomDto> roomDtoList) throws LocalisationException, DaoException {
@@ -361,7 +371,7 @@ public class DtoToEntityConverter<E, D> {
         Double paymentAmount = billDto.getPaymentAmount();
         Double paymentAmountUSD = CurrencyUtil.convertToUSD(paymentAmount, defaultCurrency);
         String billStatus = billDto.getBillStatus();
-        return EntityBuilder.buildBill(billId, client, totalPersons, checkInDate, checkOutDate,
+        return entityBuilder.buildBill(billId, client, totalPersons, checkInDate, checkOutDate,
                roomSet, paymentAmountUSD, billStatus);
     }
 
@@ -409,12 +419,16 @@ public class DtoToEntityConverter<E, D> {
         Double pricePerNightUSD = CurrencyUtil.convertToUSD(pricePerNight, defaultCurrency);
         Set<Facility> facilitySet = toFacilitySet(roomTypeId);
         String roomTypeStatus = roomTypeDto.getRoomTypeStatus();
-        return EntityBuilder.buildRoomType(roomTypeId, roomTypeName, maxPersons, pricePerNightUSD,
-                facilitySet, roomTypeStatus);
+        String language = roomTypeDto.getLanguage();
+        Long laguageId = SupportedLanguagesManager.getLanguageId(language);
+        return entityBuilder.buildRoomType(roomTypeId, roomTypeName, maxPersons, pricePerNightUSD,
+                facilitySet, roomTypeStatus, languageId);
     }
 
+    // TODO: 04.12.2016 Поправить, нужно добавить в EntutyBuilder
     private Set<Facility> toFacilitySet(Long roomTypeId) throws DaoException {
-        RoomType roomType = RoomTypeDao.getInstance().getById(roomTypeId);
+//        RoomType roomType = roomTypeDao.getById(roomTypeId);
+        RoomType roomType = new RoomType();
         return roomType.getFacilitySet();
     }
 
@@ -450,7 +464,9 @@ public class DtoToEntityConverter<E, D> {
         String country = locationDto.getCountry();
         String city = locationDto.getCity();
         String locationStatus = locationDto.getLocationStatus();
-        return EntityBuilder.buildLocation(locationId, country, city, locationStatus);
+        String language = locationDto.getLanguage();
+        Long languageId = SupportedLanguagesManager.getLanguageId(language);
+        return entityBuilder.buildLocation(locationId, country, city, locationStatus, languageId);
     }
 
     private List<LocationDto> toLocationDtoList(List<Location> locationList) {
@@ -537,7 +553,9 @@ public class DtoToEntityConverter<E, D> {
         Location location = toLocation(locationDto);
         String hotelName = userHotelDto.getHotelName();
         String hotelStatus = userHotelDto.getHotelStatus();
-        return EntityBuilder.buildHotel(hotelId, location, hotelName, hotelStatus);
+        String language = userHotelDto.getLanguage();
+        Long languageId = SupportedLanguagesManager.getLanguageId(language);
+        return entityBuilder.buildHotel(hotelId, location, hotelName, hotelStatus, languageId);
     }
 
     private List<Hotel> toHotelListFromUserHotelList(List<UserHotelDto> userHotelDtoList) throws DaoException {
@@ -564,7 +582,9 @@ public class DtoToEntityConverter<E, D> {
         Location location = toLocation(locationDto);
         String hotelName = hotelDto.getHotelName();
         String hotelStatus = hotelDto.getHotelStatus();
-        return EntityBuilder.buildHotel(hotelId, location, hotelName, hotelStatus);
+        String laguage = hotelDto.getLanguage();
+        Long languageId = SupportedLanguagesManager.getLanguageId(laguage);
+        return entityBuilder.buildHotel(hotelId, location, hotelName, hotelStatus, languageId);
     }
 
     private List<Hotel> toHotelList(List<HotelDto> hotelDtoList) throws DaoException {
@@ -615,7 +635,7 @@ public class DtoToEntityConverter<E, D> {
         String password = userDto.getPassword();
         String role = userDto.getRole();
         String userStatus = userDto.getUserStatus();
-        return EntityBuilder.buildUser(userId, firstName, lastName, email, login, password, role, userStatus);
+        return entityBuilder.buildUser(userId, firstName, lastName, email, login, password, role, userStatus);
     }
 
     private List<User> toUserList(List<UserDto> userDtoList) throws DaoException {

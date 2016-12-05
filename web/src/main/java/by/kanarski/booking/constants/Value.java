@@ -37,4 +37,8 @@ public class Value {
 
     public static final String FIELD_PRIMITIVE = "primitive";
     public static final String FIELD_ITERABLE = "iterable";
+
+    //Validation values
+
+    public static final Integer MIN_PASSWORD_SIZE = 7;
 }

@@ -9,6 +9,6 @@ import by.kanarski.booking.entities.roomType.RoomTypeTranslation;
  * @see IBaseDao
  */
 
-public interface IRoomTypeTranslationDao extends IBaseDao<RoomTypeTranslation> {
+public interface IRoomTypeTranslationDao extends IExtendedBaseDao<RoomTypeTranslation> {
 
 }

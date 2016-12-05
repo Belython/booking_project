@@ -32,6 +32,10 @@ public class ExceptionHandler {
         }
     }
 
+    public static void handleDaoException(Exception exception) throws ServiceException {
+        throw new ServiceException(exception.getMessage(), exception);
+    }
+
     public static void handleLocalizationException(Exception exception) {
         LOGGER.logError(exception.getMessage(), exception);
     }

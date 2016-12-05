@@ -13,7 +13,7 @@ import java.util.List;
  * @see IBaseDao
  */
 
-public interface IExtendedDao<T> extends IBaseDao<T> {
+public interface IExtendedBaseDao<T> extends IBaseDao<T> {
 
     void updateList(List<T> tList) throws DaoException;
 
@@ -28,6 +28,8 @@ public interface IExtendedDao<T> extends IBaseDao<T> {
     T getUniqueByFilter(SearchFilter filter) throws DaoException;
 
 //    Long getResultsSize(SearchFilter filter, String searchProperty) throws DaoException;
+
+    void setEntityClass(Class<T> entityClass);
 
 }
 

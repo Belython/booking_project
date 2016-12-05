@@ -2,19 +2,16 @@ package by.kanarski.booking.dao.impl;
 
 import by.kanarski.booking.dao.interfaces.IRoomTypeTranslationDao;
 import by.kanarski.booking.entities.roomType.RoomTypeTranslation;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class RoomTypeTranslationDao extends ExtendedBaseDao<RoomTypeTranslation> implements IRoomTypeTranslationDao {
 
-    private static RoomTypeTranslationDao instance = null;
-
-    private RoomTypeTranslationDao() {
-    }
-
-    public static synchronized RoomTypeTranslationDao getInstance() {
-        if (instance == null) {
-            instance = new RoomTypeTranslationDao();
-        }
-        return instance;
+    @Autowired
+    public RoomTypeTranslationDao(SessionFactory sessionFactory) {
+        super(sessionFactory);
     }
 
 }

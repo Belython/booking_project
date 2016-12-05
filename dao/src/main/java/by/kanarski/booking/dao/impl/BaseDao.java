@@ -2,8 +2,10 @@ package by.kanarski.booking.dao.impl;
 
 import by.kanarski.booking.dao.interfaces.IBaseDao;
 import by.kanarski.booking.exceptions.DaoException;
-import by.kanarski.booking.utils.hibernate.HibernateUtil;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
@@ -13,8 +15,15 @@ import java.lang.reflect.ParameterizedType;
  * @version 1.0
  */
 
+@Repository
 public class BaseDao<T> implements IBaseDao<T> {
-    
+    private SessionFactory sessionFactory;
+
+    @Autowired
+    public BaseDao(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
     @Override
     public void add(T t) throws DaoException {
         getSession().save(t);
@@ -36,7 +45,7 @@ public class BaseDao<T> implements IBaseDao<T> {
     }
 
     protected Session getSession() {
-        return HibernateUtil.getSession();
+        return sessionFactory.getCurrentSession();
     }
 
     protected Class<T> getPersistentClass() {

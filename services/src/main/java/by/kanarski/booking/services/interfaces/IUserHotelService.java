@@ -2,12 +2,13 @@ package by.kanarski.booking.services.interfaces;
 
 import by.kanarski.booking.dto.OrderDto;
 import by.kanarski.booking.dto.hotel.UserHotelDto;
+import by.kanarski.booking.entities.hotel.Hotel;
 import by.kanarski.booking.exceptions.ServiceException;
 
 import java.util.List;
 
 
-public interface IUserHotelService extends IBaseService<UserHotelDto> {
+public interface IUserHotelService extends IExtendedBaseService<Hotel, UserHotelDto> {
 
 //    List<UserHotelDto> getByHotelName(String hotelName) throws ServiceException;
 //

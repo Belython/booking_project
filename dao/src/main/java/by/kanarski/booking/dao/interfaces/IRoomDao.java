@@ -9,6 +9,6 @@ import by.kanarski.booking.entities.Room;
  * @see IBaseDao
  */
 
-public interface IRoomDao extends IBaseDao<Room> {
+public interface IRoomDao extends IExtendedBaseDao<Room> {
 
 }

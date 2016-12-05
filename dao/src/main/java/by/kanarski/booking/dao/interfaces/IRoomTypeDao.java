@@ -1,9 +1,6 @@
 package by.kanarski.booking.dao.interfaces;
 
 import by.kanarski.booking.entities.roomType.RoomType;
-import by.kanarski.booking.exceptions.DaoException;
-
-import java.util.List;
 
 /**
  * Room type dao interface
@@ -12,10 +9,6 @@ import java.util.List;
  * @see IBaseDao
  */
 
-public interface IRoomTypeDao extends IBaseDao<RoomType> {
-
-    void updateList(List<RoomType> roomTypeList) throws DaoException;
-
-    void addList(List<RoomType> roomTypeList) throws DaoException;
+public interface IRoomTypeDao extends IExtendedBaseDao<RoomType> {
 
 }
