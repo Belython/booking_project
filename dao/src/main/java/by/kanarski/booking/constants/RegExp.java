@@ -16,6 +16,6 @@ public class RegExp {
     public static final String DESTINATION = "((^[A-Яа-я\\w- ]+, )|(, (\\3), )|(, (\\3))$)";
     public static final String LOGIN = "\\w+";
     public static final String EMAIL = "^[0-9a-zA-Zа-яА-я]*[@][a-z]*[.][a-z]{1,3}$";
-    public static final String PASSWORD = "*+";
+    public static final String PASSWORD = "\\w+";
 
 }

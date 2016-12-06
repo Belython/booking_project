@@ -130,6 +130,11 @@ public class UserHotelService extends ExtendedBaseService<Hotel, UserHotelDto> i
         DtoToEntityConverter<User, UserDto> userConverter =
                 new DtoToEntityConverter<>(User.class, UserDto.class, language);
         UserDto userDto = orderDto.getUser();
+//        DtoToEntityConverter<Hotel, HotelDto> hotelConverter =
+//                ContextHolder.getServiceContext().getBean(DtoToEntityConverter.class, Hotel.class, HotelDto.class, language);
+//        DtoToEntityConverter<User, UserDto> userConverter =
+//                ContextHolder.getServiceContext().getBean(DtoToEntityConverter.class, User.class, UserDto.class);
+//        UserDto userDto = orderDto.getUser();
         User user = null;
         if (userDto != null) {
             user = userConverter.toEntity(userDto);

@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.List;
 
 /**
@@ -27,8 +28,21 @@ public class ExtendedBaseService<E, D> implements IExtendedBaseService<E, D> {
 
     @Autowired
     private IExtendedBaseDao<E> extendedBaseDao;
+//    private IExtendedBaseDao<E> extendedBaseDao = ContextHolder.getDaoContext().getBean(IExtendedBaseDao.class);
 
     protected DtoToEntityConverter<E, D> converter = new DtoToEntityConverter<>(getEntityClass(), getDtoClass());
+//    protected DtoToEntityConverter<E, D> converter;
+//    protected DtoToEntityConverter<E, D> converter = ContextHolder.getServiceContext().getBean(DtoToEntityConverter.class,
+//        getEntityClass(), getDtoClass());
+
+//    @PostConstruct
+//    public void init() {
+//        getConverter();
+//    }
+
+//    private void getConverter() {
+//        this.converter = new DtoToEntityConverter<>(getEntityClass(), getDtoClass());
+//    }
 
     @Override
     public void add(D dto) throws ServiceException {
@@ -126,19 +140,28 @@ public class ExtendedBaseService<E, D> implements IExtendedBaseService<E, D> {
     }
 
     private void setEntityClass() {
+//        getConverter();
         extendedBaseDao.setEntityClass(getEntityClass());
     }
 
 
     protected Class<E> getEntityClass() {
-        ParameterizedType classType = (ParameterizedType) getClass().getGenericSuperclass();
-        Class<E> persistentClass = (Class<E>) classType.getActualTypeArguments()[0];
+        Type superclass = getClass().getGenericSuperclass();
+        Class<E> persistentClass = null;
+        if (!superclass.equals(Object.class)) {
+            ParameterizedType classType = (ParameterizedType) superclass;
+            persistentClass = (Class<E>) classType.getActualTypeArguments()[0];
+        }
         return persistentClass;
     }
 
     protected Class<D> getDtoClass() {
-        ParameterizedType classType = (ParameterizedType) getClass().getGenericSuperclass();
-        Class<D> persistentClass = (Class<D>) classType.getActualTypeArguments()[1];
+        Type superclass = getClass().getGenericSuperclass();
+        Class<D> persistentClass = null;
+        if (!superclass.equals(Object.class)) {
+            ParameterizedType classType = (ParameterizedType) superclass;
+            persistentClass = (Class<D>) classType.getActualTypeArguments()[1];
+        }
         return persistentClass;
     }
 

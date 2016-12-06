@@ -24,30 +24,63 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-@Component("entityBuilder")
+@Component
 public class EntityBuilder {
 
     private SupportedLanguages supportedLanguages = SupportedLanguagesManager.get();
     private String userLanguage = UserPreferences.getLocale().getLanguage();
     private Long userLanguageId = Integer.toUnsignedLong(supportedLanguages.indexOf(userLanguage));
 
-    @Autowired
+//    @Autowired
     private IUserDao userDao;
 
-    @Autowired
+//    @Autowired
     private ILocationDao locationDao;
 
-    @Autowired
+//    @Autowired
     private IHotelDao hotelDao;
 
-    @Autowired
+//    @Autowired
     private IRoomDao roomDao;
 
-    @Autowired
+//    @Autowired
     private IRoomTypeDao roomTypeDao;
 
-    @Autowired
+//    @Autowired
     private IBillDao billDao;
+
+    @Autowired(required = false)
+    public EntityBuilder(IUserDao userDao, ILocationDao locationDao, IHotelDao hotelDao, IRoomDao roomDao, IRoomTypeDao roomTypeDao, IBillDao billDao) {
+        this.userDao = userDao;
+        this.locationDao = locationDao;
+        this.hotelDao = hotelDao;
+        this.roomDao = roomDao;
+        this.roomTypeDao = roomTypeDao;
+        this.billDao = billDao;
+    }
+
+    //
+//    @PostConstruct
+//    public void init(IUserDao userDao, ILocationDao locationDao, IHotelDao hotelDao, IRoomDao roomDao,
+//                 IRoomTypeDao roomTypeDao, IBillDao billDao) {
+//        @Autowired
+//        userDao;
+//
+//        @Autowired
+//        locationDao;
+//
+//        @Autowired
+//        hotelDao;
+//
+//        @Autowired
+//        private IRoomDao roomDao;
+//
+//        @Autowired
+//        private IRoomTypeDao roomTypeDao;
+//
+//        @Autowired
+//        private IBillDao billDao;
+//    }
 
     public User buildUser(Long userId, String firstName, String lastName, String email, String login,
                                  String password, String role, String userStatus) throws DaoException {

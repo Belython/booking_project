@@ -40,8 +40,13 @@ public class HotelService extends ExtendedBaseService<Hotel, HotelDto> implement
     @Autowired
     private ServiceHelper serviceHelper;
 
-    private DtoToEntityConverter<Location, LocationDto> locationConverter = new DtoToEntityConverter<>(
-            Location.class, LocationDto.class);
+//    private DtoToEntityConverter<Location, LocationDto> locationConverter = new DtoToEntityConverter<>(
+//            Location.class, LocationDto.class);
+
+
+
+//    private DtoToEntityConverter<Location, LocationDto> locationConverter = ContextHolder.getServiceContext().getBean(
+//            DtoToEntityConverter.class, Location.class, LocationDto.class);
 
     @Override
     public List<HotelDto> getByHotelName(HotelDto initialHotelDto, int page, int perPage) throws ServiceException {
@@ -146,6 +151,9 @@ public class HotelService extends ExtendedBaseService<Hotel, HotelDto> implement
 //                    break;
 //                }
             }
+            DtoToEntityConverter<Location, LocationDto> locationConverter = new DtoToEntityConverter<>(
+                    Location.class, LocationDto.class);
+
             List<HotelDto> partHotelDtoList = converter.toDtoList(hotelList);
             List<LocationDto> partLocationDtoList = locationConverter.toDtoList(locationList);
             List<HotelDto> anyHotelDtoList = converter.toAnyHotelDtoList(partLocationDtoList);
