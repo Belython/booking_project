@@ -26,8 +26,6 @@ import by.kanarski.booking.exceptions.DaoException;
 import by.kanarski.booking.exceptions.LocalisationException;
 import by.kanarski.booking.managers.SupportedLanguagesManager;
 import by.kanarski.booking.utils.threadLocal.UserPreferences;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.*;
 
@@ -42,9 +40,9 @@ public class DtoToEntityConverter<E, D> {
 //    private IRoomTypeDao roomTypeDao;
 
 //    @Autowired
-    private ApplicationContext context = new ClassPathXmlApplicationContext("service-config.xml");
-    private EntityBuilder entityBuilder = (EntityBuilder) context.getBean("entityBuilder");
-//    @Autowired
+//    private ApplicationContext context = new ClassPathXmlApplicationContext("service-config.xml");
+    private static EntityBuilder entityBuilder = ContextHolder.getServiceContext().getBean(EntityBuilder.class);
+//    @Autowired(required = false)
 //    private EntityBuilder entityBuilder;
 
     private Long languageId;

@@ -18,7 +18,7 @@
     <context:component-scan base-package="by.kanarski.booking.controllers"/>
 
     <!-- show path to UI resources files-->
-    <mvc:resources mapping="/resources/**" location="/assets/"/>
+    <mvc:resources mapping="/assets/**" location="/assets/"/>
 
     <bean id="viewResolver"
           class="org.springframework.web.servlet.view.InternalResourceViewResolver">
