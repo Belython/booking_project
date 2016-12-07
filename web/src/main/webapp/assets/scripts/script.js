@@ -31,14 +31,34 @@ function main() {
         });
     }
 
+    // function getPosstibleDestinations(event) {
+    //     var destination = $("#destination");
+    //     var destinationName = destination.attr("name");
+    //     var destinantonValue = destination.val();
+    //     var destinationParameter = destinationName + "=" + destinantonValue;
+    //     var context = "/booking/";
+    //     var action = "get_destinations";
+    //     var url = context + action + "?" + destinationParameter;
+    //     $.get(url, function (data, status) {
+    //         var possibleDestinations = $(data);
+    //         var destinations = $("#destinations");
+    //         destinations.empty();
+    //         destinations.append(possibleDestinations);
+    //     }, "html");
+    // }
+
     function getPosstibleDestinations(event) {
         var destination = $("#destination");
         var destinationName = destination.attr("name");
         var destinantonValue = destination.val();
         var destinationParameter = destinationName + "=" + destinantonValue;
-        var commandParameter = "command=getDestinations";
-        var url = "controller?" + commandParameter + "&" + destinationParameter;
-        $.get(url, function (data, status) {
+        var context = "/booking";
+        var action = "get_destinations";
+        var url = context + action + "?" + destinationParameter;
+        $.post(action, {
+            destination: destinantonValue
+        },
+        function (data, status) {
             var possibleDestinations = $(data);
             var destinations = $("#destinations");
             destinations.empty();

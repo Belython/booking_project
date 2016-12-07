@@ -8,9 +8,8 @@
     <div class="wrap clearfix">
         <!--logo-->
         <h1 class="logo">
-            <a href="controller?command=goToMain" title="Book Your Travel - home">
+            <a href="${context}/index" title="Book Your Travel - home">
                 <img src="${context}/assets/images/txt/logo.png" alt="Book Your Travel" />
-
             </a>
         </h1>
         <!--//logo-->
@@ -143,11 +142,10 @@
     </nav>
     <!--//main navigation-->
 
-    <!--operation message-->
-    <div>
-        <p class="message">${operationMessage}</p>
-    </div>
-    <!--//operation message-->
+    <script>
+        // Initiate selectnav function
+        selectnav();
+    </script>
 
 </header>
 

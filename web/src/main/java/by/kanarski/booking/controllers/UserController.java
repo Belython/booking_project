@@ -43,6 +43,8 @@ public class UserController {
 
     @RequestMapping(value = Pages.VALUE_LOGIN, method = RequestMethod.POST)
     public String loginUser(UserDto unauthorizedUser, Model model, HttpServletRequest request) throws ServiceException {
+        HttpSession session = request.getSession();
+        String currentPage = (String) session.getAttribute(Parameter.CURRENT_PAGE_PATH);
         String login = unauthorizedUser.getLogin();
         String password = unauthorizedUser.getPassword();
         if ((!login.matches(RegExp.LOGIN)) || (!password.matches(RegExp.PASSWORD))) {
@@ -55,7 +57,6 @@ public class UserController {
                     model.addAttribute("login_or_password_error", "login_or_password_error");
                 } else {
                     model.addAttribute(Parameter.USER, authorizedUser);
-                    HttpSession session = request.getSession();
                     session.setAttribute(Parameter.USER, authorizedUser);
                 }
             }
@@ -119,6 +120,11 @@ public class UserController {
         filler.fill(request);
         page = Pages.PAGE_INDEX;
         return page;
+    }
+
+    @RequestMapping(value = Pages.VALUE_INDEX, method = RequestMethod.GET)
+    public String toMainPage() {
+        return Pages.PAGE_INDEX;
     }
 
 

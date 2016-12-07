@@ -1,12 +1,14 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <!--search-->
 <div class="main-search">
-    <form id="main-search" method="post" action="controller">
+    <form id="main-search" method="post" action="search">
         <input type="hidden" name="command" value="goToSearchResults"/>
         <!--column-->
         <div class="column radios">
-            <h4><span>01</span> What?</h4>
+            <h4><span>01</span><spring:message code="search.what"/></h4>
             <div class="f-item" >
                 <input type="radio" name="radio" id="hotel" value="form1" />
                 <label for="hotel">Hotel</label>
@@ -39,10 +41,11 @@
             <div class="form" id="form1">
                 <!--column-->
                 <div class="column">
-                    <h4><span>02</span> Where?</h4>
+                    <h4><span>02</span><spring:message code="search.where"/></h4>
                     <div class="f-item">
                         <label for="destination">Your destination</label>
-                        <input type="text" list="destinations" placeholder="City, region, district or specific hotel"
+                        <input type="text" list="destinations"
+                               placeholder="<spring:message code='parameter.destinationValue'/>"
                                id="destination" name="destination"/>
                         <datalist id="destinations">
                             <%--HERE IS SOME AJAX (see destinations.jsp)--%>
@@ -53,15 +56,15 @@
 
                 <!--column-->
                 <div class="column twins">
-                    <h4><span>03</span> When?</h4>
+                    <h4><span>03</span><spring:message code="search.when"/></h4>
                     <div class="f-item datepicker">
-                        <label for="checkInDate">${index_checkInDate}</label>
+                        <label for="checkInDate"><spring:message code="parameter.checkInDate"/></label>
                         <div class="">
                             <input class="tcal" type="text" id="checkInDate" name="checkInDate"/>
                         </div>
                     </div>
                     <div class="f-item datepicker">
-                        <label for="checkOutDate">${index_checkOutDate}</label>
+                        <label for="checkOutDate"><spring:message code="parameter.checkOutDate"/></label>
                         <div class="">
                             <input class="tcal" type="text" id="checkOutDate" name="checkOutDate"/>
                         </div>
@@ -71,13 +74,13 @@
 
                 <!--column-->
                 <div class="column twins">
-                    <h4><span>04</span> Who?</h4>
+                    <h4><span>04</span><spring:message code="search.who"/></h4>
                     <div class="f-item spinner">
-                        <label for="spinner1">${index_roomsAmount}</label>
+                        <label for="spinner1"><spring:message code="parameter.totalRooms"/></label>
                         <input type="text" placeholder="" id="spinner1" name="totalRooms" />
                     </div>
                     <div class="f-item spinner">
-                        <label for="spinner2">${index_personsAmount}</label>
+                        <label for="spinner2"><spring:message code="parameter.totalPersons"/></label>
                         <input type="text" placeholder="" id="spinner2" name="totalPersons" />
                     </div>
                 </div>
@@ -85,7 +88,7 @@
             </div>
             <!--//form hotel-->
         </div>
-        <input type="submit" value="${index_searchRooms}" class="search-submit" id="search-submit">
+        <input type="submit" value="<spring:message code='search.search'/>" class="search-submit" id="search-submit">
     </form>
 </div>
 <!--//search-->
