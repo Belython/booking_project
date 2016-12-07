@@ -21,7 +21,7 @@
     </appender>
 
     <root>
-        <priority value="ERROR"/>
+        <priority value="DEBUG"/>
         <appender-ref ref="File"/>
         <appender-ref ref="Console"/>
     </root>

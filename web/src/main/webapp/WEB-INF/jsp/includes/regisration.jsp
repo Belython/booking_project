@@ -5,7 +5,7 @@
 	<div class="lb-wrap">
 		<a href="#" class="close">x</a>
 		<div class="lb-content">
-			<form name="registrationForm" method="POST" action="controller">
+			<form name="registrationForm" method="POST" action="register">
 				<input type="hidden" name="command" value="register"/>
 				<h1>${registration_registration}</h1>
 				<div class="f-item">

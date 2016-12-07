@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <c:set var="context" value="${pageContext.request.contextPath}"/>
 
@@ -20,6 +21,7 @@
                 <ul class="profile-nav">
                     <li class="active">
                         <a href="#" title="My Account">My Account</a>
+                        <spring:message code="hello"/>
                     </li>
                     <c:choose>
                         <c:when test="${empty user}">
@@ -38,7 +40,7 @@
                                 <a href="controller?command=goToAccount" title="Settings">Settings</a>
                             </li>
                             <li>
-                                <a href="controller?command=logout">${header_signOut}</a>
+                                <a href="${context}/logout">${header_signOut}</a>
                             </li>
                         </c:otherwise>
                     </c:choose>
@@ -56,7 +58,7 @@
                             </c:when>
                             <c:otherwise>
                                 <li>
-                                    <a href="controller?command=setLocale&currentLocale=${locale}" title=${displayLanguage}>${displayLanguage}</a>
+                                    <a href="${context}/set_locale?locale=${locale}" title=${displayLanguage}>${displayLanguage}</a>
                                 </li>
                             </c:otherwise>
                         </c:choose>
