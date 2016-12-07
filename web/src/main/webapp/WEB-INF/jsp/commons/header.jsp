@@ -20,6 +20,7 @@
                 <ul class="profile-nav">
                     <li class="active">
                         <a href="#" title="My Account">My Account</a>
+                        <spring:message code="hello"/>
                     </li>
                     <c:choose>
                         <c:when test="${empty user}">
