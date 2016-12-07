@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
+@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT)
 public class UserService extends ExtendedBaseService<User, UserDto> implements IUserService {
 
     @Autowired
@@ -83,7 +83,7 @@ public class UserService extends ExtendedBaseService<User, UserDto> implements I
     }
 
     @Override
-    public void registrateUser(UserDto userDto) throws ServiceException {
+    public void registerUser(UserDto userDto) throws ServiceException {
         try {
             User user = converter.toEntity(userDto);
             userDao.add(user);

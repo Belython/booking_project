@@ -40,7 +40,7 @@ public class Pages {
     public static final String VALUE_GO_TO_EDIT_CLIENT = "go_to_edit_client";
     public static final String VALUE_CHANGE_DATA = "change_data";
     public static final String VALUE_GET_PASSWORD = "get_password";
-    public static final String VALUE_NEW_USER = "new_user";
+    public static final String REGISTER_USER = "register";
     public static final String VALUE_GET_ALL_USERS = "get_all_users";
     public static final String VALUE_404 = "404";
     public static final String VALUE_CONTACT_INFO = "contact_info";
@@ -58,4 +58,7 @@ public class Pages {
     public static final String VALUE_ADD_CAR = "add_car";
     public static final String VALUE_CHECK_CAR = "check_car";
     public static final String PROCESS_ORDER = "process_order";
+    public static final String VALUE_SET_LOCALE = "set_locale";
+    public static final String VALUE_SEARCH = "search";
+    public static final String VALUE_GET_DESTINATIONS = "get_destinations";
 }

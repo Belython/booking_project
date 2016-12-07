@@ -1,5 +1,6 @@
 package by.kanarski.booking.services.interfaces;
 
+import by.kanarski.booking.dto.DestinationDto;
 import by.kanarski.booking.dto.hotel.HotelDto;
 import by.kanarski.booking.entities.hotel.Hotel;
 import by.kanarski.booking.exceptions.ServiceException;
@@ -16,5 +17,7 @@ public interface IHotelService extends IExtendedBaseService<Hotel, HotelDto> {
     List<HotelDto> getByCountry(HotelDto hotelDto, int page, int perPage) throws ServiceException;
 
     List<HotelDto> getByCity(HotelDto hotelDto, int page, int perPage) throws ServiceException;
+
+    List<HotelDto> getByDestination(DestinationDto destinationDto, int page, int perPage) throws ServiceException;
 
 }

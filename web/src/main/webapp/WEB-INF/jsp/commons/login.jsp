@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-
 <div id="loginBlock" class="lightbox" style="display:none;">
     <div class="lb-wrap">
         <a href="#" class="close">x</a>

@@ -9,15 +9,12 @@
 
 <html>
 <head>
-    <title>${error_error}</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="HandheldFriendly" content="True">
-    <%@include file="/WEB-INF/jsp/includes/standardScripts.jsp"%>
+    <title>${error}</title>
+    <%@include file="/WEB-INF/jsp/commons/standard_scripts.jsp"%>
 </head>
 <body>
     <!--header-->
-    <%@include file="/WEB-INF/jsp/includes/header.jsp"%>
+    <%@include file="/WEB-INF/jsp/commons/header.jsp"%>
     <!--//header-->
 
     <!--main-->
@@ -54,7 +51,7 @@
     <!--//main-->
 
     <!--footer-->
-    <%@include file="/WEB-INF/jsp/includes/footer.jsp"%>
+    <%@include file="/WEB-INF/jsp/commons/footer.jsp"%>
     <!--//footer-->
 
 </body>

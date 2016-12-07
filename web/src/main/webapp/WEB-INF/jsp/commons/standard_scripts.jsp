@@ -1,6 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="HandheldFriendly" content="True">
 <link rel="stylesheet" href="${context}/assets/css/style.css" type="text/css" media="screen,projection,print" />
 <link rel="stylesheet" href="${context}/assets/css/prettyPhoto.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="${context}/assets/plugins/calendar/tcal.css" type="text/css" />
@@ -15,3 +18,21 @@
 <script type="text/javascript" src="${context}/assets/js/selectnav.js"></script>
 <script type="text/javascript" src="${context}/assets/js/scripts.js"></script>
 <script type="text/javascript" src="${context}/assets/scripts/script.js"></script>
+
+<c:choose>
+    <c:when test="${currentLocale eq 'ru_RU'}">
+        <script type="text/javascript" src="${context}/assets/plugins/calendar/tcal_ru.js"></script>
+    </c:when>
+    <c:when test="${currentLocale eq 'en_US'}">
+        <script type="text/javascript" src="${context}/assets/plugins/calendar/tcal_en.js"></script>
+    </c:when>
+</c:choose>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(".form").hide();
+        $(".form:first").show();
+        $(".f-item:first").addClass("active");
+        $(".f-item:first span").addClass("checked");
+    });
+</script>

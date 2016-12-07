@@ -104,6 +104,7 @@ public class HotelService extends ExtendedBaseService<Hotel, HotelDto> implement
         return hotelDtoList;
     }
 
+    @Override
     public List<HotelDto> getByDestination(DestinationDto destinationDto, int page, int perPage) throws ServiceException {
         List<HotelDto> hotelDtoList = null;
         List<String> parameterList = destinationDto.getParameterList();

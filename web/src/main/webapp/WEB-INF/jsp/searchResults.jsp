@@ -15,7 +15,7 @@
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    <%@include file="includes/standardScripts.jsp"%>
+    <%@include file="commons/standardScripts.jsp"%>
     <script type="text/javascript">
         $(document).ready(function() {
             $('dt').each(function() {

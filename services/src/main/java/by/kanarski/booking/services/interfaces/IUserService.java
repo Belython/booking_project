@@ -14,7 +14,7 @@ public interface IUserService extends IExtendedBaseService<User, UserDto> {
 
     boolean isNewUser(UserDto userDto) throws ServiceException;
 
-    void registrateUser(UserDto userDto) throws ServiceException;
+    void registerUser(UserDto userDto) throws ServiceException;
 
     UserDto loginUser(UserDto unauthorizedUser) throws ServiceException;
 

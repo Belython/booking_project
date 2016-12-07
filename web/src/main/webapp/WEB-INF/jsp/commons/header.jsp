@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <c:set var="context" value="${pageContext.request.contextPath}"/>
 
@@ -7,9 +8,8 @@
     <div class="wrap clearfix">
         <!--logo-->
         <h1 class="logo">
-            <a href="controller?command=goToMain" title="Book Your Travel - home">
+            <a href="${context}/index" title="Book Your Travel - home">
                 <img src="${context}/assets/images/txt/logo.png" alt="Book Your Travel" />
-
             </a>
         </h1>
         <!--//logo-->
@@ -38,7 +38,7 @@
                                 <a href="controller?command=goToAccount" title="Settings">Settings</a>
                             </li>
                             <li>
-                                <a href="controller?command=logout">${header_signOut}</a>
+                                <a href="${context}/logout">${header_signOut}</a>
                             </li>
                         </c:otherwise>
                     </c:choose>
@@ -56,7 +56,7 @@
                             </c:when>
                             <c:otherwise>
                                 <li>
-                                    <a href="controller?command=setLocale&currentLocale=${locale}" title=${displayLanguage}>${displayLanguage}</a>
+                                    <a href="${context}/set_locale?locale=${locale}" title=${displayLanguage}>${displayLanguage}</a>
                                 </li>
                             </c:otherwise>
                         </c:choose>
@@ -141,11 +141,10 @@
     </nav>
     <!--//main navigation-->
 
-    <!--operation message-->
-    <div>
-        <p class="message">${operationMessage}</p>
-    </div>
-    <!--//operation message-->
+    <script>
+        // Initiate selectnav function
+        selectnav();
+    </script>
 
 </header>
 
