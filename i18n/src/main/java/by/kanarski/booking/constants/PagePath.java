@@ -4,7 +4,7 @@ public class PagePath {
 
     //User pages
 
-    public static final String INDEX = "/WEB-INF/assets/jsp/user/index.jsp";
+    public static final String INDEX = "/WEB-INF/jsp/index.jsp";
     public static final String REGISTRATION = "/WEB-INF/assets/jsp/user/registration.jsp";
     public static final String SEARCH_RESULTS = "/WEB-INF/assets/jsp/user/searchResults.jsp";
     public static final String SELECT_ROOMS = "/WEB-INF/assets/jsp/user/selectRooms.jsp";

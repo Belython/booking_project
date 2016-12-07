@@ -40,7 +40,7 @@
     </context-param>
 
     <session-config>
-        <session-timeout>60</session-timeout>
+        <session-timeout>1800</session-timeout>
     </session-config>
 
     <!--<filter>-->
@@ -68,20 +68,32 @@
             <param-value>true</param-value>
         </init-param>
     </filter>
-
     <filter-mapping>
         <filter-name>EncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-    <!--<filter>-->
-        <!--<filter-name>LocalizationFilter</filter-name>-->
-        <!--<filter-class>by.kanarski.booking.filters.LocalizationFilter</filter-class>-->
-    <!--</filter>-->
-    <!--<filter-mapping>-->
-        <!--<filter-name>LocalizationFilter</filter-name>-->
-        <!--<url-pattern>/*</url-pattern>-->
-    <!--</filter-mapping>-->
+    <filter>
+        <filter-name>SessionFilter</filter-name>
+        <filter-class>org.springframework.orm.hibernate4.support.OpenSessionInViewFilter</filter-class>
+        <init-param>
+            <param-name>sessionFactoryBeanName</param-name>
+            <param-value>sessionFactory</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>SessionFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>LocalizationFilter</filter-name>
+        <filter-class>by.kanarski.booking.filters.LocalizationFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>LocalizationFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
     <!--<filter>-->
         <!--<filter-name>SecurityFilter</filter-name>-->
         <!--<filter-class>by.kanarski.booking.filters.SecurityFilter</filter-class>-->
@@ -99,6 +111,9 @@
         <!--<url-pattern>/*</url-pattern>-->
     <!--</filter-mapping>-->
 
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
     <listener>
         <listener-class>by.kanarski.booking.listeners.request.LocaleListener</listener-class>
     </listener>

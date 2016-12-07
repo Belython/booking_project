@@ -1,8 +1,11 @@
 package by.kanarski.booking.dto;
 
+import by.kanarski.booking.managers.DatabaseManager;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.Pattern;
 
 @Data
 @NoArgsConstructor
