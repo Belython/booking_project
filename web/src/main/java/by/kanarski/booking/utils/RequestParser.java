@@ -45,20 +45,20 @@ public class RequestParser {
         return new UserDto(userId, firstName, lastName, email, login, password, role, userStatus);
     }
 
-    public static OrderDto parseOrderDto(HttpServletRequest request) throws ServiceException {
-        HttpSession session = request.getSession();
-        UserDto userDto = (UserDto) session.getAttribute(Parameter.USER);
-        Integer totalPersons = Integer.valueOf(request.getParameter(Parameter.ORDER_TOTAL_PERSONS));
-        Integer totalRooms = Integer.valueOf(request.getParameter(Parameter.ORDER_TOTAL_ROOMS));
-//        HotelDto hotelDto = parseHotelDto(request);
-        HotelDto hotelDto = parseDestinationDto(request).getHotelDto();
-        String checkInDate = request.getParameter(Parameter.ORDER_CHECK_IN_DATE);
-        String defaultFormattedCheckInDate = DateUtil.getDefaultLocaleDate(checkInDate);
-        String checkOutDate = request.getParameter(Parameter.ORDER_CHECK_OUT_DATE);
-        String defaultFormattedCheckOutDate = DateUtil.getDefaultLocaleDate(checkOutDate);
-        return new OrderDto(userDto, hotelDto, totalPersons, totalRooms,
-                defaultFormattedCheckInDate, defaultFormattedCheckOutDate);
-    }
+//    public static OrderDto parseOrderDto(HttpServletRequest request) throws ServiceException {
+//        HttpSession session = request.getSession();
+//        UserDto userDto = (UserDto) session.getAttribute(Parameter.USER);
+//        Integer totalPersons = Integer.valueOf(request.getParameter(Parameter.ORDER_TOTAL_PERSONS));
+//        Integer totalRooms = Integer.valueOf(request.getParameter(Parameter.ORDER_TOTAL_ROOMS));
+////        HotelDto hotelDto = parseHotelDto(request);
+//        HotelDto hotelDto = parseDestinationDto(request).getHotelDto();
+//        String checkInDate = request.getParameter(Parameter.ORDER_CHECK_IN_DATE);
+//        String defaultFormattedCheckInDate = DateUtil.getDefaultLocaleDate(checkInDate);
+//        String checkOutDate = request.getParameter(Parameter.ORDER_CHECK_OUT_DATE);
+//        String defaultFormattedCheckOutDate = DateUtil.getDefaultLocaleDate(checkOutDate);
+//        return new OrderDto(userDto, hotelDto, totalPersons, totalRooms,
+//                defaultFormattedCheckInDate, defaultFormattedCheckOutDate);
+//    }
 
     public static DestinationDto parseDestinationDto(HttpServletRequest request) {
         String destination = request.getParameter(Parameter.DESTINATION);

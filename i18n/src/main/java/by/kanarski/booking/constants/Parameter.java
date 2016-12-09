@@ -140,6 +140,15 @@ public class Parameter {
 
     public static final String TEXT_MAP = "textMap";
 
+    //page params
+    public static final String PAGES = "pages";
+    public static final String PER_PAGES = "perPages";
+
+    //pagination
+    public static final String PER_COUNT = "perCount";
+    public static final String START_PAGE = "start";
+    public static final String COUNTER = "counter";
+
     private Parameter() {
     }
 }

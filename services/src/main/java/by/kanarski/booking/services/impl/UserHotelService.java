@@ -6,8 +6,10 @@ import by.kanarski.booking.dto.OrderDto;
 import by.kanarski.booking.dto.UserDto;
 import by.kanarski.booking.dto.hotel.HotelDto;
 import by.kanarski.booking.dto.hotel.UserHotelDto;
+import by.kanarski.booking.dto.roomType.RoomTypeDto;
 import by.kanarski.booking.entities.User;
 import by.kanarski.booking.entities.hotel.Hotel;
+import by.kanarski.booking.entities.roomType.RoomType;
 import by.kanarski.booking.exceptions.DaoException;
 import by.kanarski.booking.exceptions.LocalisationException;
 import by.kanarski.booking.exceptions.ServiceException;
@@ -123,29 +125,41 @@ public class UserHotelService extends ExtendedBaseService<Hotel, UserHotelDto> i
         return userHotelDto;
     }
 
+    public Long getHotelsCount(OrderDto orderDto) throws ServiceException {
+        Long hotelsCount = null;
+        try {
+            Order order = toOrder(orderDto);
+            hotelsCount = hotelDao.getHotelsCount(order);
+        } catch (DaoException e) {
+            ExceptionHandler.handleDaoException(e);
+        } catch (LocalisationException e) {
+            ExceptionHandler.handleLocalizationException(e);
+        }
+        return hotelsCount;
+    }
+
     private Order toOrder(OrderDto orderDto) throws DaoException, LocalisationException {
         String language = orderDto.getLanguage();
         DtoToEntityConverter<Hotel, HotelDto> hotelConverter =
                 new DtoToEntityConverter<>(Hotel.class, HotelDto.class, language);
         DtoToEntityConverter<User, UserDto> userConverter =
                 new DtoToEntityConverter<>(User.class, UserDto.class, language);
+        DtoToEntityConverter<RoomType, RoomTypeDto> roomTypeConverter =
+                new DtoToEntityConverter<>(RoomType.class, RoomTypeDto.class, language);
         UserDto userDto = orderDto.getUser();
-//        DtoToEntityConverter<Hotel, HotelDto> hotelConverter =
-//                ContextHolder.getServiceContext().getBean(DtoToEntityConverter.class, Hotel.class, HotelDto.class, language);
-//        DtoToEntityConverter<User, UserDto> userConverter =
-//                ContextHolder.getServiceContext().getBean(DtoToEntityConverter.class, User.class, UserDto.class);
-//        UserDto userDto = orderDto.getUser();
         User user = null;
         if (userDto != null) {
             user = userConverter.toEntity(userDto);
         }
+        RoomTypeDto roomTypeDto = orderDto.getRoomType();
+        RoomType roomType = (roomTypeDto != null) ? roomTypeConverter.toEntity(roomTypeDto) : null;
         HotelDto hotelDto = orderDto.getHotel();
         Hotel hotel = hotelConverter.toEntity(hotelDto);
         Integer totalPersons = orderDto.getTotalPersons();
         Integer totalRooms = orderDto.getTotalRooms();
         Long checkInDate = DateUtil.parseDate(orderDto.getCheckInDate());
         Long checkOutDate = DateUtil.parseDate(orderDto.getCheckOutDate());
-        return new Order(user, hotel, totalPersons, totalRooms, checkInDate, checkOutDate);
+        return new Order(user, hotel, roomType, totalPersons, totalRooms, checkInDate, checkOutDate);
     }
 
 

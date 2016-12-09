@@ -1,9 +1,10 @@
 package by.kanarski.booking.entities.location;
 
 import by.kanarski.booking.entities.Language;
-import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 import java.io.Serializable;
 
 @Entity
@@ -11,6 +12,9 @@ import java.io.Serializable;
         name = "increment",
         strategy = "increment"
 )
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@DynamicInsert
+@DynamicUpdate
 public class LocationTranslation implements Serializable {
 
     private static final long serialVersionUID = 1L;

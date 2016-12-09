@@ -32,10 +32,13 @@ public class SearchParameter {
     public static final String HOTEL_HOTELID = "hotel.hotelId";
     public static final String HOTEL_LOCATION_COUNTRY = "location.country";
     public static final String HOTEL_LOCATION_CITY = "location.city";
+    public static final String ROOMTYPE_ROOMTYPENAME = "roomType.roomTypeName";
     public static final String ROOMTYPE_MAXPERSONS = "roomType.maxPersons";
+    public static final String ROOMTYPE_PRICEPERNIGHT= "roomType.pricePerNight";
     public static final String BILLSET_CHECKINDATE = "billSet.checkInDate";
     public static final String BILLSET_CHECKOUTDATE = "billSet.checkOutDate";
 
     //RoomType parameters
+
 
 }

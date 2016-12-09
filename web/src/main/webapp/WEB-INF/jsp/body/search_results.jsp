@@ -1,60 +1,7 @@
-<!DOCTYPE html>
-<%@ page language="java"
-         contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"  %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="loc" uri="http://booking.by/localizator" %>
 
 <c:set var="context" value="${pageContext.request.contextPath}"/>
-
-<html>
-<head>
-    <title>${selectHotel_selectHotel}</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="HandheldFriendly" content="True">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-    <%@include file="commons/standardScripts.jsp"%>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('dt').each(function() {
-                var tis = $(this), state = false, answer = tis.next('dd').hide().css('height','auto').slideUp();
-                tis.click(function() {
-                    state = !state;
-                    answer.slideToggle(state);
-                    tis.toggleClass('active',state);
-                });
-            });
-
-            $('.view-type li:first-child').addClass('active');
-
-            $('#star').raty({
-                score    : 3,
-                click: function(score, evt) {
-                    alert('ID: ' + $(this).attr('id') + '\nscore: ' + score + '\nevent: ' + evt);
-                }
-            });
-
-
-        });
-
-        $(window).load(function () {
-            var maxHeight = 0;
-
-            $(".three-fourth .one-fourth").each(function(){
-                if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
-            });
-            $(".three-fourth .one-fourth").height(maxHeight);
-        });
-
-    </script>
-</head>
-<body>
-
-<!--header-->
-<%@include file="/WEB-INF/assets/jsp/user/includes/header.jsp"%>
-<!--//header-->
 
 <!--main-->
 <div class="main" role="main">
@@ -83,7 +30,7 @@
             <!--//breadcrumbs-->
 
             <!--sidebar-->
-            <%@include file="includes/sidebar.jsp"%>
+            <%@include file="../commons/sidebar.jsp"%>
             <!--//sidebar-->
 
             <!--three-fourth content-->
@@ -170,13 +117,36 @@
 </div>
 <!--//main-->
 
-<!--footer-->
-<%@include file="/WEB-INF/assets/jsp/user/includes/footer.jsp"%>
-<!--//footer-->
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('dt').each(function() {
+            var tis = $(this), state = false, answer = tis.next('dd').hide().css('height','auto').slideUp();
+            tis.click(function() {
+                state = !state;
+                answer.slideToggle(state);
+                tis.toggleClass('active',state);
+            });
+        });
 
-<script>
-    // Initiate selectnav function
-    selectnav();
+        $('.view-type li:first-child').addClass('active');
+
+        $('#star').raty({
+            score    : 3,
+            click: function(score, evt) {
+                alert('ID: ' + $(this).attr('id') + '\nscore: ' + score + '\nevent: ' + evt);
+            }
+        });
+
+
+    });
+
+    $(window).load(function () {
+        var maxHeight = 0;
+
+        $(".three-fourth .one-fourth").each(function(){
+            if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+        });
+        $(".three-fourth .one-fourth").height(maxHeight);
+    });
 </script>
-</body>
-</html>
+

@@ -14,8 +14,9 @@ public class RegExp {
     public static final String LAST_IN_LIST = ", [A-Яа-я\\w- ]+$";
     public static final String N_IN_LIST = ", [A-Яа-я\\w- ]+, ";
     public static final String DESTINATION = "((^[A-Яа-я\\w- ]+, )|(, (\\3), )|(, (\\3))$)";
-    public static final String LOGIN = "\\w+";
+    public static final String LOGIN = "^[a-z0-9_-]{8,16}$";
     public static final String EMAIL = "^[0-9a-zA-Zа-яА-я]*[@][a-z]*[.][a-z]{1,3}$";
-    public static final String PASSWORD = "\\w+";
+    public static final String PASSWORD = "^[a-z0-9_-]{6,18}$";
+    public static final String NAME = "[А-Яа-я\\w]{1,25}";
 
 }

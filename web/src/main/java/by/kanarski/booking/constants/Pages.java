@@ -45,6 +45,7 @@ public class Pages {
     public static final String VALUE_404 = "404";
     public static final String VALUE_CONTACT_INFO = "contact_info";
     public static final String VALUE_INDEX = "/index";
+    public static final String VALUE_INDEX_HTM = "/index.htm";
     public static final String VALUE_START = "/";
     public static final String VALUE_GO_TO_ORDERS = "go_to_orders";
     public static final String VALUE_GET_ALL_ORDERS = "get_all_orders";
@@ -59,6 +60,6 @@ public class Pages {
     public static final String VALUE_CHECK_CAR = "check_car";
     public static final String PROCESS_ORDER = "process_order";
     public static final String VALUE_SET_LOCALE = "set_locale";
-    public static final String VALUE_SEARCH = "search";
+    public static final String VALUE_SEARCH_HOTELS = "searchHotels";
     public static final String VALUE_GET_DESTINATIONS = "get_destinations";
 }

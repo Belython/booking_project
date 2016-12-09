@@ -20,18 +20,18 @@
                 <ul class="profile-nav">
                     <li class="active">
                         <a href="#" title="My Account">My Account</a>
-                        <spring:message code="hello"/>
                     </li>
+                    <c:set var="authorizedUser" value="${sessionScope.get('user')}"/>
                     <c:choose>
-                        <c:when test="${empty user}">
+                        <c:when test="${empty authorizedUser}">
                             <li>
                                 <a id="loginRef" href="#" title="Login">Login</a>
                             </li>
                         </c:when>
                         <c:otherwise>
-                            <c:if test="${user.role eq 'admin'}">
+                            <c:if test="${authorizedUser.role eq 'admin'}">
                                 <li>
-                                    <p>${header_welcome} ${user.firstName}${header_administrator}</p>
+                                    <p>${header_welcome} ${authorizedUser.firstName}${header_administrator}</p>
                                     <a href="controller?command=goToAdminPage">${header_goToAdminPage}</a>
                                 </li>
                             </c:if>
@@ -103,11 +103,11 @@
         <!--//contact-->
 
         <!--login-->
-        <%@include file="login.jsp"%>
+        <%@include file="/WEB-INF/jsp/commons/login.jsp"%>
         <!--//login-->
 
         <!--registration-->
-        <%@include file="regisration.jsp"%>
+        <%@include file="/WEB-INF/jsp/commons/regisration.jsp"%>
         <!--//registration-->
 
     </div>

@@ -1,9 +1,12 @@
 package by.kanarski.booking.entities.facility;
 
 import by.kanarski.booking.entities.Language;
-import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.Cache;
+
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 import java.io.Serializable;
 
 /**
@@ -16,6 +19,9 @@ import java.io.Serializable;
         name = "increment",
         strategy = "increment"
 )
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@DynamicInsert
+@DynamicUpdate
 public class FacilityTranslation implements Serializable {
 
     private static final long serialVersionUID = 1L;

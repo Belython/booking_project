@@ -1,6 +1,14 @@
 package by.kanarski.booking.dao.impl;
 
 import by.kanarski.booking.dao.interfaces.IExtendedBaseDao;
+import by.kanarski.booking.entities.facility.Facility;
+import by.kanarski.booking.entities.facility.FacilityTranslation;
+import by.kanarski.booking.entities.hotel.Hotel;
+import by.kanarski.booking.entities.hotel.HotelTranslation;
+import by.kanarski.booking.entities.location.Location;
+import by.kanarski.booking.entities.location.LocationTranslation;
+import by.kanarski.booking.entities.roomType.RoomType;
+import by.kanarski.booking.entities.roomType.RoomTypeTranslation;
 import by.kanarski.booking.exceptions.DaoException;
 import by.kanarski.booking.utils.filter.CriteriaConstraint;
 import by.kanarski.booking.utils.filter.DisjunctionElement;
@@ -13,10 +21,12 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Disjunction;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -29,6 +39,9 @@ import java.util.Set;
 public class ExtendedBaseDao<T> extends BaseDao<T> implements IExtendedBaseDao<T> {
 
     private static final int BATCH_SIZE = 20;
+    private static final List<Class> CACHEABLE_ENTITIES = Arrays.asList(Location.class, Hotel.class, RoomType.class,
+            Facility.class, LocationTranslation.class, HotelTranslation.class, RoomTypeTranslation.class,
+            FacilityTranslation.class);
 
     private Class<T> entityClass;
 
@@ -36,10 +49,6 @@ public class ExtendedBaseDao<T> extends BaseDao<T> implements IExtendedBaseDao<T
     public ExtendedBaseDao(SessionFactory sessionFactory) {
         super(sessionFactory);
     }
-
-//    public ExtendedBaseDao(Class<T> entityClass) {
-//        this.entityClass =  entityClass;
-//    }
 
     @Override
     public void updateList(List<T> entityList) throws DaoException {
@@ -95,6 +104,11 @@ public class ExtendedBaseDao<T> extends BaseDao<T> implements IExtendedBaseDao<T
         return getUniqueResult(criteria);
     }
 
+    protected Long getCountByCriteria(Criteria criteria) throws HibernateException {
+        criteria.setProjection(Projections.rowCount());
+        return (Long) criteria.uniqueResult();
+    }
+
     @Override
     public void setEntityClass(Class<T> entityClass) {
         this.entityClass = entityClass;
@@ -134,6 +148,9 @@ public class ExtendedBaseDao<T> extends BaseDao<T> implements IExtendedBaseDao<T
 
     private Criteria getCriteria(SearchFilter filter) {
         Criteria criteria = getSession().createCriteria(getEntityClass());
+        if (CACHEABLE_ENTITIES.contains(entityClass)) {
+            criteria.setCacheable(true);
+        }
         if (filter != null) {
             addAliases(criteria, filter);
             addSimpleFilters(criteria, filter);

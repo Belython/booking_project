@@ -3,10 +3,11 @@ package by.kanarski.booking.entities.hotel;
 import by.kanarski.booking.entities.Room;
 import by.kanarski.booking.entities.location.Location;
 import by.kanarski.booking.utils.Formulas;
-import org.hibernate.annotations.Formula;
-import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.Set;
@@ -16,6 +17,9 @@ import java.util.Set;
         name = "increment",
         strategy = "increment"
 )
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@DynamicInsert
+@DynamicUpdate
 public class Hotel implements Serializable {
 
     private static final Long serialVersionUID = 1L;
