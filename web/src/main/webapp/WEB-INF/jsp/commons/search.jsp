@@ -4,8 +4,8 @@
 
 <!--search-->
 <div class="main-search">
-    <form id="main-search" method="post" action="search">
-        <input type="hidden" name="command" value="goToSearchResults"/>
+    <form id="main-search" method="post" action="searchHotels">
+        <input type="hidden" name="command" value="searchHotel"/>
         <!--column-->
         <div class="column radios">
             <h4><span>01</span><spring:message code="search.what"/></h4>

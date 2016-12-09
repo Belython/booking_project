@@ -33,13 +33,6 @@
         <property name="password" value="${jdbc.password}"/>
     </bean>
 
-    <!--<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">-->
-        <!--<property name="url" value="${jdbc.url}"/>-->
-        <!--<property name="driverClassName" value="${jdbc.driverClassName}"/>-->
-        <!--<property name="username" value="${jdbc.username}"/>-->
-        <!--<property name="password" value="${jdbc.password}"/>-->
-    <!--</bean>-->
-
     <bean id="sessionFactory"
           class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
@@ -58,7 +51,6 @@
                 <prop key="hibernate.show_sql">${show_sql}</prop>
                 <prop key="debug">${debug}</prop>
                 <prop key="hibernate.dialect">${hibernate.dialect}</prop>
-                <!--<prop key="hibernate.ejb.naming_strategy">${hibernate.ejb.naming_strategy}</prop>-->
                 <prop key="hibernate.cglib.use_reflection_optimizer">${hibernate.cglib.use_reflection_optimizer}</prop>
                 <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
                 <prop key="hibernate.connection.pool_size">${hibernate.connection.pool_size}</prop>
@@ -67,8 +59,13 @@
                 <prop key="hibernate.c3p0.timeout">${hibernate.c3p0.timeout}</prop>
                 <prop key="hibernate.c3p0.max_statements">${hibernate.c3p0.max_statements}</prop>
                 <prop key="hibernate.c3p0.validate">${hibernate.c3p0.validate}</prop>
+                <prop key="hibernate.cache.use_second_level_cache">true</prop>
+                <prop key="hibernate.cache.use_query_cache">true</prop>
+                <prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
                 <!--<prop key="hibernate.hbm2ddl.auto">create</prop>-->
             </props>
         </property>
     </bean>
+
+
 </beans>

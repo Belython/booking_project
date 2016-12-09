@@ -14,7 +14,7 @@
     <import resource="classpath*:service-config.xml"/>
     <import resource="classpath*:dao-config.xml"/>
 
-    <mvc:annotation-driven/>
+    <mvc:annotation-driven validator="validator"/>
     <context:component-scan base-package="by.kanarski.booking.controllers"/>
 
     <!-- show path to UI resources files-->
@@ -43,6 +43,15 @@
     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
         <property name="basename" value="classpath:I18N/message"/>
         <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
+
+    <bean id="validationMessageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="classpath:I18N/validationMessage" />
+        <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
+
+    <bean name="validator"  class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="validationMessageSource" ref="validationMessageSource"/>
     </bean>
 
     <mvc:interceptors>

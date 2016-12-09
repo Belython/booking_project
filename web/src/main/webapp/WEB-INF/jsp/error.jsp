@@ -14,7 +14,7 @@
 </head>
 <body>
     <!--header-->
-    <%@include file="/WEB-INF/jsp/commons/header.jsp"%>
+    <%@include file="/WEB-INF/jsp/header/header.jsp"%>
     <!--//header-->
 
     <!--main-->
@@ -51,7 +51,7 @@
     <!--//main-->
 
     <!--footer-->
-    <%@include file="/WEB-INF/jsp/commons/footer.jsp"%>
+    <%@include file="/WEB-INF/jsp/footer/footer.jsp"%>
     <!--//footer-->
 
 </body>

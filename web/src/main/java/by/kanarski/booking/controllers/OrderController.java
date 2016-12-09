@@ -27,7 +27,7 @@ import java.util.List;
  */
 
 @Controller
-public class HotelController {
+public class OrderController {
 
     @Autowired
     private IUserHotelService userHotelService;
@@ -35,7 +35,7 @@ public class HotelController {
     @Autowired
     private IHotelService hotelService;
 
-    @RequestMapping(value = Pages.VALUE_SEARCH, method = RequestMethod.POST)
+    @RequestMapping(value = Pages.VALUE_SEARCH_HOTELS, method = RequestMethod.POST)
     public String searchHotel(OrderDto orderDto, HttpServletRequest request) {
         String page = null;
         HttpSession session = request.getSession();
@@ -63,7 +63,7 @@ public class HotelController {
         session.setAttribute(Parameter.CURRENT_PAGE_PATH, page);
         request.setAttribute(Parameter.CURRENT_PAGE_PATH, page);
 //        servletAction.setPage(page);
-        return Pages.VALUE_SEARCH;
+        return Pages.VALUE_SEARCH_HOTELS;
     }
 
     @RequestMapping(value = Pages.VALUE_GET_DESTINATIONS, method = RequestMethod.POST)

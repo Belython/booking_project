@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="HandheldFriendly" content="True">
 <link rel="stylesheet" href="${context}/assets/css/style.css" type="text/css" media="screen,projection,print" />
+<link rel="stylesheet" href="${context}/assets/css/css.css" type="text/css" media="screen,projection,print" />
 <link rel="stylesheet" href="${context}/assets/css/prettyPhoto.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="${context}/assets/plugins/calendar/tcal.css" type="text/css" />
 <link rel="shortcut icon" href="${context}/assets/images/favicon.ico" />

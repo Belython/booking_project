@@ -13,12 +13,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.Locale;
 
 /**
@@ -42,8 +44,12 @@ public class UserController {
     }
 
     @RequestMapping(value = Pages.VALUE_LOGIN, method = RequestMethod.POST)
-    public String loginUser(UserDto unauthorizedUser, Model model, HttpServletRequest request) throws ServiceException {
-        HttpSession session = request.getSession();
+    public String loginUser(@Valid @ModelAttribute(Parameter.USER) UserDto unauthorizedUser,
+                            BindingResult bindingResult, Model model,
+                            HttpServletRequest request, HttpSession session) throws ServiceException {
+        if (bindingResult.hasErrors()) {
+           return Pages.PAGE_INDEX;
+        }
         String currentPage = (String) session.getAttribute(Parameter.CURRENT_PAGE_PATH);
         String login = unauthorizedUser.getLogin();
         String password = unauthorizedUser.getPassword();
@@ -122,10 +128,7 @@ public class UserController {
         return page;
     }
 
-    @RequestMapping(value = Pages.VALUE_INDEX, method = RequestMethod.GET)
-    public String toMainPage() {
-        return Pages.PAGE_INDEX;
-    }
+
 
 
 }

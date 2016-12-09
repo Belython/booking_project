@@ -17,4 +17,7 @@ public interface IHotelDao extends IExtendedBaseDao<Hotel> {
 
     List<Hotel> getListByOrder(Order order, int page, int perPage) throws DaoException;
 
-}
+    Long getHotelsCount(Order order) throws DaoException;
+
+
+    }

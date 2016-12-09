@@ -2,10 +2,12 @@ package by.kanarski.booking.entities.location;
 
 import by.kanarski.booking.entities.hotel.Hotel;
 import by.kanarski.booking.utils.Formulas;
-import org.hibernate.annotations.Formula;
-import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.Cache;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,6 +18,9 @@ import java.util.Set;
         name = "increment",
         strategy = "increment"
 )
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@DynamicInsert
+@DynamicUpdate
 public class Location implements Serializable {
 
     private static final long serialVersionUID = 1L;

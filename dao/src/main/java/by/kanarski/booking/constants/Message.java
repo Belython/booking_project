@@ -53,4 +53,6 @@ public class Message {
     public static final String ERROR_LIST_TRANSMISSIONS = "error_get_transmissions";
     public static final String ERROR_500 = "500";
     public static final String ERROR = "javax.servlet.error.exception_type";
+
+
 }
