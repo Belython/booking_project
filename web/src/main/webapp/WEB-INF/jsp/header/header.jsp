@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <c:set var="context" value="${pageContext.request.contextPath}"/>
 
@@ -29,12 +30,15 @@
                             </li>
                         </c:when>
                         <c:otherwise>
-                            <c:if test="${authorizedUser.role eq 'admin'}">
-                                <li>
-                                    <p>${header_welcome} ${authorizedUser.firstName}${header_administrator}</p>
-                                    <a href="controller?command=goToAdminPage">${header_goToAdminPage}</a>
-                                </li>
-                            </c:if>
+                            <%--<c:if test="${authorizedUser.role eq 'admin'}">--%>
+                                <%--<li>--%>
+                                    <%--<p>${header_welcome} ${authorizedUser.firstName}${header_administrator}</p>--%>
+                                    <%--<a href="controller?command=goToAdminPage">${header_goToAdminPage}</a>--%>
+                                <%--</li>--%>
+                            <%--</c:if>--%>
+                            <sec:authorize access="hasAnyRole('user', 'admin')">
+                                <span>hello <sec:authentication property="principal.displayName"/></span>
+                            </sec:authorize>
                             <li>
                                 <a href="controller?command=goToAccount" title="Settings">Settings</a>
                             </li>
@@ -103,7 +107,7 @@
         <!--//contact-->
 
         <!--login-->
-        <%@include file="/WEB-INF/jsp/commons/login.jsp"%>
+        <%@include file="/WEB-INF/jsp/header/login.jsp"%>
         <!--//login-->
 
         <!--registration-->

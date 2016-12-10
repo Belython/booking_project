@@ -1,6 +1,7 @@
 package by.kanarski.booking.listeners.request;
 
 import by.kanarski.booking.constants.Parameter;
+import by.kanarski.booking.dto.UserDto;
 import by.kanarski.booking.utils.threadLocal.ThreadLocalUtil;
 import by.kanarski.booking.utils.threadLocal.UserPreferences;
 
@@ -28,6 +29,7 @@ public class ThreadLocalListener implements ServletRequestListener {
     @Override
     public void requestInitialized(ServletRequestEvent servletRequestEvent) {
         HttpServletRequest request = (HttpServletRequest) servletRequestEvent.getServletRequest();
+        request.setAttribute(Parameter.USER, new UserDto());
         HttpSession session = request.getSession();
         Locale locale = (Locale) session.getAttribute(Parameter.CURRENT_LOCALE);
         Currency currency = (Currency) session.getAttribute(Parameter.CURRENT_CURRENCY);
