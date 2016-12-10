@@ -9,6 +9,9 @@ import by.kanarski.booking.services.interfaces.IUserService;
 import by.kanarski.booking.utils.SystemLogger;
 import by.kanarski.booking.utils.threadLocal.UserPreferences;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.Locale;
@@ -50,31 +54,35 @@ public class UserController {
         if (bindingResult.hasErrors()) {
            return Pages.PAGE_INDEX;
         }
-        String currentPage = (String) session.getAttribute(Parameter.CURRENT_PAGE_PATH);
-        String login = unauthorizedUser.getLogin();
-        String password = unauthorizedUser.getPassword();
-        if ((!login.matches(RegExp.LOGIN)) || (!password.matches(RegExp.PASSWORD))) {
-            model.addAttribute("login_or_password_error", "login_or_password_error");
-        } else {
-            boolean isAuthorised = userService.isAuthorized(unauthorizedUser);
-            if (isAuthorised) {
-                UserDto authorizedUser = userService.loginUser(unauthorizedUser);
-                if (authorizedUser == null) {
-                    model.addAttribute("login_or_password_error", "login_or_password_error");
-                } else {
-                    model.addAttribute(Parameter.USER, authorizedUser);
-                    session.setAttribute(Parameter.USER, authorizedUser);
-                }
-            }
-            // TODO: 05.12.2016 что-нибудь связанное с авторизацией
-        }
+//        String currentPage = (String) session.getAttribute(Parameter.CURRENT_PAGE_PATH);
+//        String login = unauthorizedUser.getLogin();
+//        String password = unauthorizedUser.getPassword();
+//        if ((!login.matches(RegExp.LOGIN)) || (!password.matches(RegExp.PASSWORD))) {
+//            model.addAttribute("login_or_password_error", "login_or_password_error");
+//        } else {
+//            boolean isAuthorised = userService.isAuthorized(unauthorizedUser);
+//            if (isAuthorised) {
+//                UserDto authorizedUser = userService.loginUser(unauthorizedUser);
+//                if (authorizedUser == null) {
+//                    model.addAttribute("login_or_password_error", "login_or_password_error");
+//                } else {
+//                    model.addAttribute(Parameter.USER, authorizedUser);
+//                    session.setAttribute(Parameter.USER, authorizedUser);
+//                }
+//            }
+//            // TODO: 05.12.2016 что-нибудь связанное с авторизацией
+//        }
         return Pages.PAGE_INDEX;
     }
 
     @RequestMapping(value = Pages.VALUE_LOGOUT)
-    public String logout(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        session.removeAttribute(Parameter.USER);
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
+//        HttpSession session = request.getSession();
+//        session.removeAttribute(Parameter.USER);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null){
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
         return Pages.PAGE_INDEX;
     }
 

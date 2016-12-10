@@ -45,8 +45,8 @@
         <dbcp.version>1.4</dbcp.version>
         <aspectj.version>1.8.4</aspectj.version>
         <cglib.version>3.1</cglib.version>
-        <!--Tiles-->
         <tiles.version>3.0.7</tiles.version>
+        <spring.security.version>4.0.3.RELEASE</spring.security.version>
     </properties>
 
     <dependencyManagement>
@@ -278,6 +278,22 @@
                 <groupId>org.apache.tiles</groupId>
                 <artifactId>tiles-el</artifactId>
                 <version>${tiles.version}</version>
+            </dependency>
+            <!--SPRING SECURITY-->
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-web</artifactId>
+                <version>${spring.security.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-config</artifactId>
+                <version>${spring.security.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-taglibs</artifactId>
+                <version>${spring.security.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

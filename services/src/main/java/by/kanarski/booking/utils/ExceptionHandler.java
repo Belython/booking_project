@@ -40,6 +40,15 @@ public class ExceptionHandler {
         LOGGER.logError(exception.getMessage(), exception);
     }
 
+    public static void handleUsernameNotFoundException(Exception exception) {
+        LOGGER.logError(exception.getMessage(), exception);
+    }
+
+    public static void handleServiceException(Exception exception) {
+        LOGGER.logError(exception.getMessage(), exception);
+
+    }
+
 
 
 }

@@ -3,10 +3,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 
-<jsp:useBean id="defaultUser" beanName="defaultUser" class="by.kanarski.booking.dto.UserDto">
-    <jsp:setProperty name="defaultUser" property="login" value="login"/>
-</jsp:useBean>
-
 <c:set var="display" value="none"/>
 <spring:hasBindErrors name="user">
     <c:set var="display" value="block"/>
@@ -16,7 +12,6 @@
     <div class="lb-wrap">
         <a href="#" class="close">x</a>
         <div class="lb-content">
-            <%--<sf:form id="loginForm" name="loginForm" method="POST" action="login" modelAttribute="${(empty user) ? defaultUser : user}">--%>
             <sf:form id="loginForm" name="loginForm" method="POST" action="login" modelAttribute="user">
                 <h1>Log in</h1>
                 <div class="f-item">
@@ -42,6 +37,7 @@
                         ${header_register}
                     </a>
                 </p>
+                <input type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}" />
                 <input type="submit" id="signIn" value="${header_signIn}" class="gradient-button"/>
             </sf:form>
         </div>
