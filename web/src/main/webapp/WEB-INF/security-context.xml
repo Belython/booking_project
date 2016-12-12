@@ -8,13 +8,16 @@
 
     <http auto-config="true">
         <intercept-url pattern="/" access="permitAll"/>
+        <intercept-url pattern="/**" access="permitAll"/>
         <intercept-url pattern="/admin**" access="hasRole('ADMIN')"/>
+        <intercept-url pattern="/search_results" access="hasRole('ROLE_USER')"/>
         <form-login login-page="/login"
+                    default-target-url="/index"
                     username-parameter="login"
                     password-parameter="password"
-                    authentication-failure-url="/access_denied"/>
+                    authentication-failure-url="/login?error=1"/>
+        <logout logout-url="/logout"/>
         <csrf/>
-        <logout logout-url="/logout" invalidate-session="false"/>
     </http>
 
     <authentication-manager>

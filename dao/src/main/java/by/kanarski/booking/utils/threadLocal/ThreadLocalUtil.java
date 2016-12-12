@@ -10,8 +10,6 @@ import by.kanarski.booking.utils.wrappers.ThreadVariables;
  */
 
 public enum ThreadLocalUtil {
-    CONNECTION,
-    HIBERNATE_SESSION,
     LOCALE,
     CURRENCY;
 

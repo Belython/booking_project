@@ -60,6 +60,7 @@ public class Pages {
     public static final String VALUE_CHECK_CAR = "check_car";
     public static final String PROCESS_ORDER = "process_order";
     public static final String VALUE_SET_LOCALE = "set_locale";
+    public static final String VALUE_SET_CURRENCY = "set_currency";
     public static final String VALUE_SEARCH_HOTELS = "searchHotels";
     public static final String VALUE_GET_DESTINATIONS = "get_destinations";
 }

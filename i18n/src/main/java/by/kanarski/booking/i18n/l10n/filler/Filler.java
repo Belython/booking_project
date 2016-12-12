@@ -31,7 +31,7 @@ public class Filler {
                         break;
                     }
                     case ContentType.MAP: {
-                        fillMap(contentName, keyList, bundle, request);
+//                        fillMap(contentName, keyList, bundle, request);
                         break;
                     }
                     case ContentType.LIST: {

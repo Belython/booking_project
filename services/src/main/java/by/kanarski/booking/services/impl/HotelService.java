@@ -15,7 +15,7 @@ import by.kanarski.booking.exceptions.LocalisationException;
 import by.kanarski.booking.exceptions.ServiceException;
 import by.kanarski.booking.services.interfaces.IHotelService;
 import by.kanarski.booking.utils.DtoToEntityConverter;
-import by.kanarski.booking.utils.ExceptionHandler;
+import by.kanarski.booking.utils.BookingExceptionHandler;
 import by.kanarski.booking.utils.ServiceHelper;
 import by.kanarski.booking.utils.filter.SearchFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,9 +59,9 @@ public class HotelService extends ExtendedBaseService<Hotel, HotelDto> implement
             List<Hotel> hotelList = hotelDao.getListByFilter(hotelFilter, page, perPage);
             hotelDtoList = converter.toDtoList(hotelList);
         } catch (DaoException e) {
-            ExceptionHandler.handleDaoException(e);
+            BookingExceptionHandler.handleDaoException(e);
         } catch (LocalisationException e) {
-            ExceptionHandler.handleLocalizationException(e);
+            BookingExceptionHandler.handleLocalizationException(e);
         }
         return hotelDtoList;
     }
@@ -78,9 +78,9 @@ public class HotelService extends ExtendedBaseService<Hotel, HotelDto> implement
             List<Hotel> hotelList = hotelDao.getListByFilter(hotelFilter, page, perPage);
             hotelDtoList = converter.toDtoList(hotelList);
         } catch (DaoException e) {
-            ExceptionHandler.handleDaoException(e);
+            BookingExceptionHandler.handleDaoException(e);
         } catch (LocalisationException e) {
-            ExceptionHandler.handleLocalizationException(e);
+            BookingExceptionHandler.handleLocalizationException(e);
         }
         return hotelDtoList;
     }
@@ -97,9 +97,9 @@ public class HotelService extends ExtendedBaseService<Hotel, HotelDto> implement
             List<Hotel> hotelList = hotelDao.getListByFilter(hotelFilter, page, perPage);
             hotelDtoList = converter.toDtoList(hotelList);
         } catch (DaoException e) {
-            ExceptionHandler.handleDaoException(e);
+            BookingExceptionHandler.handleDaoException(e);
         } catch (LocalisationException e) {
-            ExceptionHandler.handleLocalizationException(e);
+            BookingExceptionHandler.handleLocalizationException(e);
         }
         return hotelDtoList;
     }
@@ -161,9 +161,9 @@ public class HotelService extends ExtendedBaseService<Hotel, HotelDto> implement
             hotelDtoList = partHotelDtoList;
             hotelDtoList.addAll(anyHotelDtoList);
         } catch (DaoException e) {
-            ExceptionHandler.handleDaoException(e);
+            BookingExceptionHandler.handleDaoException(e);
         } catch (LocalisationException e) {
-            ExceptionHandler.handleLocalizationException(e);
+            BookingExceptionHandler.handleLocalizationException(e);
         }
         return hotelDtoList;
     }

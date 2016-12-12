@@ -2,15 +2,13 @@ package by.kanarski.booking.utils;
 
 import by.kanarski.booking.exceptions.ServiceException;
 import by.kanarski.booking.managers.ExceptionMessageManager;
-import by.kanarski.booking.utils.transaction.TransactoinWrapper;
-import org.hibernate.HibernateException;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class ExceptionHandler {
+public class BookingExceptionHandler {
 
-    private static final SystemLogger LOGGER = SystemLogger.getInstance().setSender(ExceptionHandler.class);
+    private static final SystemLogger LOGGER = SystemLogger.getInstance().setSender(BookingExceptionHandler.class);
 
     public static void handleSQLOrDaoException(Connection connection, Exception exception, Class serviceClass) throws ServiceException {
         try {
@@ -18,17 +16,6 @@ public class ExceptionHandler {
             throw new ServiceException(ExceptionMessageManager.TRANSACTION_FAILED.get(), exception);
         } catch (SQLException e) {
             throw new ServiceException(ExceptionMessageManager.ROLLBACK_FAILED.get(), exception);
-        }
-    }
-
-    public static void handleDaoException(TransactoinWrapper transaction, Exception exception) throws ServiceException {
-        if (transaction != null) {
-            try {
-                transaction.rollback();
-                throw new ServiceException(ExceptionMessageManager.TRANSACTION_FAILED.get(), exception);
-            } catch (HibernateException e) {
-                throw new ServiceException(ExceptionMessageManager.ROLLBACK_FAILED.get(), exception);
-            }
         }
     }
 

@@ -39,7 +39,7 @@ public class TestEntityBuilder {
 //        String email = "tesNew@test.com";
 //        String login = "testLoginNew";
 //        String password = "testPasswordNew";
-//        String role = ROLE_CLIENT;
+//        String role = ROLE_USER;
 //        User newUser = EntityBuilder.buildUser(firstName, lastName, email, login, password, role);
 //        return newUser;
 //    }
@@ -61,7 +61,7 @@ public class TestEntityBuilder {
 //        String email = "tesUpdated@test.com";
 //        String login = "testLoginUpdated";
 //        String password = "testPasswordUpdated";
-//        String role = ROLE_CLIENT;
+//        String role = ROLE_USER;
 //        User updatedUser = EntityBuilder.buildUser(id, firstName, lastName, email, login, password, role);
 //        return updatedUser;
 //    }

@@ -44,6 +44,11 @@ public class SystemLogger {
         logger.error(message, error);
     }
 
+    public void logError(Throwable error) {
+        logger = Logger.getLogger(sender);
+        logger.error(error);
+    }
+
     public void logError(String message) {
         logger = Logger.getLogger(sender);
         logger.error(message);

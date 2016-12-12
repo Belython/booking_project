@@ -45,7 +45,7 @@
                     <div class="f-item">
                         <label for="destination">Your destination</label>
                         <input type="text" list="destinations"
-                               placeholder="<spring:message code='parameter.destinationValue'/>"
+                               placeholder="<spring:message code='search.destinationValue'/>"
                                id="destination" name="destination"/>
                         <datalist id="destinations">
                             <%--HERE IS SOME AJAX (see destinations.jsp)--%>
@@ -58,13 +58,13 @@
                 <div class="column twins">
                     <h4><span>03</span><spring:message code="search.when"/></h4>
                     <div class="f-item datepicker">
-                        <label for="checkInDate"><spring:message code="parameter.checkInDate"/></label>
+                        <label for="checkInDate"><spring:message code="search.checkInDate"/></label>
                         <div class="">
                             <input class="tcal" type="text" id="checkInDate" name="checkInDate"/>
                         </div>
                     </div>
                     <div class="f-item datepicker">
-                        <label for="checkOutDate"><spring:message code="parameter.checkOutDate"/></label>
+                        <label for="checkOutDate"><spring:message code="search.checkOutDate"/></label>
                         <div class="">
                             <input class="tcal" type="text" id="checkOutDate" name="checkOutDate"/>
                         </div>
@@ -76,11 +76,11 @@
                 <div class="column twins">
                     <h4><span>04</span><spring:message code="search.who"/></h4>
                     <div class="f-item spinner">
-                        <label for="spinner1"><spring:message code="parameter.totalRooms"/></label>
+                        <label for="spinner1"><spring:message code="search.totalRooms"/></label>
                         <input type="text" placeholder="" id="spinner1" name="totalRooms" />
                     </div>
                     <div class="f-item spinner">
-                        <label for="spinner2"><spring:message code="parameter.totalPersons"/></label>
+                        <label for="spinner2"><spring:message code="search.totalPersons"/></label>
                         <input type="text" placeholder="" id="spinner2" name="totalPersons" />
                     </div>
                 </div>
@@ -88,6 +88,7 @@
             </div>
             <!--//form hotel-->
         </div>
+        <input type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}" />
         <input type="submit" value="<spring:message code='search.search'/>" class="search-submit" id="search-submit">
     </form>
 </div>

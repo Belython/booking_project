@@ -16,7 +16,7 @@ import by.kanarski.booking.exceptions.ServiceException;
 import by.kanarski.booking.services.interfaces.IUserHotelService;
 import by.kanarski.booking.utils.DateUtil;
 import by.kanarski.booking.utils.DtoToEntityConverter;
-import by.kanarski.booking.utils.ExceptionHandler;
+import by.kanarski.booking.utils.BookingExceptionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -103,9 +103,9 @@ public class UserHotelService extends ExtendedBaseService<Hotel, UserHotelDto> i
             List<Hotel> hotelList = hotelDao.getListByOrder(order, page, perPage);
             userHotelDtoList = converter.toDtoList(hotelList);
         } catch (DaoException e) {
-            ExceptionHandler.handleDaoException(e);
+            BookingExceptionHandler.handleDaoException(e);
         } catch (LocalisationException e) {
-            ExceptionHandler.handleLocalizationException(e);
+            BookingExceptionHandler.handleLocalizationException(e);
         }
         return userHotelDtoList;
     }
@@ -118,9 +118,9 @@ public class UserHotelService extends ExtendedBaseService<Hotel, UserHotelDto> i
             Hotel hotel = hotelDao.getById(hotelId);
             userHotelDto = converter.toDto(hotel);
         } catch (DaoException e) {
-            ExceptionHandler.handleDaoException(e);
+            BookingExceptionHandler.handleDaoException(e);
         } catch (LocalisationException e) {
-            ExceptionHandler.handleLocalizationException(e);
+            BookingExceptionHandler.handleLocalizationException(e);
         }
         return userHotelDto;
     }
@@ -131,9 +131,9 @@ public class UserHotelService extends ExtendedBaseService<Hotel, UserHotelDto> i
             Order order = toOrder(orderDto);
             hotelsCount = hotelDao.getHotelsCount(order);
         } catch (DaoException e) {
-            ExceptionHandler.handleDaoException(e);
+            BookingExceptionHandler.handleDaoException(e);
         } catch (LocalisationException e) {
-            ExceptionHandler.handleLocalizationException(e);
+            BookingExceptionHandler.handleLocalizationException(e);
         }
         return hotelsCount;
     }

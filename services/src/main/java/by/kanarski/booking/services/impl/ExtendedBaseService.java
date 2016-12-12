@@ -6,7 +6,7 @@ import by.kanarski.booking.exceptions.LocalisationException;
 import by.kanarski.booking.exceptions.ServiceException;
 import by.kanarski.booking.services.interfaces.IExtendedBaseService;
 import by.kanarski.booking.utils.DtoToEntityConverter;
-import by.kanarski.booking.utils.ExceptionHandler;
+import by.kanarski.booking.utils.BookingExceptionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -51,9 +51,9 @@ public class ExtendedBaseService<E, D> implements IExtendedBaseService<E, D> {
             E entity = converter.toEntity(dto);
             extendedBaseDao.add(entity);
         } catch (DaoException e) {
-            ExceptionHandler.handleDaoException(e);
+            BookingExceptionHandler.handleDaoException(e);
         } catch (LocalisationException e) {
-            ExceptionHandler.handleLocalizationException(e);
+            BookingExceptionHandler.handleLocalizationException(e);
         }
     }
 
@@ -65,9 +65,9 @@ public class ExtendedBaseService<E, D> implements IExtendedBaseService<E, D> {
             E entity = extendedBaseDao.getById(id);
             dto = converter.toDto(entity);
         } catch (DaoException e) {
-            ExceptionHandler.handleDaoException(e);
+            BookingExceptionHandler.handleDaoException(e);
         } catch (LocalisationException e) {
-            ExceptionHandler.handleLocalizationException(e);
+            BookingExceptionHandler.handleLocalizationException(e);
         }
         return dto;
     }
@@ -79,9 +79,9 @@ public class ExtendedBaseService<E, D> implements IExtendedBaseService<E, D> {
             E entity = converter.toEntity(dto);
             extendedBaseDao.update(entity);
         } catch (DaoException e) {
-            ExceptionHandler.handleDaoException(e);
+            BookingExceptionHandler.handleDaoException(e);
         } catch (LocalisationException e) {
-            ExceptionHandler.handleLocalizationException(e);
+            BookingExceptionHandler.handleLocalizationException(e);
         }
     }
 
@@ -92,9 +92,9 @@ public class ExtendedBaseService<E, D> implements IExtendedBaseService<E, D> {
             E entity = converter.toEntity(dto);
             extendedBaseDao.delete(entity);
         } catch (DaoException e) {
-            ExceptionHandler.handleDaoException(e);
+            BookingExceptionHandler.handleDaoException(e);
         } catch (LocalisationException e) {
-            ExceptionHandler.handleLocalizationException(e);
+            BookingExceptionHandler.handleLocalizationException(e);
         }
     }
 
@@ -105,9 +105,9 @@ public class ExtendedBaseService<E, D> implements IExtendedBaseService<E, D> {
             List<E> entityList = converter.toEntityList(dtoList);
             extendedBaseDao.updateList(entityList);
         } catch (DaoException e) {
-            ExceptionHandler.handleDaoException(e);
+            BookingExceptionHandler.handleDaoException(e);
         } catch (LocalisationException e) {
-            ExceptionHandler.handleLocalizationException(e);
+            BookingExceptionHandler.handleLocalizationException(e);
         }
     }
 
@@ -118,9 +118,9 @@ public class ExtendedBaseService<E, D> implements IExtendedBaseService<E, D> {
             List<E> entityList = converter.toEntityList(dtoList);
             extendedBaseDao.addList(entityList);
         } catch (DaoException e) {
-            ExceptionHandler.handleDaoException(e);
+            BookingExceptionHandler.handleDaoException(e);
         } catch (LocalisationException e) {
-            ExceptionHandler.handleLocalizationException(e);
+            BookingExceptionHandler.handleLocalizationException(e);
         }
     }
 
@@ -132,9 +132,9 @@ public class ExtendedBaseService<E, D> implements IExtendedBaseService<E, D> {
             List<E> entityList = extendedBaseDao.getListByFilter(null, page, perPage);
             dtoList = converter.toDtoList(entityList);
         } catch (DaoException e) {
-            ExceptionHandler.handleDaoException(e);
+            BookingExceptionHandler.handleDaoException(e);
         } catch (LocalisationException e) {
-            ExceptionHandler.handleLocalizationException(e);
+            BookingExceptionHandler.handleLocalizationException(e);
         }
         return dtoList;
     }

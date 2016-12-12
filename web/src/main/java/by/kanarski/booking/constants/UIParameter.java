@@ -1,7 +1,7 @@
 package by.kanarski.booking.constants;
 
 
-public class UIParams {
+public class UIParameter {
     //jsp expression
     public static final String REQUEST_SUCCESS_MESSAGE = "success";
     public static final String ORDER_STATUS = "orderStatus";
@@ -56,7 +56,6 @@ public class UIParams {
     public static final String MESSAGE_NULL_LIST = "message_null_list";
     public static final String CAR_STATUS = "car_status";
 
-
     //model and request values
     public static final String CLIENT = "client";
     public static final String CLIENTDTO = "clientDTO";
@@ -94,27 +93,11 @@ public class UIParams {
     public static final String BRAND_ID = "brandId";
     public static final String TRANSMISSION = "transmission";
     public static final String STATUS = "status";
-    //filter params
-    public static final String FILTER_BRAND = "filterBrand";
-    public static final String FILTER_BODY = "filterBody";
-    public static final String FILTER_ENGINE = "filterEngine";
-    public static final String FILTER_TRANSMISSION = "filterTransmission";
-    public static final String FILTER_AMOUNT_FROM = "filterAmountFrom";
+    //filter params;
     public static final String FILTER_AMOUNT_TO = "filterAmountTo";
     public static final String FILTER_YEAR_FROM = "filterYearFrom";
     public static final String FILTER_YEAR_TO = "filterYearTo";
-    // auto param
-    public static final String AUTO_MODEL = "model";
-    public static final String CAR = "car";
-    public static final String ID = "id";
-    public static final String AUTO_BRAND = "brand";
-    public static final String AUTO_BODY_TYPE = "body_type";
-    public static final String AUTO_ENGINE_TYPE = "engine_type";
-    public static final String AUTO_TRANSMISSION_TYPE = "transmission_type";
-    public static final String AUTO_YEAR_MANUFACTURE = "year";
-    public static final String AUTO_AMOUNT_PER_DAY = "amount";
-    public static final String YEAR_OF_MANUFACTURE = "yearOfManufacture";
-    public static final String ALL_CARS = "carAll";
+
     //page params
     public static final String PAGES = "pages";
     public static final String PER_PAGES = "perPages";
@@ -128,4 +111,11 @@ public class UIParams {
     public static final String SORT_TYPE = "sort_type";
     public static final String SORT_NAME = "sort_name";
     public static final String MESSAGE = "message";
+
+    //cookie names
+    public static final String COOKIE_LOCALE = "userLocale";
+    public static final String COOKIE_CURRENCY = "userCurrency";
+
+    //login form paramters
+    public static final String LOGIN_OPERATION_MESSAGE = "loginOperationMessage";
 }

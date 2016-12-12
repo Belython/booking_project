@@ -8,7 +8,7 @@ import by.kanarski.booking.exceptions.DaoException;
 import by.kanarski.booking.exceptions.LocalisationException;
 import by.kanarski.booking.exceptions.ServiceException;
 import by.kanarski.booking.services.interfaces.IUserService;
-import by.kanarski.booking.utils.ExceptionHandler;
+import by.kanarski.booking.utils.BookingExceptionHandler;
 import by.kanarski.booking.utils.filter.SearchFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,9 +31,9 @@ public class UserService extends ExtendedBaseService<User, UserDto> implements I
             User user = userDao.getUniqueByFilter(searchFilter);
             userDto = converter.toDto(user);
         } catch (DaoException e) {
-            ExceptionHandler.handleDaoException(e);
+            BookingExceptionHandler.handleDaoException(e);
         } catch (LocalisationException e) {
-            ExceptionHandler.handleLocalizationException(e);
+            BookingExceptionHandler.handleLocalizationException(e);
         }
         return userDto;
     }
@@ -46,9 +46,9 @@ public class UserService extends ExtendedBaseService<User, UserDto> implements I
             User user = userDao.getUniqueByFilter(searchFilter);
             userDto = converter.toDto(user);
         } catch (DaoException e) {
-            ExceptionHandler.handleDaoException(e);
+            BookingExceptionHandler.handleDaoException(e);
         } catch (LocalisationException e) {
-            ExceptionHandler.handleLocalizationException(e);
+            BookingExceptionHandler.handleLocalizationException(e);
         }
         return userDto;
     }
@@ -63,7 +63,7 @@ public class UserService extends ExtendedBaseService<User, UserDto> implements I
             User user = userDao.getUniqueByFilter(searchFilter);
             isAuthorized = !(user == null);
         } catch (DaoException e) {
-            ExceptionHandler.handleDaoException(e);
+            BookingExceptionHandler.handleDaoException(e);
         }
         return isAuthorized;
     }
@@ -77,7 +77,7 @@ public class UserService extends ExtendedBaseService<User, UserDto> implements I
             User user = userDao.getUniqueByFilter(searchFilter);
             isNewUser = (user == null);
         } catch (DaoException e) {
-            ExceptionHandler.handleDaoException(e);
+            BookingExceptionHandler.handleDaoException(e);
         }
         return isNewUser;
     }
@@ -88,9 +88,9 @@ public class UserService extends ExtendedBaseService<User, UserDto> implements I
             User user = converter.toEntity(userDto);
             userDao.add(user);
         } catch (DaoException e) {
-            ExceptionHandler.handleDaoException(e);
+            BookingExceptionHandler.handleDaoException(e);
         } catch (LocalisationException e) {
-            ExceptionHandler.handleLocalizationException(e);
+            BookingExceptionHandler.handleLocalizationException(e);
         }
     }
 
@@ -103,9 +103,9 @@ public class UserService extends ExtendedBaseService<User, UserDto> implements I
             User user = userDao.getUniqueByFilter(searchFilter);
             authorizedUser = (user != null) ? converter.toDto(user) : null;
         } catch (DaoException e) {
-            ExceptionHandler.handleDaoException(e);
+            BookingExceptionHandler.handleDaoException(e);
         } catch (LocalisationException e) {
-            ExceptionHandler.handleLocalizationException(e);
+            BookingExceptionHandler.handleLocalizationException(e);
         }
         return authorizedUser;
     }

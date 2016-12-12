@@ -26,8 +26,8 @@ public class Parameter {
 
     public static final String ORDER_TOTAL_PERSONS = "totalPersons";
     public static final String ORDER_TOTAL_ROOMS = "totalRooms";
-    public static final String ORDER_CHECK_IN_DATE = "parameter.checkInDate";
-    public static final String ORDER_CHECK_OUT_DATE = "parameter.checkOutDate";
+    public static final String ORDER_CHECK_IN_DATE = "search.checkInDate";
+    public static final String ORDER_CHECK_OUT_DATE = "search.checkOutDate";
     public static final String ORDER = "order";
 
     //Location parameters
@@ -117,6 +117,7 @@ public class Parameter {
     public static final String ERROR_USER_EXISTS = "errorUserExists";
     public static final String OPERATION_MESSAGE = "operationMessage";
     public static final String CURRENT_PAGE_PATH = "currentPagePath";
+    public static final String CURRENT_VIEW_NAME = "currentViewName";
     public static final String IS_AJAX_REQUEST = "isAjaxRequest";
     public static final String FILTER_PARAMETER = "filterParameter";
     public static final String FILTER_PARAMETER_VALUE = "filterParameterValue";

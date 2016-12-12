@@ -12,8 +12,8 @@ public class FieldValue {
     //Roles
 
     public static final List<String> ROLE_LIST = Arrays.asList("client", "admin");
-    public static final String ROLE_CLIENT = "client";
-    public static final String ROLE_ADMIN = "admin";
+    public static final String ROLE_USER = "ROLE_USER";
+    public static final String ROLE_ADMIN = "ROLE_ADMIN";
 
     //Statuses
 

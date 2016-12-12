@@ -11,6 +11,7 @@ import by.kanarski.booking.dto.hotel.UserHotelDto;
 import by.kanarski.booking.exceptions.ServiceException;
 import by.kanarski.booking.services.interfaces.IHotelService;
 import by.kanarski.booking.services.interfaces.IUserHotelService;
+import by.kanarski.booking.utils.Pagination;
 import by.kanarski.booking.utils.RequestParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,10 +36,14 @@ public class OrderController {
     @Autowired
     private IHotelService hotelService;
 
-    @RequestMapping(value = Pages.VALUE_SEARCH_HOTELS, method = RequestMethod.POST)
-    public String searchHotel(OrderDto orderDto, HttpServletRequest request) {
+    @Autowired
+    private Pagination pagination;
+
+    @RequestMapping(value = Pages.VALUE_SEARCH_HOTELS, method = {RequestMethod.POST, RequestMethod.GET})
+    public String searchHotel(OrderDto orderDto, HttpServletRequest request, HttpSession session) {
         String page = null;
-        HttpSession session = request.getSession();
+        DestinationDto destinationDto = RequestParser.parseDestinationDto(request);
+        orderDto.setHotel(destinationDto.getHotelDto());
         try {
             String hotelName = orderDto.getHotel().getHotelName();
             if (!hotelName.equals(FieldValue.ANY_HOTEL)) {
@@ -49,15 +54,18 @@ public class OrderController {
 //                servletAction = ServletAction.CALL_COMMAND;
 //                servletAction.setCommandName(CommandType.GOTOSELECTROOMS.name());
             } else {
-                List<UserHotelDto> userHotelDtoList = userHotelService.getListByOrder(orderDto, 0, 100);
+                Long count = userHotelService.getHotelsCount(orderDto);
+                Integer currentPage = pagination.getStartRow(request);
+                Integer perPage = pagination.getItemPerPage(request);
+                Integer pages = pagination.getPagesTotal(count, perPage);
+                List<UserHotelDto> userHotelDtoList = userHotelService.getListByOrder(orderDto, currentPage, perPage);
                 session.setAttribute(Parameter.SELECTED_USER_HOTEL_LIST, userHotelDtoList);
+                session.setAttribute(Parameter.ORDER, orderDto);
                 page = PagePath.SEARCH_RESULTS;
-//                servletAction = ServletAction.FORWARD_PAGE;
             }
             session.setAttribute(Parameter.ORDER, orderDto);
         } catch (ServiceException e) {
             page = PagePath.ERROR;
-//            servletAction = ServletAction.REDIRECT_PAGE;
 //            handleServiceException(request, e);
         }
         session.setAttribute(Parameter.CURRENT_PAGE_PATH, page);
@@ -66,7 +74,7 @@ public class OrderController {
         return Pages.VALUE_SEARCH_HOTELS;
     }
 
-    @RequestMapping(value = Pages.VALUE_GET_DESTINATIONS, method = RequestMethod.POST)
+    @RequestMapping(value = Pages.VALUE_GET_DESTINATIONS, method = RequestMethod.GET)
     public String getDestinations(HttpServletRequest request) {
         String page = null;
         HttpSession session = request.getSession();

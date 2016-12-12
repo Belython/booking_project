@@ -12,7 +12,7 @@ import java.util.ResourceBundle;
 
 public enum OperationMessageManager {
 
-    WRONG_LOGIN_OR_PASSWORD("message.loginError"),
+    WRONG_LOGIN_OR_PASSWORD("message.wrongLoginOrPassword"),
     USER_EXISTS("message.userExsistsError"),
     EMPTY_LIST("message.emptyList"),
     EMPTY_CHOICE("message.emptyChoice"),
@@ -28,6 +28,7 @@ public enum OperationMessageManager {
     DATABASE_CHANGE_SUCCES("message.databaseChangeSucces"),
     PASSWORD_SENT("message.passwordSent"),
     LOW_ACCESS_LEVEL("message.lowAccessLevel");
+
 
     private String resourceKey;
 

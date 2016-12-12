@@ -37,7 +37,7 @@ public class RequestParser {
         String role = request.getParameter(Parameter.USER_ROLE);
         String userStatus = request.getParameter(Parameter.USER_STATUS);
         if (StringUtils.isBlank(role)) {
-            role = FieldValue.ROLE_CLIENT;
+            role = FieldValue.ROLE_USER;
         }
         if (StringUtils.isBlank(userStatus)) {
             userStatus = FieldValue.STATUS_ACTIVE;

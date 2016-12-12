@@ -42,7 +42,7 @@ public class TestEntityGenerator {
 //            String email = "testExpected" + i + "@gmail.com";
 //            String login = "testLoginExpected" + i;
 //            String password = "testPasswordExpected" + random.nextInt(UNIQUE_VALUES);
-//            String role = ROLE_CLIENT;
+//            String role = ROLE_USER;
 //            User user = EntityBuilder.buildUser(userId, firstName, lastName, email, login, password, role);
 //            userList.add(user);
 //        }
