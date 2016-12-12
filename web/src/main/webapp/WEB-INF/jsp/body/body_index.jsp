@@ -2,5 +2,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@include file="/WEB-INF/jsp/commons/slider.jsp"%>
-<%@include file="/WEB-INF/jsp/commons/search.jsp"%>
+<%@include file="/WEB-INF/jsp/body/search.jsp"%>
 

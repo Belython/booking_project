@@ -4,7 +4,7 @@
 
 <!--search-->
 <div class="main-search">
-    <form id="main-search" method="post" action="searchHotels">
+    <form id="main-search" method="POST" action="searchHotels">
         <input type="hidden" name="command" value="searchHotel"/>
         <!--column-->
         <div class="column radios">

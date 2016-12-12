@@ -14,9 +14,9 @@ import by.kanarski.booking.exceptions.DaoException;
 import by.kanarski.booking.exceptions.LocalisationException;
 import by.kanarski.booking.exceptions.ServiceException;
 import by.kanarski.booking.services.interfaces.IUserHotelService;
+import by.kanarski.booking.utils.BookingExceptionHandler;
 import by.kanarski.booking.utils.DateUtil;
 import by.kanarski.booking.utils.DtoToEntityConverter;
-import by.kanarski.booking.utils.BookingExceptionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -25,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
@@ -140,6 +141,7 @@ public class UserHotelService extends ExtendedBaseService<Hotel, UserHotelDto> i
 
     private Order toOrder(OrderDto orderDto) throws DaoException, LocalisationException {
         String language = orderDto.getLanguage();
+        Locale locale = new Locale(language);
         DtoToEntityConverter<Hotel, HotelDto> hotelConverter =
                 new DtoToEntityConverter<>(Hotel.class, HotelDto.class, language);
         DtoToEntityConverter<User, UserDto> userConverter =
@@ -157,8 +159,8 @@ public class UserHotelService extends ExtendedBaseService<Hotel, UserHotelDto> i
         Hotel hotel = hotelConverter.toEntity(hotelDto);
         Integer totalPersons = orderDto.getTotalPersons();
         Integer totalRooms = orderDto.getTotalRooms();
-        Long checkInDate = DateUtil.parseDate(orderDto.getCheckInDate());
-        Long checkOutDate = DateUtil.parseDate(orderDto.getCheckOutDate());
+        Long checkInDate = DateUtil.parseDate(orderDto.getCheckInDate(), locale);
+        Long checkOutDate = DateUtil.parseDate(orderDto.getCheckOutDate(), locale);
         return new Order(user, hotel, roomType, totalPersons, totalRooms, checkInDate, checkOutDate);
     }
 

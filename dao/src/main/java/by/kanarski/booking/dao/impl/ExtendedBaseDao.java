@@ -21,7 +21,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Disjunction;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -105,7 +104,7 @@ public class ExtendedBaseDao<T> extends BaseDao<T> implements IExtendedBaseDao<T
     }
 
     protected Long getCountByCriteria(Criteria criteria) throws HibernateException {
-        criteria.setProjection(Projections.rowCount());
+//        criteria.setProjection(Projections.distinct(Projections.rowCount()));
         return (Long) criteria.uniqueResult();
     }
 

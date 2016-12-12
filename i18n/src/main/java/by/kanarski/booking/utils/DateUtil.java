@@ -15,6 +15,7 @@ import java.util.TreeMap;
 public class DateUtil {
 
     private static final Locale DEFAULT_LOCALE = SystemLocale.DEFAULT;
+    private Locale currentLocale = UserPreferences.getLocale();
 
     private DateUtil() {
     }

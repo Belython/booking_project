@@ -1,9 +1,6 @@
 package by.kanarski.booking.controllers;
 
-import by.kanarski.booking.constants.FieldValue;
-import by.kanarski.booking.constants.PagePath;
-import by.kanarski.booking.constants.Pages;
-import by.kanarski.booking.constants.Parameter;
+import by.kanarski.booking.constants.*;
 import by.kanarski.booking.dto.DestinationDto;
 import by.kanarski.booking.dto.OrderDto;
 import by.kanarski.booking.dto.hotel.HotelDto;
@@ -11,6 +8,7 @@ import by.kanarski.booking.dto.hotel.UserHotelDto;
 import by.kanarski.booking.exceptions.ServiceException;
 import by.kanarski.booking.services.interfaces.IHotelService;
 import by.kanarski.booking.services.interfaces.IUserHotelService;
+import by.kanarski.booking.utils.BookingExceptionHandler;
 import by.kanarski.booking.utils.Pagination;
 import by.kanarski.booking.utils.RequestParser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,21 +55,18 @@ public class OrderController {
                 Long count = userHotelService.getHotelsCount(orderDto);
                 Integer currentPage = pagination.getStartRow(request);
                 Integer perPage = pagination.getItemPerPage(request);
-                Integer pages = pagination.getPagesTotal(count, perPage);
+                Integer totalPages = pagination.getTotalPages(count, perPage, request);
                 List<UserHotelDto> userHotelDtoList = userHotelService.getListByOrder(orderDto, currentPage, perPage);
                 session.setAttribute(Parameter.SELECTED_USER_HOTEL_LIST, userHotelDtoList);
                 session.setAttribute(Parameter.ORDER, orderDto);
-                page = PagePath.SEARCH_RESULTS;
+                request.setAttribute("command", "nextHotels");
+                page = Pages.PAGE_SEARCH_RESULTS;
             }
-            session.setAttribute(Parameter.ORDER, orderDto);
         } catch (ServiceException e) {
             page = PagePath.ERROR;
-//            handleServiceException(request, e);
+            BookingExceptionHandler.handleServiceException(e);
         }
-        session.setAttribute(Parameter.CURRENT_PAGE_PATH, page);
-        request.setAttribute(Parameter.CURRENT_PAGE_PATH, page);
-//        servletAction.setPage(page);
-        return Pages.VALUE_SEARCH_HOTELS;
+        return page;
     }
 
     @RequestMapping(value = Pages.VALUE_GET_DESTINATIONS, method = RequestMethod.GET)

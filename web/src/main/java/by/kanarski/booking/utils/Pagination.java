@@ -16,6 +16,7 @@ public class Pagination {
     private static final int MIN_ROWS_ON_PAGE = 5;
     private static final int FIRST_PAGE = 1;
     private static final int PAGE_FOR_PAGINATION = 1;
+    private static final int PAGER_SIZE = 5;
 
     public Pagination() {
     }
@@ -28,13 +29,13 @@ public class Pagination {
      */
     public int getItemPerPage(HttpServletRequest request) {
         int perPage;
-        String perPageAsString = request.getParameter(Parameter.PER_PAGES);
+        String perPageAsString = request.getParameter(Parameter.PER_PAGE);
         if (StringUtils.isBlank(perPageAsString)) {
             perPage = MIN_ROWS_ON_PAGE;
         } else {
-            perPage = Integer.parseInt(request.getParameter(Parameter.PER_PAGES));
+            perPage = Integer.parseInt(request.getParameter(Parameter.PER_PAGE));
         }
-        request.setAttribute(Parameter.PER_COUNT, perPage);
+        request.setAttribute(Parameter.ROWS, perPage);
         return perPage;
     }
 
@@ -54,8 +55,9 @@ public class Pagination {
             currentPage = Integer.parseInt(request.getParameter(Parameter.START_PAGE));
             currentRowFromDatabase = Integer.parseInt(request.getParameter(Parameter.START_PAGE)) * perPage - perPage + 1;
         }
-        request.setAttribute(Parameter.START_PAGE, currentRowFromDatabase);
-        request.setAttribute(Parameter.COUNTER, currentPage);
+//        request.setAttribute(Parameter.START_PAGE, currentRowFromDatabase);
+        request.setAttribute(Parameter.CURRENT_PAGE, currentPage);
+
         return currentRowFromDatabase;
     }
 
@@ -73,7 +75,10 @@ public class Pagination {
         return pagesCount;
     }
 
-    public Integer getPagesTotal(Long totalItems, Integer perPage) {
-        return Math.round(totalItems / perPage);
+    public Integer getTotalPages(Long totalItems, Integer perPage, HttpServletRequest request) {
+        Integer totalPages =  Math.round(totalItems / perPage);
+        totalPages = (totalPages <= 0) ? 1 : totalPages;
+        request.setAttribute(Parameter.TOTAL_PAGES, totalPages);
+        return totalPages;
     }
 }

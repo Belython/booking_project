@@ -68,7 +68,6 @@ public class UIParameter {
     public static final String REQUEST_PAGE = "requestPage";
     public static final String COMMAND = "command";
     public static final String ORDER = "order";
-    public static final String TOTAL_PAGE = "totalPage";
     public static final String AMOUNT_FROM = "amountFrom";
     public static final String AMOUNT_TO = "amountTo";
     public static final String YEAR_FROM = "yearFrom";
@@ -99,8 +98,9 @@ public class UIParameter {
     public static final String FILTER_YEAR_TO = "filterYearTo";
 
     //page params
-    public static final String PAGES = "pages";
-    public static final String PER_PAGES = "perPages";
+    public static final String PAGE = "page";
+    public static final String PER_PAGE = "perPage";
+    public static final String TOTAL_PAGES = "totalPages";
 
     //pagination
     public static final String PER_COUNT = "perCount";

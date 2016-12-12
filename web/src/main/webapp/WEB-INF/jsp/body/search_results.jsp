@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="loc" uri="http://booking.by/localizator" %>
 
 <c:set var="context" value="${pageContext.request.contextPath}"/>
 
@@ -90,26 +91,93 @@
                         <a href="#" class="scroll-to-top" title="Back up">Back up</a>
                         <!--//back up button-->
 
+                        <%--<!--pager-->--%>
+                        <%--<div class="pager">--%>
+                            <%--<span><a href="#">First page</a></span>--%>
+                            <%--<span><a href="#">&lt;</a></span>--%>
+                            <%--<span class="current">1</span>--%>
+                            <%--<span><a href="#">2</a></span>--%>
+                            <%--<span><a href="#">3</a></span>--%>
+                            <%--<span><a href="#">4</a></span>--%>
+                            <%--<span><a href="#">5</a></span>--%>
+                            <%--<span><a href="#">6</a></span>--%>
+                            <%--<span><a href="#">7</a></span>--%>
+                            <%--<span><a href="#">8</a></span>--%>
+                            <%--<span><a href="#">&gt;</a></span>--%>
+                            <%--<span><a href="#">Last page</a></span>--%>
+                        <%--</div>--%>
+                        <%--<!--//pager-->--%>
+
                         <!--pager-->
                         <div class="pager">
-                            <a href="${context}/searchHotels?start=${counter - 1}&perPages=${perCount}" aria-label=" < ">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                            <span><a href="#">First page</a></span>
-                            <span><a href="#">&lt;</a></span>
-                            <span class="current">1</span>
-                            <span><a href="#">2</a></span>
-                            <span><a href="#">3</a></span>
-                            <span><a href="#">4</a></span>
-                            <span><a href="#">5</a></span>
-                            <span><a href="#">6</a></span>
-                            <span><a href="#">7</a></span>
-                            <span><a href="#">8</a></span>
-                            <span><a href="#">&gt;</a></span>
-                            <span><a href="#">Last page</a></span>
+                            <c:set var="navSize" value="5"/>
+                            <c:if test="${page > navSize}">
+                                <span><a href="${context}/${command}?page=${page - 1}&perPage=${perPage}">&lt;</a></span>
+                                <span><a href="#">1</a></span>
+                                <span><a href="#">...</a></span>
+                            </c:if>
+                            <c:if test="${totalPages <= navSize}" >
+                                <%--<c:set var="start" value="1"/>--%>
+                                <%--<c:set var="end" value="${totalPages}"/>--%>
+                                <c:set var="start" value="1"/>
+                                <c:set var="end" value="${navSize}"/>
+                            </c:if>
+                            <c:if test="${totalPages > navSize}" >
+                                <c:set var="start" value="${page - (page % navSize)}"/>
+                                <c:set var="end" value="${navSize}"/>
+                            </c:if>
+                            <c:forEach begin="${start}" end="${end}" var="i">
+                                <c:choose>
+                                    <c:when test="${page == i}">
+                                        <span class="current"><a href="#">${i}</a></span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span><a href="${context}/${command}?page=${i}&perPage=${perPage}">${i}</a></span>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+                            <c:if test="${end < totalPages}">
+                                <span><a href="#">...</a></span>
+                                <span><a href="#">${totalPages}</a></span>
+                                <span><a href="${context}/${command}?page=${page + 1}&perPage=${perPage}">&gt;</a></span>
+                            </c:if>
                         </div>
                         <!--//pager-->
                     </div>
+
+                    <%--<nav aria-label="Page navigation">--%>
+                        <%--<ul class="pagination">--%>
+                            <%--<c:set var="navSize" value="5"/>--%>
+                            <%--<c:if test="${page > navSize}">--%>
+                                <%--<span><a href="${context}/${command}?page=${page - 1}&perPage=${perPage}">&lt;</a></span>--%>
+                                <%--<span><a href="#">1</a></span>--%>
+                                <%--<span><a href="#">...</a></span>--%>
+                            <%--</c:if>--%>
+                            <%--<c:if test="${totalPages <= navSize}" >--%>
+                                <%--<c:set var="start" value="1"/>--%>
+                                <%--<c:set var="end" value="${totalPages}"/>--%>
+                            <%--</c:if>--%>
+                            <%--<c:if test="${totalPages > navSize}" >--%>
+                                <%--<c:set var="start" value="${page - (page % navSize)}"/>--%>
+                                <%--<c:set var="end" value="${navSize}"/>--%>
+                            <%--</c:if>--%>
+                            <%--<c:forEach begin="${start}" end="${end}" var="i">--%>
+                                <%--<c:choose>--%>
+                                    <%--<c:when test="${page == i}">--%>
+                                        <%--<span class="current"><a href="#">${i}</a></span>--%>
+                                    <%--</c:when>--%>
+                                    <%--<c:otherwise>--%>
+                                        <%--<span><a href="${context}/${command}?page=${i}&perPage=${perPage}">${i}</a></span>--%>
+                                    <%--</c:otherwise>--%>
+                                <%--</c:choose>--%>
+                            <%--</c:forEach>--%>
+                            <%--<c:if test="${end < totalPages}">--%>
+                                <%--<span><a href="#">...</a></span>--%>
+                                <%--<span><a href="#">${totalPages}</a></span>--%>
+                                <%--<span><a href="${context}/${command}?page=${page + 1}&perPage=${perPage}">&gt;</a></span>--%>
+                            <%--</c:if>--%>
+                        <%--</ul>--%>
+                    <%--</nav>--%>
                     <!--//bottom navigation-->
                 </div>
             </section>
