@@ -44,6 +44,8 @@ public class HotelDao extends ExtendedBaseDao<Hotel> implements IHotelDao {
         Long hotelsCount = null;
         try {
             Criteria criteria = getCritetiaByOrder(order);
+            // TODO: 12.12.2016 Подумать над универсальнойстью 
+            criteria.setProjection(Projections.countDistinct(SearchParameter.HOTELID));
             hotelsCount = getCountByCriteria(criteria);
         } catch (HibernateException e) {
             throw new DaoException(e);

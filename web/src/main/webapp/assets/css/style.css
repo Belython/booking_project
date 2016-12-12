@@ -167,8 +167,8 @@ header .ribbon 		{float:right;position:absolute;top:-1px;right:-2px;z-index:2;ba
 .pager			{float:right;}
 .pager span		{font:normal 1.1em/30px 'OpenSansBold';text-transform:uppercase;text-align:center;margin:0 4px 0 0;float:left;width:30px;height:30px;background:#fff;-moz-border-radius:15px;-webkit-border-radius:15px;border-radius:15px;webkit-box-shadow:0 0 2px rgba(0,0,0,0.1);-moz-box-shadow:0 0 2px rgba(0,0,0,0.1);box-shadow:0 0 2px rgba(0,0,0,0.1);-webkit-transition: all 0.1s ease-in 0.1s; -moz-transition: all 0.1s ease-in 0.1s; -o-transition: all 0.1s ease-in 0.1s; -ms-transition: all 0.1s ease-in 0.1s; transition: all 0.1s ease-in 0.1s;}
 .pager a 		{color:#999;float:left;width:100%;height:100%;text-decoration:none;-moz-border-radius:15px;-webkit-border-radius:15px;border-radius:15px;webkit-box-shadow:0 0 2px rgba(0,0,0,0.1);-moz-box-shadow:0 0 2px rgba(0,0,0,0.1);box-shadow:0 0 2px rgba(0,0,0,0.1);-webkit-transition: all 0.1s ease-in 0.1s; -moz-transition: all 0.1s ease-in 0.1s; -o-transition: all 0.1s ease-in 0.1s; -ms-transition: all 0.1s ease-in 0.1s; transition: all 0.1s ease-in 0.1s;}
-.pager .first,
-.pager .last		{width:90px;}
+/*.pager .first,*/
+/*.pager .last		{width:90px;}*/
 .pager .current	{background:#40BFB8;color:#fff;}
 .pager a:hover	{background:#40BFB8;color:#fff;}
 

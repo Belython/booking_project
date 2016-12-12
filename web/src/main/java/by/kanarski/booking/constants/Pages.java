@@ -20,6 +20,7 @@ public class Pages {
     public static final String PAGE_ALL_USERS = "admin/all_users";
     public static final String PAGE_EDIT_ORDER = "client/edit_order";
     public static final String PAGE_USER = "/user";
+    public static final String PAGE_SEARCH_RESULTS = "search_results";
     //redirect
     public static final String REDIRECT_PAGE_ADD_CAR = "redirect:admin/main";
     public static final String REDIRECT_PAGE_USER = "redirect:user";
