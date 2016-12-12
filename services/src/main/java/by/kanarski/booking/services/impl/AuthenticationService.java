@@ -3,7 +3,7 @@ package by.kanarski.booking.services.impl;
 import by.kanarski.booking.dto.UserDto;
 import by.kanarski.booking.exceptions.ServiceException;
 import by.kanarski.booking.services.interfaces.IUserService;
-import by.kanarski.booking.utils.ExceptionHandler;
+import by.kanarski.booking.utils.BookingExceptionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -39,15 +39,14 @@ public class AuthenticationService implements UserDetailsService {
                     true, true, true, true, getGrantedAuthorities(userDto));
 
         } catch (ServiceException e) {
-            ExceptionHandler.handleServiceException(e);
+            BookingExceptionHandler.handleServiceException(e);
         }
         return securityUser;
     }
 
     private List<GrantedAuthority> getGrantedAuthorities(UserDto userDto) {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_" + userDto.getUserStatus()));
-        System.out.print("authorities :" + authorities);
+        authorities.add(new SimpleGrantedAuthority(userDto.getRole()));
         return authorities;
     }
 

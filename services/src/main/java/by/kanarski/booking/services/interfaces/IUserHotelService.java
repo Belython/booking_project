@@ -20,4 +20,6 @@ public interface IUserHotelService extends IExtendedBaseService<Hotel, UserHotel
 
     UserHotelDto getByOrder(OrderDto orderDto) throws ServiceException;
 
+    Long getHotelsCount(OrderDto orderDto) throws ServiceException;
+
 }

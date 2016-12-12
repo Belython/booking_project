@@ -92,6 +92,9 @@
 
                         <!--pager-->
                         <div class="pager">
+                            <a href="${context}/searchHotels?start=${counter - 1}&perPages=${perCount}" aria-label=" < ">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
                             <span><a href="#">First page</a></span>
                             <span><a href="#">&lt;</a></span>
                             <span class="current">1</span>

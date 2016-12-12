@@ -8,7 +8,7 @@ import by.kanarski.booking.exceptions.DaoException;
 import by.kanarski.booking.exceptions.LocalisationException;
 import by.kanarski.booking.exceptions.ServiceException;
 import by.kanarski.booking.services.interfaces.IBillService;
-import by.kanarski.booking.utils.ExceptionHandler;
+import by.kanarski.booking.utils.BookingExceptionHandler;
 import by.kanarski.booking.utils.filter.SearchFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,9 +33,9 @@ public class BillService extends ExtendedBaseService<Bill, BillDto> implements I
             List<Bill> billList = billDao.getListByFilter(searchFilter, page, perPage);
             billDtoList = converter.toDtoList(billList);
         } catch (DaoException e) {
-            ExceptionHandler.handleDaoException(e);
+            BookingExceptionHandler.handleDaoException(e);
         } catch (LocalisationException e) {
-            ExceptionHandler.handleLocalizationException(e);
+            BookingExceptionHandler.handleLocalizationException(e);
         }
         return billDtoList;
     }
@@ -47,9 +47,9 @@ public class BillService extends ExtendedBaseService<Bill, BillDto> implements I
             List<Bill> billList = billDao.getListByFilter(null, page, perPage);
             billDtoList = converter.toDtoList(billList);
         } catch (DaoException e) {
-            ExceptionHandler.handleDaoException(e);
+            BookingExceptionHandler.handleDaoException(e);
         } catch (LocalisationException e) {
-            ExceptionHandler.handleLocalizationException(e);
+            BookingExceptionHandler.handleLocalizationException(e);
         }
         return billDtoList;
     }

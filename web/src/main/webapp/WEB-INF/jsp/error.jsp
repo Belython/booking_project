@@ -34,12 +34,11 @@
                     <div class="error-content">
                         <h2>Whoops, you are in the middle of nowhere.</h2>
                         <h3>Don’t worry. You’ve probably made a wrong turn somewhwere.</h3>
-                        <h4>${error_sorry}<br/></h4>
-                        <h5>${errorDatabase} <br/></h5>
+                        <h4><spring:message code="error.sorry"/> <br/></h4>
                         <ul>
                             <li>If you typed in the address, check your spelling. Could just be a typo.</li>
                             <li>If you followed a link, it’s probably broken. Please <a href="#">contact us</a> and we’ll fix it.</li>
-                            <li>If you’re not sure what you’re looking for, go back to <a href="controller?command=goToMain">${error_goToMain}</a>.</li>
+                            <li>If you’re not sure what you’re looking for, go back to <a href="${context}/index"><spring:message code="error.goToMain"/></a>.</li>
                         </ul>
                     </div>
                     <!--//Error content-->

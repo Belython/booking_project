@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
  * @version 1.0
  */
 
-@Component("pagination")
+@Component
 public class Pagination {
     private static final int MIN_ROWS_ON_PAGE = 5;
     private static final int FIRST_PAGE = 1;
@@ -71,5 +71,9 @@ public class Pagination {
             pagesCount += PAGE_FOR_PAGINATION;
         }
         return pagesCount;
+    }
+
+    public Integer getPagesTotal(Long totalItems, Integer perPage) {
+        return Math.round(totalItems / perPage);
     }
 }

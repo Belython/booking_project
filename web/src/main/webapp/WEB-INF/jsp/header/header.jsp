@@ -3,6 +3,8 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
+<jsp:useBean id="messageKeyList" class="by.kanarski.booking.constants.MessageKeyList"/>
+
 <c:set var="context" value="${pageContext.request.contextPath}"/>
 
 <header>
@@ -22,46 +24,40 @@
                     <li class="active">
                         <a href="#" title="My Account">My Account</a>
                     </li>
-                    <c:set var="authorizedUser" value="${sessionScope.get('user')}"/>
-                    <c:choose>
-                        <c:when test="${empty authorizedUser}">
-                            <li>
-                                <a id="loginRef" href="#" title="Login">Login</a>
-                            </li>
-                        </c:when>
-                        <c:otherwise>
-                            <%--<c:if test="${authorizedUser.role eq 'admin'}">--%>
-                                <%--<li>--%>
-                                    <%--<p>${header_welcome} ${authorizedUser.firstName}${header_administrator}</p>--%>
-                                    <%--<a href="controller?command=goToAdminPage">${header_goToAdminPage}</a>--%>
-                                <%--</li>--%>
-                            <%--</c:if>--%>
-                            <sec:authorize access="hasAnyRole('user', 'admin')">
-                                <span>hello <sec:authentication property="principal.displayName"/></span>
-                            </sec:authorize>
-                            <li>
-                                <a href="controller?command=goToAccount" title="Settings">Settings</a>
-                            </li>
-                            <li>
-                                <a href="${context}/logout">${header_signOut}</a>
-                            </li>
-                        </c:otherwise>
-                    </c:choose>
+                    <sec:authorize access="isAnonymous()">
+                        <li>
+                            <a id="loginRef" href="#" title="Login">Login</a>
+                        </li>
+                    </sec:authorize>
+                    <sec:authorize access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
+                        <li>
+                            <a href="controller?command=goToAccount" title="Settings">Settings</a>
+                        </li>
+                        <li>
+                            <a href="${context}/logout">
+                                <spring:message code="header.signOut"/>
+                            </a>
+                        </li>
+                    </sec:authorize>
                 </ul>
 
                 <ul class="lang-nav">
-                    <c:set var="localeSet" value="${localeMap.keySet()}"/>
-                    <c:forEach var="locale" items="${localeSet}">
-                        <c:set var="displayLanguage" value="${localeMap.get(locale)}"/>
+                    <c:set var="localeKeyList" value="${messageKeyList.localeList}"/>
+                    <c:forEach var="localeKey" items="${localeKeyList}">
+                        <c:set var="localeCode" value="${localeKey.replace('locale.', '')}"/>
                         <c:choose>
-                            <c:when test="${currentLocale eq locale}">
+                            <c:when test="${currentLocale eq localeCode}">
                                 <li class="active">
-                                    <a href="#" title=${displayLanguage}>${displayLanguage}</a>
+                                    <a href="#">
+                                        <spring:message code="${localeKey}"/>
+                                    </a>
                                 </li>
                             </c:when>
                             <c:otherwise>
                                 <li>
-                                    <a href="${context}/set_locale?locale=${locale}" title=${displayLanguage}>${displayLanguage}</a>
+                                    <a href="${context}/set_locale?locale=${localeCode}">
+                                        <spring:message code="${localeKey}"/>
+                                    </a>
                                 </li>
                             </c:otherwise>
                         </c:choose>
@@ -69,18 +65,22 @@
                 </ul>
 
                 <ul class="currency-nav">
-                    <c:set var="currencySet" value="${currencyMap.keySet()}"/>
-                    <c:forEach var="currency" items="${currencySet}">
-                        <c:set var="displayCurrency" value="${currencyMap.get(currency)}"/>
+                    <c:set var="currencyKeyList" value="${messageKeyList.currencyList}"/>
+                    <c:forEach var="currencyKey" items="${currencyKeyList}">
+                        <c:set var="currencyCode" value="${currencyKey.replace('currency.', '')}"/>
                         <c:choose>
-                            <c:when test="${currentCurrency eq currency}">
+                            <c:when test="${currentCurrency eq currencyCode}">
                                 <li class="active">
-                                    <a href="#" title="${displayCurrency}">${displayCurrency}</a>
+                                    <a href="#">
+                                        <spring:message code="${currencyKey}"/>
+                                    </a>
                                 </li>
                             </c:when>
                             <c:otherwise>
                                 <li>
-                                    <a href="controller?command=setCurrency&currentCurrency=${currency}" title="${displayCurrency}">${displayCurrency}</a>
+                                    <a href="${context}/set_currency?currency=${currencyCode}">
+                                        <spring:message code="${currencyKey}"/>
+                                    </a>
                                 </li>
                             </c:otherwise>
                         </c:choose>
@@ -111,7 +111,7 @@
         <!--//login-->
 
         <!--registration-->
-        <%@include file="/WEB-INF/jsp/commons/regisration.jsp"%>
+        <%@include file="/WEB-INF/jsp/header/regisration.jsp"%>
         <!--//registration-->
 
     </div>

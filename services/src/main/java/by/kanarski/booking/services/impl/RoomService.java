@@ -11,7 +11,7 @@ import by.kanarski.booking.exceptions.DaoException;
 import by.kanarski.booking.exceptions.LocalisationException;
 import by.kanarski.booking.exceptions.ServiceException;
 import by.kanarski.booking.services.interfaces.IRoomService;
-import by.kanarski.booking.utils.ExceptionHandler;
+import by.kanarski.booking.utils.BookingExceptionHandler;
 import by.kanarski.booking.utils.filter.SearchFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -106,9 +106,9 @@ public class RoomService extends ExtendedBaseService<Room, RoomDto> implements I
             List<Room> roomList = roomDao.getListByFilter(searchFilter, page, perPage);
             roomDtoList = converter.toDtoList(roomList);
         } catch (DaoException e) {
-            ExceptionHandler.handleDaoException(e);
+            BookingExceptionHandler.handleDaoException(e);
         } catch (LocalisationException e) {
-            ExceptionHandler.handleLocalizationException(e);
+            BookingExceptionHandler.handleLocalizationException(e);
         }
         return roomDtoList;
     }

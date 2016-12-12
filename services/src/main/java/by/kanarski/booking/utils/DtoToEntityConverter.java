@@ -63,6 +63,9 @@ public class DtoToEntityConverter<E, D> {
 
     @SuppressWarnings("unchecked")
     public E toEntity(D dto) throws LocalisationException, DaoException {
+        if (dto == null) {
+            return null;
+        }
         String dtoName = dtoClass.getSimpleName();
         Object entity = null;
         switch (dtoName) {
@@ -100,6 +103,9 @@ public class DtoToEntityConverter<E, D> {
 
     @SuppressWarnings("unchecked")
     public D toDto(E entity) throws LocalisationException {
+        if (entity == null) {
+            return null;
+        }
         String dtoName = dtoClass.getSimpleName();
         Object dto = null;
         switch (dtoName) {
@@ -137,6 +143,9 @@ public class DtoToEntityConverter<E, D> {
 
     @SuppressWarnings("unchecked")
     public Set<E> toEntitySet(List<D> dtoList) throws LocalisationException, DaoException {
+        if (dtoList == null || dtoList.size() == 0) {
+            return null;
+        }
         String dtoName = dtoClass.getSimpleName();
         Set entitySet = null;
         switch (dtoName) {
@@ -174,6 +183,9 @@ public class DtoToEntityConverter<E, D> {
 
     @SuppressWarnings("unchecked")
     public List<E> toEntityList(List<D> dtoList) throws LocalisationException, DaoException {
+        if (dtoList == null || dtoList.size() == 0) {
+            return null;
+        }
         String dtoName = dtoClass.getSimpleName();
         List entityList = null;
         switch (dtoName) {
@@ -211,6 +223,9 @@ public class DtoToEntityConverter<E, D> {
 
     @SuppressWarnings("unchecked")
     public List<D> toDtoList(List<E> entityList) throws LocalisationException, DaoException {
+        if (entityList == null || entityList.size() == 0) {
+            return null;
+        }
         String dtoName = dtoClass.getSimpleName();
         List dtoList = null;
         switch (dtoName) {

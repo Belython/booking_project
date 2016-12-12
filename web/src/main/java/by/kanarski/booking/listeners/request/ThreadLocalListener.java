@@ -21,7 +21,6 @@ public class ThreadLocalListener implements ServletRequestListener {
 
     @Override
     public void requestDestroyed(ServletRequestEvent servletRequestEvent) {
-//        HibernateUtil.closeSession();
         ThreadLocalUtil.destroy();
 
     }
