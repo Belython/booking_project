@@ -101,7 +101,7 @@
     </listener>
 
     <error-page>
-        <location>/WEB-INF/jsp/error.jsp</location>
+        <location>/WEB-INF/jsp/body/error.jsp</location>
     </error-page>
 
     <welcome-file-list>

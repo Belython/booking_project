@@ -152,6 +152,13 @@ public class Parameter {
     public static final String CURRENT_PAGE = "currentPage";
     public static final String PAGER_SIZE = "pagerSize";
 
+    //cookie names
+    public static final String COOKIE_LOCALE = "userLocale";
+    public static final String COOKIE_CURRENCY = "userCurrency";
+
+    //login form paramters
+    public static final String LOGIN_OPERATION_MESSAGE = "loginOperationMessage";
+
     private Parameter() {
     }
 }
