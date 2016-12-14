@@ -21,6 +21,7 @@ public class Pages {
     public static final String PAGE_EDIT_ORDER = "client/edit_order";
     public static final String PAGE_USER = "/user";
     public static final String PAGE_SEARCH_RESULTS = "search_results";
+    public static final String PAGE_HOTEL = "hotel";
     //redirect
     public static final String REDIRECT_PAGE_ADD_CAR = "redirect:admin/main";
     public static final String REDIRECT_PAGE_USER = "redirect:user";
@@ -28,6 +29,8 @@ public class Pages {
     public static final String REDIRECT_INDEX = "redirect:index";
     public static final String REDIRECT_ALL_CLIENT_ORDERS = "redirect:client_orders";
     public static final String REDIRECT_ALL_ORDERS = "redirect:get_all_orders";
+    //ajax pages
+    public static final String POSSIBLE_DESTINATIONS = "possibleDestinations";
     //error pages
     public static final String PAGE_404 = "404";
     public static final String PAGE_500 = "500";
@@ -64,4 +67,6 @@ public class Pages {
     public static final String VALUE_SET_CURRENCY = "set_currency";
     public static final String VALUE_SEARCH_HOTELS = "searchHotels";
     public static final String VALUE_GET_DESTINATIONS = "get_destinations";
+    public static final String VALUE_WATCH_HOTEL = "watchHotel";
+    public static final String VALUE_BOOK_ROOMS = "bookRooms";
 }

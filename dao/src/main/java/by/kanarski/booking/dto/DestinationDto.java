@@ -4,6 +4,7 @@ import by.kanarski.booking.dto.abstr.LocalizableDto;
 import by.kanarski.booking.dto.hotel.HotelDto;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,9 @@ import java.util.List;
  */
 
 @Data
-public class DestinationDto extends LocalizableDto {
+public class DestinationDto extends LocalizableDto implements Serializable {
+
+    private static final Long serialVersionUID = 1L;
 
     private List<String> parameterList = new ArrayList<>();
     private HotelDto hotelDto;

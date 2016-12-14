@@ -4,9 +4,13 @@ import by.kanarski.booking.dto.abstr.LocalizableDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
 @AllArgsConstructor
-public class AdminRoomTypeDto extends LocalizableDto {
+public class AdminRoomTypeDto extends LocalizableDto implements Serializable {
+
+    private static final Long serialVersionUID = 1L;
 
     private Long roomTypeId;
     private String roomTypeName;

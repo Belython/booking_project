@@ -13,10 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 
 @Component
 public class Pagination {
-    private static final int MIN_ROWS_ON_PAGE = 5;
+    private static final int MIN_ROWS_ON_PAGE = 2;
     private static final int FIRST_PAGE = 1;
     private static final int PAGE_FOR_PAGINATION = 1;
-    private static final int PAGER_SIZE = 5;
 
     public Pagination() {
     }
@@ -35,7 +34,7 @@ public class Pagination {
         } else {
             perPage = Integer.parseInt(request.getParameter(Parameter.PER_PAGE));
         }
-        request.setAttribute(Parameter.ROWS, perPage);
+        request.setAttribute(Parameter.PER_PAGE, perPage);
         return perPage;
     }
 
@@ -46,19 +45,16 @@ public class Pagination {
      * @return
      */
     public int getStartRow(HttpServletRequest request) {
-        //default params to read
         int perPage = getItemPerPage(request);
-        int currentRowFromDatabase = FIRST_PAGE;
-        int currentPage = currentRowFromDatabase;
-        //checks the current page number on the user interface
-        if (request.getParameter(Parameter.START_PAGE) != null) {
-            currentPage = Integer.parseInt(request.getParameter(Parameter.START_PAGE));
-            currentRowFromDatabase = Integer.parseInt(request.getParameter(Parameter.START_PAGE)) * perPage - perPage + 1;
+        int page = FIRST_PAGE;
+        int startRow = FIRST_PAGE;
+        String curretnPageAsString = request.getParameter(Parameter.PAGE);
+        if (curretnPageAsString != null) {
+            page = Integer.parseInt(curretnPageAsString);
+            startRow = Integer.parseInt(curretnPageAsString) * perPage - perPage;
         }
-//        request.setAttribute(Parameter.START_PAGE, currentRowFromDatabase);
-        request.setAttribute(Parameter.CURRENT_PAGE, currentPage);
-
-        return currentRowFromDatabase;
+        request.setAttribute(Parameter.PAGE, page);
+        return startRow;
     }
 
     /**

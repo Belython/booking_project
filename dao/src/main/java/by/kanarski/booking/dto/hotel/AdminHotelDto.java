@@ -6,10 +6,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AdminHotelDto extends LocalizableDto {
+public class AdminHotelDto extends LocalizableDto implements Serializable {
+
+    private static final Long serialVersionUID = 1L;
 
     private Long hotelId;
     private LocationDto location;

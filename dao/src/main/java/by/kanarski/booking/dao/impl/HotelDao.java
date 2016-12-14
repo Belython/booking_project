@@ -27,12 +27,26 @@ public class HotelDao extends ExtendedBaseDao<Hotel> implements IHotelDao {
         super(sessionFactory);
     }
 
+//    @Override
+//    public List<Hotel> getListByOrder(Order order, int page, int perPage) throws DaoException {
+//        List<Hotel> hotelList = null;
+//        try {
+//            Criteria criteria = getCritetiaByOrder(order);
+//            hotelList = getListByCriteria(criteria, page, perPage);
+//        } catch (HibernateException e) {
+//            throw new DaoException(e);
+//        }
+//        return hotelList;
+//    }
+
     @Override
     public List<Hotel> getListByOrder(Order order, int page, int perPage) throws DaoException {
         List<Hotel> hotelList = null;
         try {
-            Criteria criteria = getCritetiaByOrder(order);
-            hotelList = getListByCriteria(criteria, page, perPage);
+            List<Long> hotelIdList = getHotelIdList(order, page, perPage);
+            Criteria criteria = getSession().createCriteria(Hotel.class)
+                    .add(Restrictions.in(SearchParameter.HOTELID, hotelIdList));
+            hotelList = criteria.list();
         } catch (HibernateException e) {
             throw new DaoException(e);
         }
@@ -44,7 +58,8 @@ public class HotelDao extends ExtendedBaseDao<Hotel> implements IHotelDao {
         Long hotelsCount = null;
         try {
             Criteria criteria = getCritetiaByOrder(order);
-            // TODO: 12.12.2016 Подумать над универсальнойстью 
+            // TODO: 12.12.2016 Подумать над универсальнойстью
+
             criteria.setProjection(Projections.countDistinct(SearchParameter.HOTELID));
             hotelsCount = getCountByCriteria(criteria);
         } catch (HibernateException e) {
@@ -97,25 +112,38 @@ public class HotelDao extends ExtendedBaseDao<Hotel> implements IHotelDao {
         Long checkOutDate = order.getCheckOutDate();
         Conjunction condition1 = Restrictions.conjunction();
         condition1
-                .add(Restrictions.lt(SearchParameter.BILLSET_CHECKINDATE, checkInDate))
-                .add(Restrictions.ge(SearchParameter.BILLSET_CHECKOUTDATE, checkOutDate));
+                .add(Restrictions.gt(SearchParameter.BILLSET_CHECKINDATE, checkInDate))
+                .add(Restrictions.lt(SearchParameter.BILLSET_CHECKOUTDATE, checkOutDate));
         Conjunction condition2 = Restrictions.conjunction();
         condition2
-                .add(Restrictions.gt(SearchParameter.BILLSET_CHECKOUTDATE, checkInDate))
-                .add(Restrictions.lt(SearchParameter.BILLSET_CHECKINDATE, checkOutDate));
+                .add(Restrictions.lt(SearchParameter.BILLSET_CHECKOUTDATE, checkInDate))
+                .add(Restrictions.gt(SearchParameter.BILLSET_CHECKINDATE, checkOutDate));
         Conjunction condition3 = Restrictions.conjunction();
         condition3
                 .add(condition1)
                 .add(condition2);
         Conjunction condition4 = Restrictions.conjunction();
         condition4
-                .add(Restrictions.gt(SearchParameter.BILLSET_CHECKOUTDATE, checkInDate))
-                .add(Restrictions.between(SearchParameter.BILLSET_CHECKINDATE, checkInDate, checkOutDate));
+                .add(Restrictions.lt(SearchParameter.BILLSET_CHECKOUTDATE, checkInDate))
+                .add(Restrictions.not(Restrictions.between(SearchParameter.BILLSET_CHECKINDATE, checkInDate, checkOutDate)));
+        Criterion nullDateCriterion = Restrictions.isNull(SearchParameter.BILLSET_CHECKINDATE);
         Disjunction disjunction = Restrictions.disjunction();
         disjunction
+                .add(nullDateCriterion)
                 .add(condition3)
                 .add(condition4);
+        criteria.add(disjunction);
         return criteria;
+    }
+
+    private List<Long> getHotelIdList(Order order, int page, int perPage) {
+        Criteria criteria = getCritetiaByOrder(order)
+                .setProjection(Projections.distinct(Projections.property(SearchParameter.HOTELID)))
+                .setFirstResult(page)
+                .setMaxResults(perPage);
+        List<Long> resultList;
+        resultList = criteria.list();
+        return resultList;
     }
 
 }

@@ -28,8 +28,9 @@ public class AuthenticationService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         org.springframework.security.core.userdetails.User securityUser = null;
+        UserDto userDto = null;
         try {
-            UserDto userDto = userService.getByLogin(userName);
+            userDto = userService.getByLogin(userName);
             if (userDto == null) {
                 throw new UsernameNotFoundException("Username not found");
             }
@@ -41,7 +42,7 @@ public class AuthenticationService implements UserDetailsService {
         } catch (ServiceException e) {
             BookingExceptionHandler.handleServiceException(e);
         }
-        return securityUser;
+        return userDto;
     }
 
     private List<GrantedAuthority> getGrantedAuthorities(UserDto userDto) {

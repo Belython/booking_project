@@ -46,11 +46,12 @@ public class UserController {
     }
 
     @RequestMapping(value = Pages.VALUE_LOGIN, method = RequestMethod.GET)
-    public String loginUser(String error, Model model) throws ServiceException {
+    public String loginUser(String error, Model model, HttpSession session) throws ServiceException {
         if (error != null) {
             model.addAttribute(UIParameter.LOGIN_OPERATION_MESSAGE, MessageKey.WRONG_LOGIN_OR_PASSWORD);
         }
-        return Pages.PAGE_INDEX;
+        String page = (String) session.getAttribute(Parameter.CURRENT_VIEW_NAME);
+        return page;
     }
 
     @RequestMapping(value = Pages.VALUE_LOGOUT)

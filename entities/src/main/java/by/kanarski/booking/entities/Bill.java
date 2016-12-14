@@ -1,5 +1,7 @@
 package by.kanarski.booking.entities;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -11,6 +13,8 @@ import java.util.Set;
         name = "increment",
         strategy = "increment"
 )
+@DynamicUpdate
+@DynamicInsert
 public class Bill implements Serializable {
 
     private static final Long serialVersionUID = 1L;
@@ -87,7 +91,7 @@ public class Bill implements Serializable {
         this.checkOutDate = checkOutDate;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(
             name = "BILL_ROOMS",
             joinColumns = {

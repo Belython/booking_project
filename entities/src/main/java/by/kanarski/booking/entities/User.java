@@ -1,5 +1,7 @@
 package by.kanarski.booking.entities;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -10,6 +12,8 @@ import java.io.Serializable;
         name = "increment",
         strategy = "increment"
 )
+@DynamicUpdate
+@DynamicInsert
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;

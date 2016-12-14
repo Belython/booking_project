@@ -3,8 +3,12 @@ package by.kanarski.booking.dto.roomType;
 import by.kanarski.booking.dto.abstr.LocalizableDto;
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class RoomTypeDto extends LocalizableDto {
+public class RoomTypeDto extends LocalizableDto implements Serializable {
+
+    private static final Long serialVersionUID = 1L;
 
     private Long roomTypeId;
     private String roomTypeName;

@@ -34,71 +34,9 @@ public class UserHotelService extends ExtendedBaseService<Hotel, UserHotelDto> i
     @Autowired
     private IHotelDao hotelDao;
 
-//    @Override
-//    public UserHotelDto getByHotelName(String hotelName) throws ServiceException {
-//        TransactoinWrapper transaction = TransactionManager.getTransaction();
-//        UserHotelDto userHotelDto = null;
-//        SearchFilter hotelFilter = SearchFilter.createBasicEqFilter("hotelName", hotelName);
-//        hotelFilter.addEqFilter("language", "EN");
-//        try {
-//            transaction.begin();
-//            HotelTranslation hotelTranslation = HotelTranslationDao.getInstance().getUniqueByFilter(hotelFilter);
-//            Hotel hotel = hotelTranslation.getHotel();
-//            userHotelDto = converter.toDto(hotel);
-//            transaction.rollback();
-//        } catch (DaoException e) {
-//            ExceptionHandler.handleDaoException(transaction, e);
-//        } catch (LocalisationException e) {
-//            ExceptionHandler.handleLocalizationException(e);
-//        }
-//        return userHotelDto;
-//    }
-//
-//    @Override
-//    public List<UserHotelDto> getByCountry(String country, int page, int perPage) throws ServiceException {
-//        TransactoinWrapper transaction = TransactionManager.getTransaction();
-//        List<UserHotelDto> userHotelDtoList = null;
-//        SearchFilter locationFilter = SearchFilter.createBasicEqFilter("country", country);
-//        locationFilter.addEqFilter("language", "EN");
-//        try {
-//            transaction.begin();
-//            country = LocationTranslationDao.getInstance().getListByFilter(locationFilter, 0, 1).get(0).getCountry();
-//            SearchFilter hotelFilter = SearchFilter.createBasicEqFilter("location.country", country);
-//            List<Hotel> hotelList = hotelDao.getListByFilter(hotelFilter, page, perPage);
-//            userHotelDtoList = converter.toDtoList(hotelList);
-//            transaction.commit();
-//        } catch (DaoException e) {
-//            ExceptionHandler.handleDaoException(transaction, e);
-//        } catch (LocalisationException e) {
-//            ExceptionHandler.handleLocalizationException(e);
-//        }
-//        return userHotelDtoList;
-//    }
-//
-//    @Override
-//    public List<UserHotelDto> getByCity(String city, int page, int perPage) throws ServiceException {
-//        TransactoinWrapper transaction = TransactionManager.getTransaction();
-//        List<UserHotelDto> userHotelDtoList = null;
-//        SearchFilter locationFilter = SearchFilter.createBasicEqFilter("country", city);
-//        locationFilter.addEqFilter("language", "EN");
-//        try {
-//            transaction.begin();
-//            city = LocationTranslationDao.getInstance().getListByFilter(locationFilter, 0, 1).get(0).getCity();
-//            SearchFilter hotelFilter = SearchFilter.createBasicEqFilter("location.city", city);
-//            List<Hotel> hotelList = hotelDao.getListByFilter(hotelFilter, page, perPage);
-//            userHotelDtoList = converter.toDtoList(hotelList);
-//            transaction.commit();
-//        } catch (DaoException e) {
-//            ExceptionHandler.handleDaoException(transaction, e);
-//        } catch (LocalisationException e) {
-//            ExceptionHandler.handleLocalizationException(e);
-//        }
-//        return userHotelDtoList;
-//    }
-
     @Override
     public List<UserHotelDto> getListByOrder(OrderDto orderDto, int page, int perPage) throws ServiceException {
-        List<UserHotelDto> userHotelDtoList =  new ArrayList<>();
+        List<UserHotelDto> userHotelDtoList = new ArrayList<>();
         try {
             Order order = toOrder(orderDto);
             List<Hotel> hotelList = hotelDao.getListByOrder(order, page, perPage);
