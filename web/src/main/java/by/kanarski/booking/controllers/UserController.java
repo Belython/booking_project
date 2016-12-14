@@ -9,6 +9,7 @@ import by.kanarski.booking.utils.BookingExceptionHandler;
 import by.kanarski.booking.utils.SystemLogger;
 import by.kanarski.booking.utils.threadLocal.UserPreferences;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -37,9 +38,6 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
-    @Autowired
-    private IBillService billService;
-
     private SystemLogger logger = SystemLogger.getInstance().setSender(UserController.class);
 
     @ExceptionHandler(Exception.class)
@@ -52,10 +50,11 @@ public class UserController {
     @RequestMapping(value = Pages.VALUE_LOGIN, method = RequestMethod.GET)
     public String loginUser(String error, Model model, HttpSession session) throws ServiceException {
         if (error != null) {
-            model.addAttribute(UIParameter.LOGIN_OPERATION_MESSAGE, MessageKey.WRONG_LOGIN_OR_PASSWORD);
+            model.addAttribute(Parameter.LOGIN_OPERATION_MESSAGE, MessageKey.WRONG_LOGIN_OR_PASSWORD);
         }
-        String page = (String) session.getAttribute(Parameter.CURRENT_VIEW_NAME);
-        return page;
+        String currentViewName = (String) session.getAttribute(Parameter.CURRENT_VIEW_NAME);
+
+        return currentViewName;
     }
 
     @RequestMapping(value = Pages.VALUE_LOGOUT)
@@ -87,7 +86,7 @@ public class UserController {
     public String setLocale(Locale locale, HttpServletRequest request, HttpServletResponse response,
                             HttpSession session) {
         String currentViewName = (String) session.getAttribute(Parameter.CURRENT_VIEW_NAME);
-        Cookie cookie = new Cookie(UIParameter.COOKIE_LOCALE, locale.toString());
+        Cookie cookie = new Cookie(Parameter.COOKIE_LOCALE, locale.toString());
         response.addCookie(cookie);
         session.setAttribute(Parameter.CURRENT_LOCALE, locale);
         UserPreferences.setLocale(locale);
@@ -98,7 +97,7 @@ public class UserController {
     public String setCurrency(Currency currency, HttpServletRequest request, HttpServletResponse response,
                             HttpSession session) {
         String currentViewName = (String) session.getAttribute(Parameter.CURRENT_VIEW_NAME);
-        Cookie cookie = new Cookie(UIParameter.COOKIE_CURRENCY, currency.toString());
+        Cookie cookie = new Cookie(Parameter.COOKIE_CURRENCY, currency.toString());
         response.addCookie(cookie);
         session.setAttribute(Parameter.CURRENT_CURRENCY, currency);
         UserPreferences.setCurrency(currency);

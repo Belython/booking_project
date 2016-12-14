@@ -5,7 +5,6 @@ package by.kanarski.booking.constants;
  */
 public class Value {
 
-
     public static final String ASCENDING = "ascending";
     public static final String DESCENDING = "descending";
 

@@ -155,31 +155,6 @@ public class RequestParser {
 //        return currency;
 //    }
 
-    public static BillDto parseBillDto(HttpServletRequest request) throws LocalisationException {
-        HttpSession session = request.getSession();
-        OrderDto orderDto = (OrderDto) session.getAttribute(Parameter.ORDER);
-        UserDto userDto = orderDto.getUser();
-        String checkInDate = orderDto.getCheckInDate();
-        String checkOutDate = orderDto.getCheckOutDate();
-        UserHotelDto selectedUserHotelDto = (UserHotelDto) session.getAttribute(Parameter.SELECTED_USER_HOTEL);
-        HotelDto selectedHotelDto = DtoToEntityConverter.toHotelDto(selectedUserHotelDto);
-        int totalPersons = orderDto.getTotalPersons();
-        Set<RoomTypeDto> roomTypeDtoSet = selectedUserHotelDto.getRoomTypesCount().keySet();
-        HashMap<RoomTypeDto, Integer> selectedRoomTypes = new HashMap<>();
-        for (RoomTypeDto roomTypeDto : roomTypeDtoSet) {
-            int roomTypeCount = Integer.valueOf(request.getParameter(roomTypeDto.getRoomTypeName()));
-            if (roomTypeCount != 0) {
-                selectedRoomTypes.put(roomTypeDto, roomTypeCount);
-            }
-        }
-//        List<Room> roomList = RoomService.getInstance()
-        List<RoomDto> selectedRoomList = AdminLogic.chooseRoomList(selectedRoomTypes, selectedUserHotelDto.getRoomList());
-        int bookedDays = BillUtil.getBookedDays(checkInDate, checkOutDate);
-        double paymentAmount = BillUtil.getPaymentAmount(bookedDays, selectedRoomList);
-        return new BillDto(userDto, totalPersons, checkInDate, checkOutDate, selectedHotelDto,
-                selectedRoomList, paymentAmount);
-    }
-
     public static List<RoomDto> parseRoomDtoList(HttpServletRequest request) throws ServiceException{
         List<RoomDto> roomDtoList = new ArrayList<>();
         Map<String, String[]> parameterMap = request.getParameterMap();

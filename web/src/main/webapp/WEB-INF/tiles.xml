@@ -17,9 +17,6 @@
         <put-attribute name="footer" value="/WEB-INF/jsp/footer/footer.jsp"/>
     </definition>
 
-    <definition name="error" extends="default">
-    </definition>
-
     <definition name="search_results" template="/WEB-INF/jsp/layouts/search_results.jsp">
         <put-attribute name="header" value="/WEB-INF/jsp/header/header.jsp"/>
         <put-attribute name="body" value="/WEB-INF/jsp/body/search_results.jsp"/>
@@ -36,12 +33,22 @@
         <put-attribute name="body" value="/WEB-INF/jsp/body/my_account.jsp"/>
     </definition>
 
+    <definition name="error" template="/WEB-INF/jsp/layouts/error.jsp">
+        <put-attribute name="header" value="/WEB-INF/jsp/header/header.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/body/error.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/jsp/footer/footer.jsp"/>
+    </definition>
+
     <definition name="ajaxResponse" template="/WEB-INF/jsp/layouts/ajax_response.jsp">
         <put-attribute name="body" value=""/>
     </definition>
 
     <definition name="possibleDestinations" extends="ajaxResponse">
         <put-attribute name="body" value="/WEB-INF/jsp/ajaxBody/possible_destinations.jsp"/>
+    </definition>
+
+    <definition name="newHeader" extends="ajaxResponse">
+        <put-attribute name="body" value="/WEB-INF/jsp/header/header.jsp"/>
     </definition>
 
 
