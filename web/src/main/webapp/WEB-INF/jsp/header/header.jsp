@@ -31,7 +31,7 @@
                     </sec:authorize>
                     <sec:authorize access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
                         <li>
-                            <a href="controller?command=goToAccount" title="Settings">Settings</a>
+                            <a href="${context}/toAccount" title="Settings">Settings</a>
                         </li>
                         <li>
                             <a href="${context}/logout">

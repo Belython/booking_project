@@ -3,6 +3,7 @@ package by.kanarski.booking.controllers;
 import by.kanarski.booking.constants.*;
 import by.kanarski.booking.dto.UserDto;
 import by.kanarski.booking.exceptions.ServiceException;
+import by.kanarski.booking.services.interfaces.IBillService;
 import by.kanarski.booking.services.interfaces.IUserService;
 import by.kanarski.booking.utils.BookingExceptionHandler;
 import by.kanarski.booking.utils.SystemLogger;
@@ -35,6 +36,9 @@ public class UserController {
 
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private IBillService billService;
 
     private SystemLogger logger = SystemLogger.getInstance().setSender(UserController.class);
 
@@ -87,21 +91,17 @@ public class UserController {
         response.addCookie(cookie);
         session.setAttribute(Parameter.CURRENT_LOCALE, locale);
         UserPreferences.setLocale(locale);
-//        Filler filler = FillerFactory.getInstance().defineFiller(PagePath.INDEX);
-//        filler.fill(request);
         return currentViewName;
     }
 
     @RequestMapping(value = Pages.VALUE_SET_CURRENCY, method = RequestMethod.GET)
-    public String setLocale(Currency currency, HttpServletRequest request, HttpServletResponse response,
+    public String setCurrency(Currency currency, HttpServletRequest request, HttpServletResponse response,
                             HttpSession session) {
         String currentViewName = (String) session.getAttribute(Parameter.CURRENT_VIEW_NAME);
         Cookie cookie = new Cookie(UIParameter.COOKIE_CURRENCY, currency.toString());
         response.addCookie(cookie);
         session.setAttribute(Parameter.CURRENT_CURRENCY, currency);
         UserPreferences.setCurrency(currency);
-//        Filler filler = FillerFactory.getInstance().defineFiller(PagePath.INDEX);
-//        filler.fill(request);
         return currentViewName;
     }
 

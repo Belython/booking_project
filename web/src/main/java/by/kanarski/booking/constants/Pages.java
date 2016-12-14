@@ -5,23 +5,20 @@ public class Pages {
     public static final String PAGE_CLIENT = "client/client";
     public static final String PAGE_FORGOT_PASSWORD = "client/forgot_password";
     public static final String PAGE_INDEX = "index";
-    public static final String PAGE_CONTACT = "contact_info";
     public static final String PAGE_REGISTRATION = "client/registration";
-    public static final String PAGE_ALL_CARS = "car/all_cars";
-    public static final String PAGE_RENT_CAR = "car/rent_car";
     public static final String PAGE_ALL_CLIENT_ORDERS = "client/orders";
     public static final String PAGE_PROCESS_ORDER = "admin/process_order";
     public static final String PAGE_EDIT_CLIENT = "client/edit_client_data";
     public static final String PAGE_SUCCESS_REDIRECT = "redirect:success";
     public static final String PAGE_ADMIN = "admin/main";
     public static final String PAGE_ERROR = "error";
-    public static final String PAGE_ADD_CAR = "admin/add_car";
     public static final String PAGE_ALL_ORDERS = "admin/all_orders";
     public static final String PAGE_ALL_USERS = "admin/all_users";
     public static final String PAGE_EDIT_ORDER = "client/edit_order";
     public static final String PAGE_USER = "/user";
     public static final String PAGE_SEARCH_RESULTS = "search_results";
     public static final String PAGE_HOTEL = "hotel";
+    public static final String PAGE_MY_ACCOUNT = "my_account";
     //redirect
     public static final String REDIRECT_PAGE_ADD_CAR = "redirect:admin/main";
     public static final String REDIRECT_PAGE_USER = "redirect:user";
@@ -57,11 +54,6 @@ public class Pages {
     public static final String VALUE_DELETE_ORDER = "delete_order";
     public static final String VALUE_EDIT_ORDER = "edit_order";
     public static final String VALUE_CLIENT_ORDERS = "client_orders";
-    public static final String VALUE_RENT_CAR = "rent_car";
-    public static final String VALUE_GET_ALL_CARS = "get_all_cars";
-    public static final String VALUE_GET_CARS_BY_FILTER = "get_cars_by_filter";
-    public static final String VALUE_ADD_CAR = "add_car";
-    public static final String VALUE_CHECK_CAR = "check_car";
     public static final String PROCESS_ORDER = "process_order";
     public static final String VALUE_SET_LOCALE = "set_locale";
     public static final String VALUE_SET_CURRENCY = "set_currency";
@@ -69,4 +61,6 @@ public class Pages {
     public static final String VALUE_GET_DESTINATIONS = "get_destinations";
     public static final String VALUE_WATCH_HOTEL = "watchHotel";
     public static final String VALUE_BOOK_ROOMS = "bookRooms";
+    public static final String VALUE_TO_ACCOUNT = "toAccount";
+    public static final String VALUE_CANCEL_BOOKING = "cancelBooking";
 }

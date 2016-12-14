@@ -32,6 +32,10 @@
         <put-attribute name="footer" value="/WEB-INF/jsp/footer/footer.jsp"/>
     </definition>
 
+    <definition name="my_account" extends="default">
+        <put-attribute name="body" value="/WEB-INF/jsp/body/my_account.jsp"/>
+    </definition>
+
     <definition name="ajaxResponse" template="/WEB-INF/jsp/layouts/ajax_response.jsp">
         <put-attribute name="body" value=""/>
     </definition>
