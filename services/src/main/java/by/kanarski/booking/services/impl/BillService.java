@@ -1,5 +1,8 @@
 package by.kanarski.booking.services.impl;
 
+import by.kanarski.booking.constants.AliasName;
+import by.kanarski.booking.constants.AliasValue;
+import by.kanarski.booking.constants.FieldValue;
 import by.kanarski.booking.constants.SearchParameter;
 import by.kanarski.booking.dao.interfaces.IBillDao;
 import by.kanarski.booking.dto.BillDto;
@@ -17,6 +20,7 @@ import by.kanarski.booking.exceptions.ServiceException;
 import by.kanarski.booking.services.interfaces.IBillService;
 import by.kanarski.booking.services.interfaces.IUserHotelService;
 import by.kanarski.booking.utils.BookingExceptionHandler;
+import by.kanarski.booking.utils.DtoToEntityConverter;
 import by.kanarski.booking.utils.filter.SearchFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -41,7 +45,8 @@ public class BillService extends ExtendedBaseService<Bill, BillDto> implements I
     @Override
     public List<BillDto> getByUserId(Long userId, int page, int perPage) throws ServiceException {
         List<BillDto> billDtoList = null;
-        SearchFilter searchFilter = SearchFilter.createBasicEqFilter(SearchParameter.USER_ID, userId);
+        SearchFilter searchFilter = SearchFilter.createAliasFilter(AliasName.CLIENT, AliasValue.USER)
+                .addEqFilter(SearchParameter.USER_USERIDID, userId);
         try {
             List<Bill> billList = billDao.getListByFilter(searchFilter, page, perPage);
             billDtoList = converter.toDtoList(billList);
@@ -53,7 +58,8 @@ public class BillService extends ExtendedBaseService<Bill, BillDto> implements I
         return billDtoList;
     }
 
-    public void makeBill(BookRoomsForm bookRoomsForm, HotelDto hotelDto, OrderDto orderDto) throws ServiceException {
+    public void makeBill(BookRoomsForm bookRoomsForm, OrderDto orderDto) throws ServiceException {
+        HotelDto hotelDto = DtoToEntityConverter.toHotelDto(orderDto.getUserHotelDto());
         UserHotelDto userHotelDto = userHotelService.getById(hotelDto.getHotelId());
         List<RoomDto> bookedRooms = new ArrayList<>();
         List<RoomDto> allRooms = userHotelDto.getRoomList();
@@ -71,6 +77,16 @@ public class BillService extends ExtendedBaseService<Bill, BillDto> implements I
         BillDto billDto = new BillDto(user, orderDto.getTotalPersons(), orderDto.getCheckInDate(),
                 orderDto.getCheckOutDate(), hotelDto, bookedRooms, 1000D);
         add(billDto);
+    }
+
+    public void cancelBooking(Long billId) throws ServiceException {
+        try {
+            Bill bill = billDao.getById(billId);
+            bill.setBillStatus(FieldValue.STATUS_CANCELED);
+            billDao.update(bill);
+        } catch (DaoException e) {
+            BookingExceptionHandler.handleDaoException(e);
+        }
     }
 
     @Deprecated

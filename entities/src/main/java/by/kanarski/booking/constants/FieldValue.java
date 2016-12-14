@@ -24,7 +24,7 @@ public class FieldValue {
     public static final String STATUS_DELETED = "deleted";
     public static final String STATUS_PAID = "paid";
     public static final String STATUS_NOT_PAID = "notPaid";
-    public static final String STATUS_REFUSED = "refused";
+    public static final String STATUS_CANCELED = "canceled";
 
     //Hotel values
 

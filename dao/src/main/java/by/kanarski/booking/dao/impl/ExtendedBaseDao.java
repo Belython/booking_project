@@ -14,6 +14,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.sql.JoinType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -207,7 +208,7 @@ public class ExtendedBaseDao<T> extends BaseDao<T> implements IExtendedBaseDao<T
     private void addAliases(Criteria criteria, SearchFilter filter) {
         Set<String> aliasNames = filter.getAliasNames();
         for (String aliasName : aliasNames) {
-            criteria.createAlias(aliasName, filter.getAlias(aliasName));
+            criteria.createAlias(aliasName, filter.getAlias(aliasName), JoinType.LEFT_OUTER_JOIN);
         }
     }
 

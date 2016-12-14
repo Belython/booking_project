@@ -15,7 +15,6 @@ import by.kanarski.booking.services.interfaces.IHotelService;
 import by.kanarski.booking.services.interfaces.IUserHotelService;
 import by.kanarski.booking.services.interfaces.IUserService;
 import by.kanarski.booking.utils.BookingExceptionHandler;
-import by.kanarski.booking.utils.DtoToEntityConverter;
 import by.kanarski.booking.utils.Pagination;
 import by.kanarski.booking.utils.RequestParser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -121,29 +120,11 @@ public class OrderController {
     }
 
     @RequestMapping(value = Pages.VALUE_BOOK_ROOMS, method = RequestMethod.POST)
-    public String book(BookRoomsForm bookRoomsForm, HttpServletRequest request, HttpSession session) {
+    public String bookRooms(BookRoomsForm bookRoomsForm, HttpServletRequest request, HttpSession session) {
         String page = null;
         OrderDto orderDto = (OrderDto) session.getAttribute(Parameter.ORDER);
-        HotelDto hotelDto = DtoToEntityConverter.toHotelDto(orderDto.getUserHotelDto());
         try {
-//            UserHotelDto userHotelDto = userHotelService.getById(hotelDto.getHotelId());
-//            List<RoomDto> bookedRooms = new ArrayList<>();
-//            List<RoomDto> allRooms = userHotelDto.getRoomList();
-//            List<OrderedRoomTypesDto> orderedRoomTypesDtos = bookRoomsForm.getOrderedRooms();
-//            for (RoomDto roomDto : allRooms) {
-//                Long roomTypeId = roomDto.getRoomType().getRoomTypeId();
-//                for (OrderedRoomTypesDto orderedRoomTypesDto : orderedRoomTypesDtos) {
-//                    Long bookedRoomTypeId = orderedRoomTypesDto.getRoomTypeId();
-//                    if (roomTypeId.equals(bookedRoomTypeId)) {
-//                        bookedRooms.add(roomDto);
-//                    }
-//                }
-//            }
-//            UserDto user = (UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//            BillDto billDto = new BillDto(user, orderDto.getTotalPersons(), orderDto.getCheckInDate(),
-//                    orderDto.getCheckOutDate(), hotelDto, bookedRooms, 1000D);
-//            billService.add(billDto);
-            billService.makeBill(bookRoomsForm, hotelDto, orderDto);
+            billService.makeBill(bookRoomsForm, orderDto);
             page = Pages.PAGE_HOTEL;
         } catch (ServiceException e) {
             page = Pages.PAGE_ERROR;
