@@ -79,7 +79,7 @@
                                 <%--<div class="description">--%>
                                     <%--<p>Overlooking the Aqueduct and Nature Park, Lorem Ipsum Hotel is situated 5 minutes’ walk from London’s Zoological Gardens and a metro station. <a href="hotel.html">More info</a></p>--%>
                                 <%--</div>--%>
-                                <a href="controller?command=goToHotel" title="Book now" class="gradient-button">Book now</a>
+                                <a href="${context}/watchHotel?hotelId=${hotel.hotelId}" title="Book now" class="gradient-button">Book now</a>
                             </div>
                         </article>
                         <!--//deal-->
@@ -90,41 +90,23 @@
                         <!--back up button-->
                         <a href="#" class="scroll-to-top" title="Back up">Back up</a>
                         <!--//back up button-->
-
-                        <%--<!--pager-->--%>
-                        <%--<div class="pager">--%>
-                            <%--<span><a href="#">First page</a></span>--%>
-                            <%--<span><a href="#">&lt;</a></span>--%>
-                            <%--<span class="current">1</span>--%>
-                            <%--<span><a href="#">2</a></span>--%>
-                            <%--<span><a href="#">3</a></span>--%>
-                            <%--<span><a href="#">4</a></span>--%>
-                            <%--<span><a href="#">5</a></span>--%>
-                            <%--<span><a href="#">6</a></span>--%>
-                            <%--<span><a href="#">7</a></span>--%>
-                            <%--<span><a href="#">8</a></span>--%>
-                            <%--<span><a href="#">&gt;</a></span>--%>
-                            <%--<span><a href="#">Last page</a></span>--%>
-                        <%--</div>--%>
-                        <%--<!--//pager-->--%>
-
                         <!--pager-->
                         <div class="pager">
-                            <c:set var="navSize" value="5"/>
-                            <c:if test="${page > navSize}">
-                                <span><a href="${context}/${command}?page=${page - 1}&perPage=${perPage}">&lt;</a></span>
-                                <span><a href="#">1</a></span>
-                                <span><a href="#">...</a></span>
-                            </c:if>
+                            <c:set var="navSize" value="3"/>
                             <c:if test="${totalPages <= navSize}" >
-                                <%--<c:set var="start" value="1"/>--%>
-                                <%--<c:set var="end" value="${totalPages}"/>--%>
                                 <c:set var="start" value="1"/>
-                                <c:set var="end" value="${navSize}"/>
+                                <c:set var="end" value="${totalPages}"/>
+                                <%--<c:set var="start" value="1"/>--%>
+                                <%--<c:set var="end" value="${navSize}"/>--%>
                             </c:if>
                             <c:if test="${totalPages > navSize}" >
-                                <c:set var="start" value="${page - (page % navSize)}"/>
+                                <c:set var="start" value="${page - (page % navSize) + 1}"/>
                                 <c:set var="end" value="${navSize}"/>
+                            </c:if>
+                            <c:if test="${page > navSize}">
+                                <span><a href="${context}/${command}?page=${start - 1}&perPage=${perPage}">&lt;</a></span>
+                                <span><a href="${context}/${command}?page=1&perPage=${perPage}">1</a></span>
+                                <span>...</span>
                             </c:if>
                             <c:forEach begin="${start}" end="${end}" var="i">
                                 <c:choose>
@@ -137,47 +119,13 @@
                                 </c:choose>
                             </c:forEach>
                             <c:if test="${end < totalPages}">
-                                <span><a href="#">...</a></span>
-                                <span><a href="#">${totalPages}</a></span>
-                                <span><a href="${context}/${command}?page=${page + 1}&perPage=${perPage}">&gt;</a></span>
+                                <span>...</span>
+                                <span><a href="${context}/${command}?page=${totalPages}&perPage=${perPage}">${totalPages}</a></span>
+                                <span><a href="${context}/${command}?page=${end + 1}&perPage=${perPage}">&gt;</a></span>
                             </c:if>
                         </div>
                         <!--//pager-->
                     </div>
-
-                    <%--<nav aria-label="Page navigation">--%>
-                        <%--<ul class="pagination">--%>
-                            <%--<c:set var="navSize" value="5"/>--%>
-                            <%--<c:if test="${page > navSize}">--%>
-                                <%--<span><a href="${context}/${command}?page=${page - 1}&perPage=${perPage}">&lt;</a></span>--%>
-                                <%--<span><a href="#">1</a></span>--%>
-                                <%--<span><a href="#">...</a></span>--%>
-                            <%--</c:if>--%>
-                            <%--<c:if test="${totalPages <= navSize}" >--%>
-                                <%--<c:set var="start" value="1"/>--%>
-                                <%--<c:set var="end" value="${totalPages}"/>--%>
-                            <%--</c:if>--%>
-                            <%--<c:if test="${totalPages > navSize}" >--%>
-                                <%--<c:set var="start" value="${page - (page % navSize)}"/>--%>
-                                <%--<c:set var="end" value="${navSize}"/>--%>
-                            <%--</c:if>--%>
-                            <%--<c:forEach begin="${start}" end="${end}" var="i">--%>
-                                <%--<c:choose>--%>
-                                    <%--<c:when test="${page == i}">--%>
-                                        <%--<span class="current"><a href="#">${i}</a></span>--%>
-                                    <%--</c:when>--%>
-                                    <%--<c:otherwise>--%>
-                                        <%--<span><a href="${context}/${command}?page=${i}&perPage=${perPage}">${i}</a></span>--%>
-                                    <%--</c:otherwise>--%>
-                                <%--</c:choose>--%>
-                            <%--</c:forEach>--%>
-                            <%--<c:if test="${end < totalPages}">--%>
-                                <%--<span><a href="#">...</a></span>--%>
-                                <%--<span><a href="#">${totalPages}</a></span>--%>
-                                <%--<span><a href="${context}/${command}?page=${page + 1}&perPage=${perPage}">&gt;</a></span>--%>
-                            <%--</c:if>--%>
-                        <%--</ul>--%>
-                    <%--</nav>--%>
                     <!--//bottom navigation-->
                 </div>
             </section>
@@ -188,36 +136,4 @@
 </div>
 <!--//main-->
 
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('dt').each(function() {
-            var tis = $(this), state = false, answer = tis.next('dd').hide().css('height','auto').slideUp();
-            tis.click(function() {
-                state = !state;
-                answer.slideToggle(state);
-                tis.toggleClass('active',state);
-            });
-        });
-
-        $('.view-type li:first-child').addClass('active');
-
-        $('#star').raty({
-            score    : 3,
-            click: function(score, evt) {
-                alert('ID: ' + $(this).attr('id') + '\nscore: ' + score + '\nevent: ' + evt);
-            }
-        });
-
-
-    });
-
-    $(window).load(function () {
-        var maxHeight = 0;
-
-        $(".three-fourth .one-fourth").each(function(){
-            if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
-        });
-        $(".three-fourth .one-fourth").height(maxHeight);
-    });
-</script>
 

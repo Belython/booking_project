@@ -41,8 +41,13 @@ public class DateUtil {
         long date = 0;
         try {
             date = dateFormat.parse(formattedDate).getTime();
-        } catch (ParseException e) {
-            throw new LocalisationException(ExceptionMessageManager.PARSE_DATE_EXCEPTION.get(), e);
+        } catch (ParseException e1) {
+            try {
+                dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, UserPreferences.getLocale());
+                date = dateFormat.parse(formattedDate).getTime();
+            } catch (ParseException e2) {
+                throw new LocalisationException(ExceptionMessageManager.PARSE_DATE_EXCEPTION.get(), e2);
+            }
         }
         return date;
     }

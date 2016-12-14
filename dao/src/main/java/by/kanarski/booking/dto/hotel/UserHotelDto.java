@@ -8,12 +8,15 @@ import by.kanarski.booking.utils.HotelUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
 @Data
 @AllArgsConstructor
-public class UserHotelDto extends LocalizableDto {
+public class UserHotelDto extends LocalizableDto implements Serializable {
+
+    private static final Long serialVersionUID = 1L;
 
     private Long hotelId;
     private LocationDto location;

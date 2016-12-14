@@ -10,12 +10,12 @@
 <html>
 <head>
     <%@include file="/WEB-INF/jsp/commons/standard_scripts.jsp"%>
-    <title> <spring:message code="title.error"/></title>
+    <title><spring:message code="title.main"/></title>
 </head>
 <body>
     <tiles:insertAttribute name="header"/>
-    <tiles:insertAttribute name="body"/>
-    <tiles:insertAttribute name="body"/>
+    <tiles:insertAttribute name="slider"/>
+    <tiles:insertAttribute name="search"/>
     <tiles:insertAttribute name="footer"/>
 </body>
 </html>

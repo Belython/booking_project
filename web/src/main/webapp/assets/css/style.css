@@ -305,11 +305,12 @@ header .ribbon 		{float:right;position:absolute;top:-1px;right:-2px;z-index:2;ba
 .room-types li p				{padding:0 0 11px;}
 .room-types .more-info		{font:normal 1.3em 'OpenSansSemibold';color:#3f3f3f;text-decoration:none;}
 
-.room-information					{float:right;border-left:1px solid #ccc;margin:0 0 0 2%;padding:3px 0 0 3%;width:15%;height:149px;position:relative;}
+.room-information					{float:right;border-left:1px solid #ccc;margin:0 0 0 2%;padding:3px 0 0 3%;width:20%;height:180px;position:relative;}
 .room-information .row				{float:left;width:100%;padding:0 0 10px;}
 .room-information span				{font-size:1.3em;float:left;}
 .room-information .first 			{width:60px;}
 .room-information .second 			{width:30px;font-family:'OpenSansSemibold';color:#444;}
+.room-information .second-select    {width:80px;font-family:'OpenSansSemibold';color:#444;}
 .room-information span img 			{float:left;}
 .room-information .gradient-button	{position:absolute;bottom:0;left:20px;width:90px;padding:0;}
 

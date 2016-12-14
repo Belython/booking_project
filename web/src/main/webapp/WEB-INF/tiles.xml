@@ -7,19 +7,29 @@
     <definition name="default" template="/WEB-INF/jsp/layouts/default.jsp">
         <put-attribute name="header" value="/WEB-INF/jsp/header/header.jsp"/>
         <put-attribute name="body" value=""/>
-        <put-attribute name="selectnav" value=""/>
         <put-attribute name="footer" value="/WEB-INF/jsp/footer/footer.jsp"/>
     </definition>
 
-    <definition name="index" extends="default">
-        <put-attribute name="body" value="/WEB-INF/jsp/body/body_index.jsp"/>
+    <definition name="index" template="/WEB-INF/jsp/layouts/index.jsp">
+        <put-attribute name="header" value="/WEB-INF/jsp/header/header.jsp"/>
+        <put-attribute name="slider" value="/WEB-INF/jsp/commons/slider.jsp"/>
+        <put-attribute name="search" value="/WEB-INF/jsp/body/search.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/jsp/footer/footer.jsp"/>
     </definition>
 
     <definition name="error" extends="default">
     </definition>
 
-    <definition name="search_results" extends="default">
+    <definition name="search_results" template="/WEB-INF/jsp/layouts/search_results.jsp">
+        <put-attribute name="header" value="/WEB-INF/jsp/header/header.jsp"/>
         <put-attribute name="body" value="/WEB-INF/jsp/body/search_results.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/jsp/footer/footer.jsp"/>
+    </definition>
+
+    <definition name="hotel" template="/WEB-INF/jsp/layouts/hotel.jsp">
+        <put-attribute name="header" value="/WEB-INF/jsp/header/header.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/body/hotel_info.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/jsp/footer/footer.jsp"/>
     </definition>
 
     <definition name="ajaxResponse" template="/WEB-INF/jsp/layouts/ajax_response.jsp">

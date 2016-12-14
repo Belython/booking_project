@@ -154,9 +154,15 @@ public class HotelService extends ExtendedBaseService<Hotel, HotelDto> implement
             }
             DtoToEntityConverter<Location, LocationDto> locationConverter = new DtoToEntityConverter<>(
                     Location.class, LocationDto.class);
+            List<HotelDto> partHotelDtoList = new ArrayList<>();
 
-            List<HotelDto> partHotelDtoList = converter.toDtoList(hotelList);
-            List<LocationDto> partLocationDtoList = locationConverter.toDtoList(locationList);
+            if (hotelList.size() != 0) {
+                partHotelDtoList = converter.toDtoList(hotelList);
+            }
+            List<LocationDto> partLocationDtoList = new ArrayList<>();
+            if (locationList.size() != 0) {
+                partLocationDtoList = locationConverter.toDtoList(locationList);
+            }
             List<HotelDto> anyHotelDtoList = converter.toAnyHotelDtoList(partLocationDtoList);
             hotelDtoList = partHotelDtoList;
             hotelDtoList.addAll(anyHotelDtoList);

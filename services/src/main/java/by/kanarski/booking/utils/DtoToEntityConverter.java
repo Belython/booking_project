@@ -48,21 +48,31 @@ public class DtoToEntityConverter<E, D> {
     private Long languageId;
     private Class<E> entityClass;
     private Class<D> dtoClass;
+    private boolean customLanguage;
 
     public DtoToEntityConverter(Class<E> entityClass, Class<D> dtoClass) {
         this.entityClass = entityClass;
         this.dtoClass = dtoClass;
         this.languageId = SupportedLanguagesManager.getLanguageId(UserPreferences.getLocale().getLanguage());
+        this.customLanguage = false;
     }
 
     public DtoToEntityConverter(Class<E> entityClass, Class<D> dtoClass, String language) {
         this.entityClass = entityClass;
         this.dtoClass = dtoClass;
         this.languageId = SupportedLanguagesManager.getLanguageId(language);
+        this.customLanguage = true;
+    }
+
+    private void updateLanguage() {
+        if (!customLanguage) {
+            this.languageId = SupportedLanguagesManager.getLanguageId(UserPreferences.getLocale().getLanguage());
+        }
     }
 
     @SuppressWarnings("unchecked")
     public E toEntity(D dto) throws LocalisationException, DaoException {
+        updateLanguage();
         if (dto == null) {
             return null;
         }
@@ -103,6 +113,7 @@ public class DtoToEntityConverter<E, D> {
 
     @SuppressWarnings("unchecked")
     public D toDto(E entity) throws LocalisationException {
+        updateLanguage();
         if (entity == null) {
             return null;
         }
@@ -143,6 +154,7 @@ public class DtoToEntityConverter<E, D> {
 
     @SuppressWarnings("unchecked")
     public Set<E> toEntitySet(List<D> dtoList) throws LocalisationException, DaoException {
+        updateLanguage();
         if (dtoList == null || dtoList.size() == 0) {
             return null;
         }
@@ -183,6 +195,7 @@ public class DtoToEntityConverter<E, D> {
 
     @SuppressWarnings("unchecked")
     public List<E> toEntityList(List<D> dtoList) throws LocalisationException, DaoException {
+        updateLanguage();
         if (dtoList == null || dtoList.size() == 0) {
             return null;
         }
@@ -223,6 +236,7 @@ public class DtoToEntityConverter<E, D> {
 
     @SuppressWarnings("unchecked")
     public List<D> toDtoList(List<E> entityList) throws LocalisationException, DaoException {
+        updateLanguage();
         if (entityList == null || entityList.size() == 0) {
             return null;
         }

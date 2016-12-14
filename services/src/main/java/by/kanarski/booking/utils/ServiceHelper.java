@@ -6,6 +6,7 @@ import by.kanarski.booking.dao.interfaces.ILocationTranslationDao;
 import by.kanarski.booking.dao.interfaces.IRoomTypeTranslationDao;
 import by.kanarski.booking.entities.hotel.HotelTranslation;
 import by.kanarski.booking.entities.location.LocationTranslation;
+import by.kanarski.booking.entities.roomType.RoomTypeTranslation;
 import by.kanarski.booking.exceptions.DaoException;
 import by.kanarski.booking.utils.filter.SearchFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,11 @@ public class ServiceHelper {
 
     public String getNotLocalizedHotelName(String hotelName, String language) throws DaoException {
         SearchFilter filter = SearchFilter.createLanguageFilter(language);
-        filter.addILikeFilter(SearchParameter.HOTELNAME, hotelName);
+        if (hotelName.contains(" ")) {
+            filter.addEqFilter(SearchParameter.HOTELNAME, hotelName);
+        } else {
+            filter.addILikeFilter(SearchParameter.HOTELNAME, hotelName);
+        }
         List<HotelTranslation> hotelTranslationList = hotelTranslationDao.getListByFilter(filter, 0, 1);
         String notLocalizedHotelName = null;
         if (hotelTranslationList.size() > 0) {
@@ -41,7 +46,11 @@ public class ServiceHelper {
 
     public String getNotLocalizedCountry(String country, String language) throws DaoException {
         SearchFilter filter = SearchFilter.createLanguageFilter(language);
-        filter.addILikeFilter(SearchParameter.COUNTRY, country);
+        if (country.contains(" ")) {
+            filter.addEqFilter(SearchParameter.COUNTRY, country);
+        } else {
+            filter.addILikeFilter(SearchParameter.COUNTRY, country);
+        }
         List<LocationTranslation> locationTranslationList = locationTranslationDao.getListByFilter(filter, 0, 1);
         String notLocalizedCountry = null;
         if (locationTranslationList.size() > 0) {
@@ -52,13 +61,32 @@ public class ServiceHelper {
 
     public String getNotLocalizedCity(String city, String language) throws DaoException {
         SearchFilter filter = SearchFilter.createLanguageFilter(language);
-        filter.addILikeFilter(SearchParameter.CITY, city);
+        if (city.contains(" ")) {
+            filter.addEqFilter(SearchParameter.CITY, city);
+        } else {
+            filter.addILikeFilter(SearchParameter.CITY, city);
+        }
         List<LocationTranslation> locationTranslationList = locationTranslationDao.getListByFilter(filter, 0, 1);
         String notLocalizedCity = null;
         if (locationTranslationList.size() > 0) {
             notLocalizedCity = locationTranslationList.get(0).getLocation().getCity();
         }
         return notLocalizedCity;
+    }
+
+    public String getNotLocalizedRoomTypeName(String roomTypeName, String language) throws DaoException {
+        SearchFilter filter = SearchFilter.createLanguageFilter(language);
+        if (roomTypeName.contains(" ")) {
+            filter.addEqFilter(SearchParameter.ROOMTYPENAME, roomTypeName);
+        } else {
+            filter.addILikeFilter(SearchParameter.ROOMTYPENAME, roomTypeName);
+        }
+        List<RoomTypeTranslation> roomTypeTranslationList = roomTypeTranslationDao.getListByFilter(filter, 0, 1);
+        String notLocalizedRoomTypeName = null;
+        if (roomTypeTranslationList.size() > 0) {
+            notLocalizedRoomTypeName = roomTypeTranslationList.get(0).getRoomType().getRoomTypeName();
+        }
+        return notLocalizedRoomTypeName;
     }
 
 }

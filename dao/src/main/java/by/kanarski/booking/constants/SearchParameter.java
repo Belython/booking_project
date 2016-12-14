@@ -39,6 +39,6 @@ public class SearchParameter {
     public static final String BILLSET_CHECKOUTDATE = "billSet.checkOutDate";
 
     //RoomType parameters
-
+    public static final String ROOMTYPENAME = "roomTypeName";
 
 }

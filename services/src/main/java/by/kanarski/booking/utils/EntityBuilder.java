@@ -49,14 +49,18 @@ public class EntityBuilder {
 //    @Autowired
     private IBillDao billDao;
 
+    private ServiceHelper serviceHelper;
+
     @Autowired(required = false)
-    public EntityBuilder(IUserDao userDao, ILocationDao locationDao, IHotelDao hotelDao, IRoomDao roomDao, IRoomTypeDao roomTypeDao, IBillDao billDao) {
+    public EntityBuilder(IUserDao userDao, ILocationDao locationDao, IHotelDao hotelDao, IRoomDao roomDao,
+                         IRoomTypeDao roomTypeDao, IBillDao billDao, ServiceHelper serviceHelper) {
         this.userDao = userDao;
         this.locationDao = locationDao;
         this.hotelDao = hotelDao;
         this.roomDao = roomDao;
         this.roomTypeDao = roomTypeDao;
         this.billDao = billDao;
+        this.serviceHelper = serviceHelper;
     }
 
     //
@@ -117,6 +121,7 @@ public class EntityBuilder {
 
     public Location buildLocation(Long locationId, String country, String city, String locationStatus, Long languageId)
             throws DaoException {
+        String language = SupportedLanguagesManager.getLanguage(languageId);
         Location location;
         Map<Long, LocationTranslation> locationTranslationMap;
         if (locationId != null) {
@@ -130,10 +135,14 @@ public class EntityBuilder {
             location = new Location();
             locationTranslationMap = new HashMap<>();
         }
+        String notLocalizedCountry = serviceHelper.getNotLocalizedCountry(country, language);
+        String notLocalizedCity = serviceHelper.getNotLocalizedCity(city, language);
         LocationTranslation locationTranslation = new LocationTranslation();
         locationTranslation.setCountry(country);
         locationTranslation.setCity(city);
         locationTranslationMap.put(languageId, locationTranslation);
+        location.setCountry(notLocalizedCountry);
+        location.setCity(notLocalizedCity);
         location.setLocationStatus(locationStatus);
         return location;
     }
@@ -153,6 +162,7 @@ public class EntityBuilder {
 
     public Hotel buildHotel(Long hotelId, Location location, String hotelName, String hotelStatus, Long languageId)
             throws DaoException {
+        String language = SupportedLanguagesManager.getLanguage(languageId);
         Hotel hotel;
         Map<Long, HotelTranslation> hotelTranslationMap;
         if (hotelId != null) {
@@ -166,9 +176,11 @@ public class EntityBuilder {
             hotel = new Hotel();
             hotelTranslationMap = new HashMap<>();
         }
+        String notLocalizedHotelName = serviceHelper.getNotLocalizedHotelName(hotelName, language);
         HotelTranslation hotelTranslation = new HotelTranslation();
         hotelTranslation.setHotelName(hotelName);
         hotelTranslationMap.put(languageId, hotelTranslation);
+        hotel.setHotelName(notLocalizedHotelName);
         hotel.setLocation(location);
         hotel.setHotelStatus(hotelStatus);
         return hotel;
@@ -188,6 +200,7 @@ public class EntityBuilder {
 
     public RoomType buildRoomType(Long roomTypeId, String roomTypeName, Integer maxPersons, Double pricePerNight,
                                          Set<Facility> facilitySet, String roomTypeStatus, Long languageId) throws DaoException {
+        String language = SupportedLanguagesManager.getLanguage(languageId);
         RoomType roomType;
         Map<Long, RoomTypeTranslation> roomTypeTranslationMap;
         if (roomTypeId != null) {
@@ -201,9 +214,11 @@ public class EntityBuilder {
             roomType = new RoomType();
             roomTypeTranslationMap = new HashMap<>();
         }
+        String notLocalizedRoomTypeName = serviceHelper.getNotLocalizedRoomTypeName(roomTypeName, language);
         RoomTypeTranslation roomTypeTranslation = new RoomTypeTranslation();
         roomTypeTranslation.setRoomTypeName(roomTypeName);
         roomTypeTranslationMap.put(languageId, roomTypeTranslation);
+        roomType.setRoomTypeName(notLocalizedRoomTypeName);
         roomType.setMaxPersons(maxPersons);
         roomType.setPricePerNight(pricePerNight);
         roomType.setFacilitySet(facilitySet);

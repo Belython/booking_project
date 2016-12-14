@@ -20,4 +20,16 @@ public class Order {
     private Long checkInDate;
     private Long checkOutDate;
 
+    @Override
+    public String toString() {
+        return "Order{" +
+                "user=" + user +
+                ", hotel=" + hotel +
+                ", roomType=" + roomType +
+                ", totalPersons=" + totalPersons +
+                ", totalRooms=" + totalRooms +
+                ", checkInDate=" + checkInDate +
+                ", checkOutDate=" + checkOutDate +
+                '}';
+    }
 }

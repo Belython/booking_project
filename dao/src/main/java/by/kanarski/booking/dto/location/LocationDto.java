@@ -4,11 +4,14 @@ import by.kanarski.booking.constants.FieldValue;
 import by.kanarski.booking.dto.abstr.LocalizableDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
 
 @Data
 @AllArgsConstructor
-public class LocationDto extends LocalizableDto {
+public class LocationDto extends LocalizableDto implements Serializable {
+
+    private static final Long serialVersionUID = 1L;
 
     private Long locationId;
     private String country;

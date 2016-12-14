@@ -2,9 +2,10 @@ package by.kanarski.booking.entities;
 
 import by.kanarski.booking.entities.hotel.Hotel;
 import by.kanarski.booking.entities.roomType.RoomType;
-import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.Set;
 
@@ -13,6 +14,8 @@ import java.util.Set;
         name = "increment",
         strategy = "increment"
 )
+@DynamicUpdate
+@DynamicInsert
 public class Room implements Serializable {
 
     private static final Long serialVersionUID = 1L;
