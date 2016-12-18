@@ -6,21 +6,22 @@ import by.kanarski.booking.constants.Pages;
 import by.kanarski.booking.constants.Parameter;
 import by.kanarski.booking.dto.DestinationDto;
 import by.kanarski.booking.dto.OrderDto;
+import by.kanarski.booking.dto.facility.FacilityDto;
 import by.kanarski.booking.dto.forms.BookRoomsForm;
 import by.kanarski.booking.dto.hotel.HotelDto;
 import by.kanarski.booking.dto.hotel.UserHotelDto;
 import by.kanarski.booking.exceptions.ServiceException;
-import by.kanarski.booking.services.interfaces.IBillService;
-import by.kanarski.booking.services.interfaces.IHotelService;
-import by.kanarski.booking.services.interfaces.IUserHotelService;
-import by.kanarski.booking.services.interfaces.IUserService;
+import by.kanarski.booking.services.interfaces.*;
 import by.kanarski.booking.utils.BookingExceptionHandler;
-import by.kanarski.booking.utils.Pagination;
+import by.kanarski.booking.utils.PaginationUtil;
 import by.kanarski.booking.utils.RequestParser;
+import by.kanarski.booking.utils.ServletHelper;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -41,43 +42,45 @@ public class OrderController {
     private IHotelService hotelService;
 
     @Autowired
-    private IUserService userService;
-
-    @Autowired
     private IBillService billService;
 
     @Autowired
-    private Pagination pagination;
+    private IFacilityService facilityService;
 
-    @RequestMapping(value = Pages.VALUE_SEARCH_HOTELS, method = {RequestMethod.POST, RequestMethod.GET})
-    public String searchHotel(OrderDto orderDto, HttpServletRequest request, HttpSession session) {
+    @Autowired
+    private PaginationUtil paginationUtil;
+
+    @Autowired
+    private ServletHelper servletHelper;
+
+    @RequestMapping(value = Pages.PAGE_SEARCH_RESULTS, method = {RequestMethod.POST, RequestMethod.GET})
+    public String searchHotel(OrderDto order, HttpServletRequest request, HttpSession session,
+                              RedirectAttributes redirectAttributes) {
         String page = null;
-        DestinationDto destinationDto = RequestParser.parseDestinationDto(request);
-        if (orderDto.getCheckInDate() == null) {
-            orderDto = (OrderDto) session.getAttribute(Parameter.ORDER);
-        } else {
-            orderDto.setHotel(destinationDto.getHotelDto());
-        }
+        order = servletHelper.resolveOrder(order, request, session);
         try {
-            String hotelName = orderDto.getHotel().getHotelName();
+            String hotelName = order.getHotel().getHotelName();
+            if (StringUtils.isBlank(hotelName)) {
+                order.getHotel().setHotelName(FieldValue.ANY_HOTEL);
+            }
             if (!hotelName.equals(FieldValue.ANY_HOTEL)) {
-                // TODO: 29.11.2016 НЕРАБОТАЕТ
-//                HotelDto hotelDto = HotelService.getInstance().getByHotelName(orderDto.getHotel());
-//                HotelDto hotelDto = new HotelDto();
-//                orderDto.setHotel(hotelDto);
-//                servletAction = ServletAction.CALL_COMMAND;
-//                servletAction.setCommandName(CommandType.GOTOSELECTROOMS.name());
+                HotelDto hotelDto = order.getHotel();
+                HotelDto selectedHotelDto = hotelService.getByDescription(hotelDto);
+                redirectAttributes.addAttribute(Parameter.HOTEL_ID, selectedHotelDto.getHotelId());
+                page = Pages.REDIRECT_HOTEL;
             } else {
-                Long count = userHotelService.getHotelsCount(orderDto);
-                Integer startRow = pagination.getStartRow(request);
-                Integer perPage = pagination.getItemPerPage(request);
-                Integer totalPages = pagination.getTotalPages(count, perPage, request);
-                List<UserHotelDto> userHotelDtoList = userHotelService.getListByOrder(orderDto, startRow, perPage);
+                Long hotelsCount = userHotelService.getHotelsCount(order);
+                Integer startRow = paginationUtil.getStartRow(request);
+                Integer perPage = paginationUtil.getItemPerPage(request);
+                paginationUtil.getTotalPages(hotelsCount, perPage, request);
+                List<UserHotelDto> userHotelDtoList = userHotelService.getListByOrder(order, startRow, perPage);
+                List<FacilityDto> facilityDtoList = facilityService.getAll();
                 session.setAttribute(Parameter.SELECTED_USER_HOTEL_LIST, userHotelDtoList);
-                session.setAttribute(Parameter.ORDER, orderDto);
-                request.setAttribute(Parameter.COMMAND, Pages.VALUE_SEARCH_HOTELS);
+                request.setAttribute(Parameter.ALL_ROOM_FACILITIES, facilityDtoList);
+                request.setAttribute(Parameter.COMMAND, Pages.PAGE_SEARCH_RESULTS);
                 page = Pages.PAGE_SEARCH_RESULTS;
             }
+            session.setAttribute(Parameter.ORDER, order);
         } catch (ServiceException e) {
             page = PagePath.ERROR;
             BookingExceptionHandler.handleServiceException(e);
@@ -101,7 +104,7 @@ public class OrderController {
         return page;
     }
 
-    @RequestMapping(value = Pages.VALUE_WATCH_HOTEL, method = RequestMethod.GET)
+    @RequestMapping(value = Pages.PAGE_HOTEL, method = RequestMethod.GET)
     public String watchHotel(Long hotelId, HttpServletRequest request, HttpSession session) {
         String page = null;
         OrderDto orderDto = (OrderDto) session.getAttribute(Parameter.ORDER);

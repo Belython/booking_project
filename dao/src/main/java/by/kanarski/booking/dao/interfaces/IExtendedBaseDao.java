@@ -23,11 +23,11 @@ public interface IExtendedBaseDao<T> extends IBaseDao<T> {
 
     List<T> getListByFilter(SearchFilter filter, int page, int perPage) throws DaoException;
 
-    List<T> getListByFilter(SearchFilter filter) throws DaoException;
-
     T getUniqueByFilter(SearchFilter filter) throws DaoException;
 
 //    Long getResultsSize(SearchFilter filter, String searchProperty) throws DaoException;
+
+    List<T> getAll() throws DaoException;
 
     void setEntityClass(Class<T> entityClass);
 

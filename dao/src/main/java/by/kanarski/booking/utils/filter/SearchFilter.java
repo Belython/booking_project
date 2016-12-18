@@ -64,6 +64,12 @@ public class SearchFilter {
         return this;
     }
 
+    public SearchFilter addNeFilter(String property, Object value) {
+        FilterElement filterElement = new FilterElement(property, CriteriaConstraint.NE, value);
+        filterList.add(filterElement);
+        return this;
+    }
+
     public SearchFilter addGtFilter(String property, Object value) {
         FilterElement filterElement = new FilterElement(property, CriteriaConstraint.GT, value);
         filterList.add(filterElement);

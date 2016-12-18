@@ -152,42 +152,35 @@
             <!--Room facilites-->
             <dt>Room facilites</dt>
             <dd>
-                <div class="checkbox">
-                    <input type="checkbox" id="ch29" name="room-facilities" />
-                    <label for="ch29">Bathroom</label>
-                </div>
-                <div class="checkbox">
-                    <input type="checkbox" id="ch30" name="room-facilities" />
-                    <label for="ch30">Cable TV</label>
-                </div>
-                <div class="checkbox">
-                    <input type="checkbox" id="ch31" name="room-facilities" />
-                    <label for="ch31">Air conditioning</label>
-                </div>
-                <div class="checkbox">
-                    <input type="checkbox" id="ch32" name="room-facilities" />
-                    <label for="ch32">Mini bar</label>
-                </div>
-                <div class="checkbox">
-                    <input type="checkbox" id="ch33" name="room-facilities" />
-                    <label for="ch33">Wi - Fi</label>
-                </div>
-                <div class="checkbox">
-                    <input type="checkbox" id="ch34" name="room-facilities" />
-                    <label for="ch34">Wheelchair - friendly room</label>
-                </div>
-                <div class="checkbox">
-                    <input type="checkbox" id="ch35" name="room-facilities" />
-                    <label for="ch35">Pay TV</label>
-                </div>
-                <div class="checkbox">
-                    <input type="checkbox" id="ch36" name="room-facilities" />
-                    <label for="ch36">Desk</label>
-                </div>
-                <div class="checkbox">
-                    <input type="checkbox" id="ch37" name="room-facilities" />
-                    <label for="ch37">Room safe</label>
-                </div>
+                <c:forEach var="facility" items="${allRoomFacilities}">
+                    <c:set var="facilityName" value="${facility.facilityName}"/>
+                    <c:choose>
+                        <c:when test="${selectedFacilities.contains(facilityName)}">
+                            <c:set var="roomFacilities" value=""/>
+                        </c:when>
+                        <c:otherwise>
+                            <c:set var="roomFacilities" value="${facilityName}"/>
+                        </c:otherwise>
+                    </c:choose>
+                    <c:forEach var="selectedFacility" items="${selectedFacilities}">
+                        <c:if test="${selectedFacilities.contains(facilityName)}">
+                            <c:set var="roomFacilities" value="${roomFacilities.concat(', ').concat(selectedFacility)}"/>
+                        </c:if>
+                    </c:forEach>
+                        <a href="${mainRef}&roomFacilities=${roomFacilities}">
+                            <div class="checkbox">
+                                <c:choose>
+                                    <c:when test="${selectedFacilities.contains(facilityName)}">
+                                        <input type="checkbox" id="ch29" name="room-facilities" checked/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <input type="checkbox" id="ch29" name="room-facilities"/>
+                                    </c:otherwise>
+                                </c:choose>
+                                <label for="ch29">${facilityName}</label>
+                            </div>
+                        </a>
+                </c:forEach>
             </dd>
             <!--//Room facilites-->
 

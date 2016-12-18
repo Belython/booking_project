@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderedRoomTypesDto implements Serializable {
+public class OrderedRoomTypeDto implements Serializable {
 
     private static final Long serialVersionUID = 1L;
 

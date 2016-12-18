@@ -7,7 +7,7 @@ package by.kanarski.booking.utils.filter;
 
 public enum CriteriaConstraint {
 
-    EQ("="), GT(">"), LT("<"), GE("=>"), LE("<="),
+    EQ("="), NE("<>"), GT(">"), LT("<"), GE("=>"), LE("<="),
     LIKE(""), ILIKE(""),
     BEETWEN("");
 

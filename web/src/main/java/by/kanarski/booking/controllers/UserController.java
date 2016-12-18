@@ -3,13 +3,11 @@ package by.kanarski.booking.controllers;
 import by.kanarski.booking.constants.*;
 import by.kanarski.booking.dto.UserDto;
 import by.kanarski.booking.exceptions.ServiceException;
-import by.kanarski.booking.services.interfaces.IBillService;
 import by.kanarski.booking.services.interfaces.IUserService;
 import by.kanarski.booking.utils.BookingExceptionHandler;
 import by.kanarski.booking.utils.SystemLogger;
 import by.kanarski.booking.utils.threadLocal.UserPreferences;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -53,7 +51,6 @@ public class UserController {
             model.addAttribute(Parameter.LOGIN_OPERATION_MESSAGE, MessageKey.WRONG_LOGIN_OR_PASSWORD);
         }
         String currentViewName = (String) session.getAttribute(Parameter.CURRENT_VIEW_NAME);
-
         return currentViewName;
     }
 
@@ -66,7 +63,7 @@ public class UserController {
         return Pages.REDIRECT_INDEX;
     }
 
-    @RequestMapping(value = Pages.REGISTER_USER, method = RequestMethod.POST)
+    @RequestMapping(value = Pages.VALUE_REGISTER_USER, method = RequestMethod.POST)
     public String registerUser(UserDto userDto, BindingResult bindingResult, HttpSession session) {
         String currentViewName = (String) session.getAttribute(Parameter.CURRENT_VIEW_NAME);
         if (bindingResult.hasErrors()) {

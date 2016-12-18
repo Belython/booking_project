@@ -1,5 +1,8 @@
 package by.kanarski.booking.constants;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Pages {
     //pages url
     public static final String PAGE_CLIENT = "client/client";
@@ -24,6 +27,7 @@ public class Pages {
     public static final String REDIRECT_PAGE_USER = "redirect:user";
     public static final String REDIRECT_PAGE_CLIENT = "redirect:client/client";
     public static final String REDIRECT_INDEX = "redirect:index";
+    public static final String REDIRECT_HOTEL = "redirect:hotel";
     public static final String REDIRECT_ALL_CLIENT_ORDERS = "redirect:client_orders";
     public static final String REDIRECT_ALL_ORDERS = "redirect:get_all_orders";
     //ajax pages
@@ -41,7 +45,7 @@ public class Pages {
     public static final String VALUE_GO_TO_EDIT_CLIENT = "go_to_edit_client";
     public static final String VALUE_CHANGE_DATA = "change_data";
     public static final String VALUE_GET_PASSWORD = "get_password";
-    public static final String REGISTER_USER = "register";
+    public static final String VALUE_REGISTER_USER = "register";
     public static final String VALUE_GET_ALL_USERS = "get_all_users";
     public static final String VALUE_404 = "404";
     public static final String VALUE_CONTACT_INFO = "contact_info";
@@ -58,9 +62,16 @@ public class Pages {
     public static final String VALUE_SET_LOCALE = "set_locale";
     public static final String VALUE_SET_CURRENCY = "set_currency";
     public static final String VALUE_SEARCH_HOTELS = "searchHotels";
+    public static final String VALUE_SEARCH_RESULTS = "search_results";
     public static final String VALUE_GET_DESTINATIONS = "get_destinations";
     public static final String VALUE_WATCH_HOTEL = "watchHotel";
     public static final String VALUE_BOOK_ROOMS = "bookRooms";
     public static final String VALUE_TO_ACCOUNT = "toAccount";
     public static final String VALUE_CANCEL_BOOKING = "cancelBooking";
+    public static final String VALUE_PAY_BILL = "payBill";
+    public static final String VALUE_REMOVE_BILL = "removeBill";
+
+    public static final List<String> VIEW_LIST= Arrays.asList(
+            PAGE_INDEX, PAGE_ERROR, PAGE_HOTEL, PAGE_SEARCH_RESULTS, PAGE_MY_ACCOUNT
+    );
 }

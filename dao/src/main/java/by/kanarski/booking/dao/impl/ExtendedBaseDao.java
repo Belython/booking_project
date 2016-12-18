@@ -1,12 +1,19 @@
 package by.kanarski.booking.dao.impl;
 
 import by.kanarski.booking.dao.interfaces.IExtendedBaseDao;
+import by.kanarski.booking.entities.facility.Facility;
+import by.kanarski.booking.entities.facility.FacilityTranslation;
+import by.kanarski.booking.entities.hotel.Hotel;
+import by.kanarski.booking.entities.hotel.HotelTranslation;
+import by.kanarski.booking.entities.location.Location;
+import by.kanarski.booking.entities.location.LocationTranslation;
+import by.kanarski.booking.entities.roomType.RoomType;
+import by.kanarski.booking.entities.roomType.RoomTypeTranslation;
 import by.kanarski.booking.exceptions.DaoException;
 import by.kanarski.booking.utils.filter.CriteriaConstraint;
 import by.kanarski.booking.utils.filter.DisjunctionElement;
 import by.kanarski.booking.utils.filter.FilterElement;
 import by.kanarski.booking.utils.filter.SearchFilter;
-import by.kanarski.booking.utils.threadLocal.UserPreferences;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -31,10 +38,10 @@ import java.util.Set;
 public class ExtendedBaseDao<T> extends BaseDao<T> implements IExtendedBaseDao<T> {
 
     private static final int BATCH_SIZE = 20;
-//    private static final List<Class> CACHEABLE_ENTITIES = Arrays.asList(Location.class, Hotel.class, RoomType.class,
-//            Facility.class, LocationTranslation.class, HotelTranslation.class, RoomTypeTranslation.class,
-//            FacilityTranslation.class);
-    private static final List<Class> CACHEABLE_ENTITIES = Arrays.asList();
+    private static final List<Class> CACHEABLE_ENTITIES = Arrays.asList(Location.class, Hotel.class, RoomType.class,
+            Facility.class, LocationTranslation.class, HotelTranslation.class, RoomTypeTranslation.class,
+            FacilityTranslation.class);
+//    private static final List<Class> CACHEABLE_ENTITIES = Arrays.asList();
 
     private Class<T> entityClass;
 
@@ -85,13 +92,6 @@ public class ExtendedBaseDao<T> extends BaseDao<T> implements IExtendedBaseDao<T
     }
 
     @Override
-    public List<T> getListByFilter(SearchFilter filter) throws DaoException {
-        Criteria criteria = getCriteria(filter);
-        paginateCriteria(criteria);
-        return getResultList(criteria);
-    }
-
-    @Override
     public T getUniqueByFilter(SearchFilter filter) throws DaoException {
         Criteria criteria = getCriteria(filter);
         return getUniqueResult(criteria);
@@ -122,6 +122,11 @@ public class ExtendedBaseDao<T> extends BaseDao<T> implements IExtendedBaseDao<T
 //        }
 //        return resultsSize;
 //    }
+
+    public List<T> getAll() throws DaoException {
+        Criteria criteria = getSession().createCriteria(getEntityClass());
+        return getResultList(criteria);
+    }
 
     private void addSimpleFilters(Criteria criteria, SearchFilter filter) {
         List<FilterElement> filterElementList = filter.getFilterList();
@@ -161,6 +166,10 @@ public class ExtendedBaseDao<T> extends BaseDao<T> implements IExtendedBaseDao<T
         switch (constraint) {
             case EQ: {
                 criterion = Restrictions.eq(property, value1);
+                break;
+            }
+            case NE: {
+                criterion = Restrictions.ne(property, value1);
                 break;
             }
             case GT: {
@@ -210,14 +219,6 @@ public class ExtendedBaseDao<T> extends BaseDao<T> implements IExtendedBaseDao<T
         for (String aliasName : aliasNames) {
             criteria.createAlias(aliasName, filter.getAlias(aliasName), JoinType.LEFT_OUTER_JOIN);
         }
-    }
-
-    protected void paginateCriteria(Criteria criteria) {
-        int page = UserPreferences.getStartRow();
-        int perPage = UserPreferences.getRowsPerPage();
-        int firstResult = page * perPage;
-        criteria.setFirstResult(firstResult);
-        criteria.setMaxResults(perPage);
     }
 
     private List<T> getResultList(Criteria criteria) throws DaoException {

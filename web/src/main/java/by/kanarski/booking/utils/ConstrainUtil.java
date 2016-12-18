@@ -64,7 +64,7 @@ public class ConstrainUtil {
         String selectedRoomTypeName = selectedRoomTypeDto.getRoomTypeName();
         int selectedRoomTypemaxPersons = selectedRoomTypeDto.getMaxPersons();
         double selectedRoomTypePricePerNight = selectedRoomTypeDto.getPricePerNight();
-        String selectedFacilities = selectedRoomTypeDto.getFacilities();
+//        String selectedFacilities = selectedRoomTypeDto.getFacilities();
 
         Set<String> roomTypeDtoNameSet = new HashSet<>();
         Set<Integer> maxPersonsSet = new HashSet<>();
@@ -72,33 +72,33 @@ public class ConstrainUtil {
         Set<String> facilitiesSet = new HashSet<>();
         RoomTypeDto resRoomTypeDto = null;
 
-        for (RoomTypeDto roomTypeDto : roomTypeDtoList) {
-            long roomTypeId = roomTypeDto.getRoomTypeId();
-            String roomTypeName = roomTypeDto.getRoomTypeName();
-            int maxPersons = roomTypeDto.getMaxPersons();
-            double pricePerNight = roomTypeDto.getPricePerNight();
-            String facilities = roomTypeDto.getFacilities();
-            if (roomTypeName.equals(selectedRoomTypeName)) {
-                maxPersonsSet.add(maxPersons);
-                if (maxPersons == selectedRoomTypemaxPersons) {
-                    pricePerNightSet.add(pricePerNight);
-                    if (pricePerNight == selectedRoomTypePricePerNight) {
-                        if (facilitiesSet.isEmpty()) {
-                            resRoomTypeDto = roomTypeDto;
-                        }
-                        if (facilities.equals(selectedFacilities)) {
-                            selectedRoomTypeDto.setRoomTypeId(roomTypeId);
-                        }
-                        facilitiesSet.add(facilities);
-                    }
-                }
-            }
-            roomTypeDtoNameSet.add(roomTypeName);
-        }
-        if ((!facilitiesSet.contains(selectedFacilities)) && (resRoomTypeDto != null)) {
-            selectedRoomTypeDto.setFacilities(resRoomTypeDto.getFacilities());
-            selectedRoomTypeDto.setRoomTypeId(resRoomTypeDto.getRoomTypeId());
-        }
+//        for (RoomTypeDto roomTypeDto : roomTypeDtoList) {
+//            long roomTypeId = roomTypeDto.getRoomTypeId();
+//            String roomTypeName = roomTypeDto.getRoomTypeName();
+//            int maxPersons = roomTypeDto.getMaxPersons();
+//            double pricePerNight = roomTypeDto.getPricePerNight();
+//            String facilities = roomTypeDto.getFacilities();
+//            if (roomTypeName.equals(selectedRoomTypeName)) {
+//                maxPersonsSet.add(maxPersons);
+//                if (maxPersons == selectedRoomTypemaxPersons) {
+//                    pricePerNightSet.add(pricePerNight);
+//                    if (pricePerNight == selectedRoomTypePricePerNight) {
+//                        if (facilitiesSet.isEmpty()) {
+//                            resRoomTypeDto = roomTypeDto;
+//                        }
+//                        if (facilities.equals(selectedFacilities)) {
+//                            selectedRoomTypeDto.setRoomTypeId(roomTypeId);
+//                        }
+//                        facilitiesSet.add(facilities);
+//                    }
+//                }
+//            }
+//            roomTypeDtoNameSet.add(roomTypeName);
+//        }
+//        if ((!facilitiesSet.contains(selectedFacilities)) && (resRoomTypeDto != null)) {
+////            selectedRoomTypeDto.setFacilities(resRoomTypeDto.getFacilities());
+//            selectedRoomTypeDto.setRoomTypeId(resRoomTypeDto.getRoomTypeId());
+//        }
 
         LinkedHashMap<String, FieldDescriptor> roomTypeFields = new LinkedHashMap<>();
         FieldDescriptor<Long> roomTypeIdFieldDescriptor = FieldBuilder.buildFreePrimitive();

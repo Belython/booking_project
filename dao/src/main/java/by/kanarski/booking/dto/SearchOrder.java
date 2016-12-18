@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Order {
+public class SearchOrder {
 
     private User user;
     private Hotel hotel;
@@ -19,6 +19,7 @@ public class Order {
     private Integer totalRooms;
     private Long checkInDate;
     private Long checkOutDate;
+    private Boolean sortPriceAsc = true;
 
     @Override
     public String toString() {

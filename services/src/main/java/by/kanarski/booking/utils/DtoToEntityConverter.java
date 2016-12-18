@@ -7,6 +7,7 @@ import by.kanarski.booking.constants.SystemLocale;
 import by.kanarski.booking.dto.BillDto;
 import by.kanarski.booking.dto.RoomDto;
 import by.kanarski.booking.dto.UserDto;
+import by.kanarski.booking.dto.facility.FacilityDto;
 import by.kanarski.booking.dto.hotel.HotelDto;
 import by.kanarski.booking.dto.hotel.UserHotelDto;
 import by.kanarski.booking.dto.location.LocationDto;
@@ -24,50 +25,44 @@ import by.kanarski.booking.entities.roomType.RoomType;
 import by.kanarski.booking.entities.roomType.RoomTypeTranslation;
 import by.kanarski.booking.exceptions.DaoException;
 import by.kanarski.booking.exceptions.LocalisationException;
-import by.kanarski.booking.managers.SupportedLanguagesManager;
 import by.kanarski.booking.utils.threadLocal.UserPreferences;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
 
-//@Component
-//@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class DtoToEntityConverter<E, D> {
 
     private static Locale defaultLocale = SystemLocale.DEFAULT;
     private static Currency defaultCurrency = SystemCurrency.DEFAULT;
 
-//    @Autowired
-//    private IRoomTypeDao roomTypeDao;
-
-//    @Autowired
-//    private ApplicationContext context = new ClassPathXmlApplicationContext("service-config.xml");
     private static EntityBuilder entityBuilder = ContextHolder.getServiceContext().getBean(EntityBuilder.class);
-//    @Autowired(required = false)
-//    private EntityBuilder entityBuilder;
+    private static SystemLanguagesManager systemLanguagesManager = ContextHolder.getServiceContext()
+            .getBean(SystemLanguagesManager.class);
 
+    private String language;
     private Long languageId;
     private Class<E> entityClass;
     private Class<D> dtoClass;
-    private boolean customLanguage;
+    private boolean isCustomLanguage;
 
     public DtoToEntityConverter(Class<E> entityClass, Class<D> dtoClass) {
         this.entityClass = entityClass;
         this.dtoClass = dtoClass;
-        this.languageId = SupportedLanguagesManager.getLanguageId(UserPreferences.getLocale().getLanguage());
-        this.customLanguage = false;
+        this.isCustomLanguage = false;
     }
 
-    public DtoToEntityConverter(Class<E> entityClass, Class<D> dtoClass, String language) {
-        this.entityClass = entityClass;
-        this.dtoClass = dtoClass;
-        this.languageId = SupportedLanguagesManager.getLanguageId(language);
-        this.customLanguage = true;
-    }
-
-    private void updateLanguage() {
-        if (!customLanguage) {
-            this.languageId = SupportedLanguagesManager.getLanguageId(UserPreferences.getLocale().getLanguage());
+    private void updateLanguage() throws DaoException {
+        if (!isCustomLanguage) {
+            this.languageId = systemLanguagesManager.getLanguageId(UserPreferences.getLocale().getLanguage());
+        } else {
+            this.languageId = systemLanguagesManager.getLanguageId(language);
         }
+    }
+
+    private void setCustomLanguage(String language) {
+        this.language = language;
+        this.isCustomLanguage = true;
     }
 
     @SuppressWarnings("unchecked")
@@ -99,6 +94,10 @@ public class DtoToEntityConverter<E, D> {
                 entity = toRoomType((RoomTypeDto) dto);
                 break;
             }
+            case DtoName.FACILITY_DTO: {
+                entity = toFacility((FacilityDto) dto);
+                break;
+            }
             case DtoName.ROOM_DTO: {
                 entity = toRoom((RoomDto) dto);
                 break;
@@ -111,8 +110,29 @@ public class DtoToEntityConverter<E, D> {
         return (E) entity;
     }
 
+    public E safeToEntity(D dto) throws LocalisationException, DaoException {
+        updateLanguage();
+        if (dto == null) {
+            return null;
+        }
+        String dtoName = dtoClass.getSimpleName();
+        Object entity = null;
+        switch (dtoName) {
+            case DtoName.ROOM_TYPE_DTO: {
+                entity = safeToRoomType((RoomTypeDto) dto);
+                break;
+            }
+        }
+        return (E) entity;
+    }
+
+    public E toEntity(D dto, String language) throws LocalisationException, DaoException {
+        setCustomLanguage(language);
+        return toEntity(dto);
+    }
+
     @SuppressWarnings("unchecked")
-    public D toDto(E entity) throws LocalisationException {
+    public D toDto(E entity) throws LocalisationException, DaoException {
         updateLanguage();
         if (entity == null) {
             return null;
@@ -140,6 +160,10 @@ public class DtoToEntityConverter<E, D> {
                 dto = toRoomTypeDto((RoomType) entity);
                 break;
             }
+            case DtoName.FACILITY_DTO: {
+                dto = toFacilityDto((Facility) entity);
+                break;
+            }
             case DtoName.ROOM_DTO: {
                 dto = toRoomDto((Room) entity);
                 break;
@@ -152,48 +176,12 @@ public class DtoToEntityConverter<E, D> {
         return (D) dto;
     }
 
-    @SuppressWarnings("unchecked")
-    public Set<E> toEntitySet(List<D> dtoList) throws LocalisationException, DaoException {
-        updateLanguage();
-        if (dtoList == null || dtoList.size() == 0) {
-            return null;
-        }
-        String dtoName = dtoClass.getSimpleName();
-        Set entitySet = null;
-        switch (dtoName) {
-            case DtoName.USER_DTO: {
-                entitySet = toUserSet((List<UserDto>) dtoList);
-                break;
-            }
-            case DtoName.LOCATION_DTO: {
-                entitySet = toLocationSet((List<LocationDto>) dtoList);
-                break;
-            }
-            case DtoName.HOTEL_DTO: {
-                entitySet = toHotelSet((List<HotelDto>) dtoList);
-                break;
-            }
-            case DtoName.USER_HOTEL_DTO: {
-                entitySet = toHotelSetFromUserHotelList((List<UserHotelDto>) dtoList);
-                break;
-            }
-            case DtoName.ROOM_TYPE_DTO: {
-                entitySet = toRoomTypeSet((List<RoomTypeDto>) dtoList);
-                break;
-            }
-            case DtoName.ROOM_DTO: {
-                entitySet = toRoomSet((List<RoomDto>) dtoList);
-                break;
-            }
-            case DtoName.BILL_DTO: {
-                entitySet = toBillSet((List<BillDto>) dtoList);
-                break;
-            }
-        }
-        return (Set<E>) entitySet;
+    public D toDto(E entity, String language) throws LocalisationException, DaoException {
+        setCustomLanguage(language);
+        return toDto(entity);
     }
 
-    @SuppressWarnings("unchecked")
+        @SuppressWarnings("unchecked")
     public List<E> toEntityList(List<D> dtoList) throws LocalisationException, DaoException {
         updateLanguage();
         if (dtoList == null || dtoList.size() == 0) {
@@ -222,6 +210,10 @@ public class DtoToEntityConverter<E, D> {
                 entityList = toRoomTypeList((List<RoomTypeDto>) dtoList);
                 break;
             }
+            case DtoName.FACILITY_DTO: {
+                entityList = toFacilityList((List<FacilityDto>) dtoList);
+                break;
+            }
             case DtoName.ROOM_DTO: {
                 entityList = toRoomList((List<RoomDto>) dtoList);
                 break;
@@ -234,7 +226,13 @@ public class DtoToEntityConverter<E, D> {
         return (List<E>) entityList;
     }
 
-    @SuppressWarnings("unchecked")
+    public List<E> toEntityList(List<D> dtoList, String language) throws LocalisationException, DaoException {
+        setCustomLanguage(language);
+        return toEntityList(dtoList);
+    }
+
+
+        @SuppressWarnings("unchecked")
     public List<D> toDtoList(List<E> entityList) throws LocalisationException, DaoException {
         updateLanguage();
         if (entityList == null || entityList.size() == 0) {
@@ -259,6 +257,10 @@ public class DtoToEntityConverter<E, D> {
                 dtoList = toUserHotelDtoList((List<Hotel>) entityList);
                 break;
             }
+            case DtoName.FACILITY_DTO: {
+                dtoList = toFacilityDtoList((List<Facility>) entityList);
+                break;
+            }
             case DtoName.ROOM_TYPE_DTO: {
                 dtoList = toRoomTypeDtoList((List<RoomType>) entityList);
                 break;
@@ -275,7 +277,13 @@ public class DtoToEntityConverter<E, D> {
         return (List<D>) dtoList;
     }
 
-    public HotelDto toAnyHotelDto(LocationDto locationDto) {
+    public List<D> toDtoList(List<E> entityList, String language) throws LocalisationException, DaoException {
+        setCustomLanguage(language);
+        return toDtoList(entityList);
+    }
+
+
+        public HotelDto toAnyHotelDto(LocationDto locationDto) {
         return new HotelDto(locationDto, FieldValue.ANY_HOTEL);
     }
 
@@ -285,14 +293,6 @@ public class DtoToEntityConverter<E, D> {
             hotelDtoList.add(toAnyHotelDto(locationDto));
         }
         return hotelDtoList;
-    }
-
-    public Long getLanguageId() {
-        return languageId;
-    }
-
-    public void setLanguage(String language) {
-        this.languageId = SupportedLanguagesManager.getLanguageId(language);
     }
 
     private RoomDto toRoomDto(Room room) throws LocalisationException {
@@ -407,10 +407,6 @@ public class DtoToEntityConverter<E, D> {
     private List<Bill> toBillList(List<BillDto> billDtoList) throws DaoException, LocalisationException {
         return null;
     }
-    
-    private Set<Bill> toBillSet(List<BillDto> billDtoList) throws DaoException, LocalisationException {
-        return null;
-    }
 
     private RoomTypeDto toRoomTypeDto(RoomType roomType) {
         Long roomTypeId = roomType.getRoomTypeId();
@@ -420,15 +416,16 @@ public class DtoToEntityConverter<E, D> {
         Double pricePerNightUSD = roomType.getPricePerNight();
         Double pricePerNight = CurrencyUtil.convertFromUSD(pricePerNightUSD, defaultCurrency);
         Set<Facility> facilitySet = roomType.getFacilitySet();
-        StringBuilder facilities = new StringBuilder();
-        for (Facility facility : facilitySet) {
-            FacilityTranslation facilityTranslation = facility.getFacilityTranslationMap().get(languageId);
-            String facilityName = facilityTranslation.getFacilityName();
-            facilities.append(facilityName);
-        }
+        List<FacilityDto> facilityDtoList = toFacilityDtoList(facilitySet);
+//        StringBuilder facilities = new StringBuilder();
+//        for (Facility facility : facilitySet) {
+//            FacilityTranslation facilityTranslation = facility.getFacilityTranslationMap().get(languageId);
+//            String facilityName = facilityTranslation.getFacilityName();
+//            facilities.append(facilityName);
+//        }
         String roomTypeStatus = roomType.getRoomTypeStatus();
         return new RoomTypeDto(roomTypeId, roomTypeName, maxPersons,
-                pricePerNight, facilities.toString(), roomTypeStatus);
+                pricePerNight, facilityDtoList, roomTypeStatus);
     }
 
     private List<RoomTypeDto> toRoomTypeDtoList(List<RoomType> roomTypeList) {
@@ -446,19 +443,41 @@ public class DtoToEntityConverter<E, D> {
         Integer maxPersons = roomTypeDto.getMaxPersons();
         Double pricePerNight = roomTypeDto.getPricePerNight();
         Double pricePerNightUSD = CurrencyUtil.convertToUSD(pricePerNight, defaultCurrency);
-        Set<Facility> facilitySet = toFacilitySet(roomTypeId);
+        List<FacilityDto> facilityDtoList = roomTypeDto.getFacilityList();
+        Set<Facility> facilitySet = toFacilitySet(facilityDtoList);
         String roomTypeStatus = roomTypeDto.getRoomTypeStatus();
-        String language = roomTypeDto.getLanguage();
-        Long laguageId = SupportedLanguagesManager.getLanguageId(language);
         return entityBuilder.buildRoomType(roomTypeId, roomTypeName, maxPersons, pricePerNightUSD,
                 facilitySet, roomTypeStatus, languageId);
     }
 
-    // TODO: 04.12.2016 Поправить, нужно добавить в EntutyBuilder
-    private Set<Facility> toFacilitySet(Long roomTypeId) throws DaoException {
-//        RoomType roomType = roomTypeDao.getById(roomTypeId);
-        RoomType roomType = new RoomType();
-        return roomType.getFacilitySet();
+    private RoomType safeToRoomType(RoomTypeDto roomTypeDto) throws DaoException {
+        Long roomTypeId = roomTypeDto.getRoomTypeId();
+        String roomTypeName = roomTypeDto.getRoomTypeName();
+        roomTypeName = (StringUtils.isEmpty(roomTypeName)) ? FieldValue.ANY_ROOM_TYPE : roomTypeName;
+        Integer maxPersons = roomTypeDto.getMaxPersons();
+        Double pricePerNight = roomTypeDto.getPricePerNight();
+        Double pricePerNightUSD = null;
+        if (pricePerNight != null) {
+            pricePerNightUSD = CurrencyUtil.convertToUSD(pricePerNight, SystemCurrency.DEFAULT);
+        }
+        List<FacilityDto> facilityDtoList = roomTypeDto.getFacilityList();
+        Set<Facility> facilitySet = null;
+        if (CollectionUtils.isNotEmpty(facilityDtoList)) {
+            facilitySet = toFacilitySet(facilityDtoList);
+        }
+        String roomTypeStatus = roomTypeDto.getRoomTypeStatus();
+        return entityBuilder.buildRoomType(roomTypeId, roomTypeName, maxPersons, pricePerNightUSD,
+                facilitySet, roomTypeStatus, languageId);
+    }
+
+    private Set<Facility> toFacilitySet(List<FacilityDto> facilityDtoList) throws DaoException {
+        Set<Facility> facilitySet = new HashSet<>();
+        for (FacilityDto facilityDto : facilityDtoList) {
+            String facilityName = facilityDto.getFacilityName();
+            Facility facility = entityBuilder.buildFacility(facilityName, languageId);
+            facilitySet.add(facility);
+        }
+        return facilitySet;
     }
 
     private List<RoomType> toRoomTypeList(List<RoomTypeDto> roomTypeDtoList) throws DaoException {
@@ -470,15 +489,39 @@ public class DtoToEntityConverter<E, D> {
         return roomTypeList;
     }
 
-    private Set<RoomType> toRoomTypeSet(List<RoomTypeDto> roomTypeDtoList) throws DaoException {
-        Set<RoomType> roomTypeSet = new HashSet<>();
-        for (RoomTypeDto roomTypeDto : roomTypeDtoList) {
-            RoomType roomType = toRoomType(roomTypeDto);
-            roomTypeSet.add(roomType);
-        }
-        return roomTypeSet;
+    private FacilityDto toFacilityDto(Facility facility) {
+        Long facilityId = facility.getFacilityId();
+        FacilityTranslation facilityTranslation = facility.getFacilityTranslationMap().get(languageId);
+        String facilityName = facilityTranslation.getFacilityName();
+        String facilityStatus = facility.getFacilityStatus();
+        return new FacilityDto(facilityId, facilityName, facilityStatus);
     }
 
+    private Facility toFacility(FacilityDto facilityDto) throws DaoException {
+        Long facilityId = facilityDto.getFacilityId();
+        String facilityName = facilityDto.getFacilityName();
+        String facilityStatus = facilityDto.getFacilityStatus();
+        Long languageId = systemLanguagesManager.getLanguageId(language);
+        return entityBuilder.buildFacility(facilityId, facilityName, facilityStatus, languageId);
+    }
+
+    private List<FacilityDto> toFacilityDtoList(Collection<Facility> facilityList) {
+        List<FacilityDto> facilityDtoList = new ArrayList<>();
+        for (Facility facility : facilityList) {
+            FacilityDto facilityDto = toFacilityDto(facility);
+            facilityDtoList.add(facilityDto);
+        }
+        return facilityDtoList;
+    }
+
+    private List<Facility> toFacilityList(List<FacilityDto> facilityDtoList) throws DaoException {
+        List<Facility> facilityList = new ArrayList<>();
+        for (FacilityDto facilityDto : facilityDtoList) {
+            Facility facility = toFacility(facilityDto);
+            facilityList.add(facility);
+        }
+        return facilityList;
+    }
     private LocationDto toLocationDto(Location location) {
         Long locationId = location.getLocationId();
         LocationTranslation locationTranslation = location.getLocationTranslationMap().get(languageId);
@@ -494,7 +537,7 @@ public class DtoToEntityConverter<E, D> {
         String city = locationDto.getCity();
         String locationStatus = locationDto.getLocationStatus();
         String language = locationDto.getLanguage();
-        Long languageId = SupportedLanguagesManager.getLanguageId(language);
+        Long languageId = systemLanguagesManager.getLanguageId(language);
         return entityBuilder.buildLocation(locationId, country, city, locationStatus, languageId);
     }
 
@@ -514,15 +557,6 @@ public class DtoToEntityConverter<E, D> {
             locationList.add(location);
         }
         return locationList;
-    }
-
-    private Set<Location> toLocationSet(List<LocationDto> locationDtoList) throws DaoException {
-        Set<Location> locationSet = new HashSet<>();
-        for (LocationDto locationDto : locationDtoList) {
-            Location location = toLocation(locationDto);
-            locationSet.add(location);
-        }
-        return locationSet;
     }
 
     private HotelDto toHotelDto(Hotel hotel) {
@@ -583,21 +617,12 @@ public class DtoToEntityConverter<E, D> {
         String hotelName = userHotelDto.getHotelName();
         String hotelStatus = userHotelDto.getHotelStatus();
         String language = userHotelDto.getLanguage();
-        Long languageId = SupportedLanguagesManager.getLanguageId(language);
+        Long languageId = systemLanguagesManager.getLanguageId(language);
         return entityBuilder.buildHotel(hotelId, location, hotelName, hotelStatus, languageId);
     }
 
     private List<Hotel> toHotelListFromUserHotelList(List<UserHotelDto> userHotelDtoList) throws DaoException {
         List<Hotel> hotelList = new ArrayList<>();
-        for (UserHotelDto userHotelDto : userHotelDtoList) {
-            Hotel hotel = toHotel(userHotelDto);
-            hotelList.add(hotel);
-        }
-        return hotelList;
-    }
-
-    private Set<Hotel> toHotelSetFromUserHotelList(List<UserHotelDto> userHotelDtoList) throws DaoException {
-        Set<Hotel> hotelList = new HashSet<>();
         for (UserHotelDto userHotelDto : userHotelDtoList) {
             Hotel hotel = toHotel(userHotelDto);
             hotelList.add(hotel);
@@ -612,7 +637,7 @@ public class DtoToEntityConverter<E, D> {
         String hotelName = hotelDto.getHotelName();
         String hotelStatus = hotelDto.getHotelStatus();
         String laguage = hotelDto.getLanguage();
-        Long languageId = SupportedLanguagesManager.getLanguageId(laguage);
+        Long languageId = systemLanguagesManager.getLanguageId(laguage);
         return entityBuilder.buildHotel(hotelId, location, hotelName, hotelStatus, languageId);
     }
 
@@ -623,15 +648,6 @@ public class DtoToEntityConverter<E, D> {
             hotelList.add(hotel);
         }
         return hotelList;
-    }
-
-    private Set<Hotel> toHotelSet(List<HotelDto> hotelDtoList) throws DaoException {
-        Set<Hotel> hotelSet = new HashSet<>();
-        for (HotelDto hotelDto : hotelDtoList) {
-            Hotel hotel = toHotel(hotelDto);
-            hotelSet.add(hotel);
-        }
-        return hotelSet;
     }
 
     private UserDto toUserDto(User user) {
@@ -674,15 +690,6 @@ public class DtoToEntityConverter<E, D> {
             userList.add(user);
         }
         return userList;
-    }
-
-    private Set<User> toUserSet(List<UserDto> userDtoList) throws DaoException {
-        Set<User> userSet = new HashSet<>();
-        for (UserDto userDto : userDtoList) {
-            User user = toUser(userDto);
-            userSet.add(user);
-        }
-        return userSet;
     }
 
 //    private Class getPersistentDtoClass() {

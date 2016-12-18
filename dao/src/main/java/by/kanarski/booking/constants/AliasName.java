@@ -15,6 +15,8 @@ public class AliasName {
     public static final String BILLSET = "billSet";
     public static final String ROOMSET = "roomSet";
     public static final String ROOMTYPE = "roomType";
+    public static final String FACILITYSET = "facilitySet";
+    public static final String ROOMTYPE_FACILITYSET = "roomType.facilitySet";
     public static final String ROOMSET_ROOMTYPE = "roomSet.roomType";
     public static final String ROOMSET_BILLSET = "roomSet.billSet";
 

@@ -14,7 +14,6 @@ import by.kanarski.booking.exceptions.DaoException;
 import by.kanarski.booking.exceptions.LocalisationException;
 import by.kanarski.booking.exceptions.ServiceException;
 import by.kanarski.booking.services.interfaces.IHotelService;
-import by.kanarski.booking.utils.DtoToEntityConverter;
 import by.kanarski.booking.utils.BookingExceptionHandler;
 import by.kanarski.booking.utils.ServiceHelper;
 import by.kanarski.booking.utils.filter.SearchFilter;
@@ -39,14 +38,6 @@ public class HotelService extends ExtendedBaseService<Hotel, HotelDto> implement
     
     @Autowired
     private ServiceHelper serviceHelper;
-
-//    private DtoToEntityConverter<Location, LocationDto> locationConverter = new DtoToEntityConverter<>(
-//            Location.class, LocationDto.class);
-
-
-
-//    private DtoToEntityConverter<Location, LocationDto> locationConverter = ContextHolder.getServiceContext().getBean(
-//            DtoToEntityConverter.class, Location.class, LocationDto.class);
 
     @Override
     public List<HotelDto> getByHotelName(HotelDto initialHotelDto, int page, int perPage) throws ServiceException {
@@ -114,7 +105,6 @@ public class HotelService extends ExtendedBaseService<Hotel, HotelDto> implement
             List<Hotel> hotelList = new ArrayList<>();
             List<Location> locationList = new ArrayList<>();
             switch (parameterList.size()) {
-//                case 1:
                 default: {
                     String parameter = parameterList.get(0);
                     {
@@ -143,17 +133,8 @@ public class HotelService extends ExtendedBaseService<Hotel, HotelDto> implement
                     }
                     break;
                 }
-//                case 2: {
-//                    String country = parameterList.get(0);
-//                    String defaultCountry = getNotLocalizedCountry(country);
-//                    SearchFilter filter = SearchFilter.createBasicIlikeFilter(SearchParameter.LOCATION_COUNTRY,
-//                            defaultCountry);
-//
-//                    break;
-//                }
             }
-            DtoToEntityConverter<Location, LocationDto> locationConverter = new DtoToEntityConverter<>(
-                    Location.class, LocationDto.class);
+
             List<HotelDto> partHotelDtoList = new ArrayList<>();
 
             if (hotelList.size() != 0) {
@@ -172,5 +153,29 @@ public class HotelService extends ExtendedBaseService<Hotel, HotelDto> implement
             BookingExceptionHandler.handleLocalizationException(e);
         }
         return hotelDtoList;
+    }
+
+    public HotelDto getByDescription(HotelDto description) throws ServiceException {
+        HotelDto hotelDto = null;
+        String hotelName = description.getHotelName();
+        String country = description.getLocation().getCountry();
+        String city = description.getLocation().getCity();
+        String language = description.getLanguage();
+        try {
+            String notLocalizedHotelName = serviceHelper.getNotLocalizedHotelName(hotelName, language);
+            String notLocalizedCountry = serviceHelper.getNotLocalizedCountry(country, language);
+            String notLocalizedCity = serviceHelper.getNotLocalizedCity(city, language);
+            SearchFilter searchFilter = SearchFilter.createAliasFilter(AliasName.LOCATION, AliasValue.LOCATION)
+                    .addEqFilter(SearchParameter.HOTELNAME, notLocalizedHotelName)
+                    .addEqFilter(SearchParameter.LOCATION_COUNTRY, notLocalizedCountry)
+                    .addEqFilter(SearchParameter.LOCATION_CITY, notLocalizedCity);
+            Hotel hotel = hotelDao.getUniqueByFilter(searchFilter);
+            hotelDto = converter.toDto(hotel);
+        } catch (DaoException e) {
+            BookingExceptionHandler.handleDaoException(e);
+        } catch (LocalisationException e) {
+            BookingExceptionHandler.handleLocalizationException(e);
+        }
+        return hotelDto;
     }
 }
