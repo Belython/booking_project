@@ -12,12 +12,12 @@ import javax.servlet.http.HttpServletRequest;
  */
 
 @Component
-public class Pagination {
+public class PaginationUtil {
     private static final int MIN_ROWS_ON_PAGE = 2;
     private static final int FIRST_PAGE = 1;
     private static final int PAGE_FOR_PAGINATION = 1;
 
-    public Pagination() {
+    public PaginationUtil() {
     }
 
     /**
@@ -55,20 +55,6 @@ public class Pagination {
         }
         request.setAttribute(Parameter.PAGE, page);
         return startRow;
-    }
-
-    /**
-     * check the total number of records on the multiplicity of the minimum number of records per page,
-     * if the number is not a multiple, add another page
-     *
-     * @param pagesCount- number of pages
-     * @return
-     */
-    public int getPagesCount(int pagesCount) {
-        if (pagesCount % MIN_ROWS_ON_PAGE != 0) {
-            pagesCount += PAGE_FOR_PAGINATION;
-        }
-        return pagesCount;
     }
 
     public Integer getTotalPages(Long totalItems, Integer perPage, HttpServletRequest request) {

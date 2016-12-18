@@ -15,16 +15,15 @@ import java.util.Locale;
 
 public class UserPreferences {
 
-    private static final int PAGE_FOR_PAGINATION = 1;
-    private static int startRow = 0;
-    private static int rowsPerPage = 5;
-
     private UserPreferences() {
 
     }
 
     public static Locale getLocale() {
         Locale locale = (Locale) ThreadLocalUtil.LOCALE.get(SystemLocale.DEFAULT);
+        if (locale == null) {
+            locale = Locale.getDefault();
+        }
         return locale;
     }
 
@@ -39,21 +38,5 @@ public class UserPreferences {
 
     public static void setCurrency(Currency currency) {
         ThreadLocalUtil.CURRENCY.set(currency);
-    }
-
-    public static int getStartRow() {
-        return startRow;
-    }
-
-    public static void setStartRow(int startRow) {
-        UserPreferences.startRow = startRow;
-    }
-
-    public static int getRowsPerPage() {
-        return rowsPerPage;
-    }
-
-    public static void setRowsPerPage(int rowsPerPage) {
-        UserPreferences.rowsPerPage = rowsPerPage;
     }
 }

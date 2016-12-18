@@ -12,13 +12,13 @@ import by.kanarski.booking.dto.UserDto;
 import by.kanarski.booking.dto.forms.BookRoomsForm;
 import by.kanarski.booking.dto.hotel.HotelDto;
 import by.kanarski.booking.dto.hotel.UserHotelDto;
-import by.kanarski.booking.dto.roomType.OrderedRoomTypesDto;
 import by.kanarski.booking.entities.Bill;
 import by.kanarski.booking.exceptions.DaoException;
 import by.kanarski.booking.exceptions.LocalisationException;
 import by.kanarski.booking.exceptions.ServiceException;
 import by.kanarski.booking.services.interfaces.IBillService;
 import by.kanarski.booking.services.interfaces.IUserHotelService;
+import by.kanarski.booking.utils.BillUtil;
 import by.kanarski.booking.utils.BookingExceptionHandler;
 import by.kanarski.booking.utils.DtoToEntityConverter;
 import by.kanarski.booking.utils.filter.SearchFilter;
@@ -29,7 +29,6 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -46,7 +45,8 @@ public class BillService extends ExtendedBaseService<Bill, BillDto> implements I
     public List<BillDto> getByUserId(Long userId, int page, int perPage) throws ServiceException {
         List<BillDto> billDtoList = null;
         SearchFilter searchFilter = SearchFilter.createAliasFilter(AliasName.CLIENT, AliasValue.USER)
-                .addEqFilter(SearchParameter.USER_USERIDID, userId);
+                .addEqFilter(SearchParameter.USER_USERIDID, userId)
+                .addNeFilter(SearchParameter.BILLSTATUS, FieldValue.STATUS_DELETED);
         try {
             List<Bill> billList = billDao.getListByFilter(searchFilter, page, perPage);
             billDtoList = converter.toDtoList(billList);
@@ -58,27 +58,24 @@ public class BillService extends ExtendedBaseService<Bill, BillDto> implements I
         return billDtoList;
     }
 
+    @Override
     public void makeBill(BookRoomsForm bookRoomsForm, OrderDto orderDto) throws ServiceException {
         HotelDto hotelDto = DtoToEntityConverter.toHotelDto(orderDto.getUserHotelDto());
         UserHotelDto userHotelDto = userHotelService.getById(hotelDto.getHotelId());
-        List<RoomDto> bookedRooms = new ArrayList<>();
         List<RoomDto> allRooms = userHotelDto.getRoomList();
-        List<OrderedRoomTypesDto> orderedRoomTypesDtos = bookRoomsForm.getOrderedRooms();
-        for (RoomDto roomDto : allRooms) {
-            Long roomTypeId = roomDto.getRoomType().getRoomTypeId();
-            for (OrderedRoomTypesDto orderedRoomTypesDto : orderedRoomTypesDtos) {
-                Long bookedRoomTypeId = orderedRoomTypesDto.getRoomTypeId();
-                if (roomTypeId.equals(bookedRoomTypeId)) {
-                    bookedRooms.add(roomDto);
-                }
-            }
+        List<RoomDto> bookedRooms = BillUtil.chooseRoomsForBooking(bookRoomsForm, allRooms);
+        try {
+            Double paymentAmount = BillUtil.getPaymentAmount(orderDto.getCheckInDate(), orderDto.getCheckOutDate(), bookedRooms);
+            UserDto user = (UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            BillDto billDto = new BillDto(user, orderDto.getTotalPersons(), orderDto.getCheckInDate(),
+                    orderDto.getCheckOutDate(), hotelDto, bookedRooms, paymentAmount);
+            add(billDto);
+        } catch (LocalisationException e) {
+            throw new ServiceException(e.getMessage(), e);
         }
-        UserDto user = (UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        BillDto billDto = new BillDto(user, orderDto.getTotalPersons(), orderDto.getCheckInDate(),
-                orderDto.getCheckOutDate(), hotelDto, bookedRooms, 1000D);
-        add(billDto);
     }
 
+    @Override
     public void cancelBooking(Long billId) throws ServiceException {
         try {
             Bill bill = billDao.getById(billId);
@@ -89,18 +86,40 @@ public class BillService extends ExtendedBaseService<Bill, BillDto> implements I
         }
     }
 
-    @Deprecated
-    public List<BillDto> getAll(int page, int perPage) throws ServiceException {
-        List<BillDto> billDtoList = null;
+    @Override
+    public void payBIll(Long billId) throws ServiceException {
         try {
-            List<Bill> billList = billDao.getListByFilter(null, page, perPage);
-            billDtoList = converter.toDtoList(billList);
+            Bill bill = billDao.getById(billId);
+            bill.setBillStatus(FieldValue.STATUS_PAID);
+            billDao.update(bill);
         } catch (DaoException e) {
             BookingExceptionHandler.handleDaoException(e);
-        } catch (LocalisationException e) {
-            BookingExceptionHandler.handleLocalizationException(e);
         }
-        return billDtoList;
     }
+
+    @Override
+    public void deleteBill(Long billId) throws ServiceException {
+        try {
+            Bill bill = billDao.getById(billId);
+            bill.setBillStatus(FieldValue.STATUS_DELETED);
+            billDao.update(bill);
+        } catch (DaoException e) {
+            BookingExceptionHandler.handleDaoException(e);
+        }
+    }
+
+//    @Deprecated
+//    public List<BillDto> getAll(int page, int perPage) throws ServiceException {
+//        List<BillDto> billDtoList = null;
+//        try {
+//            List<Bill> billList = billDao.getListByFilter(null, page, perPage);
+//            billDtoList = converter.toDtoList(billList);
+//        } catch (DaoException e) {
+//            BookingExceptionHandler.handleDaoException(e);
+//        } catch (LocalisationException e) {
+//            BookingExceptionHandler.handleLocalizationException(e);
+//        }
+//        return billDtoList;
+//    }
 
 }

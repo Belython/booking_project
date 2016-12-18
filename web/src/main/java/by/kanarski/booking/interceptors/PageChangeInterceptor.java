@@ -1,5 +1,6 @@
 package by.kanarski.booking.interceptors;
 
+import by.kanarski.booking.constants.Pages;
 import by.kanarski.booking.constants.Parameter;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -29,7 +30,9 @@ public class PageChangeInterceptor extends HandlerInterceptorAdapter {
         HttpSession session = request.getSession();
         String viewName = modelAndView.getViewName();
         if (viewName != null) {
-            session.setAttribute(Parameter.CURRENT_VIEW_NAME, viewName);
+            if (Pages.VIEW_LIST.contains(viewName)) {
+                session.setAttribute(Parameter.CURRENT_VIEW_NAME, viewName);
+            }
         }
     }
 

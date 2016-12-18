@@ -39,13 +39,13 @@
         <c:forEach var="bill" items="${billList}">
             <%--<input type="hidden" name="billId" value="${bill.billId}">--%>
             <c:set var="hotel" value="${bill.bookedHotel}"/>
-            <c:set var="location" value="${hotel.location}"/>
+            <c:set var="selectedLocation" value="${hotel.location}"/>
             <c:set var="roomTypeMap" value="${bill.bookedRoomTypeMap}"/>
             <c:set var="roomTypeSet" value="${roomTypeMap.keySet()}"/>
             <c:set var="rtSize" value="${roomTypeSet.size()}"/>
             <tr>
-                <td rowspan="${rtSize}">${location.country}</td>
-                <td rowspan="${rtSize}">${location.city}</td>
+                <td rowspan="${rtSize}">${selectedLocation.country}</td>
+                <td rowspan="${rtSize}">${selectedLocation.city}</td>
                 <td rowspan="${rtSize}">${hotel.hotelName}</td>
                 <c:forEach var="roomType" items="${roomTypeSet}" end="0">
                     <td>${roomType.roomTypeName}</td>

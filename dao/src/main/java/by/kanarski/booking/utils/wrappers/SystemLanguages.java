@@ -7,6 +7,6 @@ import java.util.ArrayList;
  * @version 1.0
  */
 
-public class SupportedLanguages extends ArrayList<String> {
+public class SystemLanguages extends ArrayList<String> {
 
 }

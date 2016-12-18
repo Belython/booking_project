@@ -14,6 +14,8 @@ public interface IExtendedBaseService<E, D> {
 
     void delete(D t) throws ServiceException;
 
+    List<D> getAll() throws ServiceException;
+
     void updateList(List<D> tList) throws ServiceException;
 
     void addList(List<D> tList) throws ServiceException;

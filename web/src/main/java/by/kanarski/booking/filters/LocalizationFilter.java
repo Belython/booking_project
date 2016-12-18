@@ -1,7 +1,6 @@
 package by.kanarski.booking.filters;
 
 import by.kanarski.booking.constants.Parameter;
-import by.kanarski.booking.constants.UIParameter;
 import by.kanarski.booking.utils.threadLocal.UserPreferences;
 import org.apache.commons.lang3.LocaleUtils;
 
@@ -26,13 +25,13 @@ public class LocalizationFilter implements Filter {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
         HttpSession session = httpServletRequest.getSession();
-        Locale locale = (Locale) session.getAttribute(Parameter.CURRENT_LOCALE);
+        Locale locale = (Locale) session.getAttribute(Parameter.LOCALE);
         Cookie[] cookies = httpServletRequest.getCookies();
         if (locale == null) {
             if (cookies != null) {
                 for (Cookie cookie : cookies) {
                     String cookieName = cookie.getName();
-                    if (cookieName.equals(UIParameter.COOKIE_LOCALE)) {
+                    if (cookieName.equals(Parameter.COOKIE_LOCALE)) {
                         String localeAsString = cookie.getValue();
                         locale = LocaleUtils.toLocale(localeAsString);
                     }
@@ -40,7 +39,7 @@ public class LocalizationFilter implements Filter {
             }
             if (locale == null) {
                 locale = request.getLocale();
-                Cookie cookie = new Cookie(UIParameter.COOKIE_LOCALE, locale.toString());
+                Cookie cookie = new Cookie(Parameter.COOKIE_LOCALE, locale.toString());
                 httpServletResponse.addCookie(cookie);
             }
             session.setAttribute(Parameter.CURRENT_LOCALE, locale);
@@ -52,14 +51,14 @@ public class LocalizationFilter implements Filter {
             if (cookies != null) {
                 for (Cookie cookie : cookies) {
                     String cookieName = cookie.getName();
-                    if (cookieName.equals(UIParameter.COOKIE_CURRENCY)) {
+                    if (cookieName.equals(Parameter.COOKIE_CURRENCY)) {
                         String currencyAsString = cookie.getValue();
                         currency = Currency.getInstance(currencyAsString);
                     }
                 }
                 if (currency == null) {
                     currency = Currency.getInstance(locale);
-                    Cookie cookie = new Cookie(UIParameter.COOKIE_CURRENCY, currency.toString());
+                    Cookie cookie = new Cookie(Parameter.COOKIE_CURRENCY, currency.toString());
                     httpServletResponse.addCookie(cookie);
                 }
             }
@@ -80,7 +79,7 @@ public class LocalizationFilter implements Filter {
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 String cookieName = cookie.getName();
-                if (cookieName.equals(UIParameter.COOKIE_LOCALE)) {
+                if (cookieName.equals(Parameter.COOKIE_LOCALE)) {
                     containsPreferences = true;
                 }
             }

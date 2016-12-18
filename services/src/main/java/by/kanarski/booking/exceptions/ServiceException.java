@@ -9,4 +9,6 @@ public class ServiceException extends Exception {
         super(message, cause);
     }
 
+
+
 }

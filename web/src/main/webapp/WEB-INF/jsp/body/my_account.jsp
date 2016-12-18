@@ -45,7 +45,7 @@
 						<c:set var="hotel" value="${bill.hotel}"/>
 						<!--booking-->
 						<article class="bookings">
-							<h1><a href="#">${hotel}</a></h1>
+							<h1><a href="#">${hotel.hotelName}</a></h1>
 							<div class="b-info">
 								<table>
 									<tr>
@@ -78,21 +78,14 @@
 							<c:set var="billStatus" value="${bill.billStatus}"/>
 							<div class="actions">
 								<c:if test="${billStatus eq ('notPaid' or 'paid')}">
-									<a href="#" class="gradient-button">Change booking</a>
-									<a href="${context}/cancelBooking&billId=${bill.billId}" class="gradient-button">Cancel booking</a>
-									<a href="#" class="gradient-button">View confirmation</a>
-									<a href="#" class="gradient-button">Print confirmation</a>
+									<a href="${context}/cancelBooking?billId=${bill.billId}" class="gradient-button">Cancel booking</a>
+									<a href="#" class="gradient-button">View information</a>
 									<c:if test="${billStatus eq 'notPaid'}">
-										<a href="#" class="gradient-button">Pay</a>
+										<a href="${context}/payBill?billId=${bill.billId}" class="gradient-button">Pay</a>
 									</c:if>
 								</c:if>
 								<c:if test="${billStatus eq 'canceled'}">
-									<a href="#" class="gradient-button">Book again</a>
-									<a href="#" class="gradient-button">Remove from list</a>
-								</c:if>
-								<c:if test="${billStatus eq 'canceled'}">
-									<a href="#" class="gradient-button">Book again</a>
-									<a href="#" class="gradient-button">Remove from list</a>
+									<a href="${context}/removeBill?billId=${bill.billId}" class="gradient-button">Remove from list</a>
 								</c:if>
 							</div>
 						</article>

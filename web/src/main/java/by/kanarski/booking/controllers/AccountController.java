@@ -76,4 +76,36 @@ public class AccountController {
         return page;
     }
 
+    @RequestMapping(value = Pages.VALUE_PAY_BILL, method = RequestMethod.GET)
+    public String payBIll(Long billId, Model model) {
+        UserDto user = (UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String page = null;
+        try {
+            billService.payBIll(billId);
+            List<BillDto> billList = billService.getByUserId(user.getUserId(), 0, 10);
+            model.addAttribute(Parameter.BILL_LIST, billList);
+            page = Pages.PAGE_MY_ACCOUNT;
+        } catch (ServiceException e) {
+            BookingExceptionHandler.handleServiceException(e);
+            page = Pages.PAGE_ERROR;
+        }
+        return page;
+    }
+
+    @RequestMapping(value = Pages.VALUE_REMOVE_BILL, method = RequestMethod.GET)
+    public String deleteBill(Long billId, Model model) {
+        UserDto user = (UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String page = null;
+        try {
+            billService.deleteBill(billId);
+            List<BillDto> billList = billService.getByUserId(user.getUserId(), 0, 10);
+            model.addAttribute(Parameter.BILL_LIST, billList);
+            page = Pages.PAGE_MY_ACCOUNT;
+        } catch (ServiceException e) {
+            BookingExceptionHandler.handleServiceException(e);
+            page = Pages.PAGE_ERROR;
+        }
+        return page;
+    }
+
 }

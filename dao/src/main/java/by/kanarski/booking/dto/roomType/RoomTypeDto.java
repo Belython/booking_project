@@ -1,9 +1,11 @@
 package by.kanarski.booking.dto.roomType;
 
 import by.kanarski.booking.dto.abstr.LocalizableDto;
+import by.kanarski.booking.dto.facility.FacilityDto;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 public class RoomTypeDto extends LocalizableDto implements Serializable {
@@ -14,17 +16,17 @@ public class RoomTypeDto extends LocalizableDto implements Serializable {
     private String roomTypeName;
     private Integer maxPersons;
     private Double pricePerNight;
-    private String facilities;
+    private List<FacilityDto> facilityList;
     private String roomTypeStatus;
 
     public RoomTypeDto(Long roomTypeId, String roomTypeName, Integer maxPersons, Double pricePerNight,
-                       String facilities, String roomTypeStatus) {
+                      List<FacilityDto> facilityList, String roomTypeStatus) {
         super();
         this.roomTypeId = roomTypeId;
         this.roomTypeName = roomTypeName;
         this.maxPersons = maxPersons;
         this.pricePerNight = pricePerNight;
-        this.facilities = facilities;
+        this.facilityList = facilityList;
         this.roomTypeStatus = roomTypeStatus;
     }
 

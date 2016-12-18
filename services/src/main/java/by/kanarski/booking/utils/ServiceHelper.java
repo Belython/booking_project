@@ -1,9 +1,11 @@
 package by.kanarski.booking.utils;
 
 import by.kanarski.booking.constants.SearchParameter;
+import by.kanarski.booking.dao.interfaces.IFacilityTranslationDao;
 import by.kanarski.booking.dao.interfaces.IHotelTranslationDao;
 import by.kanarski.booking.dao.interfaces.ILocationTranslationDao;
 import by.kanarski.booking.dao.interfaces.IRoomTypeTranslationDao;
+import by.kanarski.booking.entities.facility.FacilityTranslation;
 import by.kanarski.booking.entities.hotel.HotelTranslation;
 import by.kanarski.booking.entities.location.LocationTranslation;
 import by.kanarski.booking.entities.roomType.RoomTypeTranslation;
@@ -24,10 +26,15 @@ public class ServiceHelper {
 
     @Autowired
     private IHotelTranslationDao hotelTranslationDao;
+
     @Autowired
     private ILocationTranslationDao locationTranslationDao;
+
     @Autowired
     private IRoomTypeTranslationDao roomTypeTranslationDao;
+
+    @Autowired
+    private IFacilityTranslationDao facilityTranslationDao;
 
     public String getNotLocalizedHotelName(String hotelName, String language) throws DaoException {
         SearchFilter filter = SearchFilter.createLanguageFilter(language);
@@ -87,6 +94,21 @@ public class ServiceHelper {
             notLocalizedRoomTypeName = roomTypeTranslationList.get(0).getRoomType().getRoomTypeName();
         }
         return notLocalizedRoomTypeName;
+    }
+
+    public String getNotLocalizedFacilityName(String facilityName, String language) throws DaoException {
+        SearchFilter filter = SearchFilter.createLanguageFilter(language);
+        if (facilityName.contains(" ")) {
+            filter.addEqFilter(SearchParameter.FACILITYNAME, facilityName);
+        } else {
+            filter.addILikeFilter(SearchParameter.FACILITYNAME, facilityName);
+        }
+        List<FacilityTranslation> facilityTranslationList = facilityTranslationDao.getListByFilter(filter, 0, 1);
+        String notLocalizerFacilityName = null;
+        if (facilityTranslationList.size() > 0) {
+            notLocalizerFacilityName = facilityTranslationList.get(0).getFacility().getFacilityName();
+        }
+        return notLocalizerFacilityName;
     }
 
 }

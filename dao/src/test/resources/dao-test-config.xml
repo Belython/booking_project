@@ -18,7 +18,7 @@
     <!--class class specifies the path to the settings-->
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="location">
-            <value>classpath:config.properties</value>
+            <value>classpath:config-test.properties</value>
         </property>
     </bean>
 
@@ -39,6 +39,7 @@
         <property name="packagesToScan">
             <list>
                 <value>by.kanarski.booking.entities</value>
+                <value>pre.jsonHandler</value>
             </list>
         </property>
 

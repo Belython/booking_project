@@ -3,7 +3,17 @@
 <%@ taglib prefix="loc" uri="http://booking.by/localizator" %>
 
 <c:set var="context" value="${pageContext.request.contextPath}"/>
-
+<c:set var="selectedHotel" value="${order.hotel}"/>
+<c:set var="selectedLocation" value="${selectedHotel.location}"/>
+<c:set var="locationAlias" value="hotel.location"/>
+<c:set var="selectedRoomType" value="${order.roomType}"/>
+<c:set var="selectedFacilities" value="${order.facilityList}"/>
+<c:set var="roomFacilities" value=""/>
+<c:forEach var="selectedFacility" items="${selectedFacilities}">
+    <c:set var="roomFacilities" value="${roomFacilities.concat(', ').concat(selectedFacility)}"/>
+</c:forEach>
+<c:set var="mainRef" value="${context}/search_results?${locationAlias}.country=${selectedLocation.country}&${locationAlias}.city=${selectedLocation.city}&hotel.hotelName=${selectedHotel.hotelName}&checkInDate=${order.checkInDate}&checkOutDate=${order.checkOutDate}&totalRooms=${order.totalRooms}&totalPersons=${order.totalPersons}"/>
+<c:set var="sortRef" value="${mainRef}&roomFacilities=${roomFacilities}"/>
 <!--main-->
 <div class="main" role="main">
     <div class="wrap clearfix">
@@ -40,7 +50,11 @@
                     <h3>Sort by</h3>
                     <ul class="sort">
                         <li>Popularity <a href="#" title="ascending" class="ascending">ascending</a><a href="#" title="descending" class="descending">descending</a></li>
-                        <li>Price <a href="#" title="ascending" class="ascending">ascending</a><a href="#" title="descending" class="descending">descending</a></li>
+
+                        <li>Price
+                            <a href="${sortRef}&sortPrice=asc" title="ascending" class="ascending">ascending</a>
+                            <a href="${sortRef}&sortPrice=desc" title="descending" class="descending">descending</a>
+                        </li>
                         <li>Stars <a href="#" title="ascending" class="ascending">ascending</a><a href="#" title="descending" class="descending">descending</a></li>
                         <li>Rating <a href="#" title="ascending" class="ascending">ascending</a><a href="#" title="descending" class="descending">descending</a></li>
                     </ul>
@@ -58,7 +72,7 @@
                         <!--deal-->
                         <article class="one-fourth">
                             <figure>
-                                <a href="controller?command=goToHotel" title="">
+                                <a href="${context}/hotel?hotelId=${hotel.hotelId}" title="">
                                     <img src="${context}/assets/images/uploads/img.jpg" alt="" width="270" height="152" />
                                 </a>
                             </figure>
@@ -79,7 +93,7 @@
                                 <%--<div class="description">--%>
                                     <%--<p>Overlooking the Aqueduct and Nature Park, Lorem Ipsum Hotel is situated 5 minutes’ walk from London’s Zoological Gardens and a metro station. <a href="hotel.html">More info</a></p>--%>
                                 <%--</div>--%>
-                                <a href="${context}/watchHotel?hotelId=${hotel.hotelId}" title="Book now" class="gradient-button">Book now</a>
+                                <a href="${context}/hotel?hotelId=${hotel.hotelId}" title="Book now" class="gradient-button">Book now</a>
                             </div>
                         </article>
                         <!--//deal-->

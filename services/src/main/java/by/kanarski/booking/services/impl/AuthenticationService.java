@@ -27,18 +27,12 @@ public class AuthenticationService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        org.springframework.security.core.userdetails.User securityUser = null;
         UserDto userDto = null;
         try {
             userDto = userService.getByLogin(userName);
             if (userDto == null) {
                 throw new UsernameNotFoundException("Username not found");
             }
-            String login = userDto.getLogin();
-            String password = userDto.getPassword();
-            securityUser = new org.springframework.security.core.userdetails.User(login, password,
-                    true, true, true, true, getGrantedAuthorities(userDto));
-
         } catch (ServiceException e) {
             BookingExceptionHandler.handleServiceException(e);
         }

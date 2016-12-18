@@ -16,4 +16,8 @@ public interface IBillService extends IExtendedBaseService<Bill, BillDto> {
 
     void cancelBooking(Long billId) throws ServiceException;
 
+    void payBIll(Long billId) throws ServiceException;
+
+    void deleteBill(Long billId) throws ServiceException;
+
 }

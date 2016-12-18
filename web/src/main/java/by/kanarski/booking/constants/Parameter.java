@@ -98,6 +98,10 @@ public class Parameter {
     public static final String ROOM_LIST = "roomList";
     public static final String ROOM_DTO_LIST = "roomDtoList";
 
+    //Facility parameters
+
+    public static final String ALL_ROOM_FACILITIES = "allRoomFacilities";
+
     //Locale parameters
 
     public static final String LOCALE_LIST = "localeList";
@@ -153,6 +157,7 @@ public class Parameter {
     public static final String PAGER_SIZE = "pagerSize";
 
     //cookie names
+    public static final String LOCALE = "locale";
     public static final String COOKIE_LOCALE = "userLocale";
     public static final String COOKIE_CURRENCY = "userCurrency";
 

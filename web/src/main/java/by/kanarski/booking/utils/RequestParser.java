@@ -3,19 +3,22 @@ package by.kanarski.booking.utils;
 import by.kanarski.booking.constants.FieldValue;
 import by.kanarski.booking.constants.Parameter;
 import by.kanarski.booking.constants.RegExp;
-import by.kanarski.booking.dto.*;
+import by.kanarski.booking.dto.DestinationDto;
+import by.kanarski.booking.dto.RoomDto;
+import by.kanarski.booking.dto.UserDto;
 import by.kanarski.booking.dto.hotel.HotelDto;
-import by.kanarski.booking.dto.hotel.UserHotelDto;
 import by.kanarski.booking.dto.location.LocationDto;
 import by.kanarski.booking.dto.roomType.RoomTypeDto;
-import by.kanarski.booking.exceptions.LocalisationException;
 import by.kanarski.booking.exceptions.ServiceException;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -218,57 +221,57 @@ public class RequestParser {
         return roomDtoList;
     }
 
-    public static List<RoomTypeDto> parseRoomTypeDtoList(HttpServletRequest request) throws ServiceException{
-        List<RoomTypeDto> roomTypeDtoList = new ArrayList<>();
-        Map<String, String[]> parameterMap = request.getParameterMap();
-        Set<String> parameterSet = parameterMap.keySet();
-        String[] roomTypeIdArray = null;
-        String[] roomTypeNameArray = null;
-        String[] maxPersonsArray = null;
-        String[] pricePerNightArray = null;
-        String[] facilitiesArray = null;
-        String[] roomTypeStatusArray = null;
-        for (String parameter : parameterSet) {
-            switch (parameter) {
-                case Parameter.ROOM_TYPE_ID: {
-                    roomTypeIdArray = parameterMap.get(parameter);
-                    break;
-                }
-                case Parameter.ROOM_TYPE_NAME: {
-                    roomTypeNameArray = parameterMap.get(parameter);
-                    break;
-                }
-                case Parameter.ROOM_TYPE_MAX_PERSONS: {
-                    maxPersonsArray = parameterMap.get(parameter);
-                    break;
-                }
-                case Parameter.ROOM_TYPE_PRICE_PER_NIGHT: {
-                    pricePerNightArray = parameterMap.get(parameter);
-                    break;
-                }
-                case Parameter.ROOM_TYPE_FACILITIES: {
-                    facilitiesArray = parameterMap.get(parameter);
-                    break;
-                }
-                case Parameter.ROOM_TYPE_STATUS: {
-                    roomTypeStatusArray = parameterMap.get(parameter);
-                    break;
-                }
-            }
-        }
-        for (int i = 0; i < roomTypeIdArray.length; i++) {
-            long roomTypeId = Long.valueOf(roomTypeIdArray[i]);
-            String roomTypeName = roomTypeNameArray[i];
-            int maxPersons = Integer.valueOf(maxPersonsArray[i]);
-            double pricePerNight = Double.valueOf(pricePerNightArray[i]);
-            String facilities = facilitiesArray[i];
-            String roomTypeStatus = roomTypeStatusArray[i];
-            RoomTypeDto roomTypeDto = new RoomTypeDto(roomTypeId, roomTypeName, maxPersons, pricePerNight,
-                    facilities, roomTypeStatus);
-            roomTypeDtoList.add(roomTypeDto);
-        }
-        return roomTypeDtoList;
-    }
+//    public static List<RoomTypeDto> parseRoomTypeDtoList(HttpServletRequest request) throws ServiceException{
+//        List<RoomTypeDto> roomTypeDtoList = new ArrayList<>();
+//        Map<String, String[]> parameterMap = request.getParameterMap();
+//        Set<String> parameterSet = parameterMap.keySet();
+//        String[] roomTypeIdArray = null;
+//        String[] roomTypeNameArray = null;
+//        String[] maxPersonsArray = null;
+//        String[] pricePerNightArray = null;
+//        String[] facilitiesArray = null;
+//        String[] roomTypeStatusArray = null;
+//        for (String parameter : parameterSet) {
+//            switch (parameter) {
+//                case Parameter.ROOM_TYPE_ID: {
+//                    roomTypeIdArray = parameterMap.get(parameter);
+//                    break;
+//                }
+//                case Parameter.ROOM_TYPE_NAME: {
+//                    roomTypeNameArray = parameterMap.get(parameter);
+//                    break;
+//                }
+//                case Parameter.ROOM_TYPE_MAX_PERSONS: {
+//                    maxPersonsArray = parameterMap.get(parameter);
+//                    break;
+//                }
+//                case Parameter.ROOM_TYPE_PRICE_PER_NIGHT: {
+//                    pricePerNightArray = parameterMap.get(parameter);
+//                    break;
+//                }
+//                case Parameter.ROOM_TYPE_FACILITIES: {
+//                    facilitiesArray = parameterMap.get(parameter);
+//                    break;
+//                }
+//                case Parameter.ROOM_TYPE_STATUS: {
+//                    roomTypeStatusArray = parameterMap.get(parameter);
+//                    break;
+//                }
+//            }
+//        }
+//        for (int i = 0; i < roomTypeIdArray.length; i++) {
+//            long roomTypeId = Long.valueOf(roomTypeIdArray[i]);
+//            String roomTypeName = roomTypeNameArray[i];
+//            int maxPersons = Integer.valueOf(maxPersonsArray[i]);
+//            double pricePerNight = Double.valueOf(pricePerNightArray[i]);
+//            String facilities = facilitiesArray[i];
+//            String roomTypeStatus = roomTypeStatusArray[i];
+//            RoomTypeDto roomTypeDto = new RoomTypeDto(roomTypeId, roomTypeName, maxPersons, pricePerNight,
+//                    facilities, roomTypeStatus);
+//            roomTypeDtoList.add(roomTypeDto);
+//        }
+//        return roomTypeDtoList;
+//    }
 
     public static List<LocationDto> parseLocationDtoList(HttpServletRequest request) throws ServiceException{
         List<LocationDto> locationDtoList = new ArrayList<>();
@@ -493,34 +496,34 @@ public class RequestParser {
         return new LocationDto(locationId, contry, city, locationStatus);
     }
 
-    public static RoomTypeDto parseRoomTypeDto(HttpServletRequest request) {
-        long roomTypeId = Long.valueOf(request.getParameter(Parameter.ROOM_TYPE_ID));
-        String roomTypeName = request.getParameter(Parameter.ROOM_TYPE_NAME);
-        int maxPersons = Integer.valueOf(request.getParameter(Parameter.ROOM_TYPE_MAX_PERSONS));
-        double pricePerNight = Double.valueOf(request.getParameter(Parameter.ROOM_TYPE_PRICE_PER_NIGHT));
-        String facilities = request.getParameter(Parameter.ROOM_TYPE_FACILITIES);
-        String roomTypeStatus = request.getParameter(Parameter.ROOM_TYPE_STATUS);
-        return new RoomTypeDto(roomTypeId, roomTypeName, maxPersons, pricePerNight,
-                facilities, roomTypeStatus);
-    }
+//    public static RoomTypeDto parseRoomTypeDto(HttpServletRequest request) {
+//        long roomTypeId = Long.valueOf(request.getParameter(Parameter.ROOM_TYPE_ID));
+//        String roomTypeName = request.getParameter(Parameter.ROOM_TYPE_NAME);
+//        int maxPersons = Integer.valueOf(request.getParameter(Parameter.ROOM_TYPE_MAX_PERSONS));
+//        double pricePerNight = Double.valueOf(request.getParameter(Parameter.ROOM_TYPE_PRICE_PER_NIGHT));
+//        String facilities = request.getParameter(Parameter.ROOM_TYPE_FACILITIES);
+//        String roomTypeStatus = request.getParameter(Parameter.ROOM_TYPE_STATUS);
+//        return new RoomTypeDto(roomTypeId, roomTypeName, maxPersons, pricePerNight,
+//                facilities, roomTypeStatus);
+//    }
 
-    public static RoomDto parseRoomDto(HttpServletRequest request) throws ServiceException {
-        String strRoomId = request.getParameter(Parameter.ROOM_ID);
-        if ((strRoomId == null) || (strRoomId.isEmpty())) {
-            strRoomId = "-1";
-        }
-        long roomId = Long.valueOf(strRoomId);
-        HotelDto hotelDto = parseHotelDto(request);
-        RoomTypeDto roomTypeDto = parseRoomTypeDto(request);
-        String strRoomNumber = request.getParameter(Parameter.ROOM_NUMBER);
-        if ((strRoomNumber == null) || (strRoomNumber.isEmpty())) {
-            strRoomNumber = "-1";
-        }
-        int roomNumber = Integer.valueOf(strRoomNumber);
-//        TreeMap<String, String> bookedDates = likeParseBookedDates(roomId, request);
-        String roomStatus = request.getParameter(Parameter.ROOM_STATUS);
-        return  new RoomDto(roomId, hotelDto, roomTypeDto, roomNumber, roomStatus);
-    }
+//    public static RoomDto parseRoomDto(HttpServletRequest request) throws ServiceException {
+//        String strRoomId = request.getParameter(Parameter.ROOM_ID);
+//        if ((strRoomId == null) || (strRoomId.isEmpty())) {
+//            strRoomId = "-1";
+//        }
+//        long roomId = Long.valueOf(strRoomId);
+//        HotelDto hotelDto = parseHotelDto(request);
+//        RoomTypeDto roomTypeDto = parseRoomTypeDto(request);
+//        String strRoomNumber = request.getParameter(Parameter.ROOM_NUMBER);
+//        if ((strRoomNumber == null) || (strRoomNumber.isEmpty())) {
+//            strRoomNumber = "-1";
+//        }
+//        int roomNumber = Integer.valueOf(strRoomNumber);
+////        TreeMap<String, String> bookedDates = likeParseBookedDates(roomId, request);
+//        String roomStatus = request.getParameter(Parameter.ROOM_STATUS);
+//        return  new RoomDto(roomId, hotelDto, roomTypeDto, roomNumber, roomStatus);
+//    }
 
     public static String parseFormName(HttpServletRequest request) {
         return request.getParameter(Parameter.FORM_NAME);

@@ -20,4 +20,6 @@ public interface IHotelService extends IExtendedBaseService<Hotel, HotelDto> {
 
     List<HotelDto> getByDestination(DestinationDto destinationDto, int page, int perPage) throws ServiceException;
 
+    HotelDto getByDescription(HotelDto description) throws ServiceException;
+
 }

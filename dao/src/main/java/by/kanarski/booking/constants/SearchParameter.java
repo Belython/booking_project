@@ -9,7 +9,7 @@ public class SearchParameter {
 
     public static final String LANGUAGE_NAME = "language.name";
 
-    //UserParameters
+    //User parameters
 
     public static final String USERID = "userId";
     public static final String USER_USERIDID = "user.userId";
@@ -41,6 +41,14 @@ public class SearchParameter {
     public static final String BILLSET_CHECKOUTDATE = "billSet.checkOutDate";
 
     //RoomType parameters
+
     public static final String ROOMTYPENAME = "roomTypeName";
+    public static final String FACILITYSET_FACILITYNAME = "facilitySet.facilityName";
+
+    //Facility parameters
+    public static final String FACILITYNAME = "facilityName";
+
+    //Bill parameters
+    public static final String BILLSTATUS = "billStatus";
 
 }
