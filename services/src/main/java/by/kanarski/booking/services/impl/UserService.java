@@ -94,6 +94,7 @@ public class UserService extends ExtendedBaseService<User, UserDto> implements I
         }
     }
 
+    @Override
     public UserDto loginUser(UserDto unauthorizedUser) throws ServiceException {
         UserDto authorizedUser = null;
         SearchFilter searchFilter = SearchFilter

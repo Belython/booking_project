@@ -3,6 +3,8 @@ package by.kanarski.booking.entities.hotel;
 import by.kanarski.booking.entities.Room;
 import by.kanarski.booking.entities.location.Location;
 import by.kanarski.booking.utils.Formulas;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.*;
 
 import javax.persistence.*;
@@ -20,6 +22,8 @@ import java.util.Set;
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @DynamicInsert
 @DynamicUpdate
+@AllArgsConstructor
+@NoArgsConstructor
 public class Hotel implements Serializable {
 
     private static final Long serialVersionUID = 1L;

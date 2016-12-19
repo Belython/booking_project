@@ -1,1 +1,1582 @@
-null
+[
+  {
+    "roomTypeId": 1,
+    "roomTypeName": "testRoomTypeExpected1",
+    "maxPersons": 9,
+    "pricePerNight": 183.0,
+    "facilitySet": [
+      {
+        "facilityId": 9,
+        "facilityName": "testFacilityExpected25",
+        "facilityTranslationMap": {
+          "1": {
+            "factilityTranslationId": 25,
+            "facilityName": "testFacilityExpected25",
+            "facility": null,
+            "language": {
+              "languageId": 1,
+              "name": "expectedLanguage1"
+            }
+          },
+          "2": {
+            "factilityTranslationId": 26,
+            "facilityName": "testFacilityExpected26",
+            "facility": null,
+            "language": {
+              "languageId": 2,
+              "name": "expectedLanguage2"
+            }
+          },
+          "3": {
+            "factilityTranslationId": 27,
+            "facilityName": "testFacilityExpected27",
+            "facility": null,
+            "language": {
+              "languageId": 3,
+              "name": "expectedLanguage3"
+            }
+          }
+        },
+        "roomTypeSet": null,
+        "facilityStatus": "active"
+      },
+      {
+        "facilityId": 1,
+        "facilityName": "testFacilityExpected1",
+        "facilityTranslationMap": {
+          "1": {
+            "factilityTranslationId": 1,
+            "facilityName": "testFacilityExpected1",
+            "facility": null,
+            "language": {
+              "languageId": 1,
+              "name": "expectedLanguage1"
+            }
+          },
+          "2": {
+            "factilityTranslationId": 2,
+            "facilityName": "testFacilityExpected2",
+            "facility": null,
+            "language": {
+              "languageId": 2,
+              "name": "expectedLanguage2"
+            }
+          },
+          "3": {
+            "factilityTranslationId": 3,
+            "facilityName": "testFacilityExpected3",
+            "facility": null,
+            "language": {
+              "languageId": 3,
+              "name": "expectedLanguage3"
+            }
+          }
+        },
+        "roomTypeSet": null,
+        "facilityStatus": "active"
+      },
+      {
+        "facilityId": 2,
+        "facilityName": "testFacilityExpected4",
+        "facilityTranslationMap": {
+          "1": {
+            "factilityTranslationId": 4,
+            "facilityName": "testFacilityExpected4",
+            "facility": null,
+            "language": {
+              "languageId": 1,
+              "name": "expectedLanguage1"
+            }
+          },
+          "2": {
+            "factilityTranslationId": 5,
+            "facilityName": "testFacilityExpected5",
+            "facility": null,
+            "language": {
+              "languageId": 2,
+              "name": "expectedLanguage2"
+            }
+          },
+          "3": {
+            "factilityTranslationId": 6,
+            "facilityName": "testFacilityExpected6",
+            "facility": null,
+            "language": {
+              "languageId": 3,
+              "name": "expectedLanguage3"
+            }
+          }
+        },
+        "roomTypeSet": null,
+        "facilityStatus": "active"
+      },
+      {
+        "facilityId": 5,
+        "facilityName": "testFacilityExpected13",
+        "facilityTranslationMap": {
+          "1": {
+            "factilityTranslationId": 13,
+            "facilityName": "testFacilityExpected13",
+            "facility": null,
+            "language": {
+              "languageId": 1,
+              "name": "expectedLanguage1"
+            }
+          },
+          "2": {
+            "factilityTranslationId": 14,
+            "facilityName": "testFacilityExpected14",
+            "facility": null,
+            "language": {
+              "languageId": 2,
+              "name": "expectedLanguage2"
+            }
+          },
+          "3": {
+            "factilityTranslationId": 15,
+            "facilityName": "testFacilityExpected15",
+            "facility": null,
+            "language": {
+              "languageId": 3,
+              "name": "expectedLanguage3"
+            }
+          }
+        },
+        "roomTypeSet": null,
+        "facilityStatus": "active"
+      }
+    ],
+    "roomSet": null,
+    "roomTypeTranslationMap": {
+      "1": {
+        "roomTypeTranslationId": 1,
+        "roomTypeName": "testRoomTypeExpected1",
+        "roomType": null,
+        "language": {
+          "languageId": 1,
+          "name": "expectedLanguage1"
+        }
+      },
+      "2": {
+        "roomTypeTranslationId": 2,
+        "roomTypeName": "testRoomTypeExpected2",
+        "roomType": null,
+        "language": {
+          "languageId": 2,
+          "name": "expectedLanguage2"
+        }
+      },
+      "3": {
+        "roomTypeTranslationId": 3,
+        "roomTypeName": "testRoomTypeExpected3",
+        "roomType": null,
+        "language": {
+          "languageId": 3,
+          "name": "expectedLanguage3"
+        }
+      }
+    },
+    "roomTypeStatus": "active"
+  },
+  {
+    "roomTypeId": 2,
+    "roomTypeName": "testRoomTypeExpected4",
+    "maxPersons": 2,
+    "pricePerNight": 46.5,
+    "facilitySet": [
+      {
+        "facilityId": 7,
+        "facilityName": "testFacilityExpected19",
+        "facilityTranslationMap": {
+          "1": {
+            "factilityTranslationId": 19,
+            "facilityName": "testFacilityExpected19",
+            "facility": null,
+            "language": {
+              "languageId": 1,
+              "name": "expectedLanguage1"
+            }
+          },
+          "2": {
+            "factilityTranslationId": 20,
+            "facilityName": "testFacilityExpected20",
+            "facility": null,
+            "language": {
+              "languageId": 2,
+              "name": "expectedLanguage2"
+            }
+          },
+          "3": {
+            "factilityTranslationId": 21,
+            "facilityName": "testFacilityExpected21",
+            "facility": null,
+            "language": {
+              "languageId": 3,
+              "name": "expectedLanguage3"
+            }
+          }
+        },
+        "roomTypeSet": null,
+        "facilityStatus": "active"
+      },
+      {
+        "facilityId": 3,
+        "facilityName": "testFacilityExpected7",
+        "facilityTranslationMap": {
+          "1": {
+            "factilityTranslationId": 7,
+            "facilityName": "testFacilityExpected7",
+            "facility": null,
+            "language": {
+              "languageId": 1,
+              "name": "expectedLanguage1"
+            }
+          },
+          "2": {
+            "factilityTranslationId": 8,
+            "facilityName": "testFacilityExpected8",
+            "facility": null,
+            "language": {
+              "languageId": 2,
+              "name": "expectedLanguage2"
+            }
+          },
+          "3": {
+            "factilityTranslationId": 9,
+            "facilityName": "testFacilityExpected9",
+            "facility": null,
+            "language": {
+              "languageId": 3,
+              "name": "expectedLanguage3"
+            }
+          }
+        },
+        "roomTypeSet": null,
+        "facilityStatus": "active"
+      },
+      {
+        "facilityId": 5,
+        "facilityName": "testFacilityExpected13",
+        "facilityTranslationMap": {
+          "1": {
+            "factilityTranslationId": 13,
+            "facilityName": "testFacilityExpected13",
+            "facility": null,
+            "language": {
+              "languageId": 1,
+              "name": "expectedLanguage1"
+            }
+          },
+          "2": {
+            "factilityTranslationId": 14,
+            "facilityName": "testFacilityExpected14",
+            "facility": null,
+            "language": {
+              "languageId": 2,
+              "name": "expectedLanguage2"
+            }
+          },
+          "3": {
+            "factilityTranslationId": 15,
+            "facilityName": "testFacilityExpected15",
+            "facility": null,
+            "language": {
+              "languageId": 3,
+              "name": "expectedLanguage3"
+            }
+          }
+        },
+        "roomTypeSet": null,
+        "facilityStatus": "active"
+      },
+      {
+        "facilityId": 6,
+        "facilityName": "testFacilityExpected16",
+        "facilityTranslationMap": {
+          "1": {
+            "factilityTranslationId": 16,
+            "facilityName": "testFacilityExpected16",
+            "facility": null,
+            "language": {
+              "languageId": 1,
+              "name": "expectedLanguage1"
+            }
+          },
+          "2": {
+            "factilityTranslationId": 17,
+            "facilityName": "testFacilityExpected17",
+            "facility": null,
+            "language": {
+              "languageId": 2,
+              "name": "expectedLanguage2"
+            }
+          },
+          "3": {
+            "factilityTranslationId": 18,
+            "facilityName": "testFacilityExpected18",
+            "facility": null,
+            "language": {
+              "languageId": 3,
+              "name": "expectedLanguage3"
+            }
+          }
+        },
+        "roomTypeSet": null,
+        "facilityStatus": "active"
+      }
+    ],
+    "roomSet": null,
+    "roomTypeTranslationMap": {
+      "1": {
+        "roomTypeTranslationId": 4,
+        "roomTypeName": "testRoomTypeExpected4",
+        "roomType": null,
+        "language": {
+          "languageId": 1,
+          "name": "expectedLanguage1"
+        }
+      },
+      "2": {
+        "roomTypeTranslationId": 5,
+        "roomTypeName": "testRoomTypeExpected5",
+        "roomType": null,
+        "language": {
+          "languageId": 2,
+          "name": "expectedLanguage2"
+        }
+      },
+      "3": {
+        "roomTypeTranslationId": 6,
+        "roomTypeName": "testRoomTypeExpected6",
+        "roomType": null,
+        "language": {
+          "languageId": 3,
+          "name": "expectedLanguage3"
+        }
+      }
+    },
+    "roomTypeStatus": "active"
+  },
+  {
+    "roomTypeId": 3,
+    "roomTypeName": "testRoomTypeExpected7",
+    "maxPersons": 1,
+    "pricePerNight": 365.0,
+    "facilitySet": [
+      {
+        "facilityId": 7,
+        "facilityName": "testFacilityExpected19",
+        "facilityTranslationMap": {
+          "1": {
+            "factilityTranslationId": 19,
+            "facilityName": "testFacilityExpected19",
+            "facility": null,
+            "language": {
+              "languageId": 1,
+              "name": "expectedLanguage1"
+            }
+          },
+          "2": {
+            "factilityTranslationId": 20,
+            "facilityName": "testFacilityExpected20",
+            "facility": null,
+            "language": {
+              "languageId": 2,
+              "name": "expectedLanguage2"
+            }
+          },
+          "3": {
+            "factilityTranslationId": 21,
+            "facilityName": "testFacilityExpected21",
+            "facility": null,
+            "language": {
+              "languageId": 3,
+              "name": "expectedLanguage3"
+            }
+          }
+        },
+        "roomTypeSet": null,
+        "facilityStatus": "active"
+      },
+      {
+        "facilityId": 8,
+        "facilityName": "testFacilityExpected22",
+        "facilityTranslationMap": {
+          "1": {
+            "factilityTranslationId": 22,
+            "facilityName": "testFacilityExpected22",
+            "facility": null,
+            "language": {
+              "languageId": 1,
+              "name": "expectedLanguage1"
+            }
+          },
+          "2": {
+            "factilityTranslationId": 23,
+            "facilityName": "testFacilityExpected23",
+            "facility": null,
+            "language": {
+              "languageId": 2,
+              "name": "expectedLanguage2"
+            }
+          },
+          "3": {
+            "factilityTranslationId": 24,
+            "facilityName": "testFacilityExpected24",
+            "facility": null,
+            "language": {
+              "languageId": 3,
+              "name": "expectedLanguage3"
+            }
+          }
+        },
+        "roomTypeSet": null,
+        "facilityStatus": "active"
+      },
+      {
+        "facilityId": 9,
+        "facilityName": "testFacilityExpected25",
+        "facilityTranslationMap": {
+          "1": {
+            "factilityTranslationId": 25,
+            "facilityName": "testFacilityExpected25",
+            "facility": null,
+            "language": {
+              "languageId": 1,
+              "name": "expectedLanguage1"
+            }
+          },
+          "2": {
+            "factilityTranslationId": 26,
+            "facilityName": "testFacilityExpected26",
+            "facility": null,
+            "language": {
+              "languageId": 2,
+              "name": "expectedLanguage2"
+            }
+          },
+          "3": {
+            "factilityTranslationId": 27,
+            "facilityName": "testFacilityExpected27",
+            "facility": null,
+            "language": {
+              "languageId": 3,
+              "name": "expectedLanguage3"
+            }
+          }
+        },
+        "roomTypeSet": null,
+        "facilityStatus": "active"
+      }
+    ],
+    "roomSet": null,
+    "roomTypeTranslationMap": {
+      "1": {
+        "roomTypeTranslationId": 7,
+        "roomTypeName": "testRoomTypeExpected7",
+        "roomType": null,
+        "language": {
+          "languageId": 1,
+          "name": "expectedLanguage1"
+        }
+      },
+      "2": {
+        "roomTypeTranslationId": 8,
+        "roomTypeName": "testRoomTypeExpected8",
+        "roomType": null,
+        "language": {
+          "languageId": 2,
+          "name": "expectedLanguage2"
+        }
+      },
+      "3": {
+        "roomTypeTranslationId": 9,
+        "roomTypeName": "testRoomTypeExpected9",
+        "roomType": null,
+        "language": {
+          "languageId": 3,
+          "name": "expectedLanguage3"
+        }
+      }
+    },
+    "roomTypeStatus": "active"
+  },
+  {
+    "roomTypeId": 4,
+    "roomTypeName": "testRoomTypeExpected10",
+    "maxPersons": 4,
+    "pricePerNight": 228.5,
+    "facilitySet": [
+      {
+        "facilityId": 7,
+        "facilityName": "testFacilityExpected19",
+        "facilityTranslationMap": {
+          "1": {
+            "factilityTranslationId": 19,
+            "facilityName": "testFacilityExpected19",
+            "facility": null,
+            "language": {
+              "languageId": 1,
+              "name": "expectedLanguage1"
+            }
+          },
+          "2": {
+            "factilityTranslationId": 20,
+            "facilityName": "testFacilityExpected20",
+            "facility": null,
+            "language": {
+              "languageId": 2,
+              "name": "expectedLanguage2"
+            }
+          },
+          "3": {
+            "factilityTranslationId": 21,
+            "facilityName": "testFacilityExpected21",
+            "facility": null,
+            "language": {
+              "languageId": 3,
+              "name": "expectedLanguage3"
+            }
+          }
+        },
+        "roomTypeSet": null,
+        "facilityStatus": "active"
+      },
+      {
+        "facilityId": 2,
+        "facilityName": "testFacilityExpected4",
+        "facilityTranslationMap": {
+          "1": {
+            "factilityTranslationId": 4,
+            "facilityName": "testFacilityExpected4",
+            "facility": null,
+            "language": {
+              "languageId": 1,
+              "name": "expectedLanguage1"
+            }
+          },
+          "2": {
+            "factilityTranslationId": 5,
+            "facilityName": "testFacilityExpected5",
+            "facility": null,
+            "language": {
+              "languageId": 2,
+              "name": "expectedLanguage2"
+            }
+          },
+          "3": {
+            "factilityTranslationId": 6,
+            "facilityName": "testFacilityExpected6",
+            "facility": null,
+            "language": {
+              "languageId": 3,
+              "name": "expectedLanguage3"
+            }
+          }
+        },
+        "roomTypeSet": null,
+        "facilityStatus": "active"
+      },
+      {
+        "facilityId": 5,
+        "facilityName": "testFacilityExpected13",
+        "facilityTranslationMap": {
+          "1": {
+            "factilityTranslationId": 13,
+            "facilityName": "testFacilityExpected13",
+            "facility": null,
+            "language": {
+              "languageId": 1,
+              "name": "expectedLanguage1"
+            }
+          },
+          "2": {
+            "factilityTranslationId": 14,
+            "facilityName": "testFacilityExpected14",
+            "facility": null,
+            "language": {
+              "languageId": 2,
+              "name": "expectedLanguage2"
+            }
+          },
+          "3": {
+            "factilityTranslationId": 15,
+            "facilityName": "testFacilityExpected15",
+            "facility": null,
+            "language": {
+              "languageId": 3,
+              "name": "expectedLanguage3"
+            }
+          }
+        },
+        "roomTypeSet": null,
+        "facilityStatus": "active"
+      },
+      {
+        "facilityId": 6,
+        "facilityName": "testFacilityExpected16",
+        "facilityTranslationMap": {
+          "1": {
+            "factilityTranslationId": 16,
+            "facilityName": "testFacilityExpected16",
+            "facility": null,
+            "language": {
+              "languageId": 1,
+              "name": "expectedLanguage1"
+            }
+          },
+          "2": {
+            "factilityTranslationId": 17,
+            "facilityName": "testFacilityExpected17",
+            "facility": null,
+            "language": {
+              "languageId": 2,
+              "name": "expectedLanguage2"
+            }
+          },
+          "3": {
+            "factilityTranslationId": 18,
+            "facilityName": "testFacilityExpected18",
+            "facility": null,
+            "language": {
+              "languageId": 3,
+              "name": "expectedLanguage3"
+            }
+          }
+        },
+        "roomTypeSet": null,
+        "facilityStatus": "active"
+      }
+    ],
+    "roomSet": null,
+    "roomTypeTranslationMap": {
+      "1": {
+        "roomTypeTranslationId": 10,
+        "roomTypeName": "testRoomTypeExpected10",
+        "roomType": null,
+        "language": {
+          "languageId": 1,
+          "name": "expectedLanguage1"
+        }
+      },
+      "2": {
+        "roomTypeTranslationId": 11,
+        "roomTypeName": "testRoomTypeExpected11",
+        "roomType": null,
+        "language": {
+          "languageId": 2,
+          "name": "expectedLanguage2"
+        }
+      },
+      "3": {
+        "roomTypeTranslationId": 12,
+        "roomTypeName": "testRoomTypeExpected12",
+        "roomType": null,
+        "language": {
+          "languageId": 3,
+          "name": "expectedLanguage3"
+        }
+      }
+    },
+    "roomTypeStatus": "active"
+  },
+  {
+    "roomTypeId": 5,
+    "roomTypeName": "testRoomTypeExpected13",
+    "maxPersons": 3,
+    "pricePerNight": 228.5,
+    "facilitySet": [
+      {
+        "facilityId": 7,
+        "facilityName": "testFacilityExpected19",
+        "facilityTranslationMap": {
+          "1": {
+            "factilityTranslationId": 19,
+            "facilityName": "testFacilityExpected19",
+            "facility": null,
+            "language": {
+              "languageId": 1,
+              "name": "expectedLanguage1"
+            }
+          },
+          "2": {
+            "factilityTranslationId": 20,
+            "facilityName": "testFacilityExpected20",
+            "facility": null,
+            "language": {
+              "languageId": 2,
+              "name": "expectedLanguage2"
+            }
+          },
+          "3": {
+            "factilityTranslationId": 21,
+            "facilityName": "testFacilityExpected21",
+            "facility": null,
+            "language": {
+              "languageId": 3,
+              "name": "expectedLanguage3"
+            }
+          }
+        },
+        "roomTypeSet": null,
+        "facilityStatus": "active"
+      },
+      {
+        "facilityId": 3,
+        "facilityName": "testFacilityExpected7",
+        "facilityTranslationMap": {
+          "1": {
+            "factilityTranslationId": 7,
+            "facilityName": "testFacilityExpected7",
+            "facility": null,
+            "language": {
+              "languageId": 1,
+              "name": "expectedLanguage1"
+            }
+          },
+          "2": {
+            "factilityTranslationId": 8,
+            "facilityName": "testFacilityExpected8",
+            "facility": null,
+            "language": {
+              "languageId": 2,
+              "name": "expectedLanguage2"
+            }
+          },
+          "3": {
+            "factilityTranslationId": 9,
+            "facilityName": "testFacilityExpected9",
+            "facility": null,
+            "language": {
+              "languageId": 3,
+              "name": "expectedLanguage3"
+            }
+          }
+        },
+        "roomTypeSet": null,
+        "facilityStatus": "active"
+      },
+      {
+        "facilityId": 6,
+        "facilityName": "testFacilityExpected16",
+        "facilityTranslationMap": {
+          "1": {
+            "factilityTranslationId": 16,
+            "facilityName": "testFacilityExpected16",
+            "facility": null,
+            "language": {
+              "languageId": 1,
+              "name": "expectedLanguage1"
+            }
+          },
+          "2": {
+            "factilityTranslationId": 17,
+            "facilityName": "testFacilityExpected17",
+            "facility": null,
+            "language": {
+              "languageId": 2,
+              "name": "expectedLanguage2"
+            }
+          },
+          "3": {
+            "factilityTranslationId": 18,
+            "facilityName": "testFacilityExpected18",
+            "facility": null,
+            "language": {
+              "languageId": 3,
+              "name": "expectedLanguage3"
+            }
+          }
+        },
+        "roomTypeSet": null,
+        "facilityStatus": "active"
+      }
+    ],
+    "roomSet": null,
+    "roomTypeTranslationMap": {
+      "1": {
+        "roomTypeTranslationId": 13,
+        "roomTypeName": "testRoomTypeExpected13",
+        "roomType": null,
+        "language": {
+          "languageId": 1,
+          "name": "expectedLanguage1"
+        }
+      },
+      "2": {
+        "roomTypeTranslationId": 14,
+        "roomTypeName": "testRoomTypeExpected14",
+        "roomType": null,
+        "language": {
+          "languageId": 2,
+          "name": "expectedLanguage2"
+        }
+      },
+      "3": {
+        "roomTypeTranslationId": 15,
+        "roomTypeName": "testRoomTypeExpected15",
+        "roomType": null,
+        "language": {
+          "languageId": 3,
+          "name": "expectedLanguage3"
+        }
+      }
+    },
+    "roomTypeStatus": "active"
+  },
+  {
+    "roomTypeId": 6,
+    "roomTypeName": "testRoomTypeExpected16",
+    "maxPersons": 6,
+    "pricePerNight": 46.5,
+    "facilitySet": [
+      {
+        "facilityId": 7,
+        "facilityName": "testFacilityExpected19",
+        "facilityTranslationMap": {
+          "1": {
+            "factilityTranslationId": 19,
+            "facilityName": "testFacilityExpected19",
+            "facility": null,
+            "language": {
+              "languageId": 1,
+              "name": "expectedLanguage1"
+            }
+          },
+          "2": {
+            "factilityTranslationId": 20,
+            "facilityName": "testFacilityExpected20",
+            "facility": null,
+            "language": {
+              "languageId": 2,
+              "name": "expectedLanguage2"
+            }
+          },
+          "3": {
+            "factilityTranslationId": 21,
+            "facilityName": "testFacilityExpected21",
+            "facility": null,
+            "language": {
+              "languageId": 3,
+              "name": "expectedLanguage3"
+            }
+          }
+        },
+        "roomTypeSet": null,
+        "facilityStatus": "active"
+      },
+      {
+        "facilityId": 1,
+        "facilityName": "testFacilityExpected1",
+        "facilityTranslationMap": {
+          "1": {
+            "factilityTranslationId": 1,
+            "facilityName": "testFacilityExpected1",
+            "facility": null,
+            "language": {
+              "languageId": 1,
+              "name": "expectedLanguage1"
+            }
+          },
+          "2": {
+            "factilityTranslationId": 2,
+            "facilityName": "testFacilityExpected2",
+            "facility": null,
+            "language": {
+              "languageId": 2,
+              "name": "expectedLanguage2"
+            }
+          },
+          "3": {
+            "factilityTranslationId": 3,
+            "facilityName": "testFacilityExpected3",
+            "facility": null,
+            "language": {
+              "languageId": 3,
+              "name": "expectedLanguage3"
+            }
+          }
+        },
+        "roomTypeSet": null,
+        "facilityStatus": "active"
+      },
+      {
+        "facilityId": 2,
+        "facilityName": "testFacilityExpected4",
+        "facilityTranslationMap": {
+          "1": {
+            "factilityTranslationId": 4,
+            "facilityName": "testFacilityExpected4",
+            "facility": null,
+            "language": {
+              "languageId": 1,
+              "name": "expectedLanguage1"
+            }
+          },
+          "2": {
+            "factilityTranslationId": 5,
+            "facilityName": "testFacilityExpected5",
+            "facility": null,
+            "language": {
+              "languageId": 2,
+              "name": "expectedLanguage2"
+            }
+          },
+          "3": {
+            "factilityTranslationId": 6,
+            "facilityName": "testFacilityExpected6",
+            "facility": null,
+            "language": {
+              "languageId": 3,
+              "name": "expectedLanguage3"
+            }
+          }
+        },
+        "roomTypeSet": null,
+        "facilityStatus": "active"
+      },
+      {
+        "facilityId": 5,
+        "facilityName": "testFacilityExpected13",
+        "facilityTranslationMap": {
+          "1": {
+            "factilityTranslationId": 13,
+            "facilityName": "testFacilityExpected13",
+            "facility": null,
+            "language": {
+              "languageId": 1,
+              "name": "expectedLanguage1"
+            }
+          },
+          "2": {
+            "factilityTranslationId": 14,
+            "facilityName": "testFacilityExpected14",
+            "facility": null,
+            "language": {
+              "languageId": 2,
+              "name": "expectedLanguage2"
+            }
+          },
+          "3": {
+            "factilityTranslationId": 15,
+            "facilityName": "testFacilityExpected15",
+            "facility": null,
+            "language": {
+              "languageId": 3,
+              "name": "expectedLanguage3"
+            }
+          }
+        },
+        "roomTypeSet": null,
+        "facilityStatus": "active"
+      }
+    ],
+    "roomSet": null,
+    "roomTypeTranslationMap": {
+      "1": {
+        "roomTypeTranslationId": 16,
+        "roomTypeName": "testRoomTypeExpected16",
+        "roomType": null,
+        "language": {
+          "languageId": 1,
+          "name": "expectedLanguage1"
+        }
+      },
+      "2": {
+        "roomTypeTranslationId": 17,
+        "roomTypeName": "testRoomTypeExpected17",
+        "roomType": null,
+        "language": {
+          "languageId": 2,
+          "name": "expectedLanguage2"
+        }
+      },
+      "3": {
+        "roomTypeTranslationId": 18,
+        "roomTypeName": "testRoomTypeExpected18",
+        "roomType": null,
+        "language": {
+          "languageId": 3,
+          "name": "expectedLanguage3"
+        }
+      }
+    },
+    "roomTypeStatus": "active"
+  },
+  {
+    "roomTypeId": 7,
+    "roomTypeName": "testRoomTypeExpected19",
+    "maxPersons": 5,
+    "pricePerNight": 228.5,
+    "facilitySet": [
+      {
+        "facilityId": 3,
+        "facilityName": "testFacilityExpected7",
+        "facilityTranslationMap": {
+          "1": {
+            "factilityTranslationId": 7,
+            "facilityName": "testFacilityExpected7",
+            "facility": null,
+            "language": {
+              "languageId": 1,
+              "name": "expectedLanguage1"
+            }
+          },
+          "2": {
+            "factilityTranslationId": 8,
+            "facilityName": "testFacilityExpected8",
+            "facility": null,
+            "language": {
+              "languageId": 2,
+              "name": "expectedLanguage2"
+            }
+          },
+          "3": {
+            "factilityTranslationId": 9,
+            "facilityName": "testFacilityExpected9",
+            "facility": null,
+            "language": {
+              "languageId": 3,
+              "name": "expectedLanguage3"
+            }
+          }
+        },
+        "roomTypeSet": null,
+        "facilityStatus": "active"
+      },
+      {
+        "facilityId": 5,
+        "facilityName": "testFacilityExpected13",
+        "facilityTranslationMap": {
+          "1": {
+            "factilityTranslationId": 13,
+            "facilityName": "testFacilityExpected13",
+            "facility": null,
+            "language": {
+              "languageId": 1,
+              "name": "expectedLanguage1"
+            }
+          },
+          "2": {
+            "factilityTranslationId": 14,
+            "facilityName": "testFacilityExpected14",
+            "facility": null,
+            "language": {
+              "languageId": 2,
+              "name": "expectedLanguage2"
+            }
+          },
+          "3": {
+            "factilityTranslationId": 15,
+            "facilityName": "testFacilityExpected15",
+            "facility": null,
+            "language": {
+              "languageId": 3,
+              "name": "expectedLanguage3"
+            }
+          }
+        },
+        "roomTypeSet": null,
+        "facilityStatus": "active"
+      }
+    ],
+    "roomSet": null,
+    "roomTypeTranslationMap": {
+      "1": {
+        "roomTypeTranslationId": 19,
+        "roomTypeName": "testRoomTypeExpected19",
+        "roomType": null,
+        "language": {
+          "languageId": 1,
+          "name": "expectedLanguage1"
+        }
+      },
+      "2": {
+        "roomTypeTranslationId": 20,
+        "roomTypeName": "testRoomTypeExpected20",
+        "roomType": null,
+        "language": {
+          "languageId": 2,
+          "name": "expectedLanguage2"
+        }
+      },
+      "3": {
+        "roomTypeTranslationId": 21,
+        "roomTypeName": "testRoomTypeExpected21",
+        "roomType": null,
+        "language": {
+          "languageId": 3,
+          "name": "expectedLanguage3"
+        }
+      }
+    },
+    "roomTypeStatus": "active"
+  },
+  {
+    "roomTypeId": 8,
+    "roomTypeName": "testRoomTypeExpected22",
+    "maxPersons": 3,
+    "pricePerNight": 274.0,
+    "facilitySet": [
+      {
+        "facilityId": 7,
+        "facilityName": "testFacilityExpected19",
+        "facilityTranslationMap": {
+          "1": {
+            "factilityTranslationId": 19,
+            "facilityName": "testFacilityExpected19",
+            "facility": null,
+            "language": {
+              "languageId": 1,
+              "name": "expectedLanguage1"
+            }
+          },
+          "2": {
+            "factilityTranslationId": 20,
+            "facilityName": "testFacilityExpected20",
+            "facility": null,
+            "language": {
+              "languageId": 2,
+              "name": "expectedLanguage2"
+            }
+          },
+          "3": {
+            "factilityTranslationId": 21,
+            "facilityName": "testFacilityExpected21",
+            "facility": null,
+            "language": {
+              "languageId": 3,
+              "name": "expectedLanguage3"
+            }
+          }
+        },
+        "roomTypeSet": null,
+        "facilityStatus": "active"
+      },
+      {
+        "facilityId": 2,
+        "facilityName": "testFacilityExpected4",
+        "facilityTranslationMap": {
+          "1": {
+            "factilityTranslationId": 4,
+            "facilityName": "testFacilityExpected4",
+            "facility": null,
+            "language": {
+              "languageId": 1,
+              "name": "expectedLanguage1"
+            }
+          },
+          "2": {
+            "factilityTranslationId": 5,
+            "facilityName": "testFacilityExpected5",
+            "facility": null,
+            "language": {
+              "languageId": 2,
+              "name": "expectedLanguage2"
+            }
+          },
+          "3": {
+            "factilityTranslationId": 6,
+            "facilityName": "testFacilityExpected6",
+            "facility": null,
+            "language": {
+              "languageId": 3,
+              "name": "expectedLanguage3"
+            }
+          }
+        },
+        "roomTypeSet": null,
+        "facilityStatus": "active"
+      },
+      {
+        "facilityId": 5,
+        "facilityName": "testFacilityExpected13",
+        "facilityTranslationMap": {
+          "1": {
+            "factilityTranslationId": 13,
+            "facilityName": "testFacilityExpected13",
+            "facility": null,
+            "language": {
+              "languageId": 1,
+              "name": "expectedLanguage1"
+            }
+          },
+          "2": {
+            "factilityTranslationId": 14,
+            "facilityName": "testFacilityExpected14",
+            "facility": null,
+            "language": {
+              "languageId": 2,
+              "name": "expectedLanguage2"
+            }
+          },
+          "3": {
+            "factilityTranslationId": 15,
+            "facilityName": "testFacilityExpected15",
+            "facility": null,
+            "language": {
+              "languageId": 3,
+              "name": "expectedLanguage3"
+            }
+          }
+        },
+        "roomTypeSet": null,
+        "facilityStatus": "active"
+      }
+    ],
+    "roomSet": null,
+    "roomTypeTranslationMap": {
+      "1": {
+        "roomTypeTranslationId": 22,
+        "roomTypeName": "testRoomTypeExpected22",
+        "roomType": null,
+        "language": {
+          "languageId": 1,
+          "name": "expectedLanguage1"
+        }
+      },
+      "2": {
+        "roomTypeTranslationId": 23,
+        "roomTypeName": "testRoomTypeExpected23",
+        "roomType": null,
+        "language": {
+          "languageId": 2,
+          "name": "expectedLanguage2"
+        }
+      },
+      "3": {
+        "roomTypeTranslationId": 24,
+        "roomTypeName": "testRoomTypeExpected24",
+        "roomType": null,
+        "language": {
+          "languageId": 3,
+          "name": "expectedLanguage3"
+        }
+      }
+    },
+    "roomTypeStatus": "active"
+  },
+  {
+    "roomTypeId": 9,
+    "roomTypeName": "testRoomTypeExpected25",
+    "maxPersons": 4,
+    "pricePerNight": 228.5,
+    "facilitySet": [
+      {
+        "facilityId": 9,
+        "facilityName": "testFacilityExpected25",
+        "facilityTranslationMap": {
+          "1": {
+            "factilityTranslationId": 25,
+            "facilityName": "testFacilityExpected25",
+            "facility": null,
+            "language": {
+              "languageId": 1,
+              "name": "expectedLanguage1"
+            }
+          },
+          "2": {
+            "factilityTranslationId": 26,
+            "facilityName": "testFacilityExpected26",
+            "facility": null,
+            "language": {
+              "languageId": 2,
+              "name": "expectedLanguage2"
+            }
+          },
+          "3": {
+            "factilityTranslationId": 27,
+            "facilityName": "testFacilityExpected27",
+            "facility": null,
+            "language": {
+              "languageId": 3,
+              "name": "expectedLanguage3"
+            }
+          }
+        },
+        "roomTypeSet": null,
+        "facilityStatus": "active"
+      },
+      {
+        "facilityId": 1,
+        "facilityName": "testFacilityExpected1",
+        "facilityTranslationMap": {
+          "1": {
+            "factilityTranslationId": 1,
+            "facilityName": "testFacilityExpected1",
+            "facility": null,
+            "language": {
+              "languageId": 1,
+              "name": "expectedLanguage1"
+            }
+          },
+          "2": {
+            "factilityTranslationId": 2,
+            "facilityName": "testFacilityExpected2",
+            "facility": null,
+            "language": {
+              "languageId": 2,
+              "name": "expectedLanguage2"
+            }
+          },
+          "3": {
+            "factilityTranslationId": 3,
+            "facilityName": "testFacilityExpected3",
+            "facility": null,
+            "language": {
+              "languageId": 3,
+              "name": "expectedLanguage3"
+            }
+          }
+        },
+        "roomTypeSet": null,
+        "facilityStatus": "active"
+      },
+      {
+        "facilityId": 2,
+        "facilityName": "testFacilityExpected4",
+        "facilityTranslationMap": {
+          "1": {
+            "factilityTranslationId": 4,
+            "facilityName": "testFacilityExpected4",
+            "facility": null,
+            "language": {
+              "languageId": 1,
+              "name": "expectedLanguage1"
+            }
+          },
+          "2": {
+            "factilityTranslationId": 5,
+            "facilityName": "testFacilityExpected5",
+            "facility": null,
+            "language": {
+              "languageId": 2,
+              "name": "expectedLanguage2"
+            }
+          },
+          "3": {
+            "factilityTranslationId": 6,
+            "facilityName": "testFacilityExpected6",
+            "facility": null,
+            "language": {
+              "languageId": 3,
+              "name": "expectedLanguage3"
+            }
+          }
+        },
+        "roomTypeSet": null,
+        "facilityStatus": "active"
+      },
+      {
+        "facilityId": 5,
+        "facilityName": "testFacilityExpected13",
+        "facilityTranslationMap": {
+          "1": {
+            "factilityTranslationId": 13,
+            "facilityName": "testFacilityExpected13",
+            "facility": null,
+            "language": {
+              "languageId": 1,
+              "name": "expectedLanguage1"
+            }
+          },
+          "2": {
+            "factilityTranslationId": 14,
+            "facilityName": "testFacilityExpected14",
+            "facility": null,
+            "language": {
+              "languageId": 2,
+              "name": "expectedLanguage2"
+            }
+          },
+          "3": {
+            "factilityTranslationId": 15,
+            "facilityName": "testFacilityExpected15",
+            "facility": null,
+            "language": {
+              "languageId": 3,
+              "name": "expectedLanguage3"
+            }
+          }
+        },
+        "roomTypeSet": null,
+        "facilityStatus": "active"
+      }
+    ],
+    "roomSet": null,
+    "roomTypeTranslationMap": {
+      "1": {
+        "roomTypeTranslationId": 25,
+        "roomTypeName": "testRoomTypeExpected25",
+        "roomType": null,
+        "language": {
+          "languageId": 1,
+          "name": "expectedLanguage1"
+        }
+      },
+      "2": {
+        "roomTypeTranslationId": 26,
+        "roomTypeName": "testRoomTypeExpected26",
+        "roomType": null,
+        "language": {
+          "languageId": 2,
+          "name": "expectedLanguage2"
+        }
+      },
+      "3": {
+        "roomTypeTranslationId": 27,
+        "roomTypeName": "testRoomTypeExpected27",
+        "roomType": null,
+        "language": {
+          "languageId": 3,
+          "name": "expectedLanguage3"
+        }
+      }
+    },
+    "roomTypeStatus": "active"
+  },
+  {
+    "roomTypeId": 10,
+    "roomTypeName": "testRoomTypeExpected28",
+    "maxPersons": 1,
+    "pricePerNight": 183.0,
+    "facilitySet": [
+      {
+        "facilityId": 8,
+        "facilityName": "testFacilityExpected22",
+        "facilityTranslationMap": {
+          "1": {
+            "factilityTranslationId": 22,
+            "facilityName": "testFacilityExpected22",
+            "facility": null,
+            "language": {
+              "languageId": 1,
+              "name": "expectedLanguage1"
+            }
+          },
+          "2": {
+            "factilityTranslationId": 23,
+            "facilityName": "testFacilityExpected23",
+            "facility": null,
+            "language": {
+              "languageId": 2,
+              "name": "expectedLanguage2"
+            }
+          },
+          "3": {
+            "factilityTranslationId": 24,
+            "facilityName": "testFacilityExpected24",
+            "facility": null,
+            "language": {
+              "languageId": 3,
+              "name": "expectedLanguage3"
+            }
+          }
+        },
+        "roomTypeSet": null,
+        "facilityStatus": "active"
+      },
+      {
+        "facilityId": 9,
+        "facilityName": "testFacilityExpected25",
+        "facilityTranslationMap": {
+          "1": {
+            "factilityTranslationId": 25,
+            "facilityName": "testFacilityExpected25",
+            "facility": null,
+            "language": {
+              "languageId": 1,
+              "name": "expectedLanguage1"
+            }
+          },
+          "2": {
+            "factilityTranslationId": 26,
+            "facilityName": "testFacilityExpected26",
+            "facility": null,
+            "language": {
+              "languageId": 2,
+              "name": "expectedLanguage2"
+            }
+          },
+          "3": {
+            "factilityTranslationId": 27,
+            "facilityName": "testFacilityExpected27",
+            "facility": null,
+            "language": {
+              "languageId": 3,
+              "name": "expectedLanguage3"
+            }
+          }
+        },
+        "roomTypeSet": null,
+        "facilityStatus": "active"
+      },
+      {
+        "facilityId": 5,
+        "facilityName": "testFacilityExpected13",
+        "facilityTranslationMap": {
+          "1": {
+            "factilityTranslationId": 13,
+            "facilityName": "testFacilityExpected13",
+            "facility": null,
+            "language": {
+              "languageId": 1,
+              "name": "expectedLanguage1"
+            }
+          },
+          "2": {
+            "factilityTranslationId": 14,
+            "facilityName": "testFacilityExpected14",
+            "facility": null,
+            "language": {
+              "languageId": 2,
+              "name": "expectedLanguage2"
+            }
+          },
+          "3": {
+            "factilityTranslationId": 15,
+            "facilityName": "testFacilityExpected15",
+            "facility": null,
+            "language": {
+              "languageId": 3,
+              "name": "expectedLanguage3"
+            }
+          }
+        },
+        "roomTypeSet": null,
+        "facilityStatus": "active"
+      }
+    ],
+    "roomSet": null,
+    "roomTypeTranslationMap": {
+      "1": {
+        "roomTypeTranslationId": 28,
+        "roomTypeName": "testRoomTypeExpected28",
+        "roomType": null,
+        "language": {
+          "languageId": 1,
+          "name": "expectedLanguage1"
+        }
+      },
+      "2": {
+        "roomTypeTranslationId": 29,
+        "roomTypeName": "testRoomTypeExpected29",
+        "roomType": null,
+        "language": {
+          "languageId": 2,
+          "name": "expectedLanguage2"
+        }
+      },
+      "3": {
+        "roomTypeTranslationId": 30,
+        "roomTypeName": "testRoomTypeExpected30",
+        "roomType": null,
+        "language": {
+          "languageId": 3,
+          "name": "expectedLanguage3"
+        }
+      }
+    },
+    "roomTypeStatus": "active"
+  }
+]
