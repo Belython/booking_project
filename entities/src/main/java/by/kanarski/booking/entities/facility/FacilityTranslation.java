@@ -1,6 +1,8 @@
 package by.kanarski.booking.entities.facility;
 
 import by.kanarski.booking.entities.Language;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.*;
 import org.hibernate.annotations.Cache;
 
@@ -22,6 +24,8 @@ import java.io.Serializable;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @DynamicInsert
 @DynamicUpdate
+@AllArgsConstructor
+@NoArgsConstructor
 public class FacilityTranslation implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -1,6 +1,8 @@
 package by.kanarski.booking.entities.location;
 
 import by.kanarski.booking.entities.Language;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.*;
 
 import javax.persistence.*;
@@ -15,6 +17,8 @@ import java.io.Serializable;
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @DynamicInsert
 @DynamicUpdate
+@NoArgsConstructor
+@AllArgsConstructor
 public class LocationTranslation implements Serializable {
 
     private static final long serialVersionUID = 1L;

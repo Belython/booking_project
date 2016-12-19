@@ -56,7 +56,7 @@ public class ExtendedBaseDao<T> extends BaseDao<T> implements IExtendedBaseDao<T
         for (int i = 0; i < entityList.size(); i++) {
             T t = entityList.get(i);
             update(t);
-            if (++i % BATCH_SIZE == 0) {
+            if ((i + 1) % BATCH_SIZE == 0) {
                 session.flush();
                 session.clear();
             }
@@ -69,7 +69,7 @@ public class ExtendedBaseDao<T> extends BaseDao<T> implements IExtendedBaseDao<T
         for (int i = 0; i < entityList.size(); i++) {
             T t = entityList.get(i);
             add(t);
-            if (++i % BATCH_SIZE == 0) {
+            if ((i + 1) % BATCH_SIZE == 0) {
                 session.flush();
                 session.clear();
             }

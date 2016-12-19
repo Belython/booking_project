@@ -2,6 +2,8 @@ package by.kanarski.booking.entities.location;
 
 import by.kanarski.booking.entities.hotel.Hotel;
 import by.kanarski.booking.utils.Formulas;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.*;
 import org.hibernate.annotations.Cache;
 
@@ -21,6 +23,8 @@ import java.util.Set;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @DynamicInsert
 @DynamicUpdate
+@NoArgsConstructor
+@AllArgsConstructor
 public class Location implements Serializable {
 
     private static final long serialVersionUID = 1L;

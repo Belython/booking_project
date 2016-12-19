@@ -1,6 +1,8 @@
 package by.kanarski.booking.entities.roomType;
 
 import by.kanarski.booking.entities.Language;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.*;
 
 import javax.persistence.*;
@@ -20,6 +22,8 @@ import java.io.Serializable;
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @DynamicInsert
 @DynamicUpdate
+@AllArgsConstructor
+@NoArgsConstructor
 public class RoomTypeTranslation implements Serializable {
 
     private static final long serialVersionUID = 1L;

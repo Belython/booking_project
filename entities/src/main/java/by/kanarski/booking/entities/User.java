@@ -16,8 +16,8 @@ import java.io.Serializable;
 )
 @DynamicUpdate
 @DynamicInsert
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -114,7 +114,7 @@ public class User implements Serializable {
 
         User user = (User) o;
 
-        if (userId.equals(user.userId)) return false;
+        if (!userId.equals(user.userId)) return false;
         if (!firstName.equals(user.firstName)) return false;
         if (!lastName.equals(user.lastName)) return false;
         if (!email.equals(user.email)) return false;

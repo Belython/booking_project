@@ -2,6 +2,8 @@ package by.kanarski.booking.entities.facility;
 
 import by.kanarski.booking.entities.roomType.RoomType;
 import by.kanarski.booking.utils.Formulas;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.*;
 import org.hibernate.annotations.Cache;
 
@@ -25,6 +27,8 @@ import java.util.Set;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @DynamicInsert
 @DynamicUpdate
+@NoArgsConstructor
+@AllArgsConstructor
 public class Facility implements Serializable {
 
     private static final long serialVersionUID = 1L;
