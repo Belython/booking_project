@@ -56,9 +56,9 @@
 				<!--availability-->
 				<section id="availability" class="tab-content">
 					<article>
-						<h1>Availability</h1>
+						<h1><spring:message code="hotelInfo.available"/></h1>
 						<div class="text-wrap">
-							<a href="#" class="gradient-button right" title="Change dates">Change dates</a>
+							<a href="#" class="gradient-button right" title="Change dates"><spring:message code="hotelInfo.changeDates"/> </a>
 							<p><spring:message code="hotelInfo.availableRooms"/>
 								<span class="date">${order.checkInDate}</span><spring:message code="to"/>
 								<span class="date">${order.checkOutDate}</span>.
@@ -68,7 +68,7 @@
 						<c:set var="roomTypesCount" value="${userHotel.roomTypesCount}"/>
 						<c:set var="roomTypeSet" value="${roomTypesCount.keySet()}"/>
 
-						<h1>Room types</h1>
+						<h1><spring:message code="hotelInfo.roomTypes"/>:</h1>
 						<form id="bookRoomsForm" action="bookRooms" method="POST">
 							<ul class="room-types">
 							<c:set var="r" value="-1"/>
@@ -82,13 +82,12 @@
 									<figure class="left"><img src="images/slider/img.jpg" alt="" width="270" height="152" /><a href="images/slider/img.jpg" class="image-overlay" rel="prettyPhoto[gallery1]"></a></figure>
 									<div class="meta">
 										<h2>${roomType.roomTypeName}</h2>
-										<p>Prices are per room<br />20 % VAT Included in price</p>
-										<p>Non-refundable<br />Full English breakfast $ 24.80 </p>
+										<p><spring:message code="entityField.pricePerNight"/></p>
 										<a href="javascript:void(0)" title="more info" class="more-info">+ more info</a>
 									</div>
 									<div class="room-information">
 										<div class="row">
-											<span class="first">Max:</span>
+											<span class="first"><spring:message code="account.maxPersons"/>:</span>
 											<span class="second">
 												<c:forEach begin="1" end="${roomType.maxPersons}">
 													<img src="${context}/assets/images/ico/person.png" alt="" />
@@ -96,15 +95,15 @@
 											</span>
 										</div>
 										<div class="row">
-											<span class="first">Price:</span>
+											<span class="first"><spring:message code="hotelInfo.roomPricePerNight"/>:</span>
 											<span class="second">$ ${pricePerNight}</span>
 										</div>
 										<div class="row">
-											<span class="first">Доступно</span>
+											<span class="first"><spring:message code="hotelInfo.available"/> </span>
 											<span class="second">${availableRooms}</span>
 										</div>
 										<div class="row">
-											<span class="first">Rooms:</span>
+											<span class="first"><spring:message code="hotelInfo.availableRooms"/>:</span>
 											<span class="second-select">
 												<select name="orderedRooms[${r}].amount">
 													<c:forEach begin="0" end="${availableRooms}" var="i">

@@ -43,7 +43,7 @@
                 <div class="column">
                     <h4><span>02</span><spring:message code="search.where"/></h4>
                     <div class="f-item">
-                        <label for="destination">Your destination</label>
+                        <label for="destination"><spring:message code="search.yourDestination"/></label>
                         <input type="text" list="destinations"
                                placeholder="<spring:message code='search.destinationValue'/>"
                                id="destination" name="destination"/>

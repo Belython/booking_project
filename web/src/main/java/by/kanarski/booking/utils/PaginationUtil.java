@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Component
 public class PaginationUtil {
-    private static final int MIN_ROWS_ON_PAGE = 2;
+    private static final int MIN_ROWS_ON_PAGE = 1;
     private static final int FIRST_PAGE = 1;
     private static final int PAGE_FOR_PAGINATION = 1;
 
