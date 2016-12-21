@@ -2,8 +2,8 @@ package by.kanarski.booking.services.impl;
 
 import by.kanarski.booking.constants.FieldValue;
 import by.kanarski.booking.dao.interfaces.IHotelDao;
-import by.kanarski.booking.dto.SearchOrder;
 import by.kanarski.booking.dto.OrderDto;
+import by.kanarski.booking.dto.SearchOrder;
 import by.kanarski.booking.dto.UserDto;
 import by.kanarski.booking.dto.hotel.HotelDto;
 import by.kanarski.booking.dto.hotel.UserHotelDto;

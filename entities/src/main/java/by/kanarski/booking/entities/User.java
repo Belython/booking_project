@@ -2,6 +2,7 @@ package by.kanarski.booking.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
@@ -18,6 +19,7 @@ import java.io.Serializable;
 @DynamicInsert
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -155,21 +155,6 @@ public class ExtendedBaseService<E, D> implements IExtendedBaseService<E, D> {
         }
     }
 
-    @Deprecated
-    public List<D> getAll(int page, int perPage) throws ServiceException {
-        setEntityClass();
-        List<D> dtoList = null;
-        try {
-            List<E> entityList = extendedBaseDao.getListByFilter(null, page, perPage);
-            dtoList = converter.toDtoList(entityList);
-        } catch (DaoException e) {
-            BookingExceptionHandler.handleDaoException(e);
-        } catch (LocalisationException e) {
-            BookingExceptionHandler.handleLocalizationException(e);
-        }
-        return dtoList;
-    }
-
     private void setEntityClass() {
 //        getConverter();
         extendedBaseDao.setEntityClass(getEntityClass());

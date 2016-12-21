@@ -20,6 +20,7 @@ import by.kanarski.booking.services.interfaces.IBillService;
 import by.kanarski.booking.services.interfaces.IUserHotelService;
 import by.kanarski.booking.utils.BillUtil;
 import by.kanarski.booking.utils.BookingExceptionHandler;
+import by.kanarski.booking.utils.DateUtil;
 import by.kanarski.booking.utils.DtoToEntityConverter;
 import by.kanarski.booking.utils.filter.SearchFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -67,7 +69,8 @@ public class BillService extends ExtendedBaseService<Bill, BillDto> implements I
         try {
             Double paymentAmount = BillUtil.getPaymentAmount(orderDto.getCheckInDate(), orderDto.getCheckOutDate(), bookedRooms);
             UserDto user = (UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            BillDto billDto = new BillDto(user, orderDto.getTotalPersons(), orderDto.getCheckInDate(),
+            String bookingDate = DateUtil.getFormattedDate(new Date().getTime());
+            BillDto billDto = new BillDto(user, bookingDate, orderDto.getTotalPersons(), orderDto.getCheckInDate(),
                     orderDto.getCheckOutDate(), hotelDto, bookedRooms, paymentAmount);
             add(billDto);
         } catch (LocalisationException e) {

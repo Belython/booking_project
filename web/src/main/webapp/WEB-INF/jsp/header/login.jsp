@@ -12,7 +12,7 @@
         <a href="#" class="close">x</a>
         <div class="lb-content">
             <sf:form id="loginForm" name="loginForm" method="POST" action="login" modelAttribute="user">
-                <h1>Log in</h1>
+                <h1><spring:message code="header.loginForm"/></h1>
                 <div class="f-item">
                     <label for="login"><spring:message code="header.login"/></label>
                     <sf:input type="text" id="login" name="login" path="login" autofocus="autofocus" required="required"/>
@@ -27,13 +27,13 @@
                 </div>
                 <div class="f-item checkbox">
                     <input type="checkbox" id="remember_me" name="checkbox" />
-                    <label for="remember_me">Remember me next time</label>
+                    <label for="remember_me"><spring:message code="header.rememberMe"/></label>
                 </div>
                 <p>
-                    <a href="controller?command=goToRemindPassword" title="Forgot password?">
+                    <a id="forgotPasswordRef" href="#" title="Forgot password?">
                         <spring:message code="header.forgotPassword"/>
                     </a><br/>
-                    Dont have an account yet?
+                    <spring:message code="header.dontHaveAccount"/>
                     <a id="registerRef" href="#" title="Sign up">
                         <spring:message code="header.register"/>
                     </a>

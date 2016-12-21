@@ -22,20 +22,25 @@
             <nav>
                 <ul class="profile-nav">
                     <li class="active">
-                        <a href="#" title="My Account">My Account</a>
+                        <a href="#" title="My Account"><spring:message code="account.account"/> </a>
                     </li>
                     <sec:authorize access="isAnonymous()">
                         <li>
-                            <a id="loginRef" href="#" title="Login">Login</a>
+                            <a id="loginRef" href="#" title="Login"><spring:message code="header.signIn"/></a>
                         </li>
                     </sec:authorize>
                     <sec:authorize access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
                         <li>
-                            <a href="${context}/toAccount" title="Settings">Settings</a>
+                            <a href="${context}/my_account" title="Settings"><spring:message code="account.dashboard"/></a>
                         </li>
                         <li>
                             <a href="${context}/logout">
                                 <spring:message code="header.signOut"/>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="${context}/admin">
+                                <spring:message code="header.goToAdminPage"/>
                             </a>
                         </li>
                     </sec:authorize>
@@ -113,6 +118,14 @@
         <!--registration-->
         <%@include file="/WEB-INF/jsp/header/regisration.jsp"%>
         <!--//registration-->
+
+        <!--remind password-->
+        <%@include file="/WEB-INF/jsp/header/forgot_password.jsp"%>
+        <!--//remind password-->
+
+        <!--Mesagebox-->
+        <%@include file="/WEB-INF/jsp/header/messagebox.jsp"%>
+        <!--//Messagebox-->
 
     </div>
 

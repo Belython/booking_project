@@ -393,6 +393,7 @@ public class DtoToEntityConverter<E, D> {
         UserDto clientDto = billDto.getClient();
         User client = toUser(clientDto);
         Integer totalPersons = billDto.getTotalPersons();
+        Long bookingDate = DateUtil.parseDate(billDto.getBookingDate());
         Long checkInDate = DateUtil.parseDate(billDto.getCheckInDate());
         Long checkOutDate = DateUtil.parseDate(billDto.getCheckOutDate());
         List<RoomDto> roomDtoList = billDto.getRoomList();
@@ -400,7 +401,7 @@ public class DtoToEntityConverter<E, D> {
         Double paymentAmount = billDto.getPaymentAmount();
         Double paymentAmountUSD = CurrencyUtil.convertToUSD(paymentAmount, defaultCurrency);
         String billStatus = billDto.getBillStatus();
-        return entityBuilder.buildBill(billId, client, totalPersons, checkInDate, checkOutDate,
+        return entityBuilder.buildBill(billId, client, bookingDate, totalPersons, checkInDate, checkOutDate,
                roomSet, paymentAmountUSD, billStatus);
     }
 

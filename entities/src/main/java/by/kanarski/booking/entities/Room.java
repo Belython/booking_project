@@ -2,6 +2,8 @@ package by.kanarski.booking.entities;
 
 import by.kanarski.booking.entities.hotel.Hotel;
 import by.kanarski.booking.entities.roomType.RoomType;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.*;
 
 import javax.persistence.*;
@@ -16,6 +18,8 @@ import java.util.Set;
 )
 @DynamicUpdate
 @DynamicInsert
+@AllArgsConstructor
+@NoArgsConstructor
 public class Room implements Serializable {
 
     private static final Long serialVersionUID = 1L;

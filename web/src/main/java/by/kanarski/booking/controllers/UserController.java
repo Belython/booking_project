@@ -1,29 +1,28 @@
 package by.kanarski.booking.controllers;
 
-import by.kanarski.booking.constants.*;
+import by.kanarski.booking.constants.Message;
+import by.kanarski.booking.constants.Pages;
+import by.kanarski.booking.constants.Parameter;
+import by.kanarski.booking.dto.BillDto;
 import by.kanarski.booking.dto.UserDto;
 import by.kanarski.booking.exceptions.ServiceException;
+import by.kanarski.booking.services.interfaces.IBillService;
 import by.kanarski.booking.services.interfaces.IUserService;
 import by.kanarski.booking.utils.BookingExceptionHandler;
 import by.kanarski.booking.utils.SystemLogger;
-import by.kanarski.booking.utils.threadLocal.UserPreferences;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.util.Currency;
-import java.util.Locale;
+import java.util.List;
 
 /**
  * @author Dzmitry Kanarski
@@ -35,24 +34,10 @@ public class UserController {
 
     @Autowired
     private IUserService userService;
+    @Autowired
+    private IBillService billService;
 
     private SystemLogger logger = SystemLogger.getInstance().setSender(UserController.class);
-
-    @ExceptionHandler(Exception.class)
-    public String handleException(HttpServletRequest request) {
-        logger.logError((Throwable) request.getAttribute(Message.ERROR));
-//        request.setAttribute(WebErrorMessages.EXCEPTION_MESSAGE, ERROR_500);
-        return Pages.PAGE_ERROR;
-    }
-
-    @RequestMapping(value = Pages.VALUE_LOGIN, method = RequestMethod.GET)
-    public String loginUser(String error, Model model, HttpSession session) throws ServiceException {
-        if (error != null) {
-            model.addAttribute(Parameter.LOGIN_OPERATION_MESSAGE, MessageKey.WRONG_LOGIN_OR_PASSWORD);
-        }
-        String currentViewName = (String) session.getAttribute(Parameter.CURRENT_VIEW_NAME);
-        return currentViewName;
-    }
 
     @RequestMapping(value = Pages.VALUE_LOGOUT)
     public String logout(HttpServletRequest request, HttpServletResponse response) {
@@ -60,45 +45,77 @@ public class UserController {
         if (auth != null){
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
-        return Pages.REDIRECT_INDEX;
+        return Pages.REDIRECT_START;
     }
 
-    @RequestMapping(value = Pages.VALUE_REGISTER_USER, method = RequestMethod.POST)
-    public String registerUser(UserDto userDto, BindingResult bindingResult, HttpSession session) {
-        String currentViewName = (String) session.getAttribute(Parameter.CURRENT_VIEW_NAME);
-        if (bindingResult.hasErrors()) {
-            return currentViewName;
-        }
-        userDto.setRole(FieldValue.ROLE_USER);
-        userDto.setUserStatus(FieldValue.STATUS_ACTIVE);
+    @RequestMapping(value = Pages.PAGE_MY_ACCOUNT, method = {RequestMethod.GET, RequestMethod.POST})
+    public String toAccount(Model model) {
+        UserDto user = (UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String page = null;
         try {
-            userService.registerUser(userDto);
+            List<BillDto> billList = billService.getByUserId(user.getUserId(), 0, 10);
+            model.addAttribute(Parameter.BILL_LIST, billList);
+            page = Pages.PAGE_MY_ACCOUNT;
         } catch (ServiceException e) {
             BookingExceptionHandler.handleServiceException(e);
+            page = Pages.PAGE_ERROR;
         }
-        return Pages.PAGE_INDEX;
+        return page;
     }
 
-    @RequestMapping(value = Pages.VALUE_SET_LOCALE, method = RequestMethod.GET)
-    public String setLocale(Locale locale, HttpServletRequest request, HttpServletResponse response,
-                            HttpSession session) {
-        String currentViewName = (String) session.getAttribute(Parameter.CURRENT_VIEW_NAME);
-        Cookie cookie = new Cookie(Parameter.COOKIE_LOCALE, locale.toString());
-        response.addCookie(cookie);
-        session.setAttribute(Parameter.CURRENT_LOCALE, locale);
-        UserPreferences.setLocale(locale);
-        return currentViewName;
+    @RequestMapping(value = Pages.VALUE_CANCEL_BOOKING, method = RequestMethod.GET)
+    public String cancelBooking(Long billId, Model model) {
+        UserDto user = (UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String page = null;
+        try {
+            billService.cancelBooking(billId);
+            List<BillDto> billList = billService.getByUserId(user.getUserId(), 0, 10);
+            model.addAttribute(Parameter.BILL_LIST, billList);
+            page = Pages.PAGE_MY_ACCOUNT;
+        } catch (ServiceException e) {
+            BookingExceptionHandler.handleServiceException(e);
+            page = Pages.PAGE_ERROR;
+        }
+        return page;
     }
 
-    @RequestMapping(value = Pages.VALUE_SET_CURRENCY, method = RequestMethod.GET)
-    public String setCurrency(Currency currency, HttpServletRequest request, HttpServletResponse response,
-                            HttpSession session) {
-        String currentViewName = (String) session.getAttribute(Parameter.CURRENT_VIEW_NAME);
-        Cookie cookie = new Cookie(Parameter.COOKIE_CURRENCY, currency.toString());
-        response.addCookie(cookie);
-        session.setAttribute(Parameter.CURRENT_CURRENCY, currency);
-        UserPreferences.setCurrency(currency);
-        return currentViewName;
+    @RequestMapping(value = Pages.VALUE_PAY_BILL, method = RequestMethod.GET)
+    public String payBIll(Long billId, Model model) {
+        UserDto user = (UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String page = null;
+        try {
+            billService.payBIll(billId);
+            List<BillDto> billList = billService.getByUserId(user.getUserId(), 0, 10);
+            model.addAttribute(Parameter.BILL_LIST, billList);
+            page = Pages.PAGE_MY_ACCOUNT;
+        } catch (ServiceException e) {
+            BookingExceptionHandler.handleServiceException(e);
+            page = Pages.PAGE_ERROR;
+        }
+        return page;
+    }
+
+    @RequestMapping(value = Pages.VALUE_REMOVE_BILL, method = RequestMethod.GET)
+    public String deleteBill(Long billId, Model model) {
+        UserDto user = (UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String page = null;
+        try {
+            billService.deleteBill(billId);
+            List<BillDto> billList = billService.getByUserId(user.getUserId(), 0, 10);
+            model.addAttribute(Parameter.BILL_LIST, billList);
+            page = Pages.PAGE_MY_ACCOUNT;
+        } catch (ServiceException e) {
+            BookingExceptionHandler.handleServiceException(e);
+            page = Pages.PAGE_ERROR;
+        }
+        return page;
+    }
+
+    @ExceptionHandler(Exception.class)
+    public String handleException(HttpServletRequest request) {
+        logger.logError((Throwable) request.getAttribute(Message.ERROR));
+//        request.setAttribute(WebErrorMessages.EXCEPTION_MESSAGE, ERROR_500);
+        return Pages.PAGE_ERROR;
     }
 
 }

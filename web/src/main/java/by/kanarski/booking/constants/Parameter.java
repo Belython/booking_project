@@ -120,6 +120,7 @@ public class Parameter {
     public static final String ERROR_LOGIN_OR_PASSWORD = "errorLoginOrPassword";
     public static final String ERROR_USER_EXISTS = "errorUserExists";
     public static final String OPERATION_MESSAGE = "operationMessage";
+    public static final String REMIND_PASSWORD_MESSAGE = "remindPasswordMessage";
     public static final String CURRENT_PAGE_PATH = "currentPagePath";
     public static final String CURRENT_VIEW_NAME = "currentViewName";
     public static final String IS_AJAX_REQUEST = "isAjaxRequest";
@@ -163,6 +164,9 @@ public class Parameter {
 
     //login form paramters
     public static final String LOGIN_OPERATION_MESSAGE = "loginOperationMessage";
+
+    //register form parameters
+    public static final String REGISTRATION_MESSAGE = "registerationMessage";
 
     private Parameter() {
     }

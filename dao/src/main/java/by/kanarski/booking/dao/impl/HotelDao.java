@@ -31,18 +31,6 @@ public class HotelDao extends ExtendedBaseDao<Hotel> implements IHotelDao {
         super(sessionFactory);
     }
 
-//    @Override
-//    public List<Hotel> getListByOrder(Order order, int page, int perPage) throws DaoException {
-//        List<Hotel> hotelList = null;
-//        try {
-//            Criteria criteria = getCritetiaByOrder(order);
-//            hotelList = getListByCriteria(criteria, page, perPage);
-//        } catch (HibernateException e) {
-//            throw new DaoException(e);
-//        }
-//        return hotelList;
-//    }
-
     @Override
     public List<Hotel> getListByOrder(SearchOrder searchOrder, int page, int perPage) throws DaoException {
         List<Hotel> hotelList = null;

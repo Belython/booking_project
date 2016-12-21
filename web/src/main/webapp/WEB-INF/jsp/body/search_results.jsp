@@ -14,6 +14,7 @@
 </c:forEach>
 <c:set var="mainRef" value="${context}/search_results?${locationAlias}.country=${selectedLocation.country}&${locationAlias}.city=${selectedLocation.city}&hotel.hotelName=${selectedHotel.hotelName}&checkInDate=${order.checkInDate}&checkOutDate=${order.checkOutDate}&totalRooms=${order.totalRooms}&totalPersons=${order.totalPersons}"/>
 <c:set var="sortRef" value="${mainRef}&roomFacilities=${roomFacilities}"/>
+
 <!--main-->
 <div class="main" role="main">
     <div class="wrap clearfix">
@@ -90,9 +91,6 @@
                                 <span class="price">Price per room per night from
                                     <em>${loc:getMoney(roomType.pricePerNight)}</em>
                                 </span>
-                                <%--<div class="description">--%>
-                                    <%--<p>Overlooking the Aqueduct and Nature Park, Lorem Ipsum Hotel is situated 5 minutes’ walk from London’s Zoological Gardens and a metro station. <a href="hotel.html">More info</a></p>--%>
-                                <%--</div>--%>
                                 <a href="${context}/hotel?hotelId=${hotel.hotelId}" title="Book now" class="gradient-button">Book now</a>
                             </div>
                         </article>
@@ -100,46 +98,7 @@
                     </c:forEach>
 
                     <!--bottom navigation-->
-                    <div class="bottom-nav">
-                        <!--back up button-->
-                        <a href="#" class="scroll-to-top" title="Back up">Back up</a>
-                        <!--//back up button-->
-                        <!--pager-->
-                        <div class="pager">
-                            <c:set var="navSize" value="3"/>
-                            <c:if test="${totalPages <= navSize}" >
-                                <c:set var="start" value="1"/>
-                                <c:set var="end" value="${totalPages}"/>
-                                <%--<c:set var="start" value="1"/>--%>
-                                <%--<c:set var="end" value="${navSize}"/>--%>
-                            </c:if>
-                            <c:if test="${totalPages > navSize}" >
-                                <c:set var="start" value="${page - (page % navSize) + 1}"/>
-                                <c:set var="end" value="${navSize}"/>
-                            </c:if>
-                            <c:if test="${page > navSize}">
-                                <span><a href="${context}/${command}?page=${start - 1}&perPage=${perPage}">&lt;</a></span>
-                                <span><a href="${context}/${command}?page=1&perPage=${perPage}">1</a></span>
-                                <span>...</span>
-                            </c:if>
-                            <c:forEach begin="${start}" end="${end}" var="i">
-                                <c:choose>
-                                    <c:when test="${page == i}">
-                                        <span class="current"><a href="#">${i}</a></span>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <span><a href="${context}/${command}?page=${i}&perPage=${perPage}">${i}</a></span>
-                                    </c:otherwise>
-                                </c:choose>
-                            </c:forEach>
-                            <c:if test="${end < totalPages}">
-                                <span>...</span>
-                                <span><a href="${context}/${command}?page=${totalPages}&perPage=${perPage}">${totalPages}</a></span>
-                                <span><a href="${context}/${command}?page=${end + 1}&perPage=${perPage}">&gt;</a></span>
-                            </c:if>
-                        </div>
-                        <!--//pager-->
-                    </div>
+                    <%@ include file="/WEB-INF/jsp/commons/pagination.jsp"%>
                     <!--//bottom navigation-->
                 </div>
             </section>

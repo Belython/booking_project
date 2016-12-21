@@ -59,7 +59,10 @@
 						<h1>Availability</h1>
 						<div class="text-wrap">
 							<a href="#" class="gradient-button right" title="Change dates">Change dates</a>
-							<p>Available rooms from <span class="date">Thurs 29 Nov 2012</span> to <span class="date">Fri 30 Nov 2012</span>.</p>
+							<p><spring:message code="hotelInfo.availableRooms"/>
+								<span class="date">${order.checkInDate}</span><spring:message code="to"/>
+								<span class="date">${order.checkOutDate}</span>.
+							</p>
 						</div>
 
 						<c:set var="roomTypesCount" value="${userHotel.roomTypesCount}"/>
@@ -78,7 +81,7 @@
 									<input type="hidden" name="orderedRooms[${r}].roomTypeId" value="${roomType.roomTypeId}"/>
 									<figure class="left"><img src="images/slider/img.jpg" alt="" width="270" height="152" /><a href="images/slider/img.jpg" class="image-overlay" rel="prettyPhoto[gallery1]"></a></figure>
 									<div class="meta">
-										<h2>Superior Double Room</h2>
+										<h2>${roomType.roomTypeName}</h2>
 										<p>Prices are per room<br />20 % VAT Included in price</p>
 										<p>Non-refundable<br />Full English breakfast $ 24.80 </p>
 										<a href="javascript:void(0)" title="more info" class="more-info">+ more info</a>

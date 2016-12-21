@@ -142,7 +142,6 @@
                 <groupId>com.google.code.gson</groupId>
                 <artifactId>gson</artifactId>
                 <version>${gson.vervion}</version>
-                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.hibernate</groupId>

@@ -3,7 +3,12 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 
-<div id="registrationBlock" class="lightbox" style="display:none;">
+<c:set var="display" value="none"/>
+<c:if test="${not empty registerOperationMessage}">
+	<c:set var="display" value="block"/>
+</c:if>
+
+<div id="registrationBlock" class="lightbox" style="display:${display};">
 	<div class="lb-wrap">
 		<a href="#" class="close">x</a>
 		<div class="lb-content">

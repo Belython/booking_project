@@ -32,6 +32,14 @@
     <definition name="my_account" extends="default">
         <put-attribute name="body" value="/WEB-INF/jsp/body/my_account.jsp"/>
     </definition>
+    
+    <definition name="admin" extends="default">
+        <put-attribute name="body" value="/WEB-INF/jsp/body/sidebar.jsp"/>
+    </definition>
+    
+    <definition name="redactor" extends="default">
+        <put-attribute name="body" value="/WEB-INF/jsp/body/table_redactor.jsp"/>
+    </definition>
 
     <definition name="error" template="/WEB-INF/jsp/layouts/error.jsp">
         <put-attribute name="header" value="/WEB-INF/jsp/header/header.jsp"/>
