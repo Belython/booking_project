@@ -287,7 +287,7 @@ CREATE TABLE `room_type_facilities` (
 
 LOCK TABLES `room_type_facilities` WRITE;
 /*!40000 ALTER TABLE `room_type_facilities` DISABLE KEYS */;
-INSERT INTO `room_type_facilities` VALUES (4,2),(4,3);
+INSERT INTO `room_type_facilities` VALUES (1,2),(2,2),(4,2),(1,3),(3,3),(4,3);
 /*!40000 ALTER TABLE `room_type_facilities` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -417,4 +417,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-12-21 18:20:00
+-- Dump completed on 2016-12-21 19:56:08

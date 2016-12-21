@@ -5,21 +5,18 @@
 
 <!--bottom navigation-->
 <div class="bottom-nav">
-    <!--back up button-->
-    <a href="#" class="scroll-to-top" title="Back up">Back up</a>
-    <!--//back up button-->
     <!--pager-->
     <div class="pager">
-        <c:set var="navSize" value="10"/>
-        <c:if test="${totalPages <= navSize}" >
+        <c:set var="navSize" value="3"/>
+        <c:if test="${totalPages < navSize}" >
             <c:set var="start" value="1"/>
             <c:set var="end" value="${totalPages}"/>
         </c:if>
-        <c:if test="${totalPages > navSize}" >
-            <c:set var="start" value="${page - (page % navSize) + 1}"/>
+        <c:if test="${totalPages >= navSize}" >
+            <c:set var="start" value="${page - ((page - 1) % navSize)}"/>
             <c:set var="end" value="${navSize}"/>
         </c:if>
-        <c:if test="${page > navSize}">
+        <c:if test="${page >= navSize}">
             <span><a href="${context}/${command}?page=${start - 1}&perPage=${perPage}">&lt;</a></span>
             <span><a href="${context}/${command}?page=1&perPage=${perPage}">1</a></span>
             <span>...</span>

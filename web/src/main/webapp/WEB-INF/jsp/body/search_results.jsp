@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="loc" uri="http://booking.by/localizator" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <c:set var="context" value="${pageContext.request.contextPath}"/>
 <c:set var="selectedHotel" value="${order.hotel}"/>
@@ -48,11 +49,11 @@
             <!--three-fourth content-->
             <section class="three-fourth">
                 <div class="sort-by">
-                    <h3>Sort by</h3>
+                    <h3><spring:message code="selectHotel.sortBy"/> </h3>
                     <ul class="sort">
                         <li>Popularity <a href="#" title="ascending" class="ascending">ascending</a><a href="#" title="descending" class="descending">descending</a></li>
 
-                        <li>Price
+                        <li><spring:message code="selectHotel.price"/>
                             <a href="${sortRef}&sortPrice=asc" title="ascending" class="ascending">ascending</a>
                             <a href="${sortRef}&sortPrice=desc" title="descending" class="descending">descending</a>
                         </li>
@@ -87,11 +88,11 @@
                                 </h1>
                                 <span class="address">${hotel.location.city}  •  <a href="#">Show on map</a></span>
                                 <span class="rating"> 8 /10</span>
-                                <span class="maxPersons">Max persons: ${roomType.maxPersons}</span>
-                                <span class="price">Price per room per night from
+                                <span class="maxPersons"><spring:message code="entityField.maxPersons"/>: ${roomType.maxPersons}</span>
+                                <span class="price"><spring:message code="entityField.pricePerNight"/>
                                     <em>${loc:getMoney(roomType.pricePerNight)}</em>
                                 </span>
-                                <a href="${context}/hotel?hotelId=${hotel.hotelId}" title="Book now" class="gradient-button">Book now</a>
+                                <a href="${context}/hotel?hotelId=${hotel.hotelId}" title="Book now" class="gradient-button"><spring:message code="selectHotel.bookNow"/> </a>
                             </div>
                         </article>
                         <!--//deal-->
