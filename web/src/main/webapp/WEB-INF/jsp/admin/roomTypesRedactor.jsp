@@ -15,7 +15,7 @@
 </head>
     <body>
         <%@include file="../user/header/header.jsp"%>
-        <%@include file="sideBar/sideBar.jsp"%>
+        <%@include file="../body/sideBar.jsp"%>
         <%@include file="tableRedactor/tableRedactor.jsp"%>
     </body>
 </html>

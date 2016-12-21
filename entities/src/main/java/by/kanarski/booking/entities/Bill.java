@@ -1,5 +1,7 @@
 package by.kanarski.booking.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
@@ -15,6 +17,8 @@ import java.util.Set;
 )
 @DynamicUpdate
 @DynamicInsert
+@AllArgsConstructor
+@NoArgsConstructor
 public class Bill implements Serializable {
 
     private static final Long serialVersionUID = 1L;

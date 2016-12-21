@@ -25,6 +25,11 @@ public class DateUtil {
         return dateFormat.format(new Date(date));
     }
 
+    public static String getFormattedDate(long date) {
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, UserPreferences.getLocale());
+        return dateFormat.format(new Date(date));
+    }
+
     public static long parseDate(String formattedDate, Locale locale) throws LocalisationException {
         DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, locale);
         long date = 0;

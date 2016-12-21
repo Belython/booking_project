@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="xsd/ehcache.xsd"
+         updateCheck="true" monitoring="autodetect"
+         dynamicConfig="true">
+
+    <diskStore path="cache"/>
+
+    <defaultCache
+            eternal="false"
+            maxElementsInMemory="200"
+            timeToIdleSeconds="300"
+            timeToLiveSeconds="3000"
+            diskPersistent="true"
+            overflowToDisk="true"
+            diskExpiryThreadIntervalSeconds="300"
+            memoryStoreEvictionPolicy="LRU"
+            statistics="true">
+    </defaultCache>
+
+    <cache
+            name="org.hibernate.cache.StandardQueryCache"
+            eternal="false"
+            timeToLiveSeconds="120"
+    />
+
+</ehcache>

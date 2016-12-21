@@ -16,7 +16,7 @@ public class ContextHolder {
     }
 
     public static ApplicationContext getDaoContext() {
-        ApplicationContext daoContext = new ClassPathXmlApplicationContext("dao-config.xml");
+        ApplicationContext daoContext = new ClassPathXmlApplicationContext("runners/dao-config.xml");
         return daoContext;
     }
 

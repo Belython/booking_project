@@ -60,6 +60,22 @@ public class BillDto implements Serializable {
         this.billStatus = FieldValue.STATUS_NOT_PAID;
     }
 
+    public BillDto(UserDto client, String bookingDate, Integer totalPersons, String checkInDate,
+                   String checkOutDate, HotelDto hotel, List<RoomDto> roomList,
+                   Double paymentAmount) {
+        this.client = client;
+        this.totalPersons = totalPersons;
+        this.bookingDate = bookingDate;
+        this.checkInDate = checkInDate;
+        this.checkOutDate = checkOutDate;
+        this.hotel = hotel;
+        this.roomTypeMap = HotelUtil.countRoomTypeDto(roomList);
+        this.roomList = roomList;
+        this.paymentAmount = paymentAmount;
+        this.billStatus = FieldValue.STATUS_NOT_PAID;
+    }
+
+
     public BillDto(Long billId, UserDto client, Integer totalPersons, String checkInDate,
                    String checkOutDate, HotelDto hotel, Map<RoomTypeDto, Integer> roomTypeMap,
                    Double paymentAmount, String billStatus) {

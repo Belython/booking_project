@@ -169,7 +169,7 @@ public class EntityBuilder {
         return room;
     }
 
-    public Bill buildBill(Long billId, User client, Integer totalPersons, Long checkInDate, Long checkOutDate,
+    public Bill buildBill(Long billId, User client, Long bookingDate, Integer totalPersons, Long checkInDate, Long checkOutDate,
                                 Set<Room> roomSet, Double paymentAmount, String billStatus) throws DaoException {
         Bill bill;
         if (billId != null) {
@@ -178,6 +178,7 @@ public class EntityBuilder {
             bill = new Bill();
         }
         bill.setClient(client);
+        bill.setBookingDate(bookingDate);
         bill.setTotalPersons(totalPersons);
         bill.setCheckInDate(checkInDate);
         bill.setCheckOutDate(checkOutDate);

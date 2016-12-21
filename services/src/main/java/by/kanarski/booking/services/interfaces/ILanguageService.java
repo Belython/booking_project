@@ -1,11 +1,12 @@
 package by.kanarski.booking.services.interfaces;
 
 import by.kanarski.booking.entities.Language;
-import by.kanarski.booking.exceptions.ServiceException;
-import by.kanarski.booking.utils.wrappers.SystemLanguages;
 
+/**
+ * Language service interface
+ * @author Dzmitry Kanarski
+ * @version 1.0
+ */
 public interface ILanguageService extends IExtendedBaseService<String, Language> {
-
-    void initializeSystemLanguages(SystemLanguages systemLanguages) throws ServiceException;
 
 }

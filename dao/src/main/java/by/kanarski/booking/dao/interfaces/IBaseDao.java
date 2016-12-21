@@ -18,7 +18,6 @@ public interface IBaseDao<T> {
      * @param t entity to be appended to database
      * @throws DaoException
      */
-
     void add(T t) throws DaoException;
 
     /**
@@ -27,7 +26,6 @@ public interface IBaseDao<T> {
      * @return entity with the corresponding id
      * @throws DaoException
      */
-
     T getById(Serializable id) throws DaoException;
 
     /**
@@ -35,7 +33,6 @@ public interface IBaseDao<T> {
      * @param t entity to be update
      * @throws DaoException
      */
-
     void update(T t) throws DaoException;
 
     /**
@@ -43,6 +40,5 @@ public interface IBaseDao<T> {
      * @param t entity to be delete
      * @throws DaoException
      */
-
     void delete(T t) throws DaoException;
 }

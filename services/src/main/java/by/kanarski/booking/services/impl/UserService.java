@@ -1,5 +1,7 @@
 package by.kanarski.booking.services.impl;
 
+import by.kanarski.booking.constants.FieldValue;
+import by.kanarski.booking.constants.MessageKey;
 import by.kanarski.booking.constants.SearchParameter;
 import by.kanarski.booking.dao.interfaces.IUserDao;
 import by.kanarski.booking.dto.UserDto;
@@ -7,6 +9,7 @@ import by.kanarski.booking.entities.User;
 import by.kanarski.booking.exceptions.DaoException;
 import by.kanarski.booking.exceptions.LocalisationException;
 import by.kanarski.booking.exceptions.ServiceException;
+import by.kanarski.booking.exceptions.RegistrationException;
 import by.kanarski.booking.services.interfaces.IUserService;
 import by.kanarski.booking.utils.BookingExceptionHandler;
 import by.kanarski.booking.utils.filter.SearchFilter;
@@ -54,36 +57,18 @@ public class UserService extends ExtendedBaseService<User, UserDto> implements I
     }
 
     @Override
-    public boolean isAuthorized(UserDto userDto) throws ServiceException {
-        boolean isAuthorized = false;
-        try {
-            SearchFilter searchFilter = new SearchFilter();
-            searchFilter.addEqFilter(SearchParameter.LOGIN, userDto.getLogin());
-            searchFilter.addEqFilter(SearchParameter.PASSWORD, userDto.getPassword());
-            User user = userDao.getUniqueByFilter(searchFilter);
-            isAuthorized = !(user == null);
-        } catch (DaoException e) {
-            BookingExceptionHandler.handleDaoException(e);
-        }
-        return isAuthorized;
-    }
-
-    @Override
     public boolean isNewUser(UserDto userDto) throws ServiceException {
-        boolean isNewUser = false;
-        try {
-            SearchFilter searchFilter = new SearchFilter();
-            searchFilter.addEqFilter(SearchParameter.LOGIN, userDto.getLogin());
-            User user = userDao.getUniqueByFilter(searchFilter);
-            isNewUser = (user == null);
-        } catch (DaoException e) {
-            BookingExceptionHandler.handleDaoException(e);
-        }
-        return isNewUser;
+        return (getByLogin(userDto.getLogin()) == null);
     }
 
     @Override
-    public void registerUser(UserDto userDto) throws ServiceException {
+    public void registerUser(UserDto userDto) throws ServiceException, RegistrationException {
+        if (!isNewUser(userDto)) {
+            String messageKey = MessageKey.USER_EXISTS;
+            throw new RegistrationException(messageKey);
+        }
+        userDto.setRole(FieldValue.ROLE_USER);
+        userDto.setUserStatus(FieldValue.STATUS_ACTIVE);
         try {
             User user = converter.toEntity(userDto);
             userDao.add(user);
@@ -93,22 +78,4 @@ public class UserService extends ExtendedBaseService<User, UserDto> implements I
             BookingExceptionHandler.handleLocalizationException(e);
         }
     }
-
-    @Override
-    public UserDto loginUser(UserDto unauthorizedUser) throws ServiceException {
-        UserDto authorizedUser = null;
-        SearchFilter searchFilter = SearchFilter
-                .createBasicEqFilter(SearchParameter.LOGIN, unauthorizedUser.getLogin())
-                .addEqFilter(SearchParameter.PASSWORD, unauthorizedUser.getPassword());
-        try {
-            User user = userDao.getUniqueByFilter(searchFilter);
-            authorizedUser = (user != null) ? converter.toDto(user) : null;
-        } catch (DaoException e) {
-            BookingExceptionHandler.handleDaoException(e);
-        } catch (LocalisationException e) {
-            BookingExceptionHandler.handleLocalizationException(e);
-        }
-        return authorizedUser;
-    }
-
 }

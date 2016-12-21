@@ -3,7 +3,7 @@ package by.kanarski.booking.dao.interfaces;
 import by.kanarski.booking.entities.roomType.RoomTypeTranslation;
 
 /**
- * Location dao iterface
+ * Room type translation dao iterface
  * @author Dzmitry Kanarski
  * @version 1.0
  * @see IBaseDao

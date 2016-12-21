@@ -1,9 +1,6 @@
 package by.kanarski.booking.controllers;
 
-import by.kanarski.booking.constants.FieldValue;
-import by.kanarski.booking.constants.PagePath;
-import by.kanarski.booking.constants.Pages;
-import by.kanarski.booking.constants.Parameter;
+import by.kanarski.booking.constants.*;
 import by.kanarski.booking.dto.DestinationDto;
 import by.kanarski.booking.dto.OrderDto;
 import by.kanarski.booking.dto.facility.FacilityDto;
@@ -11,14 +8,18 @@ import by.kanarski.booking.dto.forms.BookRoomsForm;
 import by.kanarski.booking.dto.hotel.HotelDto;
 import by.kanarski.booking.dto.hotel.UserHotelDto;
 import by.kanarski.booking.exceptions.ServiceException;
-import by.kanarski.booking.services.interfaces.*;
-import by.kanarski.booking.utils.BookingExceptionHandler;
-import by.kanarski.booking.utils.PaginationUtil;
-import by.kanarski.booking.utils.RequestParser;
-import by.kanarski.booking.utils.ServletHelper;
+import by.kanarski.booking.services.interfaces.IBillService;
+import by.kanarski.booking.services.interfaces.IFacilityService;
+import by.kanarski.booking.services.interfaces.IHotelService;
+import by.kanarski.booking.services.interfaces.IUserHotelService;
+import by.kanarski.booking.utils.*;
+import by.kanarski.booking.utils.threadLocal.UserPreferences;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -37,21 +38,21 @@ public class OrderController {
 
     @Autowired
     private IUserHotelService userHotelService;
-
     @Autowired
     private IHotelService hotelService;
-
     @Autowired
     private IBillService billService;
-
     @Autowired
     private IFacilityService facilityService;
-
     @Autowired
     private PaginationUtil paginationUtil;
-
     @Autowired
     private ServletHelper servletHelper;
+    @Autowired
+    private MessageSource messageSource;
+
+    private SystemLogger logger = SystemLogger.getInstance().setSender(UserController.class);
+
 
     @RequestMapping(value = Pages.PAGE_SEARCH_RESULTS, method = {RequestMethod.POST, RequestMethod.GET})
     public String searchHotel(OrderDto order, HttpServletRequest request, HttpSession session,
@@ -82,8 +83,8 @@ public class OrderController {
             }
             session.setAttribute(Parameter.ORDER, order);
         } catch (ServiceException e) {
-            page = PagePath.ERROR;
             BookingExceptionHandler.handleServiceException(e);
+            page = Pages.PAGE_ERROR;
         }
         return page;
     }
@@ -97,44 +98,56 @@ public class OrderController {
             request.setAttribute(Parameter.POSSIBLE_DESTINATIONS, hotelDtoList);
             page = Pages.POSSIBLE_DESTINATIONS;
         } catch (ServiceException e) {
+            BookingExceptionHandler.handleServiceException(e);
             page = Pages.PAGE_ERROR;
-//            servletAction = ServletAction.REDIRECT_PAGE;
-//            handleServiceException(request, e);
         }
         return page;
     }
 
     @RequestMapping(value = Pages.PAGE_HOTEL, method = RequestMethod.GET)
-    public String watchHotel(Long hotelId, HttpServletRequest request, HttpSession session) {
+    public String watchHotel(Long hotelId, Model model, HttpSession session) {
         String page = null;
         OrderDto orderDto = (OrderDto) session.getAttribute(Parameter.ORDER);
         try {
             UserHotelDto userHotelDto = userHotelService.getById(hotelId);
-            request.setAttribute(Parameter.SELECTED_USER_HOTEL, userHotelDto);
+            model.addAttribute(Parameter.SELECTED_USER_HOTEL, userHotelDto);
             orderDto.setUserHotelDto(userHotelDto);
             session.setAttribute(Parameter.ORDER, orderDto);
             page = Pages.PAGE_HOTEL;
         } catch (ServiceException e) {
+            BookingExceptionHandler.handleServiceException(e);
             page = Pages.PAGE_ERROR;
-//            servletAction = ServletAction.REDIRECT_PAGE;
-//            handleServiceException(request, e);
         }
         return page;
     }
 
     @RequestMapping(value = Pages.VALUE_BOOK_ROOMS, method = RequestMethod.POST)
-    public String bookRooms(BookRoomsForm bookRoomsForm, HttpServletRequest request, HttpSession session) {
+    public String bookRooms(BookRoomsForm bookRoomsForm, RedirectAttributes redirectAttributes, HttpSession session) {
         String page = null;
         OrderDto orderDto = (OrderDto) session.getAttribute(Parameter.ORDER);
         try {
             billService.makeBill(bookRoomsForm, orderDto);
-            page = Pages.PAGE_HOTEL;
+            String message = getMessage(MessageKey.ORDER_ACCEPTED);
+            redirectAttributes
+                    .addAttribute(Parameter.HOTEL_ID, orderDto.getUserHotelDto().getHotelId())
+                    .addFlashAttribute(Parameter.OPERATION_MESSAGE, message);
+            page = Pages.REDIRECT_HOTEL;
         } catch (ServiceException e) {
+            BookingExceptionHandler.handleServiceException(e);
             page = Pages.PAGE_ERROR;
-//            servletAction = ServletAction.REDIRECT_PAGE;
-//            handleServiceException(request, e);
         }
         return page;
     }
+
+    @ExceptionHandler(Exception.class)
+    public String handleException(HttpServletRequest request) {
+        logger.logError((Throwable) request.getAttribute(Message.ERROR));
+        return Pages.PAGE_ERROR;
+    }
+
+    private String getMessage(String key) {
+        return messageSource.getMessage(key, null, UserPreferences.getLocale());
+    }
+
 
 }

@@ -1,14 +1,6 @@
 package by.kanarski.booking.dao.impl;
 
 import by.kanarski.booking.dao.interfaces.IExtendedBaseDao;
-import by.kanarski.booking.entities.facility.Facility;
-import by.kanarski.booking.entities.facility.FacilityTranslation;
-import by.kanarski.booking.entities.hotel.Hotel;
-import by.kanarski.booking.entities.hotel.HotelTranslation;
-import by.kanarski.booking.entities.location.Location;
-import by.kanarski.booking.entities.location.LocationTranslation;
-import by.kanarski.booking.entities.roomType.RoomType;
-import by.kanarski.booking.entities.roomType.RoomTypeTranslation;
 import by.kanarski.booking.exceptions.DaoException;
 import by.kanarski.booking.utils.filter.CriteriaConstraint;
 import by.kanarski.booking.utils.filter.DisjunctionElement;
@@ -38,10 +30,10 @@ import java.util.Set;
 public class ExtendedBaseDao<T> extends BaseDao<T> implements IExtendedBaseDao<T> {
 
     private static final int BATCH_SIZE = 20;
-    private static final List<Class> CACHEABLE_ENTITIES = Arrays.asList(Location.class, Hotel.class, RoomType.class,
-            Facility.class, LocationTranslation.class, HotelTranslation.class, RoomTypeTranslation.class,
-            FacilityTranslation.class);
-//    private static final List<Class> CACHEABLE_ENTITIES = Arrays.asList();
+//    private static final List<Class> CACHEABLE_ENTITIES = Arrays.asList(Location.class, Hotel.class, RoomType.class,
+//            Facility.class, LocationTranslation.class, HotelTranslation.class, RoomTypeTranslation.class,
+//            FacilityTranslation.class);
+    private static final List<Class> CACHEABLE_ENTITIES = Arrays.asList();
 
     private Class<T> entityClass;
 
@@ -106,22 +98,6 @@ public class ExtendedBaseDao<T> extends BaseDao<T> implements IExtendedBaseDao<T
     public void setEntityClass(Class<T> entityClass) {
         this.entityClass = entityClass;
     }
-//    @Override
-//    public Long getResultsSize(SearchFilter filter, String countProperty) throws DaoException {
-//        Criteria criteria = getSession().createCriteria(getEntityClass());
-//        for (FilterElement filterElement : filter) {
-//            Criterion criterion = getCriterion(filterElement);
-//            criteria.add(criterion);
-//        }
-//        criteria.setProjection(Projections.count(countProperty));
-//        Long resultsSize;
-//        try {
-//            resultsSize = (Long) criteria.uniqueResult();
-//        } catch (HibernateException e) {
-//            throw new DaoException(e.getMessage(), e);
-//        }
-//        return resultsSize;
-//    }
 
     public List<T> getAll() throws DaoException {
         Criteria criteria = getSession().createCriteria(getEntityClass());

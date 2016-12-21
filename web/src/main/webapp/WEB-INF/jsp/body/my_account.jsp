@@ -24,7 +24,7 @@
 			<!--three-fourth content-->
 			<section class="three-fourth">
 
-				<h1>My account</h1>
+				<h1><spring:message code="account.account"/></h1>
 
 				<!--inner navigation-->
 				<nav class="inner-nav">
@@ -45,15 +45,15 @@
 						<c:set var="hotel" value="${bill.hotel}"/>
 						<!--booking-->
 						<article class="bookings">
-							<h1><a href="#">${hotel.hotelName}</a></h1>
+							<h1><a href="${context}/hotel?hotelId=${hotel.hotelId}">${hotel.hotelName}</a></h1>
 							<div class="b-info">
 								<table>
 									<tr>
-										<th>Booking number</th>
+										<th><spring:message code="hotelInfo.bookingNumber"/></th>
 										<td>${bill.billId}</td>
 									</tr>
 									<tr>
-										<th>Rooms</th>
+										<th><spring:message code="account.rooms"/></th>
 									</tr>
 									<c:forEach var="roomType" items="${roomTypeSet}">
 										<tr>
@@ -61,15 +61,15 @@
 										</tr>
 									</c:forEach>
 									<tr>
-										<th>Check-in Date</th>
+										<th><spring:message code="account.checkOutDate"/></th>
 										<td>${loc:getDate(bill.checkInDate)}</td>
 									</tr>
 									<tr>
-										<th>Check-out Date</th>
+										<th><spring:message code="account.checkInDate"/></th>
 										<td>${loc:getDate(bill.checkOutDate)}</td>
 									</tr>
 									<tr>
-										<th>Total Price:</th>
+										<th><spring:message code="hotelInfo.totalPrice"/>:</th>
 										<td><strong>${loc:getMoney(bill.paymentAmount)}</strong></td>
 									</tr>
 								</table>
@@ -78,14 +78,22 @@
 							<c:set var="billStatus" value="${bill.billStatus}"/>
 							<div class="actions">
 								<c:if test="${billStatus eq ('notPaid' or 'paid')}">
-									<a href="${context}/cancelBooking?billId=${bill.billId}" class="gradient-button">Cancel booking</a>
-									<a href="#" class="gradient-button">View information</a>
+									<a href="${context}/cancelBooking?billId=${bill.billId}" class="gradient-button">
+										<spring:message code="hotelInfo.cancelBooking"/>
+									</a>
+									<a href="${context}/hotel?hotelId=${hotel.hotelId}" class="gradient-button">
+										<spring:message code="hotelInfo.viewInformation"/>
+									</a>
 									<c:if test="${billStatus eq 'notPaid'}">
-										<a href="${context}/payBill?billId=${bill.billId}" class="gradient-button">Pay</a>
+										<a href="${context}/payBill?billId=${bill.billId}" class="gradient-button">
+											<spring:message code="hotelInfo.pay"/>
+										</a>
 									</c:if>
 								</c:if>
 								<c:if test="${billStatus eq 'canceled'}">
-									<a href="${context}/removeBill?billId=${bill.billId}" class="gradient-button">Remove from list</a>
+									<a href="${context}/removeBill?billId=${bill.billId}" class="gradient-button">
+										<spring:message code="hotelInfo.removeFromList"/>
+									</a>
 								</c:if>
 							</div>
 						</article>

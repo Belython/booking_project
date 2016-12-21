@@ -14,7 +14,9 @@
 			http://www.springframework.org/schema/tx/spring-tx.xsd">
     <context:annotation-config/>
     <context:component-scan base-package="by.kanarski.booking.dao"/>
-    <context:component-scan base-package="pre"/>
+    <context:component-scan base-package="by.kanarski.booking.services"/>
+    <context:component-scan base-package="by.kanarski.booking.utils"/>
+    <context:component-scan base-package="by.kanarski.booking.testingUtils.pre"/>
 
     <aop:aspectj-autoproxy/>
     <aop:config proxy-target-class="true"/>
@@ -66,7 +68,7 @@
                 <prop key="hibernate.cache.use_second_level_cache">true</prop>
                 <prop key="hibernate.cache.use_query_cache">true</prop>
                 <prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
-                <prop key="hibernate.hbm2ddl.auto">create</prop>
+                <prop key="hibernate.hbm2ddl.auto">validate</prop>
             </props>
         </property>
     </bean>

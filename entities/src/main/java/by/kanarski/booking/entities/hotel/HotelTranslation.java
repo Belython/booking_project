@@ -52,7 +52,7 @@ public class HotelTranslation implements Serializable {
 
     @ManyToOne
     @JoinColumn(
-            name = "LOCATION_ID"
+            name = "HOTEL_ID"
     )
     public Hotel getHotel() {
         return hotel;

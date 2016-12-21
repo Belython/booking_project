@@ -105,7 +105,8 @@
     </listener>
 
     <error-page>
-        <location>/WEB-INF/jsp/body/error.jsp</location>
+        <error-code>404</error-code>
+        <location>/404</location>
     </error-page>
 
     <welcome-file-list>

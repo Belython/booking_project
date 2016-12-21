@@ -16,6 +16,10 @@ function main() {
         registration();
     });
 
+    $("#forgotPasswordRef").click(function (event) {
+        forgotPassword();
+    });
+
     function payBill(event) {
         var button = event.target;
         var tableRow = $(button).parents().eq(1);
@@ -71,6 +75,11 @@ function main() {
     function registration() {
         $("#loginBlock").css("display", "none");
         $("#registrationBlock").css("display", "block");
+    }
+
+    function forgotPassword() {
+        $("#loginBlock").css("display", "none");
+        $("#remindPasswordBlock").css("display", "block");
     }
 }
 

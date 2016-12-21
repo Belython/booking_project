@@ -8,15 +8,13 @@
 
     <http auto-config="true">
         <intercept-url pattern="/" access="permitAll"/>
-        <intercept-url pattern="/searchHotels" access="permitAll"/>
         <intercept-url pattern="/bookRooms" access="hasRole('ROLE_USER')"/>
-        <intercept-url pattern="/admin**" access="hasRole('ADMIN')"/>
-        <intercept-url pattern="/search_results" access="hasRole('ROLE_USER')"/>
-        <form-login login-page="/login"
-                    default-target-url="/login"
-                    username-parameter="login"
-                    password-parameter="password"
-                    authentication-failure-url="/login?error=1"/>
+        <intercept-url pattern="/my_account" access="hasRole('ROLE_USER')"/>
+        <form-login
+                login-processing-url="/login"
+                username-parameter="login"
+                password-parameter="password"
+                authentication-failure-url="/login?error=1"/>
         <logout logout-url="/logout"/>
         <csrf/>
     </http>
