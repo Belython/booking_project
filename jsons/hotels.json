@@ -1,0 +1,1112 @@
+[
+  {
+    "hotelId": 1,
+    "hotelName": "testHotelExpected1",
+    "location": {
+      "locationId": 1,
+      "country": "testCountryExpected5",
+      "city": "testCityExpected1",
+      "hotelSet": null,
+      "locationTranslationMap": {
+        "1": {
+          "locationTransalteId": 1,
+          "country": "testCountryExpected5",
+          "city": "testCityExpected1",
+          "location": null,
+          "language": {
+            "languageId": 1,
+            "name": "EN"
+          }
+        },
+        "2": {
+          "locationTransalteId": 2,
+          "country": "testCountryExpected1",
+          "city": "testCityExpected2",
+          "location": null,
+          "language": {
+            "languageId": 2,
+            "name": "RU"
+          }
+        },
+        "3": {
+          "locationTransalteId": 3,
+          "country": "testCountryExpected2",
+          "city": "testCityExpected3",
+          "location": null,
+          "language": {
+            "languageId": 3,
+            "name": "BY"
+          }
+        }
+      },
+      "locationStatus": "active"
+    },
+    "roomSet": null,
+    "hotelTranslationMap": {
+      "1": {
+        "hotelTranslationId": 1,
+        "hotelName": "testHotelExpected1",
+        "hotel": null,
+        "language": {
+          "languageId": 1,
+          "name": "EN"
+        }
+      },
+      "2": {
+        "hotelTranslationId": 2,
+        "hotelName": "testHotelExpected2",
+        "hotel": null,
+        "language": {
+          "languageId": 2,
+          "name": "RU"
+        }
+      },
+      "3": {
+        "hotelTranslationId": 3,
+        "hotelName": "testHotelExpected3",
+        "hotel": null,
+        "language": {
+          "languageId": 3,
+          "name": "BY"
+        }
+      }
+    },
+    "hotelStatus": "active"
+  },
+  {
+    "hotelId": 2,
+    "hotelName": "testHotelExpected4",
+    "location": {
+      "locationId": 1,
+      "country": "testCountryExpected5",
+      "city": "testCityExpected1",
+      "hotelSet": null,
+      "locationTranslationMap": {
+        "1": {
+          "locationTransalteId": 1,
+          "country": "testCountryExpected5",
+          "city": "testCityExpected1",
+          "location": null,
+          "language": {
+            "languageId": 1,
+            "name": "EN"
+          }
+        },
+        "2": {
+          "locationTransalteId": 2,
+          "country": "testCountryExpected1",
+          "city": "testCityExpected2",
+          "location": null,
+          "language": {
+            "languageId": 2,
+            "name": "RU"
+          }
+        },
+        "3": {
+          "locationTransalteId": 3,
+          "country": "testCountryExpected2",
+          "city": "testCityExpected3",
+          "location": null,
+          "language": {
+            "languageId": 3,
+            "name": "BY"
+          }
+        }
+      },
+      "locationStatus": "active"
+    },
+    "roomSet": null,
+    "hotelTranslationMap": {
+      "1": {
+        "hotelTranslationId": 4,
+        "hotelName": "testHotelExpected4",
+        "hotel": null,
+        "language": {
+          "languageId": 1,
+          "name": "EN"
+        }
+      },
+      "2": {
+        "hotelTranslationId": 5,
+        "hotelName": "testHotelExpected5",
+        "hotel": null,
+        "language": {
+          "languageId": 2,
+          "name": "RU"
+        }
+      },
+      "3": {
+        "hotelTranslationId": 6,
+        "hotelName": "testHotelExpected6",
+        "hotel": null,
+        "language": {
+          "languageId": 3,
+          "name": "BY"
+        }
+      }
+    },
+    "hotelStatus": "active"
+  },
+  {
+    "hotelId": 3,
+    "hotelName": "testHotelExpected7",
+    "location": {
+      "locationId": 1,
+      "country": "testCountryExpected5",
+      "city": "testCityExpected1",
+      "hotelSet": null,
+      "locationTranslationMap": {
+        "1": {
+          "locationTransalteId": 1,
+          "country": "testCountryExpected5",
+          "city": "testCityExpected1",
+          "location": null,
+          "language": {
+            "languageId": 1,
+            "name": "EN"
+          }
+        },
+        "2": {
+          "locationTransalteId": 2,
+          "country": "testCountryExpected1",
+          "city": "testCityExpected2",
+          "location": null,
+          "language": {
+            "languageId": 2,
+            "name": "RU"
+          }
+        },
+        "3": {
+          "locationTransalteId": 3,
+          "country": "testCountryExpected2",
+          "city": "testCityExpected3",
+          "location": null,
+          "language": {
+            "languageId": 3,
+            "name": "BY"
+          }
+        }
+      },
+      "locationStatus": "active"
+    },
+    "roomSet": null,
+    "hotelTranslationMap": {
+      "1": {
+        "hotelTranslationId": 7,
+        "hotelName": "testHotelExpected7",
+        "hotel": null,
+        "language": {
+          "languageId": 1,
+          "name": "EN"
+        }
+      },
+      "2": {
+        "hotelTranslationId": 8,
+        "hotelName": "testHotelExpected8",
+        "hotel": null,
+        "language": {
+          "languageId": 2,
+          "name": "RU"
+        }
+      },
+      "3": {
+        "hotelTranslationId": 9,
+        "hotelName": "testHotelExpected9",
+        "hotel": null,
+        "language": {
+          "languageId": 3,
+          "name": "BY"
+        }
+      }
+    },
+    "hotelStatus": "active"
+  },
+  {
+    "hotelId": 4,
+    "hotelName": "testHotelExpected10",
+    "location": {
+      "locationId": 2,
+      "country": "testCountryExpected1",
+      "city": "testCityExpected4",
+      "hotelSet": null,
+      "locationTranslationMap": {
+        "1": {
+          "locationTransalteId": 4,
+          "country": "testCountryExpected1",
+          "city": "testCityExpected4",
+          "location": null,
+          "language": {
+            "languageId": 1,
+            "name": "EN"
+          }
+        },
+        "2": {
+          "locationTransalteId": 5,
+          "country": "testCountryExpected5",
+          "city": "testCityExpected5",
+          "location": null,
+          "language": {
+            "languageId": 2,
+            "name": "RU"
+          }
+        },
+        "3": {
+          "locationTransalteId": 6,
+          "country": "testCountryExpected8",
+          "city": "testCityExpected6",
+          "location": null,
+          "language": {
+            "languageId": 3,
+            "name": "BY"
+          }
+        }
+      },
+      "locationStatus": "active"
+    },
+    "roomSet": null,
+    "hotelTranslationMap": {
+      "1": {
+        "hotelTranslationId": 10,
+        "hotelName": "testHotelExpected10",
+        "hotel": null,
+        "language": {
+          "languageId": 1,
+          "name": "EN"
+        }
+      },
+      "2": {
+        "hotelTranslationId": 11,
+        "hotelName": "testHotelExpected11",
+        "hotel": null,
+        "language": {
+          "languageId": 2,
+          "name": "RU"
+        }
+      },
+      "3": {
+        "hotelTranslationId": 12,
+        "hotelName": "testHotelExpected12",
+        "hotel": null,
+        "language": {
+          "languageId": 3,
+          "name": "BY"
+        }
+      }
+    },
+    "hotelStatus": "active"
+  },
+  {
+    "hotelId": 5,
+    "hotelName": "testHotelExpected13",
+    "location": {
+      "locationId": 2,
+      "country": "testCountryExpected1",
+      "city": "testCityExpected4",
+      "hotelSet": null,
+      "locationTranslationMap": {
+        "1": {
+          "locationTransalteId": 4,
+          "country": "testCountryExpected1",
+          "city": "testCityExpected4",
+          "location": null,
+          "language": {
+            "languageId": 1,
+            "name": "EN"
+          }
+        },
+        "2": {
+          "locationTransalteId": 5,
+          "country": "testCountryExpected5",
+          "city": "testCityExpected5",
+          "location": null,
+          "language": {
+            "languageId": 2,
+            "name": "RU"
+          }
+        },
+        "3": {
+          "locationTransalteId": 6,
+          "country": "testCountryExpected8",
+          "city": "testCityExpected6",
+          "location": null,
+          "language": {
+            "languageId": 3,
+            "name": "BY"
+          }
+        }
+      },
+      "locationStatus": "active"
+    },
+    "roomSet": null,
+    "hotelTranslationMap": {
+      "1": {
+        "hotelTranslationId": 13,
+        "hotelName": "testHotelExpected13",
+        "hotel": null,
+        "language": {
+          "languageId": 1,
+          "name": "EN"
+        }
+      },
+      "2": {
+        "hotelTranslationId": 14,
+        "hotelName": "testHotelExpected14",
+        "hotel": null,
+        "language": {
+          "languageId": 2,
+          "name": "RU"
+        }
+      },
+      "3": {
+        "hotelTranslationId": 15,
+        "hotelName": "testHotelExpected15",
+        "hotel": null,
+        "language": {
+          "languageId": 3,
+          "name": "BY"
+        }
+      }
+    },
+    "hotelStatus": "active"
+  },
+  {
+    "hotelId": 6,
+    "hotelName": "testHotelExpected16",
+    "location": {
+      "locationId": 2,
+      "country": "testCountryExpected1",
+      "city": "testCityExpected4",
+      "hotelSet": null,
+      "locationTranslationMap": {
+        "1": {
+          "locationTransalteId": 4,
+          "country": "testCountryExpected1",
+          "city": "testCityExpected4",
+          "location": null,
+          "language": {
+            "languageId": 1,
+            "name": "EN"
+          }
+        },
+        "2": {
+          "locationTransalteId": 5,
+          "country": "testCountryExpected5",
+          "city": "testCityExpected5",
+          "location": null,
+          "language": {
+            "languageId": 2,
+            "name": "RU"
+          }
+        },
+        "3": {
+          "locationTransalteId": 6,
+          "country": "testCountryExpected8",
+          "city": "testCityExpected6",
+          "location": null,
+          "language": {
+            "languageId": 3,
+            "name": "BY"
+          }
+        }
+      },
+      "locationStatus": "active"
+    },
+    "roomSet": null,
+    "hotelTranslationMap": {
+      "1": {
+        "hotelTranslationId": 16,
+        "hotelName": "testHotelExpected16",
+        "hotel": null,
+        "language": {
+          "languageId": 1,
+          "name": "EN"
+        }
+      },
+      "2": {
+        "hotelTranslationId": 17,
+        "hotelName": "testHotelExpected17",
+        "hotel": null,
+        "language": {
+          "languageId": 2,
+          "name": "RU"
+        }
+      },
+      "3": {
+        "hotelTranslationId": 18,
+        "hotelName": "testHotelExpected18",
+        "hotel": null,
+        "language": {
+          "languageId": 3,
+          "name": "BY"
+        }
+      }
+    },
+    "hotelStatus": "active"
+  },
+  {
+    "hotelId": 7,
+    "hotelName": "testHotelExpected19",
+    "location": {
+      "locationId": 3,
+      "country": "testCountryExpected7",
+      "city": "testCityExpected7",
+      "hotelSet": null,
+      "locationTranslationMap": {
+        "1": {
+          "locationTransalteId": 7,
+          "country": "testCountryExpected7",
+          "city": "testCityExpected7",
+          "location": null,
+          "language": {
+            "languageId": 1,
+            "name": "EN"
+          }
+        },
+        "2": {
+          "locationTransalteId": 8,
+          "country": "testCountryExpected5",
+          "city": "testCityExpected8",
+          "location": null,
+          "language": {
+            "languageId": 2,
+            "name": "RU"
+          }
+        },
+        "3": {
+          "locationTransalteId": 9,
+          "country": "testCountryExpected3",
+          "city": "testCityExpected9",
+          "location": null,
+          "language": {
+            "languageId": 3,
+            "name": "BY"
+          }
+        }
+      },
+      "locationStatus": "active"
+    },
+    "roomSet": null,
+    "hotelTranslationMap": {
+      "1": {
+        "hotelTranslationId": 19,
+        "hotelName": "testHotelExpected19",
+        "hotel": null,
+        "language": {
+          "languageId": 1,
+          "name": "EN"
+        }
+      },
+      "2": {
+        "hotelTranslationId": 20,
+        "hotelName": "testHotelExpected20",
+        "hotel": null,
+        "language": {
+          "languageId": 2,
+          "name": "RU"
+        }
+      },
+      "3": {
+        "hotelTranslationId": 21,
+        "hotelName": "testHotelExpected21",
+        "hotel": null,
+        "language": {
+          "languageId": 3,
+          "name": "BY"
+        }
+      }
+    },
+    "hotelStatus": "active"
+  },
+  {
+    "hotelId": 8,
+    "hotelName": "testHotelExpected22",
+    "location": {
+      "locationId": 3,
+      "country": "testCountryExpected7",
+      "city": "testCityExpected7",
+      "hotelSet": null,
+      "locationTranslationMap": {
+        "1": {
+          "locationTransalteId": 7,
+          "country": "testCountryExpected7",
+          "city": "testCityExpected7",
+          "location": null,
+          "language": {
+            "languageId": 1,
+            "name": "EN"
+          }
+        },
+        "2": {
+          "locationTransalteId": 8,
+          "country": "testCountryExpected5",
+          "city": "testCityExpected8",
+          "location": null,
+          "language": {
+            "languageId": 2,
+            "name": "RU"
+          }
+        },
+        "3": {
+          "locationTransalteId": 9,
+          "country": "testCountryExpected3",
+          "city": "testCityExpected9",
+          "location": null,
+          "language": {
+            "languageId": 3,
+            "name": "BY"
+          }
+        }
+      },
+      "locationStatus": "active"
+    },
+    "roomSet": null,
+    "hotelTranslationMap": {
+      "1": {
+        "hotelTranslationId": 22,
+        "hotelName": "testHotelExpected22",
+        "hotel": null,
+        "language": {
+          "languageId": 1,
+          "name": "EN"
+        }
+      },
+      "2": {
+        "hotelTranslationId": 23,
+        "hotelName": "testHotelExpected23",
+        "hotel": null,
+        "language": {
+          "languageId": 2,
+          "name": "RU"
+        }
+      },
+      "3": {
+        "hotelTranslationId": 24,
+        "hotelName": "testHotelExpected24",
+        "hotel": null,
+        "language": {
+          "languageId": 3,
+          "name": "BY"
+        }
+      }
+    },
+    "hotelStatus": "active"
+  },
+  {
+    "hotelId": 9,
+    "hotelName": "testHotelExpected25",
+    "location": {
+      "locationId": 3,
+      "country": "testCountryExpected7",
+      "city": "testCityExpected7",
+      "hotelSet": null,
+      "locationTranslationMap": {
+        "1": {
+          "locationTransalteId": 7,
+          "country": "testCountryExpected7",
+          "city": "testCityExpected7",
+          "location": null,
+          "language": {
+            "languageId": 1,
+            "name": "EN"
+          }
+        },
+        "2": {
+          "locationTransalteId": 8,
+          "country": "testCountryExpected5",
+          "city": "testCityExpected8",
+          "location": null,
+          "language": {
+            "languageId": 2,
+            "name": "RU"
+          }
+        },
+        "3": {
+          "locationTransalteId": 9,
+          "country": "testCountryExpected3",
+          "city": "testCityExpected9",
+          "location": null,
+          "language": {
+            "languageId": 3,
+            "name": "BY"
+          }
+        }
+      },
+      "locationStatus": "active"
+    },
+    "roomSet": null,
+    "hotelTranslationMap": {
+      "1": {
+        "hotelTranslationId": 25,
+        "hotelName": "testHotelExpected25",
+        "hotel": null,
+        "language": {
+          "languageId": 1,
+          "name": "EN"
+        }
+      },
+      "2": {
+        "hotelTranslationId": 26,
+        "hotelName": "testHotelExpected26",
+        "hotel": null,
+        "language": {
+          "languageId": 2,
+          "name": "RU"
+        }
+      },
+      "3": {
+        "hotelTranslationId": 27,
+        "hotelName": "testHotelExpected27",
+        "hotel": null,
+        "language": {
+          "languageId": 3,
+          "name": "BY"
+        }
+      }
+    },
+    "hotelStatus": "active"
+  },
+  {
+    "hotelId": 10,
+    "hotelName": "testHotelExpected28",
+    "location": {
+      "locationId": 4,
+      "country": "testCountryExpected8",
+      "city": "testCityExpected10",
+      "hotelSet": null,
+      "locationTranslationMap": {
+        "1": {
+          "locationTransalteId": 10,
+          "country": "testCountryExpected8",
+          "city": "testCityExpected10",
+          "location": null,
+          "language": {
+            "languageId": 1,
+            "name": "EN"
+          }
+        },
+        "2": {
+          "locationTransalteId": 11,
+          "country": "testCountryExpected6",
+          "city": "testCityExpected11",
+          "location": null,
+          "language": {
+            "languageId": 2,
+            "name": "RU"
+          }
+        },
+        "3": {
+          "locationTransalteId": 12,
+          "country": "testCountryExpected4",
+          "city": "testCityExpected12",
+          "location": null,
+          "language": {
+            "languageId": 3,
+            "name": "BY"
+          }
+        }
+      },
+      "locationStatus": "active"
+    },
+    "roomSet": null,
+    "hotelTranslationMap": {
+      "1": {
+        "hotelTranslationId": 28,
+        "hotelName": "testHotelExpected28",
+        "hotel": null,
+        "language": {
+          "languageId": 1,
+          "name": "EN"
+        }
+      },
+      "2": {
+        "hotelTranslationId": 29,
+        "hotelName": "testHotelExpected29",
+        "hotel": null,
+        "language": {
+          "languageId": 2,
+          "name": "RU"
+        }
+      },
+      "3": {
+        "hotelTranslationId": 30,
+        "hotelName": "testHotelExpected30",
+        "hotel": null,
+        "language": {
+          "languageId": 3,
+          "name": "BY"
+        }
+      }
+    },
+    "hotelStatus": "active"
+  },
+  {
+    "hotelId": 11,
+    "hotelName": "testHotelExpected31",
+    "location": {
+      "locationId": 4,
+      "country": "testCountryExpected8",
+      "city": "testCityExpected10",
+      "hotelSet": null,
+      "locationTranslationMap": {
+        "1": {
+          "locationTransalteId": 10,
+          "country": "testCountryExpected8",
+          "city": "testCityExpected10",
+          "location": null,
+          "language": {
+            "languageId": 1,
+            "name": "EN"
+          }
+        },
+        "2": {
+          "locationTransalteId": 11,
+          "country": "testCountryExpected6",
+          "city": "testCityExpected11",
+          "location": null,
+          "language": {
+            "languageId": 2,
+            "name": "RU"
+          }
+        },
+        "3": {
+          "locationTransalteId": 12,
+          "country": "testCountryExpected4",
+          "city": "testCityExpected12",
+          "location": null,
+          "language": {
+            "languageId": 3,
+            "name": "BY"
+          }
+        }
+      },
+      "locationStatus": "active"
+    },
+    "roomSet": null,
+    "hotelTranslationMap": {
+      "1": {
+        "hotelTranslationId": 31,
+        "hotelName": "testHotelExpected31",
+        "hotel": null,
+        "language": {
+          "languageId": 1,
+          "name": "EN"
+        }
+      },
+      "2": {
+        "hotelTranslationId": 32,
+        "hotelName": "testHotelExpected32",
+        "hotel": null,
+        "language": {
+          "languageId": 2,
+          "name": "RU"
+        }
+      },
+      "3": {
+        "hotelTranslationId": 33,
+        "hotelName": "testHotelExpected33",
+        "hotel": null,
+        "language": {
+          "languageId": 3,
+          "name": "BY"
+        }
+      }
+    },
+    "hotelStatus": "active"
+  },
+  {
+    "hotelId": 12,
+    "hotelName": "testHotelExpected34",
+    "location": {
+      "locationId": 4,
+      "country": "testCountryExpected8",
+      "city": "testCityExpected10",
+      "hotelSet": null,
+      "locationTranslationMap": {
+        "1": {
+          "locationTransalteId": 10,
+          "country": "testCountryExpected8",
+          "city": "testCityExpected10",
+          "location": null,
+          "language": {
+            "languageId": 1,
+            "name": "EN"
+          }
+        },
+        "2": {
+          "locationTransalteId": 11,
+          "country": "testCountryExpected6",
+          "city": "testCityExpected11",
+          "location": null,
+          "language": {
+            "languageId": 2,
+            "name": "RU"
+          }
+        },
+        "3": {
+          "locationTransalteId": 12,
+          "country": "testCountryExpected4",
+          "city": "testCityExpected12",
+          "location": null,
+          "language": {
+            "languageId": 3,
+            "name": "BY"
+          }
+        }
+      },
+      "locationStatus": "active"
+    },
+    "roomSet": null,
+    "hotelTranslationMap": {
+      "1": {
+        "hotelTranslationId": 34,
+        "hotelName": "testHotelExpected34",
+        "hotel": null,
+        "language": {
+          "languageId": 1,
+          "name": "EN"
+        }
+      },
+      "2": {
+        "hotelTranslationId": 35,
+        "hotelName": "testHotelExpected35",
+        "hotel": null,
+        "language": {
+          "languageId": 2,
+          "name": "RU"
+        }
+      },
+      "3": {
+        "hotelTranslationId": 36,
+        "hotelName": "testHotelExpected36",
+        "hotel": null,
+        "language": {
+          "languageId": 3,
+          "name": "BY"
+        }
+      }
+    },
+    "hotelStatus": "active"
+  },
+  {
+    "hotelId": 13,
+    "hotelName": "testHotelExpected37",
+    "location": {
+      "locationId": 5,
+      "country": "testCountryExpected5",
+      "city": "testCityExpected13",
+      "hotelSet": null,
+      "locationTranslationMap": {
+        "1": {
+          "locationTransalteId": 13,
+          "country": "testCountryExpected5",
+          "city": "testCityExpected13",
+          "location": null,
+          "language": {
+            "languageId": 1,
+            "name": "EN"
+          }
+        },
+        "2": {
+          "locationTransalteId": 14,
+          "country": "testCountryExpected4",
+          "city": "testCityExpected14",
+          "location": null,
+          "language": {
+            "languageId": 2,
+            "name": "RU"
+          }
+        },
+        "3": {
+          "locationTransalteId": 15,
+          "country": "testCountryExpected3",
+          "city": "testCityExpected15",
+          "location": null,
+          "language": {
+            "languageId": 3,
+            "name": "BY"
+          }
+        }
+      },
+      "locationStatus": "active"
+    },
+    "roomSet": null,
+    "hotelTranslationMap": {
+      "1": {
+        "hotelTranslationId": 37,
+        "hotelName": "testHotelExpected37",
+        "hotel": null,
+        "language": {
+          "languageId": 1,
+          "name": "EN"
+        }
+      },
+      "2": {
+        "hotelTranslationId": 38,
+        "hotelName": "testHotelExpected38",
+        "hotel": null,
+        "language": {
+          "languageId": 2,
+          "name": "RU"
+        }
+      },
+      "3": {
+        "hotelTranslationId": 39,
+        "hotelName": "testHotelExpected39",
+        "hotel": null,
+        "language": {
+          "languageId": 3,
+          "name": "BY"
+        }
+      }
+    },
+    "hotelStatus": "active"
+  },
+  {
+    "hotelId": 14,
+    "hotelName": "testHotelExpected40",
+    "location": {
+      "locationId": 5,
+      "country": "testCountryExpected5",
+      "city": "testCityExpected13",
+      "hotelSet": null,
+      "locationTranslationMap": {
+        "1": {
+          "locationTransalteId": 13,
+          "country": "testCountryExpected5",
+          "city": "testCityExpected13",
+          "location": null,
+          "language": {
+            "languageId": 1,
+            "name": "EN"
+          }
+        },
+        "2": {
+          "locationTransalteId": 14,
+          "country": "testCountryExpected4",
+          "city": "testCityExpected14",
+          "location": null,
+          "language": {
+            "languageId": 2,
+            "name": "RU"
+          }
+        },
+        "3": {
+          "locationTransalteId": 15,
+          "country": "testCountryExpected3",
+          "city": "testCityExpected15",
+          "location": null,
+          "language": {
+            "languageId": 3,
+            "name": "BY"
+          }
+        }
+      },
+      "locationStatus": "active"
+    },
+    "roomSet": null,
+    "hotelTranslationMap": {
+      "1": {
+        "hotelTranslationId": 40,
+        "hotelName": "testHotelExpected40",
+        "hotel": null,
+        "language": {
+          "languageId": 1,
+          "name": "EN"
+        }
+      },
+      "2": {
+        "hotelTranslationId": 41,
+        "hotelName": "testHotelExpected41",
+        "hotel": null,
+        "language": {
+          "languageId": 2,
+          "name": "RU"
+        }
+      },
+      "3": {
+        "hotelTranslationId": 42,
+        "hotelName": "testHotelExpected42",
+        "hotel": null,
+        "language": {
+          "languageId": 3,
+          "name": "BY"
+        }
+      }
+    },
+    "hotelStatus": "active"
+  },
+  {
+    "hotelId": 15,
+    "hotelName": "testHotelExpected43",
+    "location": {
+      "locationId": 5,
+      "country": "testCountryExpected5",
+      "city": "testCityExpected13",
+      "hotelSet": null,
+      "locationTranslationMap": {
+        "1": {
+          "locationTransalteId": 13,
+          "country": "testCountryExpected5",
+          "city": "testCityExpected13",
+          "location": null,
+          "language": {
+            "languageId": 1,
+            "name": "EN"
+          }
+        },
+        "2": {
+          "locationTransalteId": 14,
+          "country": "testCountryExpected4",
+          "city": "testCityExpected14",
+          "location": null,
+          "language": {
+            "languageId": 2,
+            "name": "RU"
+          }
+        },
+        "3": {
+          "locationTransalteId": 15,
+          "country": "testCountryExpected3",
+          "city": "testCityExpected15",
+          "location": null,
+          "language": {
+            "languageId": 3,
+            "name": "BY"
+          }
+        }
+      },
+      "locationStatus": "active"
+    },
+    "roomSet": null,
+    "hotelTranslationMap": {
+      "1": {
+        "hotelTranslationId": 43,
+        "hotelName": "testHotelExpected43",
+        "hotel": null,
+        "language": {
+          "languageId": 1,
+          "name": "EN"
+        }
+      },
+      "2": {
+        "hotelTranslationId": 44,
+        "hotelName": "testHotelExpected44",
+        "hotel": null,
+        "language": {
+          "languageId": 2,
+          "name": "RU"
+        }
+      },
+      "3": {
+        "hotelTranslationId": 45,
+        "hotelName": "testHotelExpected45",
+        "hotel": null,
+        "language": {
+          "languageId": 3,
+          "name": "BY"
+        }
+      }
+    },
+    "hotelStatus": "active"
+  }
+]
