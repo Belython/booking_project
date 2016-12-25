@@ -1,0 +1,102 @@
+[
+  {
+    "userId": 1,
+    "firstName": "testFirstNameExpected0",
+    "lastName": "testLastNameExpected8",
+    "email": "testExpected1@gmail.com",
+    "login": "testLoginExpected1",
+    "password": "testPasswordExpected6",
+    "role": "ROLE_USER",
+    "userStatus": "active"
+  },
+  {
+    "userId": 2,
+    "firstName": "testFirstNameExpected6",
+    "lastName": "testLastNameExpected4",
+    "email": "testExpected2@gmail.com",
+    "login": "testLoginExpected2",
+    "password": "testPasswordExpected8",
+    "role": "ROLE_USER",
+    "userStatus": "active"
+  },
+  {
+    "userId": 3,
+    "firstName": "testFirstNameExpected7",
+    "lastName": "testLastNameExpected7",
+    "email": "testExpected3@gmail.com",
+    "login": "testLoginExpected3",
+    "password": "testPasswordExpected0",
+    "role": "ROLE_USER",
+    "userStatus": "active"
+  },
+  {
+    "userId": 4,
+    "firstName": "testFirstNameExpected8",
+    "lastName": "testLastNameExpected7",
+    "email": "testExpected4@gmail.com",
+    "login": "testLoginExpected4",
+    "password": "testPasswordExpected7",
+    "role": "ROLE_USER",
+    "userStatus": "active"
+  },
+  {
+    "userId": 5,
+    "firstName": "testFirstNameExpected8",
+    "lastName": "testLastNameExpected7",
+    "email": "testExpected5@gmail.com",
+    "login": "testLoginExpected5",
+    "password": "testPasswordExpected8",
+    "role": "ROLE_USER",
+    "userStatus": "active"
+  },
+  {
+    "userId": 6,
+    "firstName": "testFirstNameExpected6",
+    "lastName": "testLastNameExpected3",
+    "email": "testExpected6@gmail.com",
+    "login": "testLoginExpected6",
+    "password": "testPasswordExpected1",
+    "role": "ROLE_USER",
+    "userStatus": "active"
+  },
+  {
+    "userId": 7,
+    "firstName": "testFirstNameExpected2",
+    "lastName": "testLastNameExpected9",
+    "email": "testExpected7@gmail.com",
+    "login": "testLoginExpected7",
+    "password": "testPasswordExpected3",
+    "role": "ROLE_USER",
+    "userStatus": "active"
+  },
+  {
+    "userId": 8,
+    "firstName": "testFirstNameExpected1",
+    "lastName": "testLastNameExpected3",
+    "email": "testExpected8@gmail.com",
+    "login": "testLoginExpected8",
+    "password": "testPasswordExpected9",
+    "role": "ROLE_USER",
+    "userStatus": "active"
+  },
+  {
+    "userId": 9,
+    "firstName": "testFirstNameExpected6",
+    "lastName": "testLastNameExpected4",
+    "email": "testExpected9@gmail.com",
+    "login": "testLoginExpected9",
+    "password": "testPasswordExpected8",
+    "role": "ROLE_USER",
+    "userStatus": "active"
+  },
+  {
+    "userId": 10,
+    "firstName": "testFirstNameExpected1",
+    "lastName": "testLastNameExpected8",
+    "email": "testExpected10@gmail.com",
+    "login": "testLoginExpected10",
+    "password": "testPasswordExpected1",
+    "role": "ROLE_USER",
+    "userStatus": "active"
+  }
+]

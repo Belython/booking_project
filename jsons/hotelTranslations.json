@@ -1,0 +1,407 @@
+[
+  {
+    "hotelTranslationId": 1,
+    "hotelName": "testHotelExpected1",
+    "hotel": null,
+    "language": {
+      "languageId": 1,
+      "name": "EN"
+    }
+  },
+  {
+    "hotelTranslationId": 2,
+    "hotelName": "testHotelExpected2",
+    "hotel": null,
+    "language": {
+      "languageId": 2,
+      "name": "RU"
+    }
+  },
+  {
+    "hotelTranslationId": 3,
+    "hotelName": "testHotelExpected3",
+    "hotel": null,
+    "language": {
+      "languageId": 3,
+      "name": "BY"
+    }
+  },
+  {
+    "hotelTranslationId": 4,
+    "hotelName": "testHotelExpected4",
+    "hotel": null,
+    "language": {
+      "languageId": 1,
+      "name": "EN"
+    }
+  },
+  {
+    "hotelTranslationId": 5,
+    "hotelName": "testHotelExpected5",
+    "hotel": null,
+    "language": {
+      "languageId": 2,
+      "name": "RU"
+    }
+  },
+  {
+    "hotelTranslationId": 6,
+    "hotelName": "testHotelExpected6",
+    "hotel": null,
+    "language": {
+      "languageId": 3,
+      "name": "BY"
+    }
+  },
+  {
+    "hotelTranslationId": 7,
+    "hotelName": "testHotelExpected7",
+    "hotel": null,
+    "language": {
+      "languageId": 1,
+      "name": "EN"
+    }
+  },
+  {
+    "hotelTranslationId": 8,
+    "hotelName": "testHotelExpected8",
+    "hotel": null,
+    "language": {
+      "languageId": 2,
+      "name": "RU"
+    }
+  },
+  {
+    "hotelTranslationId": 9,
+    "hotelName": "testHotelExpected9",
+    "hotel": null,
+    "language": {
+      "languageId": 3,
+      "name": "BY"
+    }
+  },
+  {
+    "hotelTranslationId": 10,
+    "hotelName": "testHotelExpected10",
+    "hotel": null,
+    "language": {
+      "languageId": 1,
+      "name": "EN"
+    }
+  },
+  {
+    "hotelTranslationId": 11,
+    "hotelName": "testHotelExpected11",
+    "hotel": null,
+    "language": {
+      "languageId": 2,
+      "name": "RU"
+    }
+  },
+  {
+    "hotelTranslationId": 12,
+    "hotelName": "testHotelExpected12",
+    "hotel": null,
+    "language": {
+      "languageId": 3,
+      "name": "BY"
+    }
+  },
+  {
+    "hotelTranslationId": 13,
+    "hotelName": "testHotelExpected13",
+    "hotel": null,
+    "language": {
+      "languageId": 1,
+      "name": "EN"
+    }
+  },
+  {
+    "hotelTranslationId": 14,
+    "hotelName": "testHotelExpected14",
+    "hotel": null,
+    "language": {
+      "languageId": 2,
+      "name": "RU"
+    }
+  },
+  {
+    "hotelTranslationId": 15,
+    "hotelName": "testHotelExpected15",
+    "hotel": null,
+    "language": {
+      "languageId": 3,
+      "name": "BY"
+    }
+  },
+  {
+    "hotelTranslationId": 16,
+    "hotelName": "testHotelExpected16",
+    "hotel": null,
+    "language": {
+      "languageId": 1,
+      "name": "EN"
+    }
+  },
+  {
+    "hotelTranslationId": 17,
+    "hotelName": "testHotelExpected17",
+    "hotel": null,
+    "language": {
+      "languageId": 2,
+      "name": "RU"
+    }
+  },
+  {
+    "hotelTranslationId": 18,
+    "hotelName": "testHotelExpected18",
+    "hotel": null,
+    "language": {
+      "languageId": 3,
+      "name": "BY"
+    }
+  },
+  {
+    "hotelTranslationId": 19,
+    "hotelName": "testHotelExpected19",
+    "hotel": null,
+    "language": {
+      "languageId": 1,
+      "name": "EN"
+    }
+  },
+  {
+    "hotelTranslationId": 20,
+    "hotelName": "testHotelExpected20",
+    "hotel": null,
+    "language": {
+      "languageId": 2,
+      "name": "RU"
+    }
+  },
+  {
+    "hotelTranslationId": 21,
+    "hotelName": "testHotelExpected21",
+    "hotel": null,
+    "language": {
+      "languageId": 3,
+      "name": "BY"
+    }
+  },
+  {
+    "hotelTranslationId": 22,
+    "hotelName": "testHotelExpected22",
+    "hotel": null,
+    "language": {
+      "languageId": 1,
+      "name": "EN"
+    }
+  },
+  {
+    "hotelTranslationId": 23,
+    "hotelName": "testHotelExpected23",
+    "hotel": null,
+    "language": {
+      "languageId": 2,
+      "name": "RU"
+    }
+  },
+  {
+    "hotelTranslationId": 24,
+    "hotelName": "testHotelExpected24",
+    "hotel": null,
+    "language": {
+      "languageId": 3,
+      "name": "BY"
+    }
+  },
+  {
+    "hotelTranslationId": 25,
+    "hotelName": "testHotelExpected25",
+    "hotel": null,
+    "language": {
+      "languageId": 1,
+      "name": "EN"
+    }
+  },
+  {
+    "hotelTranslationId": 26,
+    "hotelName": "testHotelExpected26",
+    "hotel": null,
+    "language": {
+      "languageId": 2,
+      "name": "RU"
+    }
+  },
+  {
+    "hotelTranslationId": 27,
+    "hotelName": "testHotelExpected27",
+    "hotel": null,
+    "language": {
+      "languageId": 3,
+      "name": "BY"
+    }
+  },
+  {
+    "hotelTranslationId": 28,
+    "hotelName": "testHotelExpected28",
+    "hotel": null,
+    "language": {
+      "languageId": 1,
+      "name": "EN"
+    }
+  },
+  {
+    "hotelTranslationId": 29,
+    "hotelName": "testHotelExpected29",
+    "hotel": null,
+    "language": {
+      "languageId": 2,
+      "name": "RU"
+    }
+  },
+  {
+    "hotelTranslationId": 30,
+    "hotelName": "testHotelExpected30",
+    "hotel": null,
+    "language": {
+      "languageId": 3,
+      "name": "BY"
+    }
+  },
+  {
+    "hotelTranslationId": 31,
+    "hotelName": "testHotelExpected31",
+    "hotel": null,
+    "language": {
+      "languageId": 1,
+      "name": "EN"
+    }
+  },
+  {
+    "hotelTranslationId": 32,
+    "hotelName": "testHotelExpected32",
+    "hotel": null,
+    "language": {
+      "languageId": 2,
+      "name": "RU"
+    }
+  },
+  {
+    "hotelTranslationId": 33,
+    "hotelName": "testHotelExpected33",
+    "hotel": null,
+    "language": {
+      "languageId": 3,
+      "name": "BY"
+    }
+  },
+  {
+    "hotelTranslationId": 34,
+    "hotelName": "testHotelExpected34",
+    "hotel": null,
+    "language": {
+      "languageId": 1,
+      "name": "EN"
+    }
+  },
+  {
+    "hotelTranslationId": 35,
+    "hotelName": "testHotelExpected35",
+    "hotel": null,
+    "language": {
+      "languageId": 2,
+      "name": "RU"
+    }
+  },
+  {
+    "hotelTranslationId": 36,
+    "hotelName": "testHotelExpected36",
+    "hotel": null,
+    "language": {
+      "languageId": 3,
+      "name": "BY"
+    }
+  },
+  {
+    "hotelTranslationId": 37,
+    "hotelName": "testHotelExpected37",
+    "hotel": null,
+    "language": {
+      "languageId": 1,
+      "name": "EN"
+    }
+  },
+  {
+    "hotelTranslationId": 38,
+    "hotelName": "testHotelExpected38",
+    "hotel": null,
+    "language": {
+      "languageId": 2,
+      "name": "RU"
+    }
+  },
+  {
+    "hotelTranslationId": 39,
+    "hotelName": "testHotelExpected39",
+    "hotel": null,
+    "language": {
+      "languageId": 3,
+      "name": "BY"
+    }
+  },
+  {
+    "hotelTranslationId": 40,
+    "hotelName": "testHotelExpected40",
+    "hotel": null,
+    "language": {
+      "languageId": 1,
+      "name": "EN"
+    }
+  },
+  {
+    "hotelTranslationId": 41,
+    "hotelName": "testHotelExpected41",
+    "hotel": null,
+    "language": {
+      "languageId": 2,
+      "name": "RU"
+    }
+  },
+  {
+    "hotelTranslationId": 42,
+    "hotelName": "testHotelExpected42",
+    "hotel": null,
+    "language": {
+      "languageId": 3,
+      "name": "BY"
+    }
+  },
+  {
+    "hotelTranslationId": 43,
+    "hotelName": "testHotelExpected43",
+    "hotel": null,
+    "language": {
+      "languageId": 1,
+      "name": "EN"
+    }
+  },
+  {
+    "hotelTranslationId": 44,
+    "hotelName": "testHotelExpected44",
+    "hotel": null,
+    "language": {
+      "languageId": 2,
+      "name": "RU"
+    }
+  },
+  {
+    "hotelTranslationId": 45,
+    "hotelName": "testHotelExpected45",
+    "hotel": null,
+    "language": {
+      "languageId": 3,
+      "name": "BY"
+    }
+  }
+]

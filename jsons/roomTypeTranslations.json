@@ -1,0 +1,272 @@
+[
+  {
+    "roomTypeTranslationId": 1,
+    "roomTypeName": "testRoomTypeExpected1",
+    "roomType": null,
+    "language": {
+      "languageId": 1,
+      "name": "EN"
+    }
+  },
+  {
+    "roomTypeTranslationId": 2,
+    "roomTypeName": "testRoomTypeExpected2",
+    "roomType": null,
+    "language": {
+      "languageId": 2,
+      "name": "RU"
+    }
+  },
+  {
+    "roomTypeTranslationId": 3,
+    "roomTypeName": "testRoomTypeExpected3",
+    "roomType": null,
+    "language": {
+      "languageId": 3,
+      "name": "BY"
+    }
+  },
+  {
+    "roomTypeTranslationId": 4,
+    "roomTypeName": "testRoomTypeExpected4",
+    "roomType": null,
+    "language": {
+      "languageId": 1,
+      "name": "EN"
+    }
+  },
+  {
+    "roomTypeTranslationId": 5,
+    "roomTypeName": "testRoomTypeExpected5",
+    "roomType": null,
+    "language": {
+      "languageId": 2,
+      "name": "RU"
+    }
+  },
+  {
+    "roomTypeTranslationId": 6,
+    "roomTypeName": "testRoomTypeExpected6",
+    "roomType": null,
+    "language": {
+      "languageId": 3,
+      "name": "BY"
+    }
+  },
+  {
+    "roomTypeTranslationId": 7,
+    "roomTypeName": "testRoomTypeExpected7",
+    "roomType": null,
+    "language": {
+      "languageId": 1,
+      "name": "EN"
+    }
+  },
+  {
+    "roomTypeTranslationId": 8,
+    "roomTypeName": "testRoomTypeExpected8",
+    "roomType": null,
+    "language": {
+      "languageId": 2,
+      "name": "RU"
+    }
+  },
+  {
+    "roomTypeTranslationId": 9,
+    "roomTypeName": "testRoomTypeExpected9",
+    "roomType": null,
+    "language": {
+      "languageId": 3,
+      "name": "BY"
+    }
+  },
+  {
+    "roomTypeTranslationId": 10,
+    "roomTypeName": "testRoomTypeExpected10",
+    "roomType": null,
+    "language": {
+      "languageId": 1,
+      "name": "EN"
+    }
+  },
+  {
+    "roomTypeTranslationId": 11,
+    "roomTypeName": "testRoomTypeExpected11",
+    "roomType": null,
+    "language": {
+      "languageId": 2,
+      "name": "RU"
+    }
+  },
+  {
+    "roomTypeTranslationId": 12,
+    "roomTypeName": "testRoomTypeExpected12",
+    "roomType": null,
+    "language": {
+      "languageId": 3,
+      "name": "BY"
+    }
+  },
+  {
+    "roomTypeTranslationId": 13,
+    "roomTypeName": "testRoomTypeExpected13",
+    "roomType": null,
+    "language": {
+      "languageId": 1,
+      "name": "EN"
+    }
+  },
+  {
+    "roomTypeTranslationId": 14,
+    "roomTypeName": "testRoomTypeExpected14",
+    "roomType": null,
+    "language": {
+      "languageId": 2,
+      "name": "RU"
+    }
+  },
+  {
+    "roomTypeTranslationId": 15,
+    "roomTypeName": "testRoomTypeExpected15",
+    "roomType": null,
+    "language": {
+      "languageId": 3,
+      "name": "BY"
+    }
+  },
+  {
+    "roomTypeTranslationId": 16,
+    "roomTypeName": "testRoomTypeExpected16",
+    "roomType": null,
+    "language": {
+      "languageId": 1,
+      "name": "EN"
+    }
+  },
+  {
+    "roomTypeTranslationId": 17,
+    "roomTypeName": "testRoomTypeExpected17",
+    "roomType": null,
+    "language": {
+      "languageId": 2,
+      "name": "RU"
+    }
+  },
+  {
+    "roomTypeTranslationId": 18,
+    "roomTypeName": "testRoomTypeExpected18",
+    "roomType": null,
+    "language": {
+      "languageId": 3,
+      "name": "BY"
+    }
+  },
+  {
+    "roomTypeTranslationId": 19,
+    "roomTypeName": "testRoomTypeExpected19",
+    "roomType": null,
+    "language": {
+      "languageId": 1,
+      "name": "EN"
+    }
+  },
+  {
+    "roomTypeTranslationId": 20,
+    "roomTypeName": "testRoomTypeExpected20",
+    "roomType": null,
+    "language": {
+      "languageId": 2,
+      "name": "RU"
+    }
+  },
+  {
+    "roomTypeTranslationId": 21,
+    "roomTypeName": "testRoomTypeExpected21",
+    "roomType": null,
+    "language": {
+      "languageId": 3,
+      "name": "BY"
+    }
+  },
+  {
+    "roomTypeTranslationId": 22,
+    "roomTypeName": "testRoomTypeExpected22",
+    "roomType": null,
+    "language": {
+      "languageId": 1,
+      "name": "EN"
+    }
+  },
+  {
+    "roomTypeTranslationId": 23,
+    "roomTypeName": "testRoomTypeExpected23",
+    "roomType": null,
+    "language": {
+      "languageId": 2,
+      "name": "RU"
+    }
+  },
+  {
+    "roomTypeTranslationId": 24,
+    "roomTypeName": "testRoomTypeExpected24",
+    "roomType": null,
+    "language": {
+      "languageId": 3,
+      "name": "BY"
+    }
+  },
+  {
+    "roomTypeTranslationId": 25,
+    "roomTypeName": "testRoomTypeExpected25",
+    "roomType": null,
+    "language": {
+      "languageId": 1,
+      "name": "EN"
+    }
+  },
+  {
+    "roomTypeTranslationId": 26,
+    "roomTypeName": "testRoomTypeExpected26",
+    "roomType": null,
+    "language": {
+      "languageId": 2,
+      "name": "RU"
+    }
+  },
+  {
+    "roomTypeTranslationId": 27,
+    "roomTypeName": "testRoomTypeExpected27",
+    "roomType": null,
+    "language": {
+      "languageId": 3,
+      "name": "BY"
+    }
+  },
+  {
+    "roomTypeTranslationId": 28,
+    "roomTypeName": "testRoomTypeExpected28",
+    "roomType": null,
+    "language": {
+      "languageId": 1,
+      "name": "EN"
+    }
+  },
+  {
+    "roomTypeTranslationId": 29,
+    "roomTypeName": "testRoomTypeExpected29",
+    "roomType": null,
+    "language": {
+      "languageId": 2,
+      "name": "RU"
+    }
+  },
+  {
+    "roomTypeTranslationId": 30,
+    "roomTypeName": "testRoomTypeExpected30",
+    "roomType": null,
+    "language": {
+      "languageId": 3,
+      "name": "BY"
+    }
+  }
+]
