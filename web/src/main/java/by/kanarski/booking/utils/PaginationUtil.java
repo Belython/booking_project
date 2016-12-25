@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
  * @author Dzmitry Kanarski
  * @version 1.0
  */
-
 @Component
 public class PaginationUtil {
     private static final int MIN_ROWS_ON_PAGE = 1;
