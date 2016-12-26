@@ -8,7 +8,6 @@ import by.kanarski.booking.utils.wrappers.ThreadVariables;
  * @version 1.0
  * @see ThreadVariables
  */
-
 public enum ThreadLocalUtil {
     LOCALE,
     CURRENCY;
@@ -27,7 +26,6 @@ public enum ThreadLocalUtil {
      * @return the thread local variable, if it is added to <i>THREAD_VARIABLES</i>,
      * otherwise null
      */
-
     public Object get() {
         String name = this.name();
         Object variable = THREAD_VARIABLES.get().get(name);
@@ -40,7 +38,6 @@ public enum ThreadLocalUtil {
      *                     is not present
      * @return the thread local variable
      */
-
     public Object get(Object initialValue) {
         String name = this.name();
         Object variable = THREAD_VARIABLES.get().get(name);
@@ -56,7 +53,6 @@ public enum ThreadLocalUtil {
      * Adds variable to <i>THREAD_VARIABLES</i>, or rewrites current with the same name
      * @param value an variable to add
      */
-
     public void set(Object value) {
         String name = this.name();
         THREAD_VARIABLES.get().put(name, value);
@@ -65,7 +61,6 @@ public enum ThreadLocalUtil {
     /**
      * Removes all thread local variables from <i>THREAD_VARIABLES</i>, closes them before, if necessary
      */
-
     public static void destroy() {
         THREAD_VARIABLES.remove();
     }
@@ -75,13 +70,11 @@ public enum ThreadLocalUtil {
         THREAD_VARIABLES.get().remove(name);
     }
 
-
     /**
      * Checks if the thread variables map contains the variable
      * @param variableName the required variable name
      * @return true, if contains, else false
      */
-
     public static boolean hasVariable(String variableName) {
         ThreadVariables threadVariables = THREAD_VARIABLES.get();
         return threadVariables.containsKey(variableName.toUpperCase());
