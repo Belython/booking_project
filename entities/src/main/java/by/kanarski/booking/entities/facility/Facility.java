@@ -1,5 +1,6 @@
 package by.kanarski.booking.entities.facility;
 
+import by.kanarski.booking.entities.State;
 import by.kanarski.booking.entities.roomType.RoomType;
 import by.kanarski.booking.utils.Formulas;
 import lombok.AllArgsConstructor;
@@ -37,12 +38,16 @@ public class Facility implements Serializable {
     private String facilityName;
     private Map<Long, FacilityTranslation> facilityTranslationMap;
     private Set<RoomType> roomTypeSet;
-    private String facilityStatus;
+    private State facilityStatus;
 
     @Id
     @GeneratedValue(
             strategy = GenerationType.IDENTITY,
             generator = "increment"
+    )
+    @Column(
+            unique = true,
+            nullable = false
     )
     public Long getFacilityId() {
         return facilityId;
@@ -83,12 +88,17 @@ public class Facility implements Serializable {
         this.roomTypeSet = roomTypeSet;
     }
 
-    @Column
-    public String getFacilityStatus() {
+
+    @ManyToOne
+    @JoinColumn(
+            name = "STATUS_ID",
+            nullable = false
+    )
+    public State getFacilityStatus() {
         return facilityStatus;
     }
 
-    public void setFacilityStatus(String facilityStatus) {
+    public void setFacilityStatus(State facilityStatus) {
         this.facilityStatus = facilityStatus;
     }
 

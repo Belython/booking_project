@@ -49,7 +49,7 @@
         </property>
 
         <property name="namingStrategy">
-            <bean class="by.kanarski.booking.utils.hibernate.CustomNamingStrategy"/>
+            <bean class="by.kanarski.booking.utils.CustomNamingStrategy"/>
         </property>
 
         <property name="hibernateProperties">

@@ -65,7 +65,7 @@ public class EntityBuilder {
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setEmail(email);
-        user.setLogin(login);
+        user.setUserName(login);
         user.setPassword(password);
         user.setRole(role);
         user.setUserStatus(userStatus);
@@ -177,7 +177,7 @@ public class EntityBuilder {
         } else {
             bill = new Bill();
         }
-        bill.setClient(client);
+        bill.setUser(client);
         bill.setBookingDate(bookingDate);
         bill.setTotalPersons(totalPersons);
         bill.setCheckInDate(checkInDate);

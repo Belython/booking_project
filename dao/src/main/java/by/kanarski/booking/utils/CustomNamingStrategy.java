@@ -1,4 +1,4 @@
-package by.kanarski.booking.utils.hibernate;
+package by.kanarski.booking.utils;
 
 import org.hibernate.cfg.ImprovedNamingStrategy;
 

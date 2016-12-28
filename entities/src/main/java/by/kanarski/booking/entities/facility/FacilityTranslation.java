@@ -40,6 +40,10 @@ public class FacilityTranslation implements Serializable {
             strategy = GenerationType.IDENTITY,
             generator = "increment"
     )
+    @Column(
+            unique = true,
+            nullable = false
+    )
     public Long getFactilityTranslationId() {
         return factilityTranslationId;
     }
@@ -48,7 +52,9 @@ public class FacilityTranslation implements Serializable {
         this.factilityTranslationId = factilityTranslationId;
     }
 
-    @Column
+    @Column(
+            nullable = false
+    )
     public String getFacilityName() {
         return facilityName;
     }
@@ -70,7 +76,6 @@ public class FacilityTranslation implements Serializable {
     @ManyToOne
     @JoinColumn(
             name = "LANGUAGE_ID"
-//            foreignKey = @ForeignKey(name = "FACILITY_LANGUAGES")
     )
     public Language getLanguage() {
         return language;

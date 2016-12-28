@@ -1,6 +1,7 @@
 package by.kanarski.booking.entities.roomType;
 
 import by.kanarski.booking.entities.Room;
+import by.kanarski.booking.entities.State;
 import by.kanarski.booking.entities.facility.Facility;
 import by.kanarski.booking.utils.Formulas;
 import lombok.AllArgsConstructor;
@@ -34,12 +35,16 @@ public class RoomType implements Serializable {
     private Set<Facility> facilitySet = new TreeSet<>();
     private Set<Room> roomSet = new HashSet<>();
     private Map<Long, RoomTypeTranslation> roomTypeTranslationMap = new HashMap<>();
-    private String roomTypeStatus;
+    private State roomTypeStatus;
 
     @Id
     @GeneratedValue(
             strategy = GenerationType.IDENTITY,
             generator = "increment"
+    )
+    @Column(
+            unique = true,
+            nullable = false
     )
     public Long getRoomTypeId() {
         return roomTypeId;
@@ -58,7 +63,9 @@ public class RoomType implements Serializable {
         this.roomTypeName = roomTypeName;
     }
 
-    @Column
+    @Column(
+            nullable = false
+    )
     public Integer getMaxPersons() {
         return maxPersons;
     }
@@ -67,7 +74,9 @@ public class RoomType implements Serializable {
         this.maxPersons = maxPersons;
     }
 
-    @Column
+    @Column(
+            nullable = false
+    )
     public Double getPricePerNight() {
         return pricePerNight;
     }
@@ -110,12 +119,16 @@ public class RoomType implements Serializable {
         this.roomTypeTranslationMap = roomTypeTranslationMap;
     }
 
-    @Column
-    public String getRoomTypeStatus() {
+    @ManyToOne
+    @JoinColumn(
+            name = "STATUS_ID",
+            nullable = false
+    )
+    public State getRoomTypeStatus() {
         return roomTypeStatus;
     }
 
-    public void setRoomTypeStatus(String roomTypeStatus) {
+    public void setRoomTypeStatus(State roomTypeStatus) {
         this.roomTypeStatus = roomTypeStatus;
     }
 

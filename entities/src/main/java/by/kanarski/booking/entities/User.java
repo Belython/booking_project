@@ -9,6 +9,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @GenericGenerator(
@@ -27,16 +28,20 @@ public class User implements Serializable {
     private Long userId;
     private String firstName;
     private String lastName;
+    private String userName;
     private String email;
-    private String login;
     private String password;
-    private String role;
-    private String userStatus;
+    private Set<State> roleSet;
+    private State userStatus;
 
     @Id
     @GeneratedValue(
             strategy = GenerationType.IDENTITY,
             generator = "increment"
+    )
+    @Column(
+            unique = true,
+            nullable = false
     )
     public Long getUserId() {
         return userId;
@@ -46,7 +51,10 @@ public class User implements Serializable {
         this.userId = userId;
     }
 
-    @Column
+    @Column(
+            unique = true,
+            nullable = false
+    )
     public String getFirstName() {
         return firstName;
     }
@@ -55,7 +63,10 @@ public class User implements Serializable {
         this.firstName = firstName;
     }
 
-    @Column
+    @Column(
+            unique = true,
+            nullable = false
+    )
     public String getLastName() {
         return lastName;
     }
@@ -64,7 +75,22 @@ public class User implements Serializable {
         this.lastName = secondName;
     }
 
-    @Column
+    @Column(
+            unique = true,
+            nullable = false
+    )
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String login) {
+        this.userName = login;
+    }
+
+    @Column(
+            unique = true,
+            nullable = false
+    )
     public String getEmail() {
         return email;
     }
@@ -73,16 +99,10 @@ public class User implements Serializable {
         this.email = eMail;
     }
 
-    @Column
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    @Column
+    @Column(
+            unique = true,
+            nullable = false
+    )
     public String getPassword() {
         return password;
     }
@@ -91,22 +111,30 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    @Column
-    public String getRole() {
-        return role;
+    @ManyToMany
+    @JoinTable(
+            name = "USER_ROLES",
+            joinColumns = @JoinColumn(name = "USER_ID"),
+            inverseJoinColumns = @JoinColumn(name = "ROLE_ID")
+    )
+    public Set<State> getRoleSet() {
+        return roleSet;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRoleSet(Set<State> roleSet) {
+        this.roleSet = roleSet;
     }
 
-    @Column
-    public String getUserStatus() {
+    @ManyToOne
+    @JoinColumn(
+            name = "STATUS_ID"
+    )
+    public State getUserStatus() {
         return userStatus;
     }
 
-    public void setUserStatus(String userStatus) {
-        this.userStatus = userStatus;
+    public void setUserStatus(State status) {
+        this.userStatus = status;
     }
 
     @Override
@@ -119,22 +147,23 @@ public class User implements Serializable {
         if (!userId.equals(user.userId)) return false;
         if (!firstName.equals(user.firstName)) return false;
         if (!lastName.equals(user.lastName)) return false;
+        if (!userName.equals(user.userName)) return false;
         if (!email.equals(user.email)) return false;
-        if (!login.equals(user.login)) return false;
         if (!password.equals(user.password)) return false;
-        if (!role.equals(user.role)) return false;
+        if (!roleSet.equals(user.roleSet)) return false;
         return userStatus.equals(user.userStatus);
+
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (userId ^ (userId >>> 32));
+        int result = userId.hashCode();
         result = 31 * result + firstName.hashCode();
         result = 31 * result + lastName.hashCode();
+        result = 31 * result + userName.hashCode();
         result = 31 * result + email.hashCode();
-        result = 31 * result + login.hashCode();
         result = 31 * result + password.hashCode();
-        result = 31 * result + role.hashCode();
+        result = 31 * result + roleSet.hashCode();
         result = 31 * result + userStatus.hashCode();
         return result;
     }

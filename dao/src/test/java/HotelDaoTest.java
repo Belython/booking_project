@@ -1,11 +1,8 @@
-import by.kanarski.booking.constants.FieldValue;
 import by.kanarski.booking.dao.interfaces.IHotelDao;
 import by.kanarski.booking.dao.interfaces.IRoomTypeDao;
 import by.kanarski.booking.dao.interfaces.IUserDao;
 import by.kanarski.booking.dto.SearchOrder;
-import by.kanarski.booking.entities.User;
 import by.kanarski.booking.entities.hotel.Hotel;
-import by.kanarski.booking.entities.roomType.RoomType;
 import by.kanarski.booking.exceptions.DaoException;
 import org.junit.After;
 import org.junit.Assert;
@@ -67,18 +64,19 @@ public class HotelDaoTest extends Assert {
     }
 
     private SearchOrder createOrder() throws DaoException {
-        User user = userDao.getById(1L);
-        Hotel hotel = hotelDao.getById(1L);
-        Hotel orderHotel = new Hotel(null, "any", hotel.getLocation(), null, null, FieldValue.STATUS_ACTIVE);
-        RoomType roomType = roomTypeDao.getById(1L);
-        RoomType orderRoomType = new RoomType(null, null, null, roomType.getPricePerNight(), roomType.getFacilitySet(),
-                null, null, FieldValue.STATUS_ACTIVE);
-        Integer totalPersons = 5;
-        Integer totalRooms = 2;
-        Long checkInDate = 1000000000000000L;
-        Long checkOutDate = 1500000000000000L;
-        Boolean sortPriceAsc = true;
-        return new SearchOrder(user, orderHotel, orderRoomType, totalPersons, totalRooms, checkInDate, checkOutDate, sortPriceAsc);
+//        User user = userDao.getById(1L);
+//        Hotel hotel = hotelDao.getById(1L);
+//        Hotel orderHotel = new Hotel(null, "any", hotel.getLocation(), null, null, FieldValue.STATUS_ACTIVE);
+//        RoomType roomType = roomTypeDao.getById(1L);
+//        RoomType orderRoomType = new RoomType(null, null, null, roomType.getPricePerNight(), roomType.getFacilitySet(),
+//                null, null, FieldValue.STATUS_ACTIVE);
+//        Integer totalPersons = 5;
+//        Integer totalRooms = 2;
+//        Long checkInDate = 1000000000000000L;
+//        Long checkOutDate = 1500000000000000L;
+//        Boolean sortPriceAsc = true;
+//        return new SearchOrder(user, orderHotel, orderRoomType, totalPersons, totalRooms, checkInDate, checkOutDate, sortPriceAsc);
+        return new SearchOrder();
     }
 
     private List<Hotel> getExpectedHotelList() throws DaoException {

@@ -1,6 +1,6 @@
 package by.kanarski.booking.dto;
 
-import by.kanarski.booking.constants.FieldValue;
+import by.kanarski.booking.constants.StateValue;
 import by.kanarski.booking.dto.hotel.HotelDto;
 import by.kanarski.booking.dto.roomType.RoomTypeDto;
 import by.kanarski.booking.utils.HotelUtil;
@@ -29,11 +29,12 @@ public class BillDto implements Serializable {
     private Map<RoomTypeDto, Integer> roomTypeMap;
     private List<RoomDto> roomList;
     private Double paymentAmount;
+    private String paymentStatus;
     private String billStatus;
 
     public BillDto(Long billId, UserDto client, Integer totalPersons, String checkInDate,
                    String checkOutDate, HotelDto hotel, List<RoomDto> roomList,
-                   Double paymentAmount, String billStatus) {
+                   Double paymentAmount, String paymentStatus, String billStatus) {
         this.billId = billId;
         this.client = client;
         this.totalPersons = totalPersons;
@@ -43,21 +44,8 @@ public class BillDto implements Serializable {
         this.roomTypeMap = HotelUtil.countRoomTypeDto(roomList);
         this.roomList = roomList;
         this.paymentAmount = paymentAmount;
+        this.paymentStatus = paymentStatus;
         this.billStatus = billStatus;
-    }
-
-    public BillDto(UserDto client, Integer totalPersons, String checkInDate,
-                   String checkOutDate, HotelDto hotel, List<RoomDto> roomList,
-                   Double paymentAmount) {
-        this.client = client;
-        this.totalPersons = totalPersons;
-        this.checkInDate = checkInDate;
-        this.checkOutDate = checkOutDate;
-        this.hotel = hotel;
-        this.roomTypeMap = HotelUtil.countRoomTypeDto(roomList);
-        this.roomList = roomList;
-        this.paymentAmount = paymentAmount;
-        this.billStatus = FieldValue.STATUS_NOT_PAID;
     }
 
     public BillDto(UserDto client, String bookingDate, Integer totalPersons, String checkInDate,
@@ -72,39 +60,7 @@ public class BillDto implements Serializable {
         this.roomTypeMap = HotelUtil.countRoomTypeDto(roomList);
         this.roomList = roomList;
         this.paymentAmount = paymentAmount;
-        this.billStatus = FieldValue.STATUS_NOT_PAID;
-    }
-
-
-    public BillDto(Long billId, UserDto client, Integer totalPersons, String checkInDate,
-                   String checkOutDate, HotelDto hotel, Map<RoomTypeDto, Integer> roomTypeMap,
-                   Double paymentAmount, String billStatus) {
-        this.billId = billId;
-        this.client = client;
-        this.totalPersons = totalPersons;
-        this.checkInDate = checkInDate;
-        this.checkOutDate = checkOutDate;
-        this.hotel = hotel;
-        this.roomTypeMap = roomTypeMap;
-        this.paymentAmount = paymentAmount;
-        this.billStatus = billStatus;
-    }
-
-    public BillDto(UserDto client, Integer totalPersons, String checkInDate, String checkOutDate,
-                   HotelDto hotel, Map<RoomTypeDto, Integer> roomTypeMap, Double paymentAmount) {
-        this.billId = FieldValue.UNDEFINED_ID;
-        this.client = client;
-        this.totalPersons = totalPersons;
-        this.checkInDate = checkInDate;
-        this.checkOutDate = checkOutDate;
-        this.hotel = hotel;
-        this.roomTypeMap = roomTypeMap;
-        this.paymentAmount = paymentAmount;
-        this.billStatus = FieldValue.STATUS_NOT_PAID;
-    }
-
-    public void setRoomList(List<RoomDto> roomList) {
-        this.roomTypeMap = HotelUtil.countRoomTypeDto(roomList);
-        this.roomList = roomList;
+        this.paymentStatus = StateValue.STATUS_NOT_PAID;
+        this.billStatus = StateValue.STATUS_ACTIVE;
     }
 }

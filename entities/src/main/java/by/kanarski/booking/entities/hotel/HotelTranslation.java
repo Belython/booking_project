@@ -33,6 +33,10 @@ public class HotelTranslation implements Serializable {
             strategy = GenerationType.IDENTITY,
             generator = "increment"
     )
+    @Column(
+            unique = true,
+            nullable = false
+    )
     public Long getHotelTranslationId() {
         return hotelTranslationId;
     }
@@ -41,7 +45,9 @@ public class HotelTranslation implements Serializable {
         this.hotelTranslationId = hotelTranslationId;
     }
 
-    @Column
+    @Column(
+            nullable = false
+    )
     public String getHotelName() {
         return hotelName;
     }

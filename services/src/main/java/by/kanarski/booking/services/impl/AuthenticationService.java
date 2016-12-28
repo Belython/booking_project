@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service("authService")
+@Service
 @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT)
 public class AuthenticationService implements UserDetailsService {
 

@@ -33,6 +33,10 @@ public class LocationTranslation implements Serializable {
             strategy = GenerationType.IDENTITY,
             generator = "increment"
     )
+    @Column(
+            unique = true,
+            nullable = false
+    )
     public Long getLocationTransalteId() {
         return locationTransalteId;
     }
@@ -41,7 +45,9 @@ public class LocationTranslation implements Serializable {
         this.locationTransalteId = locationTransalteId;
     }
 
-    @Column
+    @Column(
+            nullable = false
+    )
     public String getCountry() {
         return country;
     }
@@ -50,7 +56,9 @@ public class LocationTranslation implements Serializable {
         this.country = country;
     }
 
-    @Column
+    @Column(
+            nullable = false
+    )
     public String getCity() {
         return city;
     }
@@ -62,7 +70,6 @@ public class LocationTranslation implements Serializable {
     @ManyToOne
     @JoinColumn(
             name = "LOCATION_ID"
-//            foreignKey = @ForeignKey(name = "LOCATION_TRANSLATIONS")
     )
     public Location getLocation() {
         return location;
@@ -75,7 +82,6 @@ public class LocationTranslation implements Serializable {
     @ManyToOne
     @JoinColumn(
             name = "LANGUAGE_ID"
-//            foreignKey = @ForeignKey(name = "LOCATION_LANGUAGES")
     )
     public Language getLanguage() {
         return language;

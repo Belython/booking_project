@@ -25,18 +25,23 @@ public class Bill implements Serializable {
 
     private Long billId;
     private Long bookingDate;
-    private User client;
+    private User user;
     private Integer totalPersons;
     private Long checkInDate;
     private Long checkOutDate;
     private Set<Room> roomSet;
     private Double paymentAmount;
-    private String billStatus;
+    private State paymentStatus;
+    private State billStatus;
 
     @Id
     @GeneratedValue(
             strategy = GenerationType.IDENTITY,
             generator = "increment"
+    )
+    @Column(
+            unique = true,
+            nullable = false
     )
     public Long getBillId() {
         return billId;
@@ -46,7 +51,9 @@ public class Bill implements Serializable {
         this.billId = billId;
     }
 
-    @Column
+    @Column(
+            nullable = false
+    )
     public Long getBookingDate() {
         return bookingDate;
     }
@@ -59,15 +66,17 @@ public class Bill implements Serializable {
     @JoinColumn(
             name = "USER_ID"
     )
-    public User getClient() {
-        return client;
+    public User getUser() {
+        return user;
     }
 
-    public void setClient(User client) {
-        this.client = client;
+    public void setUser(User client) {
+        this.user = client;
     }
 
-    @Column
+    @Column(
+            nullable = false
+    )
     public Integer getTotalPersons() {
         return totalPersons;
     }
@@ -76,7 +85,9 @@ public class Bill implements Serializable {
         this.totalPersons = totalPersons;
     }
 
-    @Column
+    @Column(
+            nullable = false
+    )
     public Long getCheckInDate() {
         return checkInDate;
     }
@@ -85,7 +96,9 @@ public class Bill implements Serializable {
         this.checkInDate = checkInDate;
     }
 
-    @Column
+    @Column(
+            nullable = false
+    )
     public Long getCheckOutDate() {
         return checkOutDate;
     }
@@ -97,14 +110,8 @@ public class Bill implements Serializable {
     @ManyToMany
     @JoinTable(
             name = "BILL_ROOMS",
-            joinColumns = {
-                    @JoinColumn(
-                            name = "BILL_ID"
-                    )
-            },
-            inverseJoinColumns = @JoinColumn(
-                    name = "ROOM_ID"
-            )
+            joinColumns = @JoinColumn(name = "BILL_ID"),
+            inverseJoinColumns = @JoinColumn(name = "ROOM_ID")
     )
     public Set<Room> getRoomSet() {
         return roomSet;
@@ -114,7 +121,9 @@ public class Bill implements Serializable {
         this.roomSet = bookedRoomSet;
     }
 
-    @Column
+    @Column(
+            nullable = false
+    )
     public Double getPaymentAmount() {
         return paymentAmount;
     }
@@ -123,12 +132,29 @@ public class Bill implements Serializable {
         this.paymentAmount = paymentAmount;
     }
 
-    @Column
-    public String getBillStatus() {
+    @ManyToOne
+    @JoinColumn(
+            name = "PAYMENT_STATUS_ID",
+            nullable = false
+    )
+    public State getPaymentStatus() {
+        return paymentStatus;
+    }
+
+    public void setPaymentStatus(State paymentStatus) {
+        this.paymentStatus = paymentStatus;
+    }
+
+    @ManyToOne
+    @JoinColumn(
+            name = "STATUS_ID",
+            nullable = false
+    )
+    public State getBillStatus() {
         return billStatus;
     }
 
-    public void setBillStatus(String billStatus) {
+    public void setBillStatus(State billStatus) {
         this.billStatus = billStatus;
     }
 
@@ -141,7 +167,7 @@ public class Bill implements Serializable {
 
         if (!billId.equals(bill.billId)) return false;
         if (!bookingDate.equals(bill.bookingDate)) return false;
-        if (!client.equals(bill.client)) return false;
+        if (!user.equals(bill.user)) return false;
         if (!totalPersons.equals(bill.totalPersons)) return false;
         if (!checkInDate.equals(bill.checkInDate)) return false;
         if (!checkOutDate.equals(bill.checkOutDate)) return false;
@@ -155,7 +181,7 @@ public class Bill implements Serializable {
     public int hashCode() {
         int result = billId.hashCode();
         result = 31 * result + bookingDate.hashCode();
-        result = 31 * result + client.hashCode();
+        result = 31 * result + user.hashCode();
         result = 31 * result + totalPersons.hashCode();
         result = 31 * result + checkInDate.hashCode();
         result = 31 * result + checkOutDate.hashCode();

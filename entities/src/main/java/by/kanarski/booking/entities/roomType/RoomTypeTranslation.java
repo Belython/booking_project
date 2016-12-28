@@ -38,6 +38,10 @@ public class RoomTypeTranslation implements Serializable {
             strategy = GenerationType.IDENTITY,
             generator = "increment"
     )
+    @Column(
+            unique = true,
+            nullable = false
+    )
     public Long getRoomTypeTranslationId() {
         return roomTypeTranslationId;
     }
@@ -46,7 +50,9 @@ public class RoomTypeTranslation implements Serializable {
         this.roomTypeTranslationId = roomTypeTranslationId;
     }
 
-    @Column
+    @Column(
+            nullable = false
+    )
     public String getRoomTypeName() {
         return roomTypeName;
     }

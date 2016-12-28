@@ -14,6 +14,7 @@ import by.kanarski.booking.dto.location.LocationDto;
 import by.kanarski.booking.dto.roomType.RoomTypeDto;
 import by.kanarski.booking.entities.Bill;
 import by.kanarski.booking.entities.Room;
+import by.kanarski.booking.entities.State;
 import by.kanarski.booking.entities.User;
 import by.kanarski.booking.entities.facility.Facility;
 import by.kanarski.booking.entities.facility.FacilityTranslation;
@@ -35,6 +36,7 @@ public class DtoToEntityConverter<E, D> {
 
     private static Locale defaultLocale = SystemLocale.DEFAULT;
     private static Currency defaultCurrency = SystemCurrency.DEFAULT;
+
 
     private static EntityBuilder entityBuilder = ContextHolder.getServiceContext().getBean(EntityBuilder.class);
     private static SystemLanguagesManager systemLanguagesManager = ContextHolder.getServiceContext()
@@ -283,7 +285,7 @@ public class DtoToEntityConverter<E, D> {
     }
 
 
-        public HotelDto toAnyHotelDto(LocationDto locationDto) {
+    public HotelDto toAnyHotelDto(LocationDto locationDto) {
         return new HotelDto(locationDto, FieldValue.ANY_HOTEL);
     }
 
@@ -302,7 +304,7 @@ public class DtoToEntityConverter<E, D> {
         RoomType roomType = room.getRoomType();
         RoomTypeDto roomTypeDto = toRoomTypeDto(roomType);
         Integer roomNumber = room.getRoomNumber();
-        String roomStatus = room.getRoomStatus();
+        String roomStatus = toStateDto(room.getRoomStatus());
         return new RoomDto(roomId, roomHotelDto, roomTypeDto, roomNumber, roomStatus);
     }
 
@@ -354,7 +356,7 @@ public class DtoToEntityConverter<E, D> {
 
     private BillDto toBillDto(Bill bill) throws LocalisationException {
         Long billId = bill.getBillId();
-        User client = bill.getClient();
+        User client = bill.getUser();
         UserDto clientDto = toUserDto(client);
         Integer totalPersons = bill.getTotalPersons();
         String checkInDate = DateUtil.getFormattedDate(bill.getCheckInDate(), defaultLocale);
@@ -365,9 +367,10 @@ public class DtoToEntityConverter<E, D> {
         HotelDto hotelDto = toHotelDto(hotel);
         Double paymentAmountUSD = bill.getPaymentAmount();
         Double paymentAmount = CurrencyUtil.convertFromUSD(paymentAmountUSD, defaultCurrency);
-        String billStatus = bill.getBillStatus();
+        String paymentStatus = toStateDto(bill.getPaymentStatus());
+        String billStatus = toStateDto(bill.getBillStatus());
         return new BillDto(billId, clientDto, totalPersons, checkInDate, checkOutDate, hotelDto,
-                roomDtoList, paymentAmount, billStatus);
+                roomDtoList, paymentAmount, paymentStatus, billStatus);
     }
 
     private List<BillDto> toBillDtoList(Set<Bill> billSet) throws LocalisationException {
@@ -418,13 +421,7 @@ public class DtoToEntityConverter<E, D> {
         Double pricePerNight = CurrencyUtil.convertFromUSD(pricePerNightUSD, defaultCurrency);
         Set<Facility> facilitySet = roomType.getFacilitySet();
         List<FacilityDto> facilityDtoList = toFacilityDtoList(facilitySet);
-//        StringBuilder facilities = new StringBuilder();
-//        for (Facility facility : facilitySet) {
-//            FacilityTranslation facilityTranslation = facility.getFacilityTranslationMap().get(languageId);
-//            String facilityName = facilityTranslation.getFacilityName();
-//            facilities.append(facilityName);
-//        }
-        String roomTypeStatus = roomType.getRoomTypeStatus();
+        String roomTypeStatus = toStateDto(roomType.getRoomTypeStatus());
         return new RoomTypeDto(roomTypeId, roomTypeName, maxPersons,
                 pricePerNight, facilityDtoList, roomTypeStatus);
     }
@@ -494,7 +491,7 @@ public class DtoToEntityConverter<E, D> {
         Long facilityId = facility.getFacilityId();
         FacilityTranslation facilityTranslation = facility.getFacilityTranslationMap().get(languageId);
         String facilityName = facilityTranslation.getFacilityName();
-        String facilityStatus = facility.getFacilityStatus();
+        String facilityStatus = toStateDto(facility.getFacilityStatus());
         return new FacilityDto(facilityId, facilityName, facilityStatus);
     }
 
@@ -528,7 +525,7 @@ public class DtoToEntityConverter<E, D> {
         LocationTranslation locationTranslation = location.getLocationTranslationMap().get(languageId);
         String country = locationTranslation.getCountry();
         String city = locationTranslation.getCity();
-        String locationStatus = location.getLocationStatus();
+        String locationStatus = toStateDto(location.getLocationStatus());
         return new LocationDto(locationId, country, city, locationStatus);
     }
 
@@ -566,7 +563,7 @@ public class DtoToEntityConverter<E, D> {
         LocationDto locationDto = toLocationDto(location);
         HotelTranslation hotelTranslation = hotel.getHotelTranslationMap().get(languageId);
         String hotelName = hotelTranslation.getHotelName();
-        String hotelStatus = hotel.getHotelStatus();
+        String hotelStatus = toStateDto(hotel.getHotelStatus());
         return new HotelDto(hotelId, locationDto, hotelName, hotelStatus);
     }
 
@@ -656,9 +653,9 @@ public class DtoToEntityConverter<E, D> {
         String firstName = user.getFirstName();
         String lastName = user.getLastName();
         String email = user.getEmail();
-        String login = user.getLogin();
+        String login = user.getUserName();
         String password = user.getPassword();
-        String role = user.getRole();
+        Set<String> roleSet = user.getRoleSet();
         String userStatus = user.getUserStatus();
         return new UserDto(userId, firstName, lastName, email, login, password, role, userStatus);
     }
@@ -679,9 +676,9 @@ public class DtoToEntityConverter<E, D> {
         String email = userDto.getEmail();
         String login = userDto.getLogin();
         String password = userDto.getPassword();
-        String role = userDto.getRole();
+        Set<String> roleSet = userDto.getRoleSet();
         String userStatus = userDto.getUserStatus();
-        return entityBuilder.buildUser(userId, firstName, lastName, email, login, password, role, userStatus);
+        return entityBuilder.buildUser(userId, firstName, lastName, email, login, password, roleSet, userStatus);
     }
 
     private List<User> toUserList(List<UserDto> userDtoList) throws DaoException {
@@ -693,6 +690,31 @@ public class DtoToEntityConverter<E, D> {
         return userList;
     }
 
+    private String toStateDto(State state) {
+        return state.getStateName();
+    }
+
+    private State toState(String stateDto) {
+        return new State(null, stateDto);
+    }
+
+    private Set<String> toStateDtoSet(Set<State> stateSet) {
+        Set<String> stateDtoSet = new HashSet<>();
+        for (State state : stateSet) {
+            String stateDto = toStateDto(state);
+            stateDtoSet.add(stateDto);
+        }
+        return stateDtoSet;
+    }
+
+    private Set<State> toStateSet(Set<String> stateDtoSet) {
+        Set<State> stateSet = new HashSet<>();
+        for (String stateDto : stateDtoSet) {
+            State state = toState(stateDto);
+            stateSet.add(state);
+        }
+        return stateSet;
+    }
 //    private Class getPersistentDtoClass() {
 //        ParameterizedType classType = (ParameterizedType) getClass().getGenericSuperclass();
 //        Class<D> persistentClass = (Class<D>) classType.getActualTypeArguments()[1];

@@ -13,7 +13,6 @@ import java.io.Serializable;
  * @author Dzmitry Kanarski
  * @version 1.0
  */
-
 @Entity
 @GenericGenerator(
         name = "increment",
@@ -23,12 +22,12 @@ import java.io.Serializable;
 @DynamicInsert
 @AllArgsConstructor
 @NoArgsConstructor
-public class Language implements Serializable {
+public class State implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final Long serialVersionUID = 1L;
 
-    private Long languageId;
-    private String name;
+    private Long stateId;
+    private String stateName;
 
     @Id
     @GeneratedValue(
@@ -39,24 +38,24 @@ public class Language implements Serializable {
             unique = true,
             nullable = false
     )
-    public Long getLanguageId() {
-        return languageId;
+    public Long getStateId() {
+        return stateId;
     }
 
-    public void setLanguageId(Long languageId) {
-        this.languageId = languageId;
+    public void setStateId(Long stateId) {
+        this.stateId = stateId;
     }
 
     @Column(
             unique = true,
             nullable = false
     )
-    public String getName() {
-        return name;
+    public String getStateName() {
+        return stateName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setStateName(String stateName) {
+        this.stateName = stateName;
     }
 
     @Override
@@ -64,17 +63,18 @@ public class Language implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Language language = (Language) o;
+        State state = (State) o;
 
-        if (!languageId.equals(language.languageId)) return false;
-        return name.equals(language.name);
+        if (!stateId.equals(state.stateId)) return false;
+        return stateName.equals(state.stateName);
 
     }
 
     @Override
     public int hashCode() {
-        int result = languageId.hashCode();
-        result = 31 * result + name.hashCode();
+        int result = stateId.hashCode();
+        result = 31 * result + stateName.hashCode();
         return result;
     }
+
 }

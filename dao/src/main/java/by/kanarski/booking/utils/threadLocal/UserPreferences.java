@@ -31,6 +31,18 @@ public class UserPreferences {
         ThreadLocalUtil.LOCALE.set(locale);
     }
 
+    public static Locale getRequestedLocale() {
+        Locale locale = (Locale) ThreadLocalUtil.REQUESTED_LOCALE.get(SystemLocale.DEFAULT);
+        if (locale == null) {
+            locale = Locale.getDefault();
+        }
+        return locale;
+    }
+
+    public static void setRequestedLocale(Locale locale) {
+        ThreadLocalUtil.REQUESTED_LOCALE.set(locale);
+    }
+
     public static Currency getCurrency() {
         Currency currency = (Currency) ThreadLocalUtil.CURRENCY.get(SystemCurrency.DEFAULT);
         return currency;

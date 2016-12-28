@@ -29,12 +29,16 @@ public class Room implements Serializable {
     private RoomType roomType;
     private Integer roomNumber;
     private Set<Bill> billSet;
-    private String roomStatus;
+    private State roomStatus;
 
     @Id
     @GeneratedValue(
             strategy = GenerationType.IDENTITY,
             generator = "increment"
+    )
+    @Column(
+            unique = true,
+            nullable = false
     )
     public Long getRoomId() {
         return roomId;
@@ -68,7 +72,10 @@ public class Room implements Serializable {
         this.roomType = roomType;
     }
 
-    @Column
+    @Column(
+            unique = true,
+            nullable = false
+    )
     public Integer getRoomNumber() {
         return roomNumber;
     }
@@ -86,12 +93,15 @@ public class Room implements Serializable {
         this.billSet = billSet;
     }
 
-    @Column
-    public String getRoomStatus() {
+    @ManyToOne
+    @JoinColumn(
+            name = "STATUS_ID"
+    )
+    public State getRoomStatus() {
         return roomStatus;
     }
 
-    public void setRoomStatus(String roomStatus) {
+    public void setRoomStatus(State roomStatus) {
         this.roomStatus = roomStatus;
     }
 
@@ -107,7 +117,6 @@ public class Room implements Serializable {
         if (!roomType.equals(room.roomType)) return false;
         if (!roomNumber.equals(room.roomNumber)) return false;
         return roomStatus.equals(room.roomStatus);
-
     }
 
     @Override

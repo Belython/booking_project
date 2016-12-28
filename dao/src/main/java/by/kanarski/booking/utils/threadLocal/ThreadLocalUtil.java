@@ -10,6 +10,7 @@ import by.kanarski.booking.utils.wrappers.ThreadVariables;
  */
 public enum ThreadLocalUtil {
     LOCALE,
+    REQUESTED_LOCALE,
     CURRENCY;
 
     private static final ThreadLocal<ThreadVariables> THREAD_VARIABLES = new ThreadLocal<ThreadVariables>() {

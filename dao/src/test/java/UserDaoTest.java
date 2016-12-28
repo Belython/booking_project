@@ -2,7 +2,6 @@ import by.kanarski.booking.constants.SearchParameter;
 import by.kanarski.booking.dao.interfaces.IUserDao;
 import by.kanarski.booking.entities.User;
 import by.kanarski.booking.exceptions.DaoException;
-import by.kanarski.booking.testingUtils.pre.util.TestEntityBuilder;
 import by.kanarski.booking.utils.filter.SearchFilter;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -40,12 +39,12 @@ public class UserDaoTest extends Assert{
 
     @Before
     public void setUp() throws Exception {
-        expectedUser = TestEntityBuilder.EXPECTED_USER;
-        expectedUserList = TestEntityBuilder.EXPECTED_USER_LIST;
-        updatedUserList = TestEntityBuilder.UPDATED_USER_LIST;
-        newUserList = TestEntityBuilder.NEW_USER_LIST;
-        newUser = TestEntityBuilder.NEW_USER;
-        updatedUser = TestEntityBuilder.UPDATED_USER;
+//        expectedUser = TestEntityBuilder.EXPECTED_USER;
+//        expectedUserList = TestEntityBuilder.EXPECTED_USER_LIST;
+//        updatedUserList = TestEntityBuilder.UPDATED_USER_LIST;
+//        newUserList = TestEntityBuilder.NEW_USER_LIST;
+//        newUser = TestEntityBuilder.NEW_USER;
+//        updatedUser = TestEntityBuilder.UPDATED_USER;
     }
 
     @After

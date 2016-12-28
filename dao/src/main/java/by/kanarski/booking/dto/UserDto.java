@@ -1,7 +1,7 @@
 package by.kanarski.booking.dto;
 
-import by.kanarski.booking.constants.FieldValue;
 import by.kanarski.booking.constants.RegExp;
+import by.kanarski.booking.constants.StateValue;
 import by.kanarski.booking.constants.ValidationMessage;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,6 +13,7 @@ import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Data
 //@NoArgsConstructor
@@ -42,39 +43,50 @@ public class UserDto extends User implements Serializable {
     @Pattern(regexp = RegExp.PASSWORD, message = ValidationMessage.PASSWROD_PATTERN)
     @NotNull(message = ValidationMessage.EMPTY_FIELD)
     private String password;
-    private String role;
+    private Set<String> roleSet;
     private String userStatus;
 
-    public UserDto(String firstName, String lastName, String email, String login, String password, String role, String userStatus) {
-        super(login, password, getGrantedAuthorities(role));
+    public UserDto(String firstName, String lastName, String email, String login, String password,
+                   Set<String> roleSet, String userStatus) {
+        super(login, password, getGrantedAuthorities(roleSet));
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.login = login;
         this.password = password;
-        this.role = role;
+        this.roleSet = roleSet;
         this.userStatus = userStatus;
     }
 
-    public UserDto(Long userId, String firstName, String lastName, String email, String login, String password, String role, String userStatus) {
-        super(login, password, getGrantedAuthorities(role));
+    public UserDto(Long userId, String firstName, String lastName, String email, String login, String password,
+                   Set<String> roleSet, String userStatus) {
+        super(login, password, getGrantedAuthorities(roleSet));
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.login = login;
         this.password = password;
-        this.role = role;
+        this.roleSet = roleSet;
         this.userStatus = userStatus;
     }
 
     public UserDto() {
-        super("blank", "blank", getGrantedAuthorities(FieldValue.ROLE_ANONYMOUS));
+        super("blank", "blank", getAnnonymous());
     }
 
-    private static List<GrantedAuthority> getGrantedAuthorities(String role) {
+    private static List<GrantedAuthority> getGrantedAuthorities(Set<String> roleSet) {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(role));
+        for (String role : roleSet) {
+            GrantedAuthority authority = new SimpleGrantedAuthority(role);
+            authorities.add(authority);
+        }
+        return authorities;
+    }
+
+    private static List<GrantedAuthority> getAnnonymous() {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(StateValue.ROLE_ANONYMOUS));
         return authorities;
     }
 

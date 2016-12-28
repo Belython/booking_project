@@ -1,6 +1,7 @@
 package by.kanarski.booking.entities.hotel;
 
 import by.kanarski.booking.entities.Room;
+import by.kanarski.booking.entities.State;
 import by.kanarski.booking.entities.location.Location;
 import by.kanarski.booking.utils.Formulas;
 import lombok.AllArgsConstructor;
@@ -33,12 +34,16 @@ public class Hotel implements Serializable {
     private Location location;
     private Set<Room> roomSet;
     private Map<Long, HotelTranslation> hotelTranslationMap;
-    private String hotelStatus;
+    private State hotelStatus;
 
     @Id
     @GeneratedValue(
             strategy = GenerationType.IDENTITY,
             generator = "increment"
+    )
+    @Column(
+            unique = true,
+            nullable = false
     )
     public Long getHotelId() {
         return hotelId;
@@ -60,7 +65,6 @@ public class Hotel implements Serializable {
     @ManyToOne
     @JoinColumn(
             name = "LOCATION_ID"
-//            foreignKey = @ForeignKey(name = "HOTEL_LOCATIONS")
     )
     public Location getLocation() {
         return location;
@@ -82,7 +86,6 @@ public class Hotel implements Serializable {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(
             name = "HOTEL_ID"
-//            foreignKey = @ForeignKey(name = "HOTEL_TRANSLATIONS")
     )
     @MapKeyColumn(name = "LANGUAGE_ID")
     public Map<Long, HotelTranslation> getHotelTranslationMap() {
@@ -93,12 +96,16 @@ public class Hotel implements Serializable {
         this.hotelTranslationMap = hotelTranslationMap;
     }
 
-    @Column
-    public String getHotelStatus() {
+    @ManyToOne
+    @JoinColumn(
+            name = "STATUS_ID",
+            nullable = false
+    )
+    public State getHotelStatus() {
         return hotelStatus;
     }
 
-    public void setHotelStatus(String hotelStatus) {
+    public void setHotelStatus(State hotelStatus) {
         this.hotelStatus = hotelStatus;
     }
 

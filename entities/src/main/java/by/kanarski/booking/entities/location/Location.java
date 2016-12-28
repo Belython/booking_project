@@ -1,5 +1,6 @@
 package by.kanarski.booking.entities.location;
 
+import by.kanarski.booking.entities.State;
 import by.kanarski.booking.entities.hotel.Hotel;
 import by.kanarski.booking.utils.Formulas;
 import lombok.AllArgsConstructor;
@@ -34,12 +35,16 @@ public class Location implements Serializable {
     private String city;
     private Set<Hotel> hotelSet;
     private Map<Long, LocationTranslation> locationTranslationMap = new HashMap<>();
-    private String locationStatus;
+    private State locationStatus;
 
     @Id
     @GeneratedValue(
             strategy = GenerationType.IDENTITY,
             generator = "increment"
+    )
+    @Column(
+            unique = true,
+            nullable = false
     )
     public Long getLocationId() {
         return locationId;
@@ -79,7 +84,6 @@ public class Location implements Serializable {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(
             name = "LOCATION_ID"
-//            foreignKey = @ForeignKey(name = "LOCATION_TRANSLATIONS")
     )
     @MapKeyColumn(name = "LANGUAGE_ID")
     public Map<Long, LocationTranslation> getLocationTranslationMap() {
@@ -90,12 +94,16 @@ public class Location implements Serializable {
         this.locationTranslationMap = locationTranslationList;
     }
 
-    @Column
-    public String getLocationStatus() {
+    @ManyToOne
+    @JoinColumn(
+            name = "STATUS_ID",
+            nullable = false
+    )
+    public State getLocationStatus() {
         return locationStatus;
     }
 
-    public void setLocationStatus(String locationStatus) {
+    public void setLocationStatus(State locationStatus) {
         this.locationStatus = locationStatus;
     }
 
