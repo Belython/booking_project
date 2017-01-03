@@ -2,7 +2,6 @@ package by.kanarski.booking.utils;
 
 import by.kanarski.booking.constants.SystemLocale;
 import by.kanarski.booking.exceptions.LocalisationException;
-import by.kanarski.booking.managers.ExceptionMessageManager;
 import by.kanarski.booking.utils.threadLocal.UserPreferences;
 
 import java.text.DateFormat;
@@ -30,18 +29,18 @@ public class DateUtil {
         return dateFormat.format(new Date(date));
     }
 
-    public static long parseDate(String formattedDate, Locale locale) throws LocalisationException {
+    public static long parseDate(String formattedDate, Locale locale) {
         DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, locale);
         long date = 0;
         try {
             date = dateFormat.parse(formattedDate).getTime();
         } catch (ParseException e) {
-            throw new LocalisationException(ExceptionMessageManager.PARSE_DATE_EXCEPTION.get(), e);
+//            throw new LocalisationException(ExceptionMessageManager.PARSE_DATE_EXCEPTION.get(), e);
         }
         return date;
     }
 
-    public static long parseDate(String formattedDate) throws LocalisationException{
+    public static long parseDate(String formattedDate) {
         DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, DEFAULT_LOCALE);
         long date = 0;
         try {
@@ -51,7 +50,7 @@ public class DateUtil {
                 dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, UserPreferences.getLocale());
                 date = dateFormat.parse(formattedDate).getTime();
             } catch (ParseException e2) {
-                throw new LocalisationException(ExceptionMessageManager.PARSE_DATE_EXCEPTION.get(), e2);
+//                throw new LocalisationException(ExceptionMessageManager.PARSE_DATE_EXCEPTION.get(), e2);
             }
         }
         return date;
@@ -96,12 +95,12 @@ public class DateUtil {
     public static String getDefaultLocaleDate(String formattedDate) {
         Locale userLocale = UserPreferences.getLocale();
         long date = 0;
-        try {
+//        try {
             date = DateUtil.parseDate(formattedDate, userLocale);
-        } catch (LocalisationException e) {
-            SystemLogger.getInstance().logError(DateUtil.class,
-                    ExceptionMessageManager.PARSE_DATE_EXCEPTION.get(), e);
-        }
+//        } catch (LocalisationException e) {
+//            SystemLogger.getInstance().logError(DateUtil.class,
+//                    ExceptionMessageManager.PARSE_DATE_EXCEPTION.get(), e);
+//        }
         return DateUtil.getFormattedDate(date, DEFAULT_LOCALE);
 
     }

@@ -1,5 +1,6 @@
 package by.kanarski.booking.dto;
 
+import by.kanarski.booking.annotations.TargetEntity;
 import by.kanarski.booking.constants.RegExp;
 import by.kanarski.booking.constants.StateValue;
 import by.kanarski.booking.constants.ValidationMessage;
@@ -16,8 +17,6 @@ import java.util.List;
 import java.util.Set;
 
 @Data
-//@NoArgsConstructor
-//@AllArgsConstructor
 public class UserDto extends User implements Serializable {
 
     private static final Long serialVersionUID = 1L;

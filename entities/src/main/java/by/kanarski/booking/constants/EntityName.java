@@ -11,6 +11,7 @@ public class EntityName {
     public static final String LOCATION = "Location";
     public static final String HOTEL = "Hotel";
     public static final String ROOM_TYPE = "RoomType";
+    public static final String FACILITY = "Facility";
     public static final String ROOM = "Room";
     public static final String BILL = "Bill";
 

@@ -21,5 +21,7 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
+    <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean"
+
     <tx:annotation-driven transaction-manager="transactionManager"/>
 </beans>

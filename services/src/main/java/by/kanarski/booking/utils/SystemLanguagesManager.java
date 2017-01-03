@@ -22,22 +22,26 @@ public class SystemLanguagesManager {
 
     private SystemLanguages systemLanguages;
 
-    private SystemLanguages getSystemLanguages() throws DaoException {
-        if (systemLanguages == null || systemLanguages.size() == 0) {
-            systemLanguages = new SystemLanguages();
-            List<Language> languageList = languageDao.getAll();
-            for (Language language : languageList) {
-                systemLanguages.add(language.getName());
+    private SystemLanguages getSystemLanguages() {
+        try {
+            if (systemLanguages == null || systemLanguages.size() == 0) {
+                systemLanguages = new SystemLanguages();
+                List<Language> languageList = languageDao.getAll();
+                for (Language language : languageList) {
+                    systemLanguages.add(language.getName());
+                }
             }
+        } catch (DaoException e) {
+
         }
         return systemLanguages;
     }
 
-    public Long getLanguageId(String language) throws DaoException {
+    public Long getLanguageId(String language) {
         return (Integer.toUnsignedLong(getSystemLanguages().indexOf(language.toUpperCase())) + 1);
     }
 
-    public String getLanguage(Long languageId) throws DaoException {
+    public String getLanguage(Long languageId) {
         return getSystemLanguages().get(languageId.intValue() - 1);
     }
 

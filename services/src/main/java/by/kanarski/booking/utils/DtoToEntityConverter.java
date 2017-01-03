@@ -1,9 +1,6 @@
 package by.kanarski.booking.utils;
 
-import by.kanarski.booking.constants.DtoName;
-import by.kanarski.booking.constants.FieldValue;
-import by.kanarski.booking.constants.SystemCurrency;
-import by.kanarski.booking.constants.SystemLocale;
+import by.kanarski.booking.constants.*;
 import by.kanarski.booking.dto.BillDto;
 import by.kanarski.booking.dto.RoomDto;
 import by.kanarski.booking.dto.UserDto;
@@ -36,7 +33,6 @@ public class DtoToEntityConverter<E, D> {
 
     private static Locale defaultLocale = SystemLocale.DEFAULT;
     private static Currency defaultCurrency = SystemCurrency.DEFAULT;
-
 
     private static EntityBuilder entityBuilder = ContextHolder.getServiceContext().getBean(EntityBuilder.class);
     private static SystemLanguagesManager systemLanguagesManager = ContextHolder.getServiceContext()
@@ -73,30 +69,28 @@ public class DtoToEntityConverter<E, D> {
         if (dto == null) {
             return null;
         }
-        String dtoName = dtoClass.getSimpleName();
+        String entityName = null;
+        Class<?> dtoClass = dto.getClass();
+//        String dtoName = dtoClass.getSimpleName();
         Object entity = null;
-        switch (dtoName) {
-            case DtoName.USER_DTO: {
+        switch (entityName) {
+            case EntityName.USER: {
                 entity = toUser((UserDto) dto);
                 break;
             }
-            case DtoName.LOCATION_DTO: {
+            case EntityName.LOCATION: {
                 entity = toLocation((LocationDto) dto);
                 break;
             }
-            case DtoName.HOTEL_DTO: {
+            case EntityName.HOTEL: {
                 entity = toHotel((HotelDto) dto);
                 break;
             }
-            case DtoName.USER_HOTEL_DTO: {
-                entity = toHotel((UserHotelDto) dto);
-                break;
-            }
-            case DtoName.ROOM_TYPE_DTO: {
+            case EntityName.ROOM_TYPE: {
                 entity = toRoomType((RoomTypeDto) dto);
                 break;
             }
-            case DtoName.FACILITY_DTO: {
+            case EntityName.FACILITY: {
                 entity = toFacility((FacilityDto) dto);
                 break;
             }
@@ -332,7 +326,7 @@ public class DtoToEntityConverter<E, D> {
         Hotel hotel = toHotel(roomDto.getHotel());
         RoomType roomType = toRoomType(roomDto.getRoomType());
         Integer roomNumber = roomDto.getRoomNumber();
-        String roomStatus = roomDto.getRoomStatus();
+        State roomStatus = toState(roomDto.getRoomStatus());
         return entityBuilder.buildRoom(roomId, hotel, roomType, roomNumber, roomStatus);
     }
 
@@ -403,9 +397,10 @@ public class DtoToEntityConverter<E, D> {
         Set<Room> roomSet = toRoomSet(roomDtoList);
         Double paymentAmount = billDto.getPaymentAmount();
         Double paymentAmountUSD = CurrencyUtil.convertToUSD(paymentAmount, defaultCurrency);
-        String billStatus = billDto.getBillStatus();
+        State paymentStatus = toState(billDto.getPaymentStatus());
+        State billStatus = toState(billDto.getBillStatus());
         return entityBuilder.buildBill(billId, client, bookingDate, totalPersons, checkInDate, checkOutDate,
-               roomSet, paymentAmountUSD, billStatus);
+               roomSet, paymentAmountUSD, paymentStatus, billStatus);
     }
 
     private List<Bill> toBillList(List<BillDto> billDtoList) throws DaoException, LocalisationException {
@@ -443,7 +438,7 @@ public class DtoToEntityConverter<E, D> {
         Double pricePerNightUSD = CurrencyUtil.convertToUSD(pricePerNight, defaultCurrency);
         List<FacilityDto> facilityDtoList = roomTypeDto.getFacilityList();
         Set<Facility> facilitySet = toFacilitySet(facilityDtoList);
-        String roomTypeStatus = roomTypeDto.getRoomTypeStatus();
+        State roomTypeStatus = toState(roomTypeDto.getRoomTypeStatus());
         return entityBuilder.buildRoomType(roomTypeId, roomTypeName, maxPersons, pricePerNightUSD,
                 facilitySet, roomTypeStatus, languageId);
     }
@@ -463,7 +458,7 @@ public class DtoToEntityConverter<E, D> {
         if (CollectionUtils.isNotEmpty(facilityDtoList)) {
             facilitySet = toFacilitySet(facilityDtoList);
         }
-        String roomTypeStatus = roomTypeDto.getRoomTypeStatus();
+        State roomTypeStatus = toState(roomTypeDto.getRoomTypeStatus());
         return entityBuilder.buildRoomType(roomTypeId, roomTypeName, maxPersons, pricePerNightUSD,
                 facilitySet, roomTypeStatus, languageId);
     }
@@ -498,7 +493,7 @@ public class DtoToEntityConverter<E, D> {
     private Facility toFacility(FacilityDto facilityDto) throws DaoException {
         Long facilityId = facilityDto.getFacilityId();
         String facilityName = facilityDto.getFacilityName();
-        String facilityStatus = facilityDto.getFacilityStatus();
+        State facilityStatus = toState(facilityDto.getFacilityStatus());
         Long languageId = systemLanguagesManager.getLanguageId(language);
         return entityBuilder.buildFacility(facilityId, facilityName, facilityStatus, languageId);
     }
@@ -533,7 +528,7 @@ public class DtoToEntityConverter<E, D> {
         Long locationId = locationDto.getLocationId();
         String country = locationDto.getCountry();
         String city = locationDto.getCity();
-        String locationStatus = locationDto.getLocationStatus();
+        State locationStatus = toState(locationDto.getLocationStatus());
         String language = locationDto.getLanguage();
         Long languageId = systemLanguagesManager.getLanguageId(language);
         return entityBuilder.buildLocation(locationId, country, city, locationStatus, languageId);
@@ -613,7 +608,7 @@ public class DtoToEntityConverter<E, D> {
         LocationDto locationDto = userHotelDto.getLocation();
         Location location = toLocation(locationDto);
         String hotelName = userHotelDto.getHotelName();
-        String hotelStatus = userHotelDto.getHotelStatus();
+        State hotelStatus = toState(userHotelDto.getHotelStatus());
         String language = userHotelDto.getLanguage();
         Long languageId = systemLanguagesManager.getLanguageId(language);
         return entityBuilder.buildHotel(hotelId, location, hotelName, hotelStatus, languageId);
@@ -633,7 +628,7 @@ public class DtoToEntityConverter<E, D> {
         LocationDto locationDto = hotelDto.getLocation();
         Location location = toLocation(locationDto);
         String hotelName = hotelDto.getHotelName();
-        String hotelStatus = hotelDto.getHotelStatus();
+        State hotelStatus = toState(hotelDto.getHotelStatus());
         String laguage = hotelDto.getLanguage();
         Long languageId = systemLanguagesManager.getLanguageId(laguage);
         return entityBuilder.buildHotel(hotelId, location, hotelName, hotelStatus, languageId);
@@ -655,9 +650,9 @@ public class DtoToEntityConverter<E, D> {
         String email = user.getEmail();
         String login = user.getUserName();
         String password = user.getPassword();
-        Set<String> roleSet = user.getRoleSet();
-        String userStatus = user.getUserStatus();
-        return new UserDto(userId, firstName, lastName, email, login, password, role, userStatus);
+        Set<String> roleSet = toStateDtoSet(user.getRoleSet());
+        String userStatus = toStateDto(user.getUserStatus());
+        return new UserDto(userId, firstName, lastName, email, login, password, roleSet, userStatus);
     }
 
     private List<UserDto> toUserDtoList(List<User> userList) {
@@ -676,8 +671,8 @@ public class DtoToEntityConverter<E, D> {
         String email = userDto.getEmail();
         String login = userDto.getLogin();
         String password = userDto.getPassword();
-        Set<String> roleSet = userDto.getRoleSet();
-        String userStatus = userDto.getUserStatus();
+        Set<State> roleSet = toStateSet(userDto.getRoleSet());
+        State userStatus = toState(userDto.getUserStatus());
         return entityBuilder.buildUser(userId, firstName, lastName, email, login, password, roleSet, userStatus);
     }
 
