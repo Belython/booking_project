@@ -38,7 +38,7 @@ public class Facility implements Serializable {
     private String facilityName;
     private Map<Long, FacilityTranslation> facilityTranslationMap;
     private Set<RoomType> roomTypeSet;
-    private State facilityStatus;
+    private State status;
 
     @Id
     @GeneratedValue(
@@ -70,7 +70,9 @@ public class Facility implements Serializable {
     @JoinColumn(
             name = "FACILITY_ID"
     )
-    @MapKeyColumn(name = "LANGUAGE_ID")
+    @MapKeyColumn(
+            name = "LANGUAGE_ID"
+    )
     public Map<Long, FacilityTranslation> getFacilityTranslationMap() {
         return facilityTranslationMap;
     }
@@ -94,12 +96,12 @@ public class Facility implements Serializable {
             name = "STATUS_ID",
             nullable = false
     )
-    public State getFacilityStatus() {
-        return facilityStatus;
+    public State getStatus() {
+        return status;
     }
 
-    public void setFacilityStatus(State facilityStatus) {
-        this.facilityStatus = facilityStatus;
+    public void setStatus(State facilityStatus) {
+        this.status = facilityStatus;
     }
 
     @Override
@@ -110,14 +112,14 @@ public class Facility implements Serializable {
         Facility facility = (Facility) o;
 
         if (!facilityId.equals(facility.facilityId)) return false;
-        return facilityStatus.equals(facility.facilityStatus);
+        return status.equals(facility.status);
 
     }
 
     @Override
     public int hashCode() {
         int result = facilityId.hashCode();
-        result = 31 * result + facilityStatus.hashCode();
+        result = 31 * result + status.hashCode();
         return result;
     }
 }

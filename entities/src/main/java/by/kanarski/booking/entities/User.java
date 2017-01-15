@@ -32,7 +32,7 @@ public class User implements Serializable {
     private String email;
     private String password;
     private Set<State> roleSet;
-    private State userStatus;
+    private State status;
 
     @Id
     @GeneratedValue(
@@ -52,7 +52,6 @@ public class User implements Serializable {
     }
 
     @Column(
-            unique = true,
             nullable = false
     )
     public String getFirstName() {
@@ -64,7 +63,6 @@ public class User implements Serializable {
     }
 
     @Column(
-            unique = true,
             nullable = false
     )
     public String getLastName() {
@@ -100,7 +98,6 @@ public class User implements Serializable {
     }
 
     @Column(
-            unique = true,
             nullable = false
     )
     public String getPassword() {
@@ -114,8 +111,14 @@ public class User implements Serializable {
     @ManyToMany
     @JoinTable(
             name = "USER_ROLES",
-            joinColumns = @JoinColumn(name = "USER_ID"),
-            inverseJoinColumns = @JoinColumn(name = "ROLE_ID")
+            joinColumns = @JoinColumn(
+                    name = "USER_ID",
+                    nullable = false
+            ),
+            inverseJoinColumns = @JoinColumn(
+                    name = "ROLE_ID",
+                    nullable = false
+            )
     )
     public Set<State> getRoleSet() {
         return roleSet;
@@ -127,14 +130,15 @@ public class User implements Serializable {
 
     @ManyToOne
     @JoinColumn(
-            name = "STATUS_ID"
+            name = "STATUS_ID",
+            nullable = false
     )
-    public State getUserStatus() {
-        return userStatus;
+    public State getStatus() {
+        return status;
     }
 
-    public void setUserStatus(State status) {
-        this.userStatus = status;
+    public void setStatus(State status) {
+        this.status = status;
     }
 
     @Override
@@ -151,7 +155,7 @@ public class User implements Serializable {
         if (!email.equals(user.email)) return false;
         if (!password.equals(user.password)) return false;
         if (!roleSet.equals(user.roleSet)) return false;
-        return userStatus.equals(user.userStatus);
+        return status.equals(user.status);
 
     }
 
@@ -164,7 +168,7 @@ public class User implements Serializable {
         result = 31 * result + email.hashCode();
         result = 31 * result + password.hashCode();
         result = 31 * result + roleSet.hashCode();
-        result = 31 * result + userStatus.hashCode();
+        result = 31 * result + status.hashCode();
         return result;
     }
 }

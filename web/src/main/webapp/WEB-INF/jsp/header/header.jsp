@@ -31,7 +31,7 @@
                     </sec:authorize>
                     <sec:authorize access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
                         <li>
-                            <a href="${context}/my_account" title="Settings"><spring:message code="account.dashboard"/></a>
+                            <a href="${context}/users/page" title="Settings"><spring:message code="account.dashboard"/></a>
                         </li>
                         <li>
                             <a href="${context}/logout">

@@ -5,7 +5,6 @@ import by.kanarski.booking.constants.Parameter;
 import by.kanarski.booking.constants.RegExp;
 import by.kanarski.booking.dto.DestinationDto;
 import by.kanarski.booking.dto.RoomDto;
-import by.kanarski.booking.dto.UserDto;
 import by.kanarski.booking.dto.hotel.HotelDto;
 import by.kanarski.booking.dto.location.LocationDto;
 import by.kanarski.booking.dto.roomType.RoomTypeDto;
@@ -24,28 +23,6 @@ import java.util.regex.Pattern;
 
 public class RequestParser {
     private RequestParser() {
-    }
-
-    public static UserDto parseUserDto(ServletRequest request) {
-        Long userId = null;
-        String userIdAsString = request.getParameter(Parameter.USER_ID);
-        if (!StringUtils.isBlank(userIdAsString)) {
-            userId = Long.valueOf(userIdAsString);
-        }
-        String firstName = request.getParameter(Parameter.USER_FIRST_NAME);
-        String lastName = request.getParameter(Parameter.USER_LAST_NAME);
-        String email = request.getParameter(Parameter.USER_EMAIL);
-        String login = request.getParameter(Parameter.USER_LOGIN);
-        String password = request.getParameter(Parameter.USER_PASSWORD);
-        String role = request.getParameter(Parameter.USER_ROLE);
-        String userStatus = request.getParameter(Parameter.USER_STATUS);
-        if (StringUtils.isBlank(role)) {
-            role = FieldValue.ROLE_USER;
-        }
-        if (StringUtils.isBlank(userStatus)) {
-            userStatus = FieldValue.STATUS_ACTIVE;
-        }
-        return new UserDto(userId, firstName, lastName, email, login, password, role, userStatus);
     }
 
 //    public static OrderDto parseOrderDto(HttpServletRequest request) throws ServiceException {
@@ -312,68 +289,7 @@ public class RequestParser {
         return locationDtoList;
     }
 
-    public static List<UserDto> parseUserDtoList(HttpServletRequest request) throws ServiceException{
-        List<UserDto> userDtoList = new ArrayList<>();
-        Map<String, String[]> parameterMap = request.getParameterMap();
-        Set<String> parameterSet = parameterMap.keySet();
-        String[] userIdArray = null;
-        String[] firstNameArray = null;
-        String[] lastNameArray = null;
-        String[] emailArray = null;
-        String[] loginArray = null;
-        String[] passwordArray = null;
-        String[] roleArray = null;
-        String[] userStatusArray = null;
-        for (String parameter : parameterSet) {
-            switch (parameter) {
-                case Parameter.USER_ID: {
-                    userIdArray = parameterMap.get(parameter);
-                    break;
-                }
-                case Parameter.USER_FIRST_NAME: {
-                    firstNameArray = parameterMap.get(parameter);
-                    break;
-                }
-                case Parameter.USER_LAST_NAME: {
-                    lastNameArray = parameterMap.get(parameter);
-                    break;
-                }
-                case Parameter.USER_EMAIL: {
-                    emailArray = parameterMap.get(parameter);
-                    break;
-                }
-                case Parameter.USER_LOGIN: {
-                    loginArray = parameterMap.get(parameter);
-                    break;
-                }
-                case Parameter.USER_PASSWORD: {
-                    passwordArray = parameterMap.get(parameter);
-                    break;
-                }
-                case Parameter.USER_ROLE: {
-                    roleArray = parameterMap.get(parameter);
-                    break;
-                }
-                case Parameter.USER_STATUS: {
-                    userStatusArray = parameterMap.get(parameter);
-                    break;
-                }
-            }
-        }
-        for (int i = 0; i < userIdArray.length; i++) {
-            long userId = Long.valueOf(userIdArray[i]);
-            String firstName = firstNameArray[i];
-            String lastName = lastNameArray[i];
-            String email = emailArray[i];
-            String login = loginArray[i];
-            String password = passwordArray[i];
-            String role = roleArray[i];
-            String userStatus = userStatusArray[i];
-            UserDto userDto = new UserDto(userId, firstName, lastName, email, login, password, role, userStatus);
-            userDtoList.add(userDto);
-        }
-        return userDtoList;
-    }
+
 
     public static List<HotelDto> parseHotelDtoList(HttpServletRequest request) throws ServiceException{
         List<HotelDto> hotelDtoList = new ArrayList<>();

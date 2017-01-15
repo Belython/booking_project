@@ -1,6 +1,6 @@
 package by.kanarski.booking.controllers;
 
-import by.kanarski.booking.constants.FieldValue;
+import by.kanarski.booking.constants.StateValue;
 import by.kanarski.booking.constants.Pages;
 import by.kanarski.booking.constants.Parameter;
 import by.kanarski.booking.constants.Value;
@@ -75,8 +75,8 @@ public class AdminController {
                 FieldDescriptor userEmailDescriptor = FieldBuilder.buildFreePrimitive();
                 FieldDescriptor userLoginDescriptor = FieldBuilder.buildFreePrimitive();
                 FieldDescriptor userPasswordDescriptor = FieldBuilder.buildFreePrimitive();
-                FieldDescriptor userRoleDescriptor = FieldBuilder.buildPrimitive(FieldValue.ROLE_LIST);
-                FieldDescriptor userStatusDescriptor = FieldBuilder.buildPrimitive(FieldValue.STATUS_LIST);
+                FieldDescriptor userRoleDescriptor = FieldBuilder.buildPrimitive(StateValue.ROLE_LIST);
+                FieldDescriptor userStatusDescriptor = FieldBuilder.buildPrimitive(StateValue.STATUS_LIST);
                 userDescriptors.put(Parameter.USER_ID, userIdDescriptor);
                 userDescriptors.put(Parameter.USER_FIRST_NAME, userFirstNameDescriptor);
                 userDescriptors.put(Parameter.USER_LAST_NAME, userLastNameDescriptor);
@@ -91,7 +91,7 @@ public class AdminController {
             model.addAttribute(Parameter.ALTER_TABLE_COMMAND, Value.ALTER_USERS);
             model.addAttribute(Parameter.DESCRIPTOR_LIST, descriptorList);
             model.addAttribute(Parameter.USER_LIST, userDtoList);
-            model.addAttribute(Parameter.STATUS_LIST, FieldValue.STATUS_LIST);
+            model.addAttribute(Parameter.STATUS_LIST, StateValue.STATUS_LIST);
             List<String> USER_COLUMN_LIST = Arrays.asList(
                     "tableRedactor.rowNumber",
                     "entityField.firstName",
@@ -152,8 +152,8 @@ public class AdminController {
         FieldDescriptor userEmailDescriptor = FieldBuilder.buildFreePrimitive();
         FieldDescriptor userLoginDescriptor = FieldBuilder.buildFreePrimitive();
         FieldDescriptor userPasswordDescriptor = FieldBuilder.buildFreePrimitive();
-        FieldDescriptor userRoleDescriptor = FieldBuilder.buildPrimitive(FieldValue.ROLE_LIST);
-        FieldDescriptor userStatusDescriptor = FieldBuilder.buildPrimitive(FieldValue.STATUS_LIST);
+        FieldDescriptor userRoleDescriptor = FieldBuilder.buildPrimitive(StateValue.ROLE_LIST);
+        FieldDescriptor userStatusDescriptor = FieldBuilder.buildPrimitive(StateValue.STATUS_LIST);
         userDescriptors.put(Parameter.USER_ID, userIdDescriptor);
         userDescriptors.put(Parameter.USER_FIRST_NAME, userFirstNameDescriptor);
         userDescriptors.put(Parameter.USER_LAST_NAME, userLastNameDescriptor);

@@ -14,6 +14,7 @@
     <import resource="classpath*:service-config.xml"/>
 
     <mvc:annotation-driven validator="validator"/>
+    <!--<mvc:default-servlet-handler />-->
     <context:component-scan base-package="by.kanarski.booking.controllers"/>
 
     <!-- show path to UI resources files-->
@@ -25,6 +26,26 @@
 
     <bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"/>
+    </bean>
+
+    <bean id="cnManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+        <property name="mediaTypes">
+            <map>
+                <entry key="json" value="application/json"/>
+                <entry key="xml" value="text/xml"/>
+                <entry key="htm" value="text/html"/>
+            </map>
+        </property>
+        <property name="defaultContentType" value="text/html"/>
+    </bean>
+
+    <bean id="restViewResolver" class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+        <property name="contentNegotiationManager" ref="cnManager"/>
+        <!--<property name="viewResolvers">-->
+            <!--<list>-->
+               <!---->
+            <!--</list>-->
+        <!--</property>-->
     </bean>
 
     <bean id="localeResolver"
@@ -45,15 +66,6 @@
 
     <bean name="validator"  class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
         <property name="validationMessageSource" ref="validationMessageSource"/>
-    </bean>
-
-    <bean id="customCoversionService"
-          class="by.kanarski.booking.utils.conver.service.CustomConversionServiceFactoryBean">
-        <property name="converters">
-            <set>
-                <bean class="by.kanarski.booking.utils.conver.support.UserToUserDtoConverter"/>
-            </set>
-        </property>
     </bean>
 
     <mvc:interceptors>

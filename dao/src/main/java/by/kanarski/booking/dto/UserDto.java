@@ -1,6 +1,5 @@
 package by.kanarski.booking.dto;
 
-import by.kanarski.booking.annotations.TargetEntity;
 import by.kanarski.booking.constants.RegExp;
 import by.kanarski.booking.constants.StateValue;
 import by.kanarski.booking.constants.ValidationMessage;
@@ -13,6 +12,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -35,36 +35,36 @@ public class UserDto extends User implements Serializable {
     @NotNull(message = ValidationMessage.EMPTY_FIELD)
     private String email;
 
-    @Pattern(regexp = RegExp.LOGIN, message = ValidationMessage.LOGIN_PATTERN)
+    @Pattern(regexp = RegExp.USERNAME, message = ValidationMessage.USERNAME_PATTERN)
     @NotNull(message = ValidationMessage.EMPTY_FIELD)
-    private String login;
+    private String userName;
 
     @Pattern(regexp = RegExp.PASSWORD, message = ValidationMessage.PASSWROD_PATTERN)
     @NotNull(message = ValidationMessage.EMPTY_FIELD)
     private String password;
-    private Set<String> roleSet;
+    private Set<String> roleSet = new HashSet<>();
     private String userStatus;
 
-    public UserDto(String firstName, String lastName, String email, String login, String password,
+    public UserDto(String firstName, String lastName, String email, String userName, String password,
                    Set<String> roleSet, String userStatus) {
-        super(login, password, getGrantedAuthorities(roleSet));
+        super(userName, password, getGrantedAuthorities(roleSet));
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.login = login;
+        this.userName = userName;
         this.password = password;
         this.roleSet = roleSet;
         this.userStatus = userStatus;
     }
 
-    public UserDto(Long userId, String firstName, String lastName, String email, String login, String password,
+    public UserDto(Long userId, String firstName, String lastName, String email, String userName, String password,
                    Set<String> roleSet, String userStatus) {
-        super(login, password, getGrantedAuthorities(roleSet));
+        super(userName, password, getGrantedAuthorities(roleSet));
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.login = login;
+        this.userName = userName;
         this.password = password;
         this.roleSet = roleSet;
         this.userStatus = userStatus;

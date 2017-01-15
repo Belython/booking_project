@@ -64,7 +64,10 @@ public class FacilityTranslation implements Serializable {
     }
 
     @ManyToOne
-    @JoinColumn(name = "FACILITY_ID")
+    @JoinColumn(
+            name = "FACILITY_ID",
+            nullable = false
+    )
     public Facility getFacility() {
         return facility;
     }
@@ -75,7 +78,8 @@ public class FacilityTranslation implements Serializable {
 
     @ManyToOne
     @JoinColumn(
-            name = "LANGUAGE_ID"
+            name = "LANGUAGE_ID",
+            nullable = false
     )
     public Language getLanguage() {
         return language;

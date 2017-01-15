@@ -1,9 +1,11 @@
 package by.kanarski.booking.controllers;
 
-import by.kanarski.booking.constants.*;
+import by.kanarski.booking.constants.Message;
+import by.kanarski.booking.constants.MessageKey;
+import by.kanarski.booking.constants.Pages;
+import by.kanarski.booking.constants.Parameter;
 import by.kanarski.booking.dto.UserDto;
 import by.kanarski.booking.exceptions.ServiceException;
-import by.kanarski.booking.exceptions.RegistrationException;
 import by.kanarski.booking.mail.send.SendMailSSL;
 import by.kanarski.booking.services.interfaces.IUserService;
 import by.kanarski.booking.utils.BookingExceptionHandler;
@@ -13,9 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -23,7 +23,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 import java.util.Currency;
 import java.util.Locale;
 
@@ -49,24 +48,6 @@ public class IndexController {
         }
         String currentViewName = (String) session.getAttribute(Parameter.CURRENT_VIEW_NAME);
         return currentViewName;
-    }
-
-    @RequestMapping(value = Pages.VALUE_REGISTER_USER, method = RequestMethod.POST)
-    public String registerUser(@Valid @ModelAttribute(Parameter.USER) UserDto user,
-                               BindingResult bindingResult, Model model, HttpSession session) {
-        String currentViewName = (String) session.getAttribute(Parameter.CURRENT_VIEW_NAME);
-        if (bindingResult.hasErrors()) {
-            model.addAttribute(Parameter.REGISTRATION_MESSAGE, MessageKey.EMPTY_FIELDS);
-            return currentViewName;
-        }
-        try {
-            userService.registerUser(user);
-        } catch (ServiceException e) {
-            BookingExceptionHandler.handleServiceException(e);
-        } catch (RegistrationException e) {
-            model.addAttribute(Parameter.REGISTRATION_MESSAGE, e.getMessage());
-        }
-        return Pages.REDIRECT_START;
     }
 
     @RequestMapping(value = Pages.VALUE_SET_LOCALE, method = RequestMethod.GET)

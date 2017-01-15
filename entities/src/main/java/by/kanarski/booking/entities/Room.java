@@ -29,7 +29,7 @@ public class Room implements Serializable {
     private RoomType roomType;
     private Integer roomNumber;
     private Set<Bill> billSet;
-    private State roomStatus;
+    private State status;
 
     @Id
     @GeneratedValue(
@@ -50,7 +50,8 @@ public class Room implements Serializable {
 
     @ManyToOne
     @JoinColumn(
-            name = "HOTEL_ID"
+            name = "HOTEL_ID",
+            nullable = false
     )
     public Hotel getHotel() {
         return hotel;
@@ -62,7 +63,8 @@ public class Room implements Serializable {
 
     @ManyToOne
     @JoinColumn(
-            name = "ROOM_TYPE_ID"
+            name = "ROOM_TYPE_ID",
+            nullable = false
     )
     public RoomType getRoomType() {
         return roomType;
@@ -73,7 +75,6 @@ public class Room implements Serializable {
     }
 
     @Column(
-            unique = true,
             nullable = false
     )
     public Integer getRoomNumber() {
@@ -95,14 +96,15 @@ public class Room implements Serializable {
 
     @ManyToOne
     @JoinColumn(
-            name = "STATUS_ID"
+            name = "STATUS_ID",
+            nullable = false
     )
-    public State getRoomStatus() {
-        return roomStatus;
+    public State getStatus() {
+        return status;
     }
 
-    public void setRoomStatus(State roomStatus) {
-        this.roomStatus = roomStatus;
+    public void setStatus(State roomStatus) {
+        this.status = roomStatus;
     }
 
     @Override
@@ -116,7 +118,7 @@ public class Room implements Serializable {
         if (!hotel.equals(room.hotel)) return false;
         if (!roomType.equals(room.roomType)) return false;
         if (!roomNumber.equals(room.roomNumber)) return false;
-        return roomStatus.equals(room.roomStatus);
+        return status.equals(room.status);
     }
 
     @Override
@@ -125,7 +127,7 @@ public class Room implements Serializable {
         result = 31 * result + hotel.hashCode();
         result = 31 * result + roomType.hashCode();
         result = 31 * result + roomNumber.hashCode();
-        result = 31 * result + roomStatus.hashCode();
+        result = 31 * result + status.hashCode();
         return result;
     }
 }

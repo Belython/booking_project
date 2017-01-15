@@ -7,12 +7,7 @@ import by.kanarski.booking.entities.facility.Facility;
 import by.kanarski.booking.entities.roomType.RoomType;
 import by.kanarski.booking.entities.roomType.RoomTypeTranslation;
 import by.kanarski.booking.utils.CurrencyUtil;
-import by.kanarski.booking.utils.EntityBuilder;
-import by.kanarski.booking.utils.SystemLanguagesManager;
-import by.kanarski.booking.utils.conver.service.IEntityConversionService;
 import by.kanarski.booking.utils.threadLocal.UserPreferences;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.core.convert.converter.Converter;
 
 import java.util.List;
@@ -23,15 +18,7 @@ import java.util.Set;
  * @version 1.0
  */
 
-public class RoomTypeToRoomTypeDtoConverter implements Converter<RoomType, RoomTypeDto> {
-
-    @Autowired
-    private EntityBuilder entityBuilder;
-    @Autowired
-    private SystemLanguagesManager systemLanguagesManager;
-    @Autowired
-    private ApplicationContext applicationContext;
-    private IEntityConversionService conversionService = applicationContext.getBean(IEntityConversionService.class);
+public class RoomTypeToRoomTypeDtoConverter extends EntityConverter implements Converter<RoomType, RoomTypeDto> {
 
     @Override
     public RoomTypeDto convert(RoomType roomType) {
@@ -43,8 +30,8 @@ public class RoomTypeToRoomTypeDtoConverter implements Converter<RoomType, RoomT
         Double pricePerNightUSD = roomType.getPricePerNight();
         Double pricePerNight = CurrencyUtil.convertFromUSD(pricePerNightUSD, SystemCurrency.DEFAULT);
         Set<Facility> facilitySet = roomType.getFacilitySet();
-        List<FacilityDto> facilityDtoList = conversionService.convertSetToList(facilitySet, FacilityDto.class);
-        String roomTypeStatus = conversionService.convert(roomType.getRoomTypeStatus(), String.class);
+        List<FacilityDto> facilityDtoList = getConversionService().convertSetToList(facilitySet, FacilityDto.class);
+        String roomTypeStatus = getConversionService().convert(roomType.getStatus(), String.class);
         return new RoomTypeDto(roomTypeId, roomTypeName, maxPersons,
                 pricePerNight, facilityDtoList, roomTypeStatus);
     }

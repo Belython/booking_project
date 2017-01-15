@@ -63,7 +63,8 @@ public class RoomTypeTranslation implements Serializable {
 
     @ManyToOne
     @JoinColumn(
-            name = "ROOM_TYPE_ID"
+            name = "ROOM_TYPE_ID",
+            nullable = false
     )
     public RoomType getRoomType() {
         return roomType;
@@ -75,7 +76,8 @@ public class RoomTypeTranslation implements Serializable {
 
     @ManyToOne
     @JoinColumn(
-            name = "LANGUAGE_ID"
+            name = "LANGUAGE_ID",
+            nullable = false
     )
     public Language getLanguage() {
         return language;

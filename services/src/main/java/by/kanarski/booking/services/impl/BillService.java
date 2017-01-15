@@ -2,7 +2,7 @@ package by.kanarski.booking.services.impl;
 
 import by.kanarski.booking.constants.AliasName;
 import by.kanarski.booking.constants.AliasValue;
-import by.kanarski.booking.constants.FieldValue;
+import by.kanarski.booking.constants.StateValue;
 import by.kanarski.booking.constants.SearchParameter;
 import by.kanarski.booking.dao.interfaces.IBillDao;
 import by.kanarski.booking.dto.BillDto;
@@ -21,7 +21,6 @@ import by.kanarski.booking.services.interfaces.IUserHotelService;
 import by.kanarski.booking.utils.BillUtil;
 import by.kanarski.booking.utils.BookingExceptionHandler;
 import by.kanarski.booking.utils.DateUtil;
-import by.kanarski.booking.utils.DtoToEntityConverter;
 import by.kanarski.booking.utils.filter.SearchFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -46,23 +45,22 @@ public class BillService extends ExtendedBaseService<Bill, BillDto> implements I
     @Override
     public List<BillDto> getByUserId(Long userId, int page, int perPage) throws ServiceException {
         List<BillDto> billDtoList = null;
-        SearchFilter searchFilter = SearchFilter.createAliasFilter(AliasName.CLIENT, AliasValue.USER)
+        SearchFilter searchFilter = SearchFilter.createAliasFilter(AliasName.USER, AliasValue.USER)
+                .addAlias(AliasName.STATUS, AliasValue.STATUS)
                 .addEqFilter(SearchParameter.USER_USERIDID, userId)
-                .addNeFilter(SearchParameter.BILLSTATUS, FieldValue.STATUS_DELETED);
+                .addNeFilter(SearchParameter.STATUS_STATENAME, StateValue.STATUS_DELETED);
         try {
             List<Bill> billList = billDao.getListByFilter(searchFilter, page, perPage);
-            billDtoList = converter.toDtoList(billList);
+            billDtoList = conversionService.convert(billList, BillDto.class);
         } catch (DaoException e) {
             BookingExceptionHandler.handleDaoException(e);
-        } catch (LocalisationException e) {
-            BookingExceptionHandler.handleLocalizationException(e);
         }
         return billDtoList;
     }
 
     @Override
     public void makeBill(BookRoomsForm bookRoomsForm, OrderDto orderDto) throws ServiceException {
-        HotelDto hotelDto = DtoToEntityConverter.toHotelDto(orderDto.getUserHotelDto());
+        HotelDto hotelDto = conversionService.convert(orderDto.getUserHotelDto(), HotelDto.class);
         UserHotelDto userHotelDto = userHotelService.getById(hotelDto.getHotelId());
         List<RoomDto> allRooms = userHotelDto.getRoomList();
         List<RoomDto> bookedRooms = BillUtil.chooseRoomsForBooking(bookRoomsForm, allRooms);
@@ -82,7 +80,7 @@ public class BillService extends ExtendedBaseService<Bill, BillDto> implements I
     public void cancelBooking(Long billId) throws ServiceException {
         try {
             Bill bill = billDao.getById(billId);
-            bill.setBillStatus(FieldValue.STATUS_CANCELED);
+            bill.getPaymentStatus().setStateName(StateValue.STATUS_CANCELED);
             billDao.update(bill);
         } catch (DaoException e) {
             BookingExceptionHandler.handleDaoException(e);
@@ -93,7 +91,7 @@ public class BillService extends ExtendedBaseService<Bill, BillDto> implements I
     public void payBIll(Long billId) throws ServiceException {
         try {
             Bill bill = billDao.getById(billId);
-            bill.setBillStatus(FieldValue.STATUS_PAID);
+            bill.getPaymentStatus().setStateName(StateValue.STATUS_PAID);
             billDao.update(bill);
         } catch (DaoException e) {
             BookingExceptionHandler.handleDaoException(e);
@@ -104,7 +102,7 @@ public class BillService extends ExtendedBaseService<Bill, BillDto> implements I
     public void deleteBill(Long billId) throws ServiceException {
         try {
             Bill bill = billDao.getById(billId);
-            bill.setBillStatus(FieldValue.STATUS_DELETED);
+            bill.getStatus().setStateName(StateValue.STATUS_DELETED);
             billDao.update(bill);
         } catch (DaoException e) {
             BookingExceptionHandler.handleDaoException(e);

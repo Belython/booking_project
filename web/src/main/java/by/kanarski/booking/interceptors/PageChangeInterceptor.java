@@ -28,7 +28,8 @@ public class PageChangeInterceptor extends HandlerInterceptorAdapter {
                            HttpServletResponse response, Object handler,
                            ModelAndView modelAndView) throws Exception {
         HttpSession session = request.getSession();
-        String viewName = modelAndView.getViewName();
+
+        String viewName = (modelAndView == null) ? null : modelAndView.getViewName();
         if (viewName != null) {
             if (Pages.VIEW_LIST.contains(viewName)) {
                 session.setAttribute(Parameter.CURRENT_VIEW_NAME, viewName);

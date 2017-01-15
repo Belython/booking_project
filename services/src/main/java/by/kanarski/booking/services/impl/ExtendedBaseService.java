@@ -1,26 +1,13 @@
 package by.kanarski.booking.services.impl;
 
 import by.kanarski.booking.dao.interfaces.IExtendedBaseDao;
-import by.kanarski.booking.dto.BillDto;
-import by.kanarski.booking.dto.RoomDto;
-import by.kanarski.booking.dto.UserDto;
-import by.kanarski.booking.dto.hotel.HotelDto;
-import by.kanarski.booking.dto.hotel.UserHotelDto;
-import by.kanarski.booking.dto.location.LocationDto;
-import by.kanarski.booking.dto.roomType.RoomTypeDto;
-import by.kanarski.booking.entities.Bill;
-import by.kanarski.booking.entities.Room;
-import by.kanarski.booking.entities.User;
-import by.kanarski.booking.entities.hotel.Hotel;
-import by.kanarski.booking.entities.location.Location;
-import by.kanarski.booking.entities.roomType.RoomType;
 import by.kanarski.booking.exceptions.DaoException;
-import by.kanarski.booking.exceptions.LocalisationException;
 import by.kanarski.booking.exceptions.ServiceException;
 import by.kanarski.booking.services.interfaces.IExtendedBaseService;
 import by.kanarski.booking.utils.BookingExceptionHandler;
-import by.kanarski.booking.utils.DtoToEntityConverter;
+import by.kanarski.booking.utils.conver.service.IEntityConversionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.support.GenericConversionService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -42,33 +29,17 @@ public class ExtendedBaseService<E, D> implements IExtendedBaseService<E, D> {
     @Autowired
     private IExtendedBaseDao<E> extendedBaseDao;
 
-    protected DtoToEntityConverter<E, D> converter = new DtoToEntityConverter<>(getEntityClass(), getDtoClass());
-
-    protected DtoToEntityConverter<Location, LocationDto> locationConverter =
-            new DtoToEntityConverter<>(Location.class, LocationDto.class);
-    protected DtoToEntityConverter<Hotel, HotelDto> hotelConverter =
-            new DtoToEntityConverter<>(Hotel.class, HotelDto.class);
-    protected DtoToEntityConverter<Hotel, UserHotelDto> userHotelConverter =
-            new DtoToEntityConverter<>(Hotel.class, UserHotelDto.class);
-    protected DtoToEntityConverter<RoomType, RoomTypeDto> roomTypeConverter =
-            new DtoToEntityConverter<>(RoomType.class, RoomTypeDto.class);
-    protected DtoToEntityConverter<Room, RoomDto> roomConverter =
-            new DtoToEntityConverter<>(Room.class, RoomDto.class);
-    protected DtoToEntityConverter<Bill, BillDto> billConverter =
-            new DtoToEntityConverter<>(Bill.class, BillDto.class);
-    protected DtoToEntityConverter<User, UserDto> userConverter =
-            new DtoToEntityConverter<>(User.class, UserDto.class);
+    @Autowired
+    protected IEntityConversionService conversionService;
 
     @Override
     public void add(D dto) throws ServiceException {
         setEntityClass();
         try {
-            E entity = converter.toEntity(dto);
+            E entity = conversionService.convert(dto, getEntityClass());
             extendedBaseDao.add(entity);
         } catch (DaoException e) {
             BookingExceptionHandler.handleDaoException(e);
-        } catch (LocalisationException e) {
-            BookingExceptionHandler.handleLocalizationException(e);
         }
     }
 
@@ -78,11 +49,9 @@ public class ExtendedBaseService<E, D> implements IExtendedBaseService<E, D> {
         D dto = null;
         try {
             E entity = extendedBaseDao.getById(id);
-            dto = converter.toDto(entity);
+            dto = conversionService.convert(entity, getDtoClass());
         } catch (DaoException e) {
             BookingExceptionHandler.handleDaoException(e);
-        } catch (LocalisationException e) {
-            BookingExceptionHandler.handleLocalizationException(e);
         }
         return dto;
     }
@@ -91,12 +60,10 @@ public class ExtendedBaseService<E, D> implements IExtendedBaseService<E, D> {
     public void update(D dto) throws ServiceException {
         setEntityClass();
         try {
-            E entity = converter.toEntity(dto);
+            E entity = conversionService.convert(dto, getEntityClass());
             extendedBaseDao.update(entity);
         } catch (DaoException e) {
             BookingExceptionHandler.handleDaoException(e);
-        } catch (LocalisationException e) {
-            BookingExceptionHandler.handleLocalizationException(e);
         }
     }
 
@@ -104,12 +71,10 @@ public class ExtendedBaseService<E, D> implements IExtendedBaseService<E, D> {
     public void delete(D dto) throws ServiceException {
         setEntityClass();
         try {
-            E entity = converter.toEntity(dto);
+            E entity = conversionService.convert(dto, getEntityClass());
             extendedBaseDao.delete(entity);
         } catch (DaoException e) {
             BookingExceptionHandler.handleDaoException(e);
-        } catch (LocalisationException e) {
-            BookingExceptionHandler.handleLocalizationException(e);
         }
     }
 
@@ -119,11 +84,9 @@ public class ExtendedBaseService<E, D> implements IExtendedBaseService<E, D> {
         List<D> dtoList = null;
         try {
             List<E> enittyList = extendedBaseDao.getAll();
-            dtoList = converter.toDtoList(enittyList);
+            dtoList = conversionService.convert(enittyList, getDtoClass());
         } catch (DaoException e) {
             BookingExceptionHandler.handleDaoException(e);
-        } catch (LocalisationException e) {
-            BookingExceptionHandler.handleLocalizationException(e);
         }
         return dtoList;
     }
@@ -133,12 +96,10 @@ public class ExtendedBaseService<E, D> implements IExtendedBaseService<E, D> {
     public void updateList(List<D> dtoList) throws ServiceException {
         setEntityClass();
         try {
-            List<E> entityList = converter.toEntityList(dtoList);
+            List<E> entityList = conversionService.convert(dtoList, getEntityClass());
             extendedBaseDao.updateList(entityList);
         } catch (DaoException e) {
             BookingExceptionHandler.handleDaoException(e);
-        } catch (LocalisationException e) {
-            BookingExceptionHandler.handleLocalizationException(e);
         }
     }
 
@@ -146,12 +107,10 @@ public class ExtendedBaseService<E, D> implements IExtendedBaseService<E, D> {
     public void addList(List<D> dtoList) throws ServiceException {
         setEntityClass();
         try {
-            List<E> entityList = converter.toEntityList(dtoList);
+            List<E> entityList = conversionService.convert(dtoList, getEntityClass());
             extendedBaseDao.addList(entityList);
         } catch (DaoException e) {
             BookingExceptionHandler.handleDaoException(e);
-        } catch (LocalisationException e) {
-            BookingExceptionHandler.handleLocalizationException(e);
         }
     }
 

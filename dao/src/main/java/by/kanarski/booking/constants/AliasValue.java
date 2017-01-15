@@ -7,7 +7,7 @@ package by.kanarski.booking.constants;
 
 public class AliasValue {
 
-    public static final String CLIENT = AliasName.CLIENT;
+    public static final String STATUS = AliasName.STATUS;
     public static final String USER = AliasName.USER;
     public static final String LANGUAGE = AliasName.LANGUAGE;
     public static final String LOCATION = AliasName.LOCATION;

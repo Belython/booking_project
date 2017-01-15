@@ -1,6 +1,6 @@
 package by.kanarski.booking.dto.location;
 
-import by.kanarski.booking.constants.FieldValue;
+import by.kanarski.booking.constants.StateValue;
 import by.kanarski.booking.dto.abstr.LocalizableDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,7 +22,7 @@ public class LocationDto extends LocalizableDto implements Serializable {
         super();
         this.country = country;
         this.city = city;
-        this.locationStatus = FieldValue.STATUS_ACTIVE;
+        this.locationStatus = StateValue.STATUS_ACTIVE;
     }
 
     public LocationDto() {

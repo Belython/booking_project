@@ -14,6 +14,7 @@ import by.kanarski.booking.entities.hotel.HotelTranslation;
 import by.kanarski.booking.entities.location.Location;
 import by.kanarski.booking.entities.location.LocationTranslation;
 import by.kanarski.booking.entities.roomType.RoomType;
+import by.kanarski.booking.entities.roomType.RoomTypeFilter;
 import by.kanarski.booking.entities.roomType.RoomTypeTranslation;
 import by.kanarski.booking.exceptions.DaoException;
 import by.kanarski.booking.utils.filter.SearchFilter;
@@ -51,26 +52,33 @@ public class EntityBuilder {
     private IFacilityDao facilityDao;
 
     @Autowired
+    private IStateDao stateDao;
+
+    @Autowired
     private ServiceHelper serviceHelper;
 
     @Autowired
     private SystemLanguagesManager systemLanguagesManager;
 
     public User buildUser(Long userId, String firstName, String lastName, String email, String login,
-                          String password, Set<State> roleSet, State userStatus) throws DaoException {
-        User user;
-        if (userId != null) {
-            user = userDao.getById(userId);
-        } else {
-            user = new User();
+                          String password, Set<State> roleSet, State userStatus) {
+        User user = null;
+        try {
+            if (userId != null) {
+                user = userDao.getById(userId);
+            } else {
+                user = new User();
+            }
+            user.setFirstName(firstName);
+            user.setLastName(lastName);
+            user.setEmail(email);
+            user.setUserName(login);
+            user.setPassword(password);
+            user.setRoleSet(roleSet);
+            user.setStatus(userStatus);
+        } catch (DaoException e) {
+
         }
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        user.setEmail(email);
-        user.setUserName(login);
-        user.setPassword(password);
-        user.setRoleSet(roleSet);
-        user.setUserStatus(userStatus);
         return user;
     }
 
@@ -99,7 +107,7 @@ public class EntityBuilder {
             locationTranslationMap.put(languageId, locationTranslation);
             location.setCountry(notLocalizedCountry);
             location.setCity(notLocalizedCity);
-            location.setLocationStatus(locationStatus);
+            location.setStatus(locationStatus);
         } catch (DaoException e) {
 
         }
@@ -129,7 +137,7 @@ public class EntityBuilder {
             hotelTranslationMap.put(languageId, hotelTranslation);
             hotel.setHotelName(notLocalizedHotelName);
             hotel.setLocation(location);
-            hotel.setHotelStatus(hotelStatus);
+            hotel.setStatus(hotelStatus);
         } catch (DaoException e) {
 
         }
@@ -162,11 +170,31 @@ public class EntityBuilder {
             roomType.setMaxPersons(maxPersons);
             roomType.setPricePerNight(pricePerNight);
             roomType.setFacilitySet(facilitySet);
-            roomType.setRoomTypeStatus(roomTypeStatus);
+            roomType.setStatus(roomTypeStatus);
         } catch (DaoException e) {
 
         }
         return roomType;
+    }
+
+    public RoomTypeFilter buildRoomTypeFilter(String roomTypeName, Integer maxPersons, Double pricePerNight,
+                                              Set<Facility> facilitySet, State roomTypeStatus) {
+        RoomTypeFilter roomTypeFilter = null;
+        try {
+            String language = UserPreferences.getRequestedLocale().getLanguage();
+            Long languageId = systemLanguagesManager.getLanguageId(language);
+            String notLocalizedRoomTypeName = serviceHelper.getNotLocalizedRoomTypeName(roomTypeName, language);
+            RoomTypeTranslation roomTypeTranslation = new RoomTypeTranslation();
+            roomTypeTranslation.setRoomTypeName(roomTypeName);
+            roomTypeFilter.setRoomTypeName(notLocalizedRoomTypeName);
+            roomTypeFilter.setMaxPersons(maxPersons);
+            roomTypeFilter.setPricePerNight(pricePerNight);
+            roomTypeFilter.setFacilitySet(facilitySet);
+            roomTypeFilter.setStatus(roomTypeStatus);
+        } catch (DaoException e) {
+
+        }
+        return roomTypeFilter;
     }
 
     public Room buildRoom(Long roomId, Hotel hotel, RoomType roomType, Integer roomNumber, State roomStatus) {
@@ -180,7 +208,7 @@ public class EntityBuilder {
             room.setHotel(hotel);
             room.setRoomType(roomType);
             room.setRoomNumber(roomNumber);
-            room.setRoomStatus(roomStatus);
+            room.setStatus(roomStatus);
         } catch (DaoException e) {
 
         }
@@ -204,7 +232,7 @@ public class EntityBuilder {
             bill.setRoomSet(roomSet);
             bill.setPaymentAmount(paymentAmount);
             bill.setPaymentStatus(paymentStatus);
-            bill.setBillStatus(billStatus);
+            bill.setStatus(billStatus);
         } catch (DaoException e) {
 
         }
@@ -232,7 +260,7 @@ public class EntityBuilder {
             facilityTranslation.setFacilityName(facilityName);
             facilityTranslationMap.put(languageId, facilityTranslation);
             facility.setFacilityName(notLocalizedFacilityName);
-            facility.setFacilityStatus(facilityStatus);
+            facility.setStatus(facilityStatus);
         } catch (DaoException e) {
 
         }
@@ -251,6 +279,20 @@ public class EntityBuilder {
 
         }
         return facility;
+    }
+
+    public State buildState(String stateDto) {
+        State state = null;
+        try {
+            SearchFilter searchFilter = SearchFilter.createBasicEqFilter("stateName", stateDto);
+            state = stateDao.getUniqueByFilter(searchFilter);
+            if (state == null) {
+                state = new State(null, stateDto);
+            }
+        } catch (DaoException e) {
+
+        }
+        return state;
     }
 
 }

@@ -1,5 +1,8 @@
 package by.kanarski.booking.constants;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @author Dzmitry Kanarski
  * @version 1.0
@@ -15,5 +18,9 @@ public class StateValue {
     public static final String ROLE_USER = "ROLE_USER";
     public static final String ROLE_ADMIN = "ROLE_ADMIN";
     public static final String ROLE_ANONYMOUS = "ROLE_ANONYMOUS";
+
+    public static final List<String> STATUS_LIST = Arrays.asList(STATUS_ACTIVE, STATUS_DELETED);
+    public static final List<String> ROLE_LIST = Arrays.asList(ROLE_ANONYMOUS, ROLE_USER, ROLE_ADMIN);
+
 
 }

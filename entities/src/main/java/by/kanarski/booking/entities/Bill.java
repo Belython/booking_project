@@ -32,7 +32,7 @@ public class Bill implements Serializable {
     private Set<Room> roomSet;
     private Double paymentAmount;
     private State paymentStatus;
-    private State billStatus;
+    private State status;
 
     @Id
     @GeneratedValue(
@@ -64,14 +64,15 @@ public class Bill implements Serializable {
 
     @ManyToOne
     @JoinColumn(
-            name = "USER_ID"
+            name = "USER_ID",
+            nullable = false
     )
     public User getUser() {
         return user;
     }
 
-    public void setUser(User client) {
-        this.user = client;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Column(
@@ -110,8 +111,14 @@ public class Bill implements Serializable {
     @ManyToMany
     @JoinTable(
             name = "BILL_ROOMS",
-            joinColumns = @JoinColumn(name = "BILL_ID"),
-            inverseJoinColumns = @JoinColumn(name = "ROOM_ID")
+            joinColumns = @JoinColumn(
+                    name = "BILL_ID",
+                    nullable = false
+            ),
+            inverseJoinColumns = @JoinColumn(
+                    name = "ROOM_ID",
+                    nullable = false
+            )
     )
     public Set<Room> getRoomSet() {
         return roomSet;
@@ -150,12 +157,12 @@ public class Bill implements Serializable {
             name = "STATUS_ID",
             nullable = false
     )
-    public State getBillStatus() {
-        return billStatus;
+    public State getStatus() {
+        return status;
     }
 
-    public void setBillStatus(State billStatus) {
-        this.billStatus = billStatus;
+    public void setStatus(State billStatus) {
+        this.status = billStatus;
     }
 
     @Override
@@ -173,7 +180,7 @@ public class Bill implements Serializable {
         if (!checkOutDate.equals(bill.checkOutDate)) return false;
         if (!roomSet.equals(bill.roomSet)) return false;
         if (!paymentAmount.equals(bill.paymentAmount)) return false;
-        return billStatus.equals(bill.billStatus);
+        return status.equals(bill.status);
 
     }
 
@@ -187,7 +194,7 @@ public class Bill implements Serializable {
         result = 31 * result + checkOutDate.hashCode();
         result = 31 * result + roomSet.hashCode();
         result = 31 * result + paymentAmount.hashCode();
-        result = 31 * result + billStatus.hashCode();
+        result = 31 * result + status.hashCode();
         return result;
     }
 }

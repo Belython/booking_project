@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT)
@@ -41,7 +42,10 @@ public class AuthenticationService implements UserDetailsService {
 
     private List<GrantedAuthority> getGrantedAuthorities(UserDto userDto) {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(userDto.getRole()));
+        Set<String> roleSet = userDto.getRoleSet();
+        for (String role : roleSet) {
+            authorities.add(new SimpleGrantedAuthority(role));
+        }
         return authorities;
     }
 

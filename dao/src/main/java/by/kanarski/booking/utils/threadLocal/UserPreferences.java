@@ -32,9 +32,12 @@ public class UserPreferences {
     }
 
     public static Locale getRequestedLocale() {
-        Locale locale = (Locale) ThreadLocalUtil.REQUESTED_LOCALE.get(SystemLocale.DEFAULT);
+        Locale locale = (Locale) ThreadLocalUtil.REQUESTED_LOCALE.get(getLocale());
         if (locale == null) {
-            locale = Locale.getDefault();
+            locale = getLocale();
+            if (locale == null) {
+                locale = Locale.getDefault();
+            }
         }
         return locale;
     }

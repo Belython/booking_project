@@ -35,11 +35,9 @@ public class RoomService extends ExtendedBaseService<Room, RoomDto> implements I
                 .addEqFilter(SearchParameter.HOTEL_HOTELID, hotelId);
         try {
             List<Room> roomList = roomDao.getListByFilter(searchFilter, page, perPage);
-            roomDtoList = converter.toDtoList(roomList);
+            roomDtoList = conversionService.convert(roomList, RoomDto.class);
         } catch (DaoException e) {
             BookingExceptionHandler.handleDaoException(e);
-        } catch (LocalisationException e) {
-            BookingExceptionHandler.handleLocalizationException(e);
         }
         return roomDtoList;
     }

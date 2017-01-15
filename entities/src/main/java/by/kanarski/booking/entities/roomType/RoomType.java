@@ -35,7 +35,7 @@ public class RoomType implements Serializable {
     private Set<Facility> facilitySet = new TreeSet<>();
     private Set<Room> roomSet = new HashSet<>();
     private Map<Long, RoomTypeTranslation> roomTypeTranslationMap = new HashMap<>();
-    private State roomTypeStatus;
+    private State status;
 
     @Id
     @GeneratedValue(
@@ -88,8 +88,14 @@ public class RoomType implements Serializable {
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(
             name = "ROOM_TYPE_FACILITIES",
-            joinColumns = @JoinColumn(name = "ROOM_TYPE_ID"),
-            inverseJoinColumns = @JoinColumn(name = "FACILITY_ID")
+            joinColumns = @JoinColumn(
+                    name = "ROOM_TYPE_ID",
+                    nullable = false
+            ),
+            inverseJoinColumns = @JoinColumn(
+                    name = "FACILITY_ID",
+                    nullable = false
+            )
     )
     public Set<Facility> getFacilitySet() {
         return facilitySet;
@@ -109,8 +115,12 @@ public class RoomType implements Serializable {
     }
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ROOM_TYPE_ID")
-    @MapKeyColumn(name = "LANGUAGE_ID")
+    @JoinColumn(
+            name = "ROOM_TYPE_ID"
+    )
+    @MapKeyColumn(
+            name = "LANGUAGE_ID"
+    )
     public Map<Long, RoomTypeTranslation> getRoomTypeTranslationMap() {
         return roomTypeTranslationMap;
     }
@@ -124,12 +134,12 @@ public class RoomType implements Serializable {
             name = "STATUS_ID",
             nullable = false
     )
-    public State getRoomTypeStatus() {
-        return roomTypeStatus;
+    public State getStatus() {
+        return status;
     }
 
-    public void setRoomTypeStatus(State roomTypeStatus) {
-        this.roomTypeStatus = roomTypeStatus;
+    public void setStatus(State roomTypeStatus) {
+        this.status = roomTypeStatus;
     }
 
     @Override
@@ -143,7 +153,7 @@ public class RoomType implements Serializable {
         if (!maxPersons.equals(roomType.maxPersons)) return false;
         if (!pricePerNight.equals(roomType.pricePerNight)) return false;
         if (!facilitySet.equals(roomType.facilitySet)) return false;
-        return roomTypeStatus.equals(roomType.roomTypeStatus);
+        return status.equals(roomType.status);
 
     }
 
@@ -153,7 +163,7 @@ public class RoomType implements Serializable {
         result = 31 * result + maxPersons.hashCode();
         result = 31 * result + pricePerNight.hashCode();
         result = 31 * result + facilitySet.hashCode();
-        result = 31 * result + roomTypeStatus.hashCode();
+        result = 31 * result + status.hashCode();
         return result;
     }
 }

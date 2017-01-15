@@ -7,7 +7,7 @@ package by.kanarski.booking.constants;
 
 public class ValidationMessage {
 
-    public static final String LOGIN_PATTERN = "{error.loginPattern}";
+    public static final String USERNAME_PATTERN = "{error.userNamePattern}";
     public static final String PASSWROD_PATTERN = "{error.passwordPattern}";
     public static final String EMAIL_PATTERN = "{error.emailPattern}";
     public static final String NAME_PATTERN = "{error.namePattern}";

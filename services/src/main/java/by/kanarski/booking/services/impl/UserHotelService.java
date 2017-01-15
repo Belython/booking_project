@@ -10,7 +10,7 @@ import by.kanarski.booking.dto.hotel.UserHotelDto;
 import by.kanarski.booking.dto.roomType.RoomTypeDto;
 import by.kanarski.booking.entities.User;
 import by.kanarski.booking.entities.hotel.Hotel;
-import by.kanarski.booking.entities.roomType.RoomType;
+import by.kanarski.booking.entities.roomType.RoomTypeFilter;
 import by.kanarski.booking.exceptions.DaoException;
 import by.kanarski.booking.exceptions.LocalisationException;
 import by.kanarski.booking.exceptions.ServiceException;
@@ -40,11 +40,11 @@ public class UserHotelService extends ExtendedBaseService<Hotel, UserHotelDto> i
         try {
             SearchOrder searchOrder = toOrder(orderDto);
             List<Hotel> hotelList = hotelDao.getListByOrder(searchOrder, page, perPage);
-            userHotelDtoList = converter.toDtoList(hotelList);
+            userHotelDtoList = conversionService.convert(hotelList, UserHotelDto.class);
         } catch (DaoException e) {
             BookingExceptionHandler.handleDaoException(e);
         } catch (LocalisationException e) {
-            BookingExceptionHandler.handleLocalizationException(e);
+
         }
         return userHotelDtoList;
     }
@@ -55,11 +55,9 @@ public class UserHotelService extends ExtendedBaseService<Hotel, UserHotelDto> i
         try {
             Long hotelId = orderDto.getHotel().getHotelId();
             Hotel hotel = hotelDao.getById(hotelId);
-            userHotelDto = converter.toDto(hotel);
+            userHotelDto = conversionService.convert(hotel, UserHotelDto.class);
         } catch (DaoException e) {
             BookingExceptionHandler.handleDaoException(e);
-        } catch (LocalisationException e) {
-            BookingExceptionHandler.handleLocalizationException(e);
         }
         return userHotelDto;
     }
@@ -81,12 +79,12 @@ public class UserHotelService extends ExtendedBaseService<Hotel, UserHotelDto> i
         UserDto userDto = orderDto.getUser();
         User user = null;
         if (userDto != null) {
-            user = userConverter.toEntity(userDto);
+            user = conversionService.convert(userDto, User.class);
         }
         RoomTypeDto roomTypeDto = orderDto.getRoomType();
-        RoomType roomType = (roomTypeDto != null) ? roomTypeConverter.safeToEntity(roomTypeDto) : null;
+        RoomTypeFilter roomTypeFilter = (roomTypeDto != null) ? conversionService.convert(roomTypeDto, RoomTypeFilter.class) : null;
         HotelDto hotelDto = orderDto.getHotel();
-        Hotel hotel = hotelConverter.toEntity(hotelDto);
+        Hotel hotel = conversionService.convert(hotelDto, Hotel.class);
         Integer totalPersons = orderDto.getTotalPersons();
         Integer totalRooms = orderDto.getTotalRooms();
         Long checkInDate = DateUtil.parseDate(orderDto.getCheckInDate());
@@ -98,7 +96,7 @@ public class UserHotelService extends ExtendedBaseService<Hotel, UserHotelDto> i
         } else {
             sortPriceAsc = true;
         }
-        return new SearchOrder(user, hotel, roomType, totalPersons, totalRooms, checkInDate, checkOutDate, sortPriceAsc);
+        return new SearchOrder(user, hotel, roomTypeFilter, totalPersons, totalRooms, checkInDate, checkOutDate, sortPriceAsc);
     }
 
 }

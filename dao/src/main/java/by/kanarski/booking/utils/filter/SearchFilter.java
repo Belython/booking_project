@@ -120,8 +120,9 @@ public class SearchFilter {
         return aliasMap.get(aliasName);
     }
 
-    public void addAlias(String aliasName, String alias) {
+    public SearchFilter addAlias(String aliasName, String alias) {
         aliasMap.put(aliasName, alias);
+        return this;
     }
 
     public static SearchFilter createBasicEqFilter(String property, Object value) {

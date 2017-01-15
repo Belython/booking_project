@@ -34,7 +34,7 @@ public class Hotel implements Serializable {
     private Location location;
     private Set<Room> roomSet;
     private Map<Long, HotelTranslation> hotelTranslationMap;
-    private State hotelStatus;
+    private State status;
 
     @Id
     @GeneratedValue(
@@ -64,7 +64,8 @@ public class Hotel implements Serializable {
 
     @ManyToOne
     @JoinColumn(
-            name = "LOCATION_ID"
+            name = "LOCATION_ID",
+            nullable = false
     )
     public Location getLocation() {
         return location;
@@ -87,7 +88,9 @@ public class Hotel implements Serializable {
     @JoinColumn(
             name = "HOTEL_ID"
     )
-    @MapKeyColumn(name = "LANGUAGE_ID")
+    @MapKeyColumn(
+            name = "LANGUAGE_ID"
+    )
     public Map<Long, HotelTranslation> getHotelTranslationMap() {
         return hotelTranslationMap;
     }
@@ -101,12 +104,12 @@ public class Hotel implements Serializable {
             name = "STATUS_ID",
             nullable = false
     )
-    public State getHotelStatus() {
-        return hotelStatus;
+    public State getStatus() {
+        return status;
     }
 
-    public void setHotelStatus(State hotelStatus) {
-        this.hotelStatus = hotelStatus;
+    public void setStatus(State hotelStatus) {
+        this.status = hotelStatus;
     }
 
     @Override
@@ -118,7 +121,7 @@ public class Hotel implements Serializable {
 
         if (!hotelId.equals(hotel.hotelId)) return false;
         if (!location.equals(hotel.location)) return false;
-        return hotelStatus.equals(hotel.hotelStatus);
+        return status.equals(hotel.status);
 
     }
 
@@ -126,7 +129,7 @@ public class Hotel implements Serializable {
     public int hashCode() {
         int result = hotelId.hashCode();
         result = 31 * result + location.hashCode();
-        result = 31 * result + hotelStatus.hashCode();
+        result = 31 * result + status.hashCode();
         return result;
     }
 }

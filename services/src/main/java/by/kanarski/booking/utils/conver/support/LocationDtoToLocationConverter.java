@@ -1,14 +1,8 @@
 package by.kanarski.booking.utils.conver.support;
 
 import by.kanarski.booking.dto.location.LocationDto;
+import by.kanarski.booking.entities.State;
 import by.kanarski.booking.entities.location.Location;
-import by.kanarski.booking.entities.location.LocationTranslation;
-import by.kanarski.booking.utils.EntityBuilder;
-import by.kanarski.booking.utils.SystemLanguagesManager;
-import by.kanarski.booking.utils.conver.service.IEntityConversionService;
-import by.kanarski.booking.utils.threadLocal.UserPreferences;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.core.convert.converter.Converter;
 
 /**
@@ -16,24 +10,15 @@ import org.springframework.core.convert.converter.Converter;
  * @version 1.0
  */
 
-public class LocationDtoToLocationConverter implements Converter<LocationDto, Location> {
-
-    @Autowired
-    private EntityBuilder entityBuilder;
-    @Autowired
-    private SystemLanguagesManager systemLanguagesManager;
-    @Autowired
-    private ApplicationContext applicationContext;
-    private IEntityConversionService conversionService = applicationContext.getBean(IEntityConversionService.class);
+public class LocationDtoToLocationConverter extends EntityConverter implements Converter<LocationDto, Location> {
 
     @Override
     public Location convert(LocationDto locationDto) {
-        Long languageId = systemLanguagesManager.getLanguageId(UserPreferences.getRequestedLocale().getLanguage());
-        Long locationId = location.getLocationId();
-        LocationTranslation locationTranslation = location.getLocationTranslationMap().get(languageId);
-        String country = locationTranslation.getCountry();
-        String city = locationTranslation.getCity();
-        String locationStatus = conversionService.convert(location.getLocationStatus(), String.class);
-        return new LocationDto(locationId, country, city, locationStatus);
+        Long locationId = locationDto.getLocationId();
+        String country = locationDto.getCountry();
+        String city = locationDto.getCity();
+        State locationStatus = getConversionService().convert(locationDto.getLocationStatus(), State.class);
+        String language = locationDto.getLanguage();
+        return entityBuilder.buildLocation(locationId, country, city, locationStatus);
     }
 }

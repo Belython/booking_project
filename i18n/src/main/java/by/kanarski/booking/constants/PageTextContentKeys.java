@@ -25,7 +25,7 @@ public class PageTextContentKeys {
             "registration.firstName",
             "registration.lastName",
             "registration.email",
-            "registration.login",
+            "registration.userName",
             "registration.password",
             "registration.register"
     );
@@ -75,7 +75,7 @@ public class PageTextContentKeys {
     );
 
     public static final List<String> HEADER = Arrays.asList(
-            "header.login",
+            "header.userName",
             "header.password",
             "header.signIn",
             "header.signOut",

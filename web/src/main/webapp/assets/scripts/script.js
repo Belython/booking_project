@@ -1,7 +1,7 @@
 function main() {
     
     $(".payBillBtn").click(function (event) {
-        payBill(event)
+        payBill(event);
     });
 
     $("#destination").change(function (event) {
@@ -18,6 +18,10 @@ function main() {
 
     $("#forgotPasswordRef").click(function (event) {
         forgotPassword();
+    });
+
+    $("#register").click(function (event) {
+        addUser();
     });
 
     function payBill(event) {
@@ -50,24 +54,7 @@ function main() {
             destinations.append(possibleDestinations);
         }, "html");
     }
-
-    // function getPosstibleDestinations(event) {
-    //     var destination = $("#destination");
-    //     var destinationName = destination.attr("name");
-    //     var destinantonValue = destination.val();
-    //     var token = "{{csrf_token()}}";
-    //     var action = "get_destinations";
-    //     $.post(action, {
-    //         destination: destinantonValue
-    //     },
-    //     function (data, status) {
-    //         var possibleDestinations = $(data);
-    //         var destinations = $("#destinations");
-    //         destinations.empty();
-    //         destinations.append(possibleDestinations);
-    //     }, "html");
-    // }
-
+    
     function login() {
         $("#loginBlock").css("display", "block");
     }
@@ -81,6 +68,7 @@ function main() {
         $("#loginBlock").css("display", "none");
         $("#remindPasswordBlock").css("display", "block");
     }
+    
 }
 
 $("document").ready(main);

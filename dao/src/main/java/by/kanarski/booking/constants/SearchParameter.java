@@ -13,7 +13,7 @@ public class SearchParameter {
 
     public static final String USERID = "userId";
     public static final String USER_USERIDID = "user.userId";
-    public static final String LOGIN = "login";
+    public static final String LOGIN = "userName";
     public static final String PASSWORD = "password";
     public static final String EMAIL= "email";
     public static final String FIRSTNAME = "firstName";
@@ -49,7 +49,7 @@ public class SearchParameter {
     //Facility parameters
     public static final String FACILITYNAME = "facilityName";
 
-    //Bill parameters
-    public static final String BILLSTATUS = "billStatus";
+    //Common parameters
+    public static final String STATUS_STATENAME = "status.stateName";
 
 }

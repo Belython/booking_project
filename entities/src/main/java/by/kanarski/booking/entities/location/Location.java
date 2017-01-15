@@ -35,7 +35,7 @@ public class Location implements Serializable {
     private String city;
     private Set<Hotel> hotelSet;
     private Map<Long, LocationTranslation> locationTranslationMap = new HashMap<>();
-    private State locationStatus;
+    private State status;
 
     @Id
     @GeneratedValue(
@@ -85,7 +85,9 @@ public class Location implements Serializable {
     @JoinColumn(
             name = "LOCATION_ID"
     )
-    @MapKeyColumn(name = "LANGUAGE_ID")
+    @MapKeyColumn(
+            name = "LANGUAGE_ID"
+    )
     public Map<Long, LocationTranslation> getLocationTranslationMap() {
         return locationTranslationMap;
     }
@@ -99,12 +101,12 @@ public class Location implements Serializable {
             name = "STATUS_ID",
             nullable = false
     )
-    public State getLocationStatus() {
-        return locationStatus;
+    public State getStatus() {
+        return status;
     }
 
-    public void setLocationStatus(State locationStatus) {
-        this.locationStatus = locationStatus;
+    public void setStatus(State locationStatus) {
+        this.status = locationStatus;
     }
 
     @Override
@@ -115,14 +117,14 @@ public class Location implements Serializable {
         Location location = (Location) o;
 
         if (!locationId.equals(location.locationId)) return false;
-        return locationStatus.equals(location.locationStatus);
+        return status.equals(location.status);
 
     }
 
     @Override
     public int hashCode() {
         int result = locationId.hashCode();
-        result = 31 * result + locationStatus.hashCode();
+        result = 31 * result + status.hashCode();
         return result;
     }
 }

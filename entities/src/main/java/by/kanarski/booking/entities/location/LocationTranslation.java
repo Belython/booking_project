@@ -22,7 +22,7 @@ import java.io.Serializable;
 public class LocationTranslation implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private Long locationTransalteId;
+    private Long locationTranslationId;
     private String country;
     private String city;
     private Location location;
@@ -37,12 +37,12 @@ public class LocationTranslation implements Serializable {
             unique = true,
             nullable = false
     )
-    public Long getLocationTransalteId() {
-        return locationTransalteId;
+    public Long getLocationTranslationId() {
+        return locationTranslationId;
     }
 
-    public void setLocationTransalteId(Long locationTransalteId) {
-        this.locationTransalteId = locationTransalteId;
+    public void setLocationTranslationId(Long locationTransalteId) {
+        this.locationTranslationId = locationTransalteId;
     }
 
     @Column(
@@ -99,7 +99,7 @@ public class LocationTranslation implements Serializable {
 
         LocationTranslation that = (LocationTranslation) o;
 
-        if (!locationTransalteId.equals(that.locationTransalteId)) return false;
+        if (!locationTranslationId.equals(that.locationTranslationId)) return false;
         if (!country.equals(that.country)) return false;
         if (!city.equals(that.city)) return false;
         return location != null ? location.equals(that.location) : that.location == null;
@@ -107,7 +107,7 @@ public class LocationTranslation implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = locationTransalteId.hashCode();
+        int result = locationTranslationId.hashCode();
         result = 31 * result + country.hashCode();
         result = 31 * result + city.hashCode();
         result = 31 * result + (location != null ? location.hashCode() : 0);

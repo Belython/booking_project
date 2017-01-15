@@ -2,6 +2,7 @@ package by.kanarski.booking.services.impl;
 
 import by.kanarski.booking.constants.AliasName;
 import by.kanarski.booking.constants.AliasValue;
+import by.kanarski.booking.constants.FieldValue;
 import by.kanarski.booking.constants.SearchParameter;
 import by.kanarski.booking.dao.interfaces.IHotelDao;
 import by.kanarski.booking.dao.interfaces.ILocationDao;
@@ -11,7 +12,6 @@ import by.kanarski.booking.dto.location.LocationDto;
 import by.kanarski.booking.entities.hotel.Hotel;
 import by.kanarski.booking.entities.location.Location;
 import by.kanarski.booking.exceptions.DaoException;
-import by.kanarski.booking.exceptions.LocalisationException;
 import by.kanarski.booking.exceptions.ServiceException;
 import by.kanarski.booking.services.interfaces.IHotelService;
 import by.kanarski.booking.utils.BookingExceptionHandler;
@@ -48,11 +48,9 @@ public class HotelService extends ExtendedBaseService<Hotel, HotelDto> implement
             String hotelName = serviceHelper.getNotLocalizedHotelName(localizedHotelName, language);
             SearchFilter hotelFilter = SearchFilter.createBasicEqFilter(SearchParameter.HOTELNAME, hotelName);
             List<Hotel> hotelList = hotelDao.getListByFilter(hotelFilter, page, perPage);
-            hotelDtoList = converter.toDtoList(hotelList);
+            hotelDtoList = conversionService.convert(hotelList, HotelDto.class);
         } catch (DaoException e) {
             BookingExceptionHandler.handleDaoException(e);
-        } catch (LocalisationException e) {
-            BookingExceptionHandler.handleLocalizationException(e);
         }
         return hotelDtoList;
     }
@@ -67,11 +65,9 @@ public class HotelService extends ExtendedBaseService<Hotel, HotelDto> implement
             SearchFilter hotelFilter = SearchFilter.createAliasFilter(AliasName.LOCATION, AliasValue.LANGUAGE);
             hotelFilter.addEqFilter(SearchParameter.LOCATION_COUNTRY, country);
             List<Hotel> hotelList = hotelDao.getListByFilter(hotelFilter, page, perPage);
-            hotelDtoList = converter.toDtoList(hotelList);
+            hotelDtoList = conversionService.convert(hotelList, HotelDto.class);
         } catch (DaoException e) {
             BookingExceptionHandler.handleDaoException(e);
-        } catch (LocalisationException e) {
-            BookingExceptionHandler.handleLocalizationException(e);
         }
         return hotelDtoList;
     }
@@ -86,11 +82,9 @@ public class HotelService extends ExtendedBaseService<Hotel, HotelDto> implement
             SearchFilter hotelFilter = SearchFilter.createAliasFilter(AliasName.LOCATION, AliasValue.LANGUAGE);
             hotelFilter.addEqFilter(SearchParameter.LOCATION_CITY, city);
             List<Hotel> hotelList = hotelDao.getListByFilter(hotelFilter, page, perPage);
-            hotelDtoList = converter.toDtoList(hotelList);
+            hotelDtoList = conversionService.convert(hotelList, HotelDto.class);
         } catch (DaoException e) {
             BookingExceptionHandler.handleDaoException(e);
-        } catch (LocalisationException e) {
-            BookingExceptionHandler.handleLocalizationException(e);
         }
         return hotelDtoList;
     }
@@ -138,19 +132,17 @@ public class HotelService extends ExtendedBaseService<Hotel, HotelDto> implement
             List<HotelDto> partHotelDtoList = new ArrayList<>();
 
             if (hotelList.size() != 0) {
-                partHotelDtoList = converter.toDtoList(hotelList);
+                partHotelDtoList = conversionService.convert(hotelList, HotelDto.class);
             }
             List<LocationDto> partLocationDtoList = new ArrayList<>();
             if (locationList.size() != 0) {
-                partLocationDtoList = locationConverter.toDtoList(locationList);
+                partLocationDtoList = conversionService.convert(locationList, LocationDto.class);
             }
-            List<HotelDto> anyHotelDtoList = converter.toAnyHotelDtoList(partLocationDtoList);
+            List<HotelDto> anyHotelDtoList = toAnyHotelDtoList(partLocationDtoList);
             hotelDtoList = partHotelDtoList;
             hotelDtoList.addAll(anyHotelDtoList);
         } catch (DaoException e) {
             BookingExceptionHandler.handleDaoException(e);
-        } catch (LocalisationException e) {
-            BookingExceptionHandler.handleLocalizationException(e);
         }
         return hotelDtoList;
     }
@@ -170,12 +162,22 @@ public class HotelService extends ExtendedBaseService<Hotel, HotelDto> implement
                     .addEqFilter(SearchParameter.LOCATION_COUNTRY, notLocalizedCountry)
                     .addEqFilter(SearchParameter.LOCATION_CITY, notLocalizedCity);
             Hotel hotel = hotelDao.getUniqueByFilter(searchFilter);
-            hotelDto = converter.toDto(hotel);
+            hotelDto = conversionService.convert(hotel, HotelDto.class);
         } catch (DaoException e) {
             BookingExceptionHandler.handleDaoException(e);
-        } catch (LocalisationException e) {
-            BookingExceptionHandler.handleLocalizationException(e);
         }
         return hotelDto;
+    }
+
+    private HotelDto toAnyHotelDto(LocationDto locationDto) {
+        return new HotelDto(locationDto, FieldValue.ANY_HOTEL);
+    }
+
+    private List<HotelDto> toAnyHotelDtoList(List<LocationDto> locationDtoList) {
+        List<HotelDto> hotelDtoList = new ArrayList<>();
+        for (LocationDto locationDto : locationDtoList) {
+            hotelDtoList.add(toAnyHotelDto(locationDto));
+        }
+        return hotelDtoList;
     }
 }

@@ -14,8 +14,8 @@
             <sf:form id="loginForm" name="loginForm" method="POST" action="login" modelAttribute="user">
                 <h1><spring:message code="header.loginForm"/></h1>
                 <div class="f-item">
-                    <label for="login"><spring:message code="header.login"/></label>
-                    <sf:input type="text" id="login" name="login" path="login" autofocus="autofocus" required="required"/>
+                    <label for="user_name"><spring:message code="header.userName"/></label>
+                    <sf:input type="text" id="user_name" name="userName" path="userName" autofocus="autofocus" required="required"/>
 
                 </div>
                 <div class="f-item">
@@ -38,7 +38,7 @@
                         <spring:message code="header.register"/>
                     </a>
                 </p>
-                <input type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}" />
+                <%--<input type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}" />--%>
                 <input type="submit" id="signIn" value="<spring:message code="header.signIn"/>" class="gradient-button"/>
             </sf:form>
         </div>

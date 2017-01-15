@@ -21,7 +21,35 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean"
+    <bean class="by.kanarski.booking.utils.conver.support.EntityConverter" abstract="true"/>
+
+    <bean id="entitiyCoversionService"
+          class="by.kanarski.booking.utils.conver.service.CustomConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <bean class="by.kanarski.booking.utils.conver.support.BillDtoToBillConverter"/>
+                <bean class="by.kanarski.booking.utils.conver.support.BillToBillDtoConverter"/>
+                <bean class="by.kanarski.booking.utils.conver.support.FacilityDtoToFacilityConverter"/>
+                <bean class="by.kanarski.booking.utils.conver.support.FacilityToFacilityDtoConverter"/>
+                <bean class="by.kanarski.booking.utils.conver.support.HotelDtoToHotelConverter"/>
+                <bean class="by.kanarski.booking.utils.conver.support.HotelToHotelDtoConverter"/>
+                <bean class="by.kanarski.booking.utils.conver.support.HotelToUserHotelDtoConverter"/>
+                <bean class="by.kanarski.booking.utils.conver.support.UserHotelDtoToHotelConverter"/>
+                <bean class="by.kanarski.booking.utils.conver.support.UserHotelDtoToHotelDtoConverter"/>
+                <bean class="by.kanarski.booking.utils.conver.support.LocationDtoToLocationConverter"/>
+                <bean class="by.kanarski.booking.utils.conver.support.LocationToLocationDtoConverter"/>
+                <bean class="by.kanarski.booking.utils.conver.support.RoomDtoToRoomConverter"/>
+                <bean class="by.kanarski.booking.utils.conver.support.RoomToRoomDtoConverter"/>
+                <bean class="by.kanarski.booking.utils.conver.support.RoomTypeDtoToRoomTypeConverter"/>
+                <bean class="by.kanarski.booking.utils.conver.support.RoomTypeToRoomTypeDtoConverter"/>
+                <bean class="by.kanarski.booking.utils.conver.support.RoomTypeDtoToRoomTypeFilterConverter"/>
+                <bean class="by.kanarski.booking.utils.conver.support.StateDtoToStateConverter"/>
+                <bean class="by.kanarski.booking.utils.conver.support.StateToStateDtoConverter"/>
+                <bean class="by.kanarski.booking.utils.conver.support.UserDtoToUserConverter"/>
+                <bean class="by.kanarski.booking.utils.conver.support.UserToUserDtoConverter"/>
+            </set>
+        </property>
+    </bean>
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
 </beans>

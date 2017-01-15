@@ -65,16 +65,15 @@ public class State implements Serializable {
 
         State state = (State) o;
 
-        if (!stateId.equals(state.stateId)) return false;
+        if (stateId != null ? !stateId.equals(state.stateId) : state.stateId != null) return false;
         return stateName.equals(state.stateName);
 
     }
 
     @Override
     public int hashCode() {
-        int result = stateId.hashCode();
+        int result = stateId != null ? stateId.hashCode() : 0;
         result = 31 * result + stateName.hashCode();
         return result;
     }
-
 }
