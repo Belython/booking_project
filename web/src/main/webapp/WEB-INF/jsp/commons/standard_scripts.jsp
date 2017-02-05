@@ -17,10 +17,15 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
 <%--ANGULAR--%>
-<%--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.js"></script>--%>
-<%--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-mocks.js"></script>--%>
-<%--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-resource.js"></script>--%>
-<%--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-route.js"></script>--%>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-mocks.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-resource.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-route.js"></script>
+<script type="text/javascript" src="${context}/assets/scripts/angular/hotelsSearch.module.js"></script>
+<script type="text/javascript" src="${context}/assets/scripts/angular/destinationsSearch/destinationsSearch.service.js"></script>
+<script type="text/javascript" src="${context}/assets/scripts/angular/hotelsSearch/hotelsSearch.service.js"></script>
+<script type="text/javascript" src="${context}/assets/scripts/angular/destinationsSearch/destinationsSearch.controller.js"></script>
+
 <script type="text/javascript" src="${context}/assets/scripts/parsers.js"></script>
 <script type="text/javascript" src="${context}/assets/scripts/ajax_scripts.js"></script>
 

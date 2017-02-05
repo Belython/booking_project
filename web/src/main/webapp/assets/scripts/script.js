@@ -4,9 +4,9 @@ function main() {
         payBill(event);
     });
 
-    $("#destination").change(function (event) {
-        getPosstibleDestinations(event);
-    });
+    // $("#destination").change(function (event) {
+    //     getPosstibleDestinations(event);
+    // });
 
     $("#loginRef").click(function (event) {
         login();
@@ -39,21 +39,21 @@ function main() {
         });
     }
 
-    function getPosstibleDestinations(event) {
-        var destination = $("#destination");
-        var destinationName = destination.attr("name");
-        var destinantonValue = destination.val();
-        var destinationParameter = destinationName + "=" + destinantonValue;
-        var context = "/booking/";
-        var action = "get_destinations";
-        var url = context + action + "?" + destinationParameter;
-        $.get(url, function (data, status) {
-            var possibleDestinations = $(data);
-            var destinations = $("#destinations");
-            destinations.empty();
-            destinations.append(possibleDestinations);
-        }, "html");
-    }
+    // function getPosstibleDestinations(event) {
+    //     var destination = $("#destination");
+    //     var destinationName = destination.attr("name");
+    //     var destinantonValue = destination.val();
+    //     var destinationParameter = destinationName + "=" + destinantonValue;
+    //     var context = "/booking/";
+    //     var action = "get_destinations";
+    //     var url = context + action + "?" + destinationParameter;
+    //     $.get(url, function (data, status) {
+    //         var possibleDestinations = $(data);
+    //         var destinations = $("#destinations");
+    //         destinations.empty();
+    //         destinations.append(possibleDestinations);
+    //     }, "html");
+    // }
     
     function login() {
         $("#loginBlock").css("display", "block");

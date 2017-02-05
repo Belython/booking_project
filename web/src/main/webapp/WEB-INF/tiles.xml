@@ -13,7 +13,7 @@
     <definition name="index" template="/WEB-INF/jsp/layouts/index.jsp">
         <put-attribute name="header" value="/WEB-INF/jsp/header/header.jsp"/>
         <put-attribute name="slider" value="/WEB-INF/jsp/commons/slider.jsp"/>
-        <put-attribute name="search" value="/WEB-INF/jsp/body/search.jsp"/>
+        <put-attribute name="search" value="/WEB-INF/jsp/body/a_search.jsp"/>
         <put-attribute name="footer" value="/WEB-INF/jsp/footer/footer.jsp"/>
     </definition>
 

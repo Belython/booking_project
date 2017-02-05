@@ -22,6 +22,7 @@ public class OrderDto extends LocalizableDto implements Serializable {
 
     private static final Long serialVersionUID = 1L;
 
+    private String destination;
     private UserDto user;
     private HotelDto hotel;
     private UserHotelDto userHotelDto;
@@ -33,6 +34,11 @@ public class OrderDto extends LocalizableDto implements Serializable {
     private String checkInDate;
     private String checkOutDate;
     private String sortPrice;
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+        this.hotel = DestinationDto.getHotelDto(destination);
+    }
 
     public void setFacilityList(List<String> facilityList) {
         this.facilityList = facilityList;

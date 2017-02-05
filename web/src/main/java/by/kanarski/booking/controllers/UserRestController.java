@@ -11,13 +11,16 @@ import by.kanarski.booking.exceptions.ServiceException;
 import by.kanarski.booking.services.interfaces.IBillService;
 import by.kanarski.booking.services.interfaces.IUserService;
 import by.kanarski.booking.utils.BookingExceptionHandler;
+import by.kanarski.booking.utils.CustomModel;
 import by.kanarski.booking.utils.SystemLogger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +33,7 @@ import java.util.List;
  * @version 1.0
  */
 
-@Controller
+@RestController
 @RequestMapping("/users")
 public class UserRestController {
 
@@ -42,13 +45,16 @@ public class UserRestController {
     private SystemLogger logger = SystemLogger.getInstance().setSender(UserRestController.class);
 
     @RequestMapping(method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public UserDto registerUser(@Valid @ModelAttribute(Parameter.USER) UserDto user,
-                                BindingResult bindingResult, Model model, HttpSession session) {
+    public ResponseEntity<?> registerUser(@Valid @ModelAttribute(Parameter.USER) UserDto user,
+                                                    BindingResult bindingResult, Model model, HttpSession session) {
+        CustomModel responseModel = new CustomModel();
+        HttpHeaders headers = new HttpHeaders();
         if (bindingResult.hasErrors()) {
-            model.addAttribute(Parameter.REGISTRATION_MESSAGE, MessageKey.EMPTY_FIELDS);
-            return user;
+            List<FieldError> errorList = bindingResult.getFieldErrors();
+            responseModel.addAttribute(Parameter.REGISTRATION_MESSAGE, MessageKey.EMPTY_FIELDS);
+            headers.add("Response-Status", "validation error");
+            return new ResponseEntity<>(errorList, headers, HttpStatus.OK);
         }
         try {
             userService.registerUser(user);
@@ -57,7 +63,9 @@ public class UserRestController {
         } catch (RegistrationException e) {
             model.addAttribute(Parameter.REGISTRATION_MESSAGE, e.getMessage());
         }
-        return user;
+//        resp.put("all Ok", "OKKK");
+//        headers.add("Response-Status", "OK");
+        return new ResponseEntity<>("Succesful created", HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/page", method = RequestMethod.GET)

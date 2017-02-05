@@ -8,6 +8,8 @@
 	<c:set var="display" value="block"/>
 </c:if>
 
+<script type="text/javascript" src="${context}/assets/scripts/angular_scripts.js"></script>
+
 <div id="registrationBlock" class="lightbox" style="display:${display};">
 	<div class="lb-wrap">
 		<a href="#" class="close">x</a>
@@ -16,32 +18,31 @@
 				<h1><spring:message code="registration.registration"/></h1>
 				<div class="f-item">
 					<label for="r_first_name"><spring:message code="registration.firstName"/></label>
-					<%--<sf:input ng-model="r_firstname" type="text" id="r_first_name" name="firstName" path="firstName"/>--%>
-					<input ng-model="r_firstname" type="text" id="r_first_name" name="firstName"/>
+					<input type="text" id="r_first_name" name="firstName" ng-model="user.firstname" />
 					<p id="r_firstName_error" class="error-data display-none"></p>
 					<sf:errors path="firstName" cssClass="error-data"/>
 				</div>
 				<div class="f-item">
 					<label for="r_last_name"><spring:message code="registration.lastName"/></label>
-					<sf:input type="text" id="r_last_name" name="lastName" path="lastName"/>
+					<input type="text" id="r_last_name" name="lastName" ng-model="user.lastname"/>
 					<p id="r_lastName_error" class="error-data display-none"></p>
 					<sf:errors path="lastName" cssClass="error-data"/>
 				</div>
 				<div class="f-item">
 					<label for="r_email"><spring:message code="registration.email"/></label>
-					<sf:input type="email" id="r_email" name="email" path="email"/>
+					<input type="email" id="r_email" name="email" ng-model="user.email" />
 					<p id="r_email_error" class="error-data display-none"></p>
 					<sf:errors path="email" cssClass="error-data"/>
 				</div>
 				<div class="f-item">
 					<label for="r_user_name"><spring:message code="registration.userName"/></label>
-					<sf:input type="text" id="r_user_name" name="userName" path="userName"/>
+					<input type="text" id="r_user_name" name="userName" ng-model="user.username"/>
 					<p id="r_userName_error" class="error-data display-none"></p>
 					<sf:errors path="userName" cssClass="error-data"/>
 				</div>
 				<div class="f-item">
 					<label for="r_password"><spring:message code="registration.password"/></label>
-					<sf:input type="password" id="r_password" name="password" path="password"/>
+					<input type="password" id="r_password" name="password" ng-model="user.password"/>
 					<p id="r_password_error" class="error-data display-none"></p>
 					<sf:errors path="password" cssClass="error-data"/>
 				</div>
@@ -50,6 +51,7 @@
 				<%--<input type="submit" id="register" name="register" value="<spring:message code='registration.register'/>" class="gradient-button"/>--%>
 				<input type="button" id="register" name="register"
 					   value="<spring:message code='registration.register'/>" class="gradient-button"/>
+				<button type="button"><spring:message code='registration.register'/></button>
 			</sf:form>
 		</div>
 	</div>

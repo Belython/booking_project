@@ -21,7 +21,6 @@ public class RoomTypeDto extends LocalizableDto implements Serializable {
 
     public RoomTypeDto(Long roomTypeId, String roomTypeName, Integer maxPersons, Double pricePerNight,
                       List<FacilityDto> facilityList, String roomTypeStatus) {
-        super();
         this.roomTypeId = roomTypeId;
         this.roomTypeName = roomTypeName;
         this.maxPersons = maxPersons;
