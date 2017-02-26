@@ -7,13 +7,10 @@ import org.hibernate.annotations.*;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import java.io.Serializable;
 
 @Entity
-@GenericGenerator(
-        name = "increment",
-        strategy = "increment"
-)
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @DynamicInsert
 @DynamicUpdate
@@ -21,28 +18,20 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class LocationTranslation implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    private Long locationTranslationId;
+    private static final long serialVersionUID = 3592113648776981107L;
+    private LocationLanguagePK locationLanguagePK;
     private String country;
     private String city;
     private Location location;
     private Language language;
 
-    @Id
-    @GeneratedValue(
-            strategy = GenerationType.IDENTITY,
-            generator = "increment"
-    )
-    @Column(
-            unique = true,
-            nullable = false
-    )
-    public Long getLocationTranslationId() {
-        return locationTranslationId;
+    @EmbeddedId
+    public LocationLanguagePK getLocationLanguagePK() {
+        return locationLanguagePK;
     }
 
-    public void setLocationTranslationId(Long locationTransalteId) {
-        this.locationTranslationId = locationTransalteId;
+    public void setLocationLanguagePK(LocationLanguagePK locationLanguagePK) {
+        this.locationLanguagePK = locationLanguagePK;
     }
 
     @Column(
@@ -67,9 +56,12 @@ public class LocationTranslation implements Serializable {
         this.city = city;
     }
 
+    @MapsId("LOCATION_ID")
     @ManyToOne
     @JoinColumn(
-            name = "LOCATION_ID"
+            name = "LOCATION_ID",
+            nullable = false,
+            foreignKey = @ForeignKey(name = "FK_LOCATION_TRANSLATION_LOCATION")
     )
     public Location getLocation() {
         return location;
@@ -79,9 +71,12 @@ public class LocationTranslation implements Serializable {
         this.location = location;
     }
 
+    @MapsId("LANGUAGE_ID")
     @ManyToOne
     @JoinColumn(
-            name = "LANGUAGE_ID"
+            name = "LANGUAGE_ID",
+            nullable = false,
+            foreignKey = @ForeignKey(name = "FK_LOCATION_TRANSLATION_LANGUAGE")
     )
     public Language getLanguage() {
         return language;
@@ -91,7 +86,6 @@ public class LocationTranslation implements Serializable {
         this.language = language;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -99,18 +93,21 @@ public class LocationTranslation implements Serializable {
 
         LocationTranslation that = (LocationTranslation) o;
 
-        if (!locationTranslationId.equals(that.locationTranslationId)) return false;
+        if (!locationLanguagePK.equals(that.locationLanguagePK)) return false;
         if (!country.equals(that.country)) return false;
         if (!city.equals(that.city)) return false;
-        return location != null ? location.equals(that.location) : that.location == null;
+        if (!location.equals(that.location)) return false;
+        return language.equals(that.language);
+
     }
 
     @Override
     public int hashCode() {
-        int result = locationTranslationId.hashCode();
+        int result = locationLanguagePK.hashCode();
         result = 31 * result + country.hashCode();
         result = 31 * result + city.hashCode();
-        result = 31 * result + (location != null ? location.hashCode() : 0);
+        result = 31 * result + location.hashCode();
+        result = 31 * result + language.hashCode();
         return result;
     }
 }

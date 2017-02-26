@@ -53,12 +53,12 @@ public class UserService extends ExtendedBaseService<User, UserDto> implements I
 
     @Override
     public boolean isNewUser(UserDto userDto) throws ServiceException {
-        return (getByLogin(userDto.getUserName()) != null);
+        return (getByLogin(userDto.getUserName()) == null);
     }
 
     @Override
     public void registerUser(UserDto userDto) throws ServiceException, RegistrationException {
-        if (isNewUser(userDto)) {
+        if (!isNewUser(userDto)) {
             String messageKey = MessageKey.USER_EXISTS;
             throw new RegistrationException(messageKey);
         }

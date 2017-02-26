@@ -24,8 +24,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class State implements Serializable {
 
-    private static final Long serialVersionUID = 1L;
-
+    private static final long serialVersionUID = 2321941631442869449L;
     private Long stateId;
     private String stateName;
 

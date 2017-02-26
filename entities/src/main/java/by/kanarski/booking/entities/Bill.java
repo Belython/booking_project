@@ -21,8 +21,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class Bill implements Serializable {
 
-    private static final Long serialVersionUID = 1L;
-
+    private static final long serialVersionUID = -330426138420591524L;
     private Long billId;
     private Long bookingDate;
     private User user;
@@ -65,7 +64,8 @@ public class Bill implements Serializable {
     @ManyToOne
     @JoinColumn(
             name = "USER_ID",
-            nullable = false
+            nullable = false,
+            foreignKey = @ForeignKey(name = "FK_BILL_USER")
     )
     public User getUser() {
         return user;
@@ -113,11 +113,13 @@ public class Bill implements Serializable {
             name = "BILL_ROOMS",
             joinColumns = @JoinColumn(
                     name = "BILL_ID",
-                    nullable = false
+                    nullable = false,
+                    foreignKey = @ForeignKey(name = "FK_BILL_ROOM")
             ),
             inverseJoinColumns = @JoinColumn(
                     name = "ROOM_ID",
-                    nullable = false
+                    nullable = false,
+                    foreignKey = @ForeignKey(name = "FK_ROOM_BILL")
             )
     )
     public Set<Room> getRoomSet() {
@@ -142,7 +144,8 @@ public class Bill implements Serializable {
     @ManyToOne
     @JoinColumn(
             name = "PAYMENT_STATUS_ID",
-            nullable = false
+            nullable = false,
+            foreignKey = @ForeignKey(name = "FK_PAYMENT_STATUS")
     )
     public State getPaymentStatus() {
         return paymentStatus;
@@ -155,7 +158,8 @@ public class Bill implements Serializable {
     @ManyToOne
     @JoinColumn(
             name = "STATUS_ID",
-            nullable = false
+            nullable = false,
+            foreignKey = @ForeignKey(name = "FK_BILL_STATUS")
     )
     public State getStatus() {
         return status;

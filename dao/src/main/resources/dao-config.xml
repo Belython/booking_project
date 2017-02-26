@@ -10,7 +10,7 @@
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop.xsd">
     <context:annotation-config/>
-    <context:component-scan base-package="by.kanarski.booking.dao"/>
+    <context:component-scan base-package="by.kanarski.booking"/>
 
     <aop:aspectj-autoproxy/>
     <aop:config proxy-target-class="true"/>

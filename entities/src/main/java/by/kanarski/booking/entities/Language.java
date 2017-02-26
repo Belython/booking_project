@@ -25,8 +25,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class Language implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
+    private static final long serialVersionUID = 1105569357651281531L;
     private Long languageId;
     private String name;
 

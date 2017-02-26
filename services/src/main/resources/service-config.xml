@@ -30,7 +30,7 @@
                 <bean class="by.kanarski.booking.utils.conver.support.BillDtoToBillConverter"/>
                 <bean class="by.kanarski.booking.utils.conver.support.BillToBillDtoConverter"/>
                 <bean class="by.kanarski.booking.utils.conver.support.FacilityDtoToFacilityConverter"/>
-                <bean class="by.kanarski.booking.utils.conver.support.FacilityToFacilityDtoConverter"/>
+                <bean class="by.kanarski.booking.utils.conver.support.DetailToFacilityDtoConverter"/>
                 <bean class="by.kanarski.booking.utils.conver.support.HotelDtoToHotelConverter"/>
                 <bean class="by.kanarski.booking.utils.conver.support.HotelToHotelDtoConverter"/>
                 <bean class="by.kanarski.booking.utils.conver.support.HotelToUserHotelDtoConverter"/>

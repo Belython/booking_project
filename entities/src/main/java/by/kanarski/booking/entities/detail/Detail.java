@@ -1,4 +1,4 @@
-package by.kanarski.booking.entities.facility;
+package by.kanarski.booking.entities.detail;
 
 import by.kanarski.booking.entities.State;
 import by.kanarski.booking.entities.roomType.RoomType;
@@ -11,6 +11,7 @@ import org.hibernate.annotations.Cache;
 import javax.persistence.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.Set;
@@ -30,13 +31,12 @@ import java.util.Set;
 @DynamicUpdate
 @NoArgsConstructor
 @AllArgsConstructor
-public class Facility implements Serializable {
+public class Detail implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
-    private Long facilityId;
-    private String facilityName;
-    private Map<Long, FacilityTranslation> facilityTranslationMap;
+    private static final long serialVersionUID = -6727571532040199395L;
+    private Long detailId;
+    private String detailName;
+    private Map<Long, DetailTranslation> detailTranslationMap;
     private Set<RoomType> roomTypeSet;
     private State status;
 
@@ -49,21 +49,21 @@ public class Facility implements Serializable {
             unique = true,
             nullable = false
     )
-    public Long getFacilityId() {
-        return facilityId;
+    public Long getDetailId() {
+        return detailId;
     }
 
-    public void setFacilityId(Long facilityId) {
-        this.facilityId = facilityId;
+    public void setDetailId(Long detailId) {
+        this.detailId = detailId;
     }
 
-    @Formula(Formulas.FACILITY_NAME_FORMULA)
-    public String getFacilityName() {
-        return facilityName;
+    @Formula(Formulas.DETAIL_NAME_FORMULA)
+    public String getDetailName() {
+        return detailName;
     }
 
-    public void setFacilityName(String facilityName) {
-        this.facilityName = facilityName;
+    public void setDetailName(String detailName) {
+        this.detailName = detailName;
     }
 
     @OneToMany(cascade = CascadeType.ALL)
@@ -73,15 +73,15 @@ public class Facility implements Serializable {
     @MapKeyColumn(
             name = "LANGUAGE_ID"
     )
-    public Map<Long, FacilityTranslation> getFacilityTranslationMap() {
-        return facilityTranslationMap;
+    public Map<Long, DetailTranslation> getDetailTranslationMap() {
+        return detailTranslationMap;
     }
 
-    public void setFacilityTranslationMap(Map<Long, FacilityTranslation> facilityTranslationMap) {
-        this.facilityTranslationMap = facilityTranslationMap;
+    public void setDetailTranslationMap(Map<Long, DetailTranslation> detailTranslationMap) {
+        this.detailTranslationMap = detailTranslationMap;
     }
 
-    @ManyToMany(mappedBy = "facilitySet")
+    @ManyToMany(mappedBy = "detailSet")
     public Set<RoomType> getRoomTypeSet() {
         return roomTypeSet;
     }
@@ -90,18 +90,18 @@ public class Facility implements Serializable {
         this.roomTypeSet = roomTypeSet;
     }
 
-
     @ManyToOne
     @JoinColumn(
             name = "STATUS_ID",
-            nullable = false
+            nullable = false,
+            foreignKey = @ForeignKey(name = "FK_DETAIL_STATUS")
     )
     public State getStatus() {
         return status;
     }
 
-    public void setStatus(State facilityStatus) {
-        this.status = facilityStatus;
+    public void setStatus(State detailStatus) {
+        this.status = detailStatus;
     }
 
     @Override
@@ -109,16 +109,18 @@ public class Facility implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Facility facility = (Facility) o;
+        Detail detail = (Detail) o;
 
-        if (!facilityId.equals(facility.facilityId)) return false;
-        return status.equals(facility.status);
+        if (!detailId.equals(detail.detailId)) return false;
+        if (!detailName.equals(detail.detailName)) return false;
+        return status.equals(detail.status);
 
     }
 
     @Override
     public int hashCode() {
-        int result = facilityId.hashCode();
+        int result = detailId.hashCode();
+        result = 31 * result + detailName.hashCode();
         result = 31 * result + status.hashCode();
         return result;
     }

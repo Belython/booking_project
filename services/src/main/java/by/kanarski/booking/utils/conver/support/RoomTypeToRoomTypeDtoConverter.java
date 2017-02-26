@@ -3,7 +3,7 @@ package by.kanarski.booking.utils.conver.support;
 import by.kanarski.booking.constants.SystemCurrency;
 import by.kanarski.booking.dto.facility.FacilityDto;
 import by.kanarski.booking.dto.roomType.RoomTypeDto;
-import by.kanarski.booking.entities.facility.Facility;
+import by.kanarski.booking.entities.detail.Detail;
 import by.kanarski.booking.entities.roomType.RoomType;
 import by.kanarski.booking.entities.roomType.RoomTypeTranslation;
 import by.kanarski.booking.utils.CurrencyUtil;
@@ -29,8 +29,8 @@ public class RoomTypeToRoomTypeDtoConverter extends EntityConverter implements C
         Integer maxPersons = roomType.getMaxPersons();
         Double pricePerNightUSD = roomType.getPricePerNight();
         Double pricePerNight = CurrencyUtil.convertFromUSD(pricePerNightUSD, SystemCurrency.DEFAULT);
-        Set<Facility> facilitySet = roomType.getFacilitySet();
-        List<FacilityDto> facilityDtoList = getConversionService().convertSetToList(facilitySet, FacilityDto.class);
+        Set<Detail> detailSet = roomType.getDetailSet();
+        List<FacilityDto> facilityDtoList = getConversionService().convertSetToList(detailSet, FacilityDto.class);
         String roomTypeStatus = getConversionService().convert(roomType.getStatus(), String.class);
         return new RoomTypeDto(roomTypeId, roomTypeName, maxPersons,
                 pricePerNight, facilityDtoList, roomTypeStatus);

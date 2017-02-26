@@ -2,6 +2,7 @@ package by.kanarski.booking.entities.hotel;
 
 import by.kanarski.booking.entities.Room;
 import by.kanarski.booking.entities.State;
+import by.kanarski.booking.entities.detail.Detail;
 import by.kanarski.booking.entities.location.Location;
 import by.kanarski.booking.utils.Formulas;
 import lombok.AllArgsConstructor;
@@ -11,6 +12,7 @@ import org.hibernate.annotations.*;
 import javax.persistence.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.Set;
@@ -27,8 +29,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class Hotel implements Serializable {
 
-    private static final Long serialVersionUID = 1L;
-
+    private static final long serialVersionUID = 8430694817190387486L;
     private Long hotelId;
     private String hotelName;
     private Location location;
@@ -65,7 +66,8 @@ public class Hotel implements Serializable {
     @ManyToOne
     @JoinColumn(
             name = "LOCATION_ID",
-            nullable = false
+            nullable = false,
+            foreignKey = @ForeignKey(name = "FK_HOTEL_LOCATION")
     )
     public Location getLocation() {
         return location;
@@ -102,7 +104,8 @@ public class Hotel implements Serializable {
     @ManyToOne
     @JoinColumn(
             name = "STATUS_ID",
-            nullable = false
+            nullable = false,
+            foreignKey = @ForeignKey(name = "FK_HOTEL_STATUS")
     )
     public State getStatus() {
         return status;

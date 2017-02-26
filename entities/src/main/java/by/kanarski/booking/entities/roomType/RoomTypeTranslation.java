@@ -7,6 +7,7 @@ import org.hibernate.annotations.*;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import java.io.Serializable;
 
 /**
@@ -15,10 +16,6 @@ import java.io.Serializable;
  */
 
 @Entity
-@GenericGenerator(
-        name = "increment",
-        strategy = "increment"
-)
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @DynamicInsert
 @DynamicUpdate
@@ -26,28 +23,19 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class RoomTypeTranslation implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
-    private Long roomTypeTranslationId;
+    private static final long serialVersionUID = 6138512031597832416L;
+    private RoomTypeLanguagePK roomTypeLanguagePK;
     private String roomTypeName;
     private RoomType roomType;
     private Language language;
 
-    @Id
-    @GeneratedValue(
-            strategy = GenerationType.IDENTITY,
-            generator = "increment"
-    )
-    @Column(
-            unique = true,
-            nullable = false
-    )
-    public Long getRoomTypeTranslationId() {
-        return roomTypeTranslationId;
+    @EmbeddedId
+    public RoomTypeLanguagePK getRoomTypeLanguagePK() {
+        return roomTypeLanguagePK;
     }
 
-    public void setRoomTypeTranslationId(Long roomTypeTranslationId) {
-        this.roomTypeTranslationId = roomTypeTranslationId;
+    public void setRoomTypeLanguagePK(RoomTypeLanguagePK roomTypeLanguagePK) {
+        this.roomTypeLanguagePK = roomTypeLanguagePK;
     }
 
     @Column(
@@ -61,10 +49,12 @@ public class RoomTypeTranslation implements Serializable {
         this.roomTypeName = roomTypeName;
     }
 
+    @MapsId("ROOM_TYPE_ID")
     @ManyToOne
     @JoinColumn(
             name = "ROOM_TYPE_ID",
-            nullable = false
+            nullable = false,
+            foreignKey = @ForeignKey(name = "FK_ROOM_TYPE_TRANSLATION_ROOM_TYPE")
     )
     public RoomType getRoomType() {
         return roomType;
@@ -74,10 +64,12 @@ public class RoomTypeTranslation implements Serializable {
         this.roomType = roomType;
     }
 
+    @MapsId("LANGUAGE_ID")
     @ManyToOne
     @JoinColumn(
             name = "LANGUAGE_ID",
-            nullable = false
+            nullable = false,
+            foreignKey = @ForeignKey(name = "FK_ROOM_TYPE_TRANSLATION_LANGUAGE")
     )
     public Language getLanguage() {
         return language;
@@ -94,7 +86,7 @@ public class RoomTypeTranslation implements Serializable {
 
         RoomTypeTranslation that = (RoomTypeTranslation) o;
 
-        if (!roomTypeTranslationId.equals(that.roomTypeTranslationId)) return false;
+        if (!roomTypeLanguagePK.equals(that.roomTypeLanguagePK)) return false;
         if (!roomTypeName.equals(that.roomTypeName)) return false;
         if (!roomType.equals(that.roomType)) return false;
         return language.equals(that.language);
@@ -103,7 +95,7 @@ public class RoomTypeTranslation implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = roomTypeTranslationId.hashCode();
+        int result = roomTypeLanguagePK.hashCode();
         result = 31 * result + roomTypeName.hashCode();
         result = 31 * result + roomType.hashCode();
         result = 31 * result + language.hashCode();

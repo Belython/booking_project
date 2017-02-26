@@ -4,7 +4,7 @@ import by.kanarski.booking.constants.SystemCurrency;
 import by.kanarski.booking.dto.facility.FacilityDto;
 import by.kanarski.booking.dto.roomType.RoomTypeDto;
 import by.kanarski.booking.entities.State;
-import by.kanarski.booking.entities.facility.Facility;
+import by.kanarski.booking.entities.detail.Detail;
 import by.kanarski.booking.entities.roomType.RoomType;
 import by.kanarski.booking.utils.CurrencyUtil;
 import org.springframework.core.convert.converter.Converter;
@@ -27,9 +27,9 @@ public class RoomTypeDtoToRoomTypeConverter extends EntityConverter implements C
         Double pricePerNight = roomTypeDto.getPricePerNight();
         Double pricePerNightUSD = CurrencyUtil.convertToUSD(pricePerNight, SystemCurrency.DEFAULT);
         List<FacilityDto> facilityDtoList = roomTypeDto.getFacilityList();
-        Set<Facility> facilitySet = getConversionService().convertListToSet(facilityDtoList, Facility.class);
+        Set<Detail> detailSet = getConversionService().convertListToSet(facilityDtoList, Detail.class);
         State roomTypeStatus = getConversionService().convert(roomTypeDto.getRoomTypeStatus(), State.class);
         return entityBuilder.buildRoomType(roomTypeId, roomTypeName, maxPersons, pricePerNightUSD,
-                facilitySet, roomTypeStatus);
+                detailSet, roomTypeStatus);
     }
 }

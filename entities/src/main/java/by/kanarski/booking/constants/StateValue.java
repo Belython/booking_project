@@ -10,11 +10,19 @@ import java.util.List;
 
 public class StateValue {
 
+    //Common statuses
     public static final String STATUS_ACTIVE = "STATUS_ACTIVE";
     public static final String STATUS_DELETED = "STATUS_DELETED";
+
+    //Bill statuses
     public static final String STATUS_PAID = "STATUS_PAID";
     public static final String STATUS_NOT_PAID = "STATUS_NOT_PAID";
     public static final String STATUS_CANCELED = "STATUS_CANCELED";
+
+    //User statuses
+    public static final String STATUS_UNACTIVATED = "STATUS_UNACTIVATED";
+
+    //User roles
     public static final String ROLE_USER = "ROLE_USER";
     public static final String ROLE_ADMIN = "ROLE_ADMIN";
     public static final String ROLE_ANONYMOUS = "ROLE_ANONYMOUS";

@@ -5,7 +5,7 @@ import by.kanarski.booking.dao.interfaces.IFacilityTranslationDao;
 import by.kanarski.booking.dao.interfaces.IHotelTranslationDao;
 import by.kanarski.booking.dao.interfaces.ILocationTranslationDao;
 import by.kanarski.booking.dao.interfaces.IRoomTypeTranslationDao;
-import by.kanarski.booking.entities.facility.FacilityTranslation;
+import by.kanarski.booking.entities.detail.DetailTranslation;
 import by.kanarski.booking.entities.hotel.HotelTranslation;
 import by.kanarski.booking.entities.location.LocationTranslation;
 import by.kanarski.booking.entities.roomType.RoomTypeTranslation;
@@ -103,10 +103,10 @@ public class ServiceHelper {
         } else {
             filter.addILikeFilter(SearchParameter.FACILITYNAME, facilityName);
         }
-        List<FacilityTranslation> facilityTranslationList = facilityTranslationDao.getListByFilter(filter, 0, 1);
+        List<DetailTranslation> detailTranslationList = facilityTranslationDao.getListByFilter(filter, 0, 1);
         String notLocalizerFacilityName = null;
-        if (facilityTranslationList.size() > 0) {
-            notLocalizerFacilityName = facilityTranslationList.get(0).getFacility().getFacilityName();
+        if (detailTranslationList.size() > 0) {
+            notLocalizerFacilityName = detailTranslationList.get(0).getDetail().getDetailName();
         }
         return notLocalizerFacilityName;
     }

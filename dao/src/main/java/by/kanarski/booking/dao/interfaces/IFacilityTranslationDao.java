@@ -1,6 +1,6 @@
 package by.kanarski.booking.dao.interfaces;
 
-import by.kanarski.booking.entities.facility.FacilityTranslation;
+import by.kanarski.booking.entities.detail.DetailTranslation;
 
 /**
  * Facility dao iterface
@@ -9,6 +9,6 @@ import by.kanarski.booking.entities.facility.FacilityTranslation;
  * @see IBaseDao
  */
 
-public interface IFacilityTranslationDao extends IExtendedBaseDao<FacilityTranslation> {
+public interface IFacilityTranslationDao extends IExtendedBaseDao<DetailTranslation> {
 
 }

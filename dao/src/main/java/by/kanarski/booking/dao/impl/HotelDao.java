@@ -5,7 +5,7 @@ import by.kanarski.booking.constants.AliasValue;
 import by.kanarski.booking.constants.SearchParameter;
 import by.kanarski.booking.dao.interfaces.IHotelDao;
 import by.kanarski.booking.dto.SearchOrder;
-import by.kanarski.booking.entities.facility.Facility;
+import by.kanarski.booking.entities.detail.Detail;
 import by.kanarski.booking.entities.hotel.Hotel;
 import by.kanarski.booking.entities.roomType.RoomType;
 import by.kanarski.booking.exceptions.DaoException;
@@ -97,11 +97,11 @@ public class HotelDao extends ExtendedBaseDao<Hotel> implements IHotelDao {
             if (pricePerNight != null) {
                 criteria.add(Restrictions.lt(SearchParameter.ROOMTYPE_PRICEPERNIGHT, pricePerNight));
             }
-            Set<Facility> facilitySet = roomType.getFacilitySet();
-            if (CollectionUtils.isNotEmpty(facilitySet)) {
+            Set<Detail> detailSet = roomType.getDetailSet();
+            if (CollectionUtils.isNotEmpty(detailSet)) {
                 Set<String> facilityStringSet = new HashSet<>();
-                for (Facility facility : facilitySet) {
-                    facilityStringSet.add(facility.getFacilityName());
+                for (Detail detail : detailSet) {
+                    facilityStringSet.add(detail.getDetailName());
                 }
                 criteria.add(Restrictions.in(SearchParameter.FACILITYSET_FACILITYNAME, facilityStringSet));
             }

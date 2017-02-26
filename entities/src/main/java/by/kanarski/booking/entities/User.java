@@ -23,8 +23,7 @@ import java.util.Set;
 @ToString
 public class User implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
+    private static final long serialVersionUID = 1933853379913082638L;
     private Long userId;
     private String firstName;
     private String lastName;
@@ -113,11 +112,13 @@ public class User implements Serializable {
             name = "USER_ROLES",
             joinColumns = @JoinColumn(
                     name = "USER_ID",
-                    nullable = false
+                    nullable = false,
+                    foreignKey = @ForeignKey(name = "FK_USER_ROLE")
             ),
             inverseJoinColumns = @JoinColumn(
                     name = "ROLE_ID",
-                    nullable = false
+                    nullable = false,
+                    foreignKey = @ForeignKey(name = "FK_ROLE_USER")
             )
     )
     public Set<State> getRoleSet() {
@@ -131,7 +132,8 @@ public class User implements Serializable {
     @ManyToOne
     @JoinColumn(
             name = "STATUS_ID",
-            nullable = false
+            nullable = false,
+            foreignKey = @ForeignKey(name = "FK_USER_STATUS")
     )
     public State getStatus() {
         return status;

@@ -8,6 +8,7 @@ import org.hibernate.annotations.*;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import java.io.Serializable;
 import java.util.Set;
 
@@ -22,8 +23,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class Room implements Serializable {
 
-    private static final Long serialVersionUID = 1L;
-
+    private static final long serialVersionUID = -6949160304903788838L;
     private Long roomId;
     private Hotel hotel;
     private RoomType roomType;
@@ -51,7 +51,8 @@ public class Room implements Serializable {
     @ManyToOne
     @JoinColumn(
             name = "HOTEL_ID",
-            nullable = false
+            nullable = false,
+            foreignKey = @ForeignKey(name = "FK_ROOM_HOTEL")
     )
     public Hotel getHotel() {
         return hotel;
@@ -64,7 +65,8 @@ public class Room implements Serializable {
     @ManyToOne
     @JoinColumn(
             name = "ROOM_TYPE_ID",
-            nullable = false
+            nullable = false,
+            foreignKey = @ForeignKey(name = "FK_ROOM_ROOM_TYPE")
     )
     public RoomType getRoomType() {
         return roomType;
@@ -97,7 +99,8 @@ public class Room implements Serializable {
     @ManyToOne
     @JoinColumn(
             name = "STATUS_ID",
-            nullable = false
+            nullable = false,
+            foreignKey = @ForeignKey(name = "FK_ROOM_STATUS")
     )
     public State getStatus() {
         return status;

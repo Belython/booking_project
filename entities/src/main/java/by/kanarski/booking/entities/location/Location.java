@@ -11,6 +11,7 @@ import org.hibernate.annotations.Cache;
 import javax.persistence.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,8 +29,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class Location implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
+    private static final long serialVersionUID = -6439324165689937331L;
     private Long locationId;
     private String country;
     private String city;
@@ -99,7 +99,8 @@ public class Location implements Serializable {
     @ManyToOne
     @JoinColumn(
             name = "STATUS_ID",
-            nullable = false
+            nullable = false,
+            foreignKey = @ForeignKey(name = "FK_LOCATION_STATUS")
     )
     public State getStatus() {
         return status;

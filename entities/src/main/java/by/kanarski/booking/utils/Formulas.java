@@ -1,6 +1,8 @@
 package by.kanarski.booking.utils;
 
 /**
+ * Contains SQL queries for retrieving specific entitiy fields,
+ * marked with <code>@Formula</code> annotation
  * @author Dzmitry Kanarski
  * @version 1.0
  */
@@ -17,8 +19,8 @@ public class Formulas {
             "AND LT.LANGUAGE_ID = " +
             "(SELECT L.LANGUAGE_ID FROM LANGUAGES L WHERE L.NAME = 'EN'))";
 
-    public static final String FACILITY_NAME_FORMULA = "(SELECT FT.FACILITY_NAME FROM FACILITY_TRANSLATIONS FT " +
-            "WHERE FT.FACILITY_ID = FACILITY_ID " +
+    public static final String DETAIL_NAME_FORMULA = "(SELECT FT.DETAIL_NAME FROM DETAIL_TRANSLATIONS FT " +
+            "WHERE FT.DETAIL_ID = DETAIL_ID " +
             "AND FT.LANGUAGE_ID = " +
             "(SELECT L.LANGUAGE_ID FROM LANGUAGES L WHERE L.NAME = 'EN'))";
 

@@ -2,7 +2,7 @@ package by.kanarski.booking.entities.roomType;
 
 import by.kanarski.booking.entities.Room;
 import by.kanarski.booking.entities.State;
-import by.kanarski.booking.entities.facility.Facility;
+import by.kanarski.booking.entities.detail.Detail;
 import by.kanarski.booking.utils.Formulas;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -11,6 +11,7 @@ import org.hibernate.annotations.*;
 import javax.persistence.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import java.io.Serializable;
 import java.util.*;
 
@@ -26,13 +27,12 @@ import java.util.*;
 @NoArgsConstructor
 public class RoomType implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
+    private static final long serialVersionUID = -6297931160646136062L;
     private Long roomTypeId;
     private String roomTypeName;
     private Integer maxPersons;
     private Double pricePerNight;
-    private Set<Facility> facilitySet = new TreeSet<>();
+    private Set<Detail> detailSet = new TreeSet<>();
     private Set<Room> roomSet = new HashSet<>();
     private Map<Long, RoomTypeTranslation> roomTypeTranslationMap = new HashMap<>();
     private State status;
@@ -87,22 +87,24 @@ public class RoomType implements Serializable {
 
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(
-            name = "ROOM_TYPE_FACILITIES",
+            name = "ROOM_TYPE_DETAILS",
             joinColumns = @JoinColumn(
                     name = "ROOM_TYPE_ID",
-                    nullable = false
+                    nullable = false,
+                    foreignKey = @ForeignKey(name = "FK_ROOM_TYPE_DETAILS")
             ),
             inverseJoinColumns = @JoinColumn(
-                    name = "FACILITY_ID",
-                    nullable = false
+                    name = "DETAIL_ID",
+                    nullable = false,
+                    foreignKey = @ForeignKey(name = "FK_DETAILS_ROOM_TYPE")
             )
     )
-    public Set<Facility> getFacilitySet() {
-        return facilitySet;
+    public Set<Detail> getDetailSet() {
+        return detailSet;
     }
 
-    public void setFacilitySet(Set<Facility> facilitySet) {
-        this.facilitySet = facilitySet;
+    public void setDetailSet(Set<Detail> detailSet) {
+        this.detailSet = detailSet;
     }
 
     @OneToMany(mappedBy = "roomType")
@@ -132,7 +134,8 @@ public class RoomType implements Serializable {
     @ManyToOne
     @JoinColumn(
             name = "STATUS_ID",
-            nullable = false
+            nullable = false,
+            foreignKey = @ForeignKey(name = "FK_ROOM_TYPE_STATUS")
     )
     public State getStatus() {
         return status;
@@ -152,7 +155,7 @@ public class RoomType implements Serializable {
         if (!roomTypeId.equals(roomType.roomTypeId)) return false;
         if (!maxPersons.equals(roomType.maxPersons)) return false;
         if (!pricePerNight.equals(roomType.pricePerNight)) return false;
-        if (!facilitySet.equals(roomType.facilitySet)) return false;
+        if (!detailSet.equals(roomType.detailSet)) return false;
         return status.equals(roomType.status);
 
     }
@@ -162,7 +165,7 @@ public class RoomType implements Serializable {
         int result = roomTypeId.hashCode();
         result = 31 * result + maxPersons.hashCode();
         result = 31 * result + pricePerNight.hashCode();
-        result = 31 * result + facilitySet.hashCode();
+        result = 31 * result + detailSet.hashCode();
         result = 31 * result + status.hashCode();
         return result;
     }

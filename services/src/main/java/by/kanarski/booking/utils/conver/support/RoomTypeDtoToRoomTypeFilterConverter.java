@@ -5,7 +5,7 @@ import by.kanarski.booking.constants.SystemCurrency;
 import by.kanarski.booking.dto.facility.FacilityDto;
 import by.kanarski.booking.dto.roomType.RoomTypeDto;
 import by.kanarski.booking.entities.State;
-import by.kanarski.booking.entities.facility.Facility;
+import by.kanarski.booking.entities.detail.Detail;
 import by.kanarski.booking.entities.roomType.RoomTypeFilter;
 import by.kanarski.booking.utils.CurrencyUtil;
 import org.apache.commons.collections.CollectionUtils;
@@ -33,12 +33,12 @@ public class RoomTypeDtoToRoomTypeFilterConverter extends EntityConverter implem
             pricePerNightUSD = CurrencyUtil.convertToUSD(pricePerNight, SystemCurrency.DEFAULT);
         }
         List<FacilityDto> facilityDtoList = roomTypeDto.getFacilityList();
-        Set<Facility> facilitySet = null;
+        Set<Detail> detailSet = null;
         if (CollectionUtils.isNotEmpty(facilityDtoList)) {
-            facilitySet = getConversionService().convertListToSet(facilityDtoList, Facility.class);
+            detailSet = getConversionService().convertListToSet(facilityDtoList, Detail.class);
         }
         State roomTypeStatus = getConversionService().convert(roomTypeDto.getRoomTypeStatus(), State.class);
         return entityBuilder.buildRoomTypeFilter(roomTypeName, maxPersons, pricePerNightUSD,
-                facilitySet, roomTypeStatus);
+                detailSet, roomTypeStatus);
     }
 }
