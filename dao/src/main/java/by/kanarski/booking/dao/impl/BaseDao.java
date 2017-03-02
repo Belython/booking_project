@@ -1,6 +1,7 @@
 package by.kanarski.booking.dao.impl;
 
 import by.kanarski.booking.dao.interfaces.IBaseDao;
+import by.kanarski.booking.dao.interfaces.SelfAwaredDao;
 import by.kanarski.booking.exceptions.DaoException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -16,12 +17,16 @@ import java.lang.reflect.ParameterizedType;
  */
 
 @Repository
-public class BaseDao<T> implements IBaseDao<T> {
+public abstract class BaseDao<T> implements IBaseDao<T>, SelfAwaredDao<T> {
+
     private SessionFactory sessionFactory;
+
+    private Class<T> entityClass;
 
     @Autowired
     public BaseDao(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
+        setEntityClass();
     }
 
     @Override
@@ -42,6 +47,17 @@ public class BaseDao<T> implements IBaseDao<T> {
     @Override
     public void delete(T t) throws DaoException {
         getSession().delete(t);
+    }
+
+    @Override
+    public Class<T> getEntityClass() {
+        return entityClass;
+    }
+
+    protected abstract void setEntityClass();
+
+    protected void setEntityClass(Class<T> entityClass) {
+        this.entityClass = entityClass;
     }
 
     protected Session getSession() {

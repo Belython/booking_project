@@ -12,9 +12,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Aspect
-public class MethodsLogging {
+public class DaoLogger {
 
-    private static final SystemLogger LOGGER = SystemLogger.getInstance().setSender(MethodsLogging.class);
+    private static final SystemLogger LOGGER = SystemLogger.getInstance();
 
     @Pointcut("execution(* by.kanarski.booking.dao.impl.*.* (..))")
     public void daoMethod() {
@@ -23,10 +23,12 @@ public class MethodsLogging {
 
     @Around("daoMethod()")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
-        String thisName = joinPoint.getTarget().getClass().getSimpleName();
-        LOGGER.logInfo(thisName + " dao method started");
+        Class<?> daoClass = joinPoint.getTarget().getClass();
+        LOGGER.setSender(daoClass);
+        String daoName = daoClass.getSimpleName();
+        LOGGER.logInfo(daoName + " dao method started");
         Object result = joinPoint.proceed();
-        LOGGER.logInfo(thisName + " dao method succeeded");
+        LOGGER.logInfo(daoName + " dao method succeeded");
         return result;
     }
 

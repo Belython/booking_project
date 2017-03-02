@@ -27,7 +27,7 @@ import java.util.Set;
  */
 
 @Repository
-public class ExtendedBaseDao<T> extends BaseDao<T> implements IExtendedBaseDao<T> {
+public abstract class ExtendedBaseDao<T> extends BaseDao<T> implements IExtendedBaseDao<T> {
 
     private static final int BATCH_SIZE = 20;
 //    private static final List<Class> CACHEABLE_ENTITIES = Arrays.asList(Location.class, Hotel.class, RoomType.class,
