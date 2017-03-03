@@ -7,7 +7,6 @@ import by.kanarski.booking.services.interfaces.IExtendedBaseService;
 import by.kanarski.booking.utils.BookingExceptionHandler;
 import by.kanarski.booking.utils.conver.service.IEntityConversionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.support.GenericConversionService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -24,10 +23,10 @@ import java.util.List;
 
 @Service
 @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
-public class ExtendedBaseService<E, D> implements IExtendedBaseService<E, D> {
+public abstract class ExtendedBaseService<E, D> implements IExtendedBaseService<E, D> {
 
-    @Autowired
-    private IExtendedBaseDao<E> extendedBaseDao;
+//    @Autowired
+//    private IExtendedBaseDao<E> extendedBaseDao;
 
     @Autowired
     protected IEntityConversionService conversionService;
@@ -37,7 +36,7 @@ public class ExtendedBaseService<E, D> implements IExtendedBaseService<E, D> {
         setEntityClass();
         try {
             E entity = conversionService.convert(dto, getEntityClass());
-            extendedBaseDao.add(entity);
+            getDao().add(entity);
         } catch (DaoException e) {
             BookingExceptionHandler.handleDaoException(e);
         }
@@ -119,7 +118,6 @@ public class ExtendedBaseService<E, D> implements IExtendedBaseService<E, D> {
         extendedBaseDao.setEntityClass(getEntityClass());
     }
 
-
     protected Class<E> getEntityClass() {
         Type superclass = getClass().getGenericSuperclass();
         Class<E> persistentClass = null;
@@ -139,5 +137,7 @@ public class ExtendedBaseService<E, D> implements IExtendedBaseService<E, D> {
         }
         return persistentClass;
     }
+
+    protected abstract IExtendedBaseDao<E> getDao();
 
 }

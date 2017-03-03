@@ -15,6 +15,7 @@ import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.sql.JoinType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import java.util.Arrays;
@@ -27,7 +28,7 @@ import java.util.Set;
  */
 
 @Repository
-public abstract class ExtendedBaseDao<T> extends BaseDao<T> implements IExtendedBaseDao<T> {
+public class ExtendedBaseDao<T> extends BaseDao<T> implements IExtendedBaseDao<T> {
 
     private static final int BATCH_SIZE = 20;
 //    private static final List<Class> CACHEABLE_ENTITIES = Arrays.asList(Location.class, Hotel.class, RoomType.class,
