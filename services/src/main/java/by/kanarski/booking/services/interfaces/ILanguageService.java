@@ -7,6 +7,6 @@ import by.kanarski.booking.entities.Language;
  * @author Dzmitry Kanarski
  * @version 1.0
  */
-public interface ILanguageService extends IExtendedBaseService<String, Language> {
+public interface ILanguageService extends IExtendedBaseService<Language, String> {
 
 }

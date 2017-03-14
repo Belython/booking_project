@@ -1,6 +1,7 @@
 package by.kanarski.booking.services.impl;
 
 import by.kanarski.booking.constants.FieldValue;
+import by.kanarski.booking.dao.interfaces.IExtendedBaseDao;
 import by.kanarski.booking.dao.interfaces.IHotelDao;
 import by.kanarski.booking.dto.OrderDto;
 import by.kanarski.booking.dto.SearchOrder;
@@ -99,4 +100,8 @@ public class UserHotelService extends ExtendedBaseService<Hotel, UserHotelDto> i
         return new SearchOrder(user, hotel, roomTypeFilter, totalPersons, totalRooms, checkInDate, checkOutDate, sortPriceAsc);
     }
 
+    @Override
+    protected IExtendedBaseDao<Hotel> getDao() {
+        return hotelDao;
+    }
 }

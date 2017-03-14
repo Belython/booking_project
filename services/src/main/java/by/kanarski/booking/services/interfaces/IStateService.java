@@ -7,6 +7,6 @@ import by.kanarski.booking.entities.State;
  * @author Dzmitry Kanarski
  * @version 1.0
  */
-public interface IStateService extends IExtendedBaseService<String, State> {
+public interface IStateService extends IExtendedBaseService<State, String> {
 
 }

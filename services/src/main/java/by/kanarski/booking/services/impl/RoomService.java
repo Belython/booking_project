@@ -3,11 +3,11 @@ package by.kanarski.booking.services.impl;
 import by.kanarski.booking.constants.AliasName;
 import by.kanarski.booking.constants.AliasValue;
 import by.kanarski.booking.constants.SearchParameter;
+import by.kanarski.booking.dao.interfaces.IExtendedBaseDao;
 import by.kanarski.booking.dao.interfaces.IRoomDao;
 import by.kanarski.booking.dto.RoomDto;
 import by.kanarski.booking.entities.Room;
 import by.kanarski.booking.exceptions.DaoException;
-import by.kanarski.booking.exceptions.LocalisationException;
 import by.kanarski.booking.exceptions.ServiceException;
 import by.kanarski.booking.services.interfaces.IRoomService;
 import by.kanarski.booking.utils.BookingExceptionHandler;
@@ -42,6 +42,8 @@ public class RoomService extends ExtendedBaseService<Room, RoomDto> implements I
         return roomDtoList;
     }
 
-
-
+    @Override
+    protected IExtendedBaseDao<Room> getDao() {
+        return roomDao;
+    }
 }

@@ -4,6 +4,7 @@ import by.kanarski.booking.constants.AliasName;
 import by.kanarski.booking.constants.AliasValue;
 import by.kanarski.booking.constants.FieldValue;
 import by.kanarski.booking.constants.SearchParameter;
+import by.kanarski.booking.dao.interfaces.IExtendedBaseDao;
 import by.kanarski.booking.dao.interfaces.IHotelDao;
 import by.kanarski.booking.dao.interfaces.ILocationDao;
 import by.kanarski.booking.dto.DestinationDto;
@@ -179,5 +180,10 @@ public class HotelService extends ExtendedBaseService<Hotel, HotelDto> implement
             hotelDtoList.add(toAnyHotelDto(locationDto));
         }
         return hotelDtoList;
+    }
+
+    @Override
+    protected IExtendedBaseDao<Hotel> getDao() {
+        return hotelDao;
     }
 }

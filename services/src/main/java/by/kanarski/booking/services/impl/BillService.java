@@ -5,6 +5,7 @@ import by.kanarski.booking.constants.AliasValue;
 import by.kanarski.booking.constants.StateValue;
 import by.kanarski.booking.constants.SearchParameter;
 import by.kanarski.booking.dao.interfaces.IBillDao;
+import by.kanarski.booking.dao.interfaces.IExtendedBaseDao;
 import by.kanarski.booking.dto.BillDto;
 import by.kanarski.booking.dto.OrderDto;
 import by.kanarski.booking.dto.RoomDto;
@@ -109,7 +110,12 @@ public class BillService extends ExtendedBaseService<Bill, BillDto> implements I
         }
     }
 
-//    @Deprecated
+    @Override
+    protected IExtendedBaseDao<Bill> getDao() {
+        return billDao;
+    }
+
+    //    @Deprecated
 //    public List<BillDto> getAll(int page, int perPage) throws ServiceException {
 //        List<BillDto> billDtoList = null;
 //        try {

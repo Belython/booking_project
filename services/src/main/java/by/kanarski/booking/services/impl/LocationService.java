@@ -1,5 +1,6 @@
 package by.kanarski.booking.services.impl;
 
+import by.kanarski.booking.dao.interfaces.IExtendedBaseDao;
 import by.kanarski.booking.dao.interfaces.ILocationDao;
 import by.kanarski.booking.dto.location.LocationDto;
 import by.kanarski.booking.entities.location.Location;
@@ -66,4 +67,10 @@ public class LocationService extends ExtendedBaseService<Location, LocationDto> 
 //        }
 //        return locationDtoList;
 //    }
+
+
+    @Override
+    protected IExtendedBaseDao<Location> getDao() {
+        return locationDao;
+    }
 }

@@ -12,7 +12,7 @@
         <intercept-url pattern="/my_account" access="hasRole('ROLE_USER')"/>
         <form-login
                 login-processing-url="/login"
-                username-parameter="login"
+                username-parameter="userName"
                 password-parameter="password"
                 authentication-failure-url="/login?error=1"/>
         <logout logout-url="/logout"/>
@@ -20,7 +20,9 @@
     </http>
 
     <authentication-manager>
-        <authentication-provider user-service-ref="authService"/>
+        <authentication-provider user-service-ref="authService">
+            <password-encoder ref="passwordEncoder"/>
+        </authentication-provider>
     </authentication-manager>
 
     <beans:bean id="authService" class="by.kanarski.booking.services.impl.AuthenticationService"/>

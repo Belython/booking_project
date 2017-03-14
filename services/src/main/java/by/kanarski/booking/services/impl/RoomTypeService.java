@@ -1,5 +1,6 @@
 package by.kanarski.booking.services.impl;
 
+import by.kanarski.booking.dao.interfaces.IExtendedBaseDao;
 import by.kanarski.booking.dao.interfaces.IRoomTypeDao;
 import by.kanarski.booking.dto.roomType.RoomTypeDto;
 import by.kanarski.booking.entities.roomType.RoomType;
@@ -17,4 +18,8 @@ public class RoomTypeService extends ExtendedBaseService<RoomType, RoomTypeDto> 
     @Autowired
     private IRoomTypeDao roomTypeDao;
 
+    @Override
+    protected IExtendedBaseDao<RoomType> getDao() {
+        return roomTypeDao;
+    }
 }

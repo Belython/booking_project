@@ -19,7 +19,6 @@ import java.lang.reflect.ParameterizedType;
 public class BaseDao<T> implements IBaseDao<T> {
 
     private SessionFactory sessionFactory;
-
     private Class<T> entityClass;
 
     @Autowired

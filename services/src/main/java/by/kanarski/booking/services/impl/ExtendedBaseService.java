@@ -26,14 +26,14 @@ import java.util.List;
 public abstract class ExtendedBaseService<E, D> implements IExtendedBaseService<E, D> {
 
 //    @Autowired
-//    private IExtendedBaseDao<E> extendedBaseDao;
+//    private IExtendedBaseDao<E> getDao();
 
     @Autowired
     protected IEntityConversionService conversionService;
 
     @Override
     public void add(D dto) throws ServiceException {
-        setEntityClass();
+//        setEntityClass();
         try {
             E entity = conversionService.convert(dto, getEntityClass());
             getDao().add(entity);
@@ -44,10 +44,10 @@ public abstract class ExtendedBaseService<E, D> implements IExtendedBaseService<
 
     @Override
     public D getById(Long id) throws ServiceException {
-        setEntityClass();
+//        setEntityClass();
         D dto = null;
         try {
-            E entity = extendedBaseDao.getById(id);
+            E entity = getDao().getById(id);
             dto = conversionService.convert(entity, getDtoClass());
         } catch (DaoException e) {
             BookingExceptionHandler.handleDaoException(e);
@@ -57,10 +57,10 @@ public abstract class ExtendedBaseService<E, D> implements IExtendedBaseService<
 
     @Override
     public void update(D dto) throws ServiceException {
-        setEntityClass();
+//        setEntityClass();
         try {
             E entity = conversionService.convert(dto, getEntityClass());
-            extendedBaseDao.update(entity);
+            getDao().update(entity);
         } catch (DaoException e) {
             BookingExceptionHandler.handleDaoException(e);
         }
@@ -68,10 +68,10 @@ public abstract class ExtendedBaseService<E, D> implements IExtendedBaseService<
 
     @Override
     public void delete(D dto) throws ServiceException {
-        setEntityClass();
+//        setEntityClass();
         try {
             E entity = conversionService.convert(dto, getEntityClass());
-            extendedBaseDao.delete(entity);
+            getDao().delete(entity);
         } catch (DaoException e) {
             BookingExceptionHandler.handleDaoException(e);
         }
@@ -79,10 +79,10 @@ public abstract class ExtendedBaseService<E, D> implements IExtendedBaseService<
 
     @Override
     public List<D> getAll() throws ServiceException {
-        setEntityClass();
+//        setEntityClass();
         List<D> dtoList = null;
         try {
-            List<E> enittyList = extendedBaseDao.getAll();
+            List<E> enittyList = getDao().getAll();
             dtoList = conversionService.convert(enittyList, getDtoClass());
         } catch (DaoException e) {
             BookingExceptionHandler.handleDaoException(e);
@@ -93,10 +93,10 @@ public abstract class ExtendedBaseService<E, D> implements IExtendedBaseService<
 
     @Override
     public void updateList(List<D> dtoList) throws ServiceException {
-        setEntityClass();
+//        setEntityClass();
         try {
             List<E> entityList = conversionService.convert(dtoList, getEntityClass());
-            extendedBaseDao.updateList(entityList);
+            getDao().updateList(entityList);
         } catch (DaoException e) {
             BookingExceptionHandler.handleDaoException(e);
         }
@@ -104,10 +104,10 @@ public abstract class ExtendedBaseService<E, D> implements IExtendedBaseService<
 
     @Override
     public void addList(List<D> dtoList) throws ServiceException {
-        setEntityClass();
+//        setEntityClass();
         try {
             List<E> entityList = conversionService.convert(dtoList, getEntityClass());
-            extendedBaseDao.addList(entityList);
+            getDao().addList(entityList);
         } catch (DaoException e) {
             BookingExceptionHandler.handleDaoException(e);
         }
@@ -115,7 +115,7 @@ public abstract class ExtendedBaseService<E, D> implements IExtendedBaseService<
 
     private void setEntityClass() {
 //        getConverter();
-        extendedBaseDao.setEntityClass(getEntityClass());
+        getDao().setEntityClass(getEntityClass());
     }
 
     protected Class<E> getEntityClass() {

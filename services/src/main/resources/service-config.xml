@@ -23,6 +23,8 @@
 
     <bean class="by.kanarski.booking.utils.conver.support.EntityConverter" abstract="true"/>
 
+    <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+
     <bean id="entitiyCoversionService"
           class="by.kanarski.booking.utils.conver.service.CustomConversionServiceFactoryBean">
         <property name="converters">
